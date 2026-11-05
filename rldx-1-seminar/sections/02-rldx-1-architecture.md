@@ -1741,10 +1741,10 @@ $$
 <strong>현재 $\mathbf{p}_t$:</strong> 관측된 조건.<br><strong>미래 $\mathbf{p}_{t+1:t+L}^{\tau}$:</strong> 함께 denoising할 후보.
 
 $$
-\begin{aligned}
-\mathbf{p}^{\tau}&=\tau\mathbf{p}_{\mathrm{future}}+(1-\tau)\boldsymbol{\epsilon}_p\\
-\text{미래 센서의 target:}&\quad\mathbf{p}_{\mathrm{future}}-\boldsymbol{\epsilon}_p
-\end{aligned}
+\begin{gathered}
+\mathbf{p}^{\tau}=\tau\mathbf{p}_{\mathrm{future}}+(1-\tau)\boldsymbol{\epsilon}_p\\
+\text{미래 센서의 target:}\quad\mathbf{p}_{\mathrm{future}}-\boldsymbol{\epsilon}_p
+\end{gathered}
 $$
 
 미래 물리 신호 예측은 상호작용을 배우기 위한 **보조 목표**다. $\tau$ 반복은 실제 로봇 시간 t의 전진이나 재관측과 다르다.
