@@ -10,7 +10,7 @@
 | --- | --- | ---: | ---: |
 | [01-problems.md](01-problems.md) | Problems | 1 | 3 |
 | [02-rldx-1-architecture.md](02-rldx-1-architecture.md) | RLDX-1 Architecture | 8 | 37 |
-| [03-training-data.md](03-training-data.md) | Training Data | 11 | 15 |
+| [03-training-data.md](03-training-data.md) | Training Data | 10 | 15 |
 | [04-training-procedure.md](04-training-procedure.md) | Training Procedure | 10 | 17 |
 | [05-inference-strategy.md](05-inference-strategy.md) | Inference Strategy | 4 | 10 |
 | [06-evaluation-and-analysis.md](06-evaluation-and-analysis.md) | Evaluation and Analysis | 17 | 17 |
@@ -18,7 +18,9 @@
 | [08-conclusion.md](08-conclusion.md) | Conclusion | 1 | 2 |
 | [09-my-opinions-and-limitation.md](09-my-opinions-and-limitation.md) | My opinions and limitation | 2 | 4 |
 
-표지 S001을 제외한 본문75장과 상세 공부 기록121개를 포함한다(v20). source_ids 기준으로 S002–S122가 각각 정확히 한 번 연결된다. 장 ID는 위치가 바뀌어도 유지하고, 퇴역한 P003·P004·P005·P007·P011·P012·P021·P048·P049·P050·P052·P053·P054·P055·P056·P057·P058·P059의 ID를 다른 의미로 재사용하지 않는다.
+표지 S001을 제외한 본문74장과 상세 공부 기록121개를 포함한다(v21). source_ids 기준으로 S002–S122가 각각 정확히 한 번 연결된다. 장 ID는 위치가 바뀌어도 유지하고, 퇴역한 P003·P004·P005·P007·P011·P012·P021·P048·P049·P050·P052·P053·P054·P055·P056·P057·P058·P059·P073의 ID를 다른 의미로 재사용하지 않는다.
+
+P072의 발표 메모에는 기존 P072/P073의 영상 생성 모델 이름·데이터·학습 설정 전체를 보존한다. 본문은 시연→모델 학습→합성 영상의 핵심 흐름 한 장이다.
 
 P032의 `### 발표 메모`에는 Vision Encoder 확대/네 화살표에 맞춘 대본을 둔다. 기존5–7쪽은 이 대본에 통합했고, S011–S013 상세 기록도 P032에 연결했다. 이어 VLM의 네 화살표에 맞춘 cognition·중간층 출력·시간 정보·과거 압축 대본도 둔다. 기존 P052–P055의 S009/S010/S014/S015를 P032로 연결했다. HTML에서는4쪽에서 N 또는 설명 버튼으로 읽는다.
 

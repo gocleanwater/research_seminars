@@ -273,57 +273,7 @@ Sec.3.2 · PDF pp.9–10; Fig.12 · PDF p.19
 
 역기구학은 원하는 말단/손끝 위치·자세에서 관절각을 구하는 계산이라는 배경 풀이이다. Franka의 토크 측정과 ALLEX의 전류 기반 토크 추정을 구별한다. ALLEX 합계는 양팔14+양손30+허리2+목2=48DoF. OpenArm은 이 장의 자체 센서 수집 대상과 구분한다.
 
-## [P072] 로봇용 영상 생성 모델
-
-<!-- slide-meta
-layout: split
-kind: fact
-source_ids:
--->
-
-### 한 문장
-
-일반 영상 생성 모델을 그대로 쓰지 않고, 로봇 시점과 조작 동작에 맞게 시연 영상으로 추가 학습한다.
-
-### 본문
-
-#### 로봇별로 적응시킨 생성 모델
-
-| 대상 | 기반 영상 생성 모델 |
-| --- | --- |
-| GR-1 | Cosmos-Predict2-14B |
-| ALLEX | Cosmos-Predict2.5-2B |
-
-<span class="label authors">저자 설명</span> 범용 영상 모델만으로는 로봇의 자기 시점과 조작 dynamics를 충분히 표현하기 어렵다고 본다.
-
-### 보충
-
-#### ALLEX 영상 모델의 학습 데이터
-
-<div class="sequence">
-<div class="step"><strong>ALLEX : OpenArm : ActionNet = 2 : 1 : 1</strong></div>
-<div class="step">다른 로봇의 시연도 섞어 조작 동작의 범위 확장</div>
-</div>
-
-OpenArm은 평가뿐 아니라 <strong>ALLEX용 영상 생성 모델의 학습</strong>에도 사용된다.
-
-<p class="callout">여기서 학습하는 것은 합성 영상을 만드는 모델이다. 행동을 실행할 RLDX-1 정책의 학습과 구분한다.</p>
-
-### 요점
-
-로봇 시연으로 영상 생성 모델부터 적응시킨 뒤, 다음 Task·Scene Augmentation에 사용한다.
-
-### 출처
-
-App.B.3 GR-1/ALLEX Video Fine-tuning · PDF p.42
-
-### 발표 메모
-
-GR-1은 ActionNet 3027개와 NVIDIA GR-1 공개영상 92개를 사용한다. ALLEX는 자체 ALLEX/OpenArm과 같은 3027 ActionNet을 2:1:1로 혼합한다. 이 비율을 RLDX-1 policy의 pre/mid-training 혼합 비율과 동일시하지 않는다.
-
-### 상세 공부 기록
-
-## [P073] 영상 생성 모델의 학습
+## [P072] 로봇 영상 생성 모델
 
 <!-- slide-meta
 layout: full
@@ -333,9 +283,50 @@ source_ids:
 
 ### 한 문장
 
-두 영상 모델은 로봇 시연에 적응시키지만, 학습 방식과 데이터 구성은 서로 다르다.
+시연 영상으로 합성 데이터를 만들기 위한 로봇 영상 생성 모델을 훈련한다.
 
 ### 본문
+
+<div class="flow">
+<div class="node"><h3>실제 로봇 시연</h3><p>로봇의 시점과<br>조작 동작이 담긴 영상</p></div>
+<div class="arrow">→</div>
+<div class="node"><h3>영상 생성 모델 학습</h3><p>시연 영상으로<br>생성 모델을 추가 학습</p></div>
+<div class="arrow">→</div>
+<div class="node"><h3>합성 영상 생성</h3><p>Task·Scene 변형으로<br>다양한 영상 제작</p></div>
+</div>
+
+<p class="callout">시연에서 로봇의 시점·조작 동작을 배운 모델을 합성 데이터 생성에 사용한다.</p>
+
+### 보충
+
+### 요점
+
+합성 영상을 만들기 전에, 영상 생성 모델부터 로봇 시연에 맞게 학습한다.
+
+### 출처
+
+App.B.3 GR-1/ALLEX Video Fine-tuning · PDF p.42
+
+### 발표 메모
+
+#### 발표 대본
+
+“합성 데이터를 만들 영상 생성 모델도 로봇 시연으로 먼저 학습합니다. 실제 로봇의 시점과 조작 동작을 학습시킨 뒤, 이 모델을 다음 Task·Scene Augmentation에 사용해 다양한 합성 영상을 만듭니다. 여기서 학습하는 대상은 영상 생성 모델이고, 행동을 실행할 RLDX-1 정책의 학습 절차는 뒤에서 따로 설명하겠습니다.”
+
+#### 왜 추가 학습하는가?
+
+저자는 범용 영상 모델만으로 로봇의 자기 시점과 조작 dynamics를 충분히 표현하기 어렵다고 설명한다. 로봇 시연 영상으로 적응시켜 합성 영상의 바탕을 준비한다. 별도의 성능 비교 수치를 이 문단에 없는 값으로 만들지 않는다.
+
+#### 로봇별 기반 모델 — 기존14쪽의 상세
+
+| 대상 | 기반 영상 생성 모델 |
+| --- | --- |
+| GR-1 | Cosmos-Predict2-14B |
+| ALLEX | Cosmos-Predict2.5-2B |
+
+ALLEX용 영상 모델에는 ALLEX·OpenArm·ActionNet 시연을2:1:1로 혼합한다. OpenArm은 평가뿐 아니라 ALLEX용 영상 생성 모델의 학습에도 사용된다. 이 비율을 RLDX-1 policy의 pre/mid-training 혼합 비율과 동일시하지 않는다.
+
+#### 학습 설정 — 기존15쪽의 상세
 
 | 설정 | GR-1 영상 모델 | ALLEX 영상 모델 |
 | --- | --- | --- |
@@ -345,21 +336,18 @@ source_ids:
 | 영상 clip | 93 frames · 432×768 | 93 frames · 432×768 |
 | Caption | 짧게·중간·길게 작성 후 하나 선택 | 같은 방식으로 길이가 다른 설명 선택 |
 
-ALLEX는 <strong>전체 episode에서 균일 추출</strong>하는 방식과, <strong>16FPS에서 연속 93프레임</strong>을 뽑는 방식을 함께 사용한다.
+GR-1은 ActionNet3027개와 NVIDIA GR-1 공개영상92개를 사용한다. ALLEX도 같은3027개 ActionNet 영상을 자체 ALLEX/OpenArm 시연과 혼합한다.
 
-<p class="callout"><span class="label interpretation">직관</span> 전체 작업의 흐름과 짧은 구간의 연속적인 움직임을 모두 보게 하려는 구성으로 읽을 수 있다.</p>
+GR-1 re-caption은 Qwen3-VL8B Instruct, ALLEX는8B 또는30B-A3B Instruct를 사용한다.
 
-### 요점
+#### ALLEX의 시간 샘플링
 
-합성 데이터의 바탕에도 로봇 시연·caption·시간 샘플링을 설계하는 별도의 학습 과정이 있다.
+- Uniform: 전체 episode에 걸쳐 균일하게93프레임을 추출한다.
+- Random: 시작점을 무작위로 골라16FPS에서 연속93프레임을 추출한다.
 
-### 출처
+전체 작업 흐름과 짧은 구간의 연속 움직임을 모두 보게 하려는 구성으로 읽을 수 있다는 것은 설명을 위한 직관이다. 이93프레임은 영상 생성 모델 학습의 clip 길이이며, RLDX-1 정책의 모든 입력을93프레임으로 바꾼다는 뜻이 아니다.
 
-App.B.3 · PDF p.42
-
-### 발표 메모
-
-GR-1 re-caption은 Qwen3-VL8B Instruct, ALLEX는 8B 또는 30B-A3B Instruct다. ALLEX의 uniform은 episode 전체를 93개 간격으로, random은 시작점을 무작위로 고른 연속 93프레임이다. 모든 실험의 입력을 93프레임으로 바꾼다는 뜻이 아니라 영상 생성 모델 학습의 clip 길이다.
+이 학습을 거친 영상 모델을 합성 데이터 제작에 사용하고, 생성된 영상의 수치 행동은 별도 IDM이 라벨링한다. 근거: App.B.3 · PDF p.42.
 
 ### 상세 공부 기록
 

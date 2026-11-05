@@ -1,5 +1,10 @@
 # 버전 보존과 복구
 
+## v21 변경 전: 영상 생성 모델 두 장 통합
+
+- 태그: `rldx-v20-before-video-model-merge-20261106` (`c80d812`).
+- 76장 버전의14·15쪽을 P072 본문/설명으로 합친75장이다. P073 ID는 재사용하지 않으며 복원은 새 commit으로 한다. main reset/force-push는 하지 않는다.
+
 ## v20 변경 전: Memory 대본 통합
 
 - 태그: `rldx-v19-before-memory-speaker-notes-20261106` (`8a6201d`).

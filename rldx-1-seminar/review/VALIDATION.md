@@ -1,5 +1,13 @@
 # v09 페이지 번호 입력 검증 — 2026-11-06
 
+## 2026-11-06 / v21 / 영상 생성 모델14·15쪽 한 장 통합
+
+- P072 한 장에 시연 영상→영상 생성 모델 추가 학습→합성 영상 제작을 배치했다. P073 본문을 제외하고 기존 두 장의 기반 모델·데이터·2:1:1·LoRA/Full FT·steps/batch·93프레임·caption·시간 샘플링은 P072 설명(N)에 보존했다.
+- 변경 전 HEAD(c80d812)와 전체121개 상세 기록 제목·본문을 추출 비교해 동일함을 확인했다. 변경 전 태그는 `rldx-v20-before-video-model-merge-20261106`이다. 전체75장·27상태/18화살표 유지.
+- `build_deck.py`, `verify_sources.py`, `verify_deck.mjs`, `verify_navigation.mjs` 통과.75장 넘침·이미지 실패·브라우저 오류·외부 요청0. P034→P072→P014 흐름과 P073 링크의 P072 연결을 확인했다. 모델명/설정은 화면에 없고 N 설명에 있다는 DOM 검사도 통과했다.
+- 실제 P072 전체 PNG와 N 설명의 모델·학습 설정 표 PNG를 직접 확인했다. 글꼴 크기·공통 CSS는 변경하지 않았다.
+- 기본/base `pnpm build`, 게시 패키지 생성과 `verify_pages.mjs` 통과. HTML3종 동일성과 `git diff --check` 확인 후 자동 commit/push한다. Pages 실제 반영과 사용자 결과물 승인은 별도 확인 전이다.
+
 ## 2026-11-06 / v20 후속 / Scene의 Canny edge 설명
 
 - 원문 PDF p.11 Scene Augmentation 전체를 대조했다. P014(16쪽)에 윤곽선 안내선의 직관, Scene의 I2I→I2V 및 V2V 연결을 보강했다. “구체적인 판정 규칙·prompt…” 문장은 본문에서 삭제했다. 대본은 I2I의 장면 편집과 V2V의 정체·형태/동작 보존 목표를 구별하며 Fig.5(c)가 I2I→I2V 예시임을 유지한다.

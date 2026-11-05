@@ -115,6 +115,15 @@ try{
   await page.goto(pathToFileURL(path.resolve('presentation.html')).href+'#P059');
   assert.equal(await active(),'P032');
   assert.equal(await page.locator('.deck-page[data-id="P059"]').count(),0);
+  await page.goto(pathToFileURL(path.resolve('presentation.html')).href+'#P073');
+  assert.equal(await active(),'P072');
+  assert.equal(await page.locator('.deck-page[data-id="P073"]').count(),0);
+  const modelSlideText=await page.locator('.deck-page.active').innerText();
+  assert(!/Cosmos|LoRA|10K|20K|93 frames/.test(modelSlideText),'model settings belong in notes');
+  await page.keyboard.press('n');
+  const modelNotes=await page.locator('#notes-text').innerText();
+  for(const term of ['Cosmos-Predict2-14B','Cosmos-Predict2.5-2B','2:1:1','LoRA','93 frames','16FPS'])assert(modelNotes.includes(term),term);
+  await page.keyboard.press('Escape');
   // Visual and language representations are explained between the overview and MSAT.
   await show('P051');
   for(const id of ['P009']){await page.keyboard.press('ArrowRight');assert.equal(await active(),id);}
@@ -126,7 +135,7 @@ try{
   await show('P009');
   for(const id of ['P010','P006','P008','P071','P013']){await page.keyboard.press('ArrowRight');assert.equal(await active(),id);}
   // Public and in-house data come between the overview and synthetic augmentation.
-  for(const id of ['P033','P034','P072','P073','P014']){await page.keyboard.press('ArrowRight');assert.equal(await active(),id);}
+  for(const id of ['P033','P034','P072','P014']){await page.keyboard.press('ArrowRight');assert.equal(await active(),id);}
   // Generated video, simulator rollout, feature comparison, then classifier training.
   for(const id of ['P074','P045','P015','P046','P047','P035']){await page.keyboard.press('ArrowRight');assert.equal(await active(),id);}
   // Purpose first, then each training stage; graph and fused-kernel explanations stay separate.
