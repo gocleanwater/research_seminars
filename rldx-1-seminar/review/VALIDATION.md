@@ -1,5 +1,14 @@
 # v09 페이지 번호 입력 검증 — 2026-11-06
 
+## 2026-11-06 / v17 후속 / 모바일 조작 메뉴
+
+- 원인: 하단 메뉴가 nowrap 한 줄 고정 flex였고, stage fit은 메뉴 크기를62px로 가정했다. 수정 전 새 회귀 검사에서 `320x568: toolbar fits horizontally` 실패를 재현했다.
+- 변경: CSS에서 좁은 세로 화면을2행 grid로 배치하고 가로·넓은 화면은1행을 사용한다. 터치 환경은 버튼/번호 입력 최소44px·글꼴16px이며 shortcut 문구만 숨긴다. viewport-fit/safe-area inset과 ResizeObserver 기반 실제 메뉴 높이를 반영한다. 내용·수식·87장 순서·121개 상세 기록은 변경하지 않았다.
+- 모바일: `node scripts/verify_mobile_toolbar.mjs` 통과.320x568,360x640,390x844,430x932,480x320,568x320,640x360,768x1024,844x390,1024x768의10개 터치 화면에서 메뉴/입력/버튼 경계·겹침·44px 영역·수평 넘침·stage와메뉴 비겹침을 확인했다. 실제 resize와 touch 이동·페이지 입력·동일 장 첫 내부 상태·목차/설명 열기·닫기 및 오류0 확인. Chromium 모바일 에뮬레이션이며 실제 iOS/Android 기기 검사는 아니다.
+- PNG: `review/previews/mobile-toolbar/`의320x568·390x844·568x320·844x390 실제 HTML 화면을 직접 확인했다. 가로 화면에서는 메뉴를1행으로 줄여 슬라이드 영역을 확보했다.
+- 회귀: `node scripts/verify_navigation.mjs`, `python3 scripts/verify_sources.py`, `node scripts/verify_deck.mjs` 통과. 기존 키·번호 입력·역순·퇴역 링크·Fig.3 경계를 유지하며87장 이미지 실패/넘침/브라우저 오류/외부 요청0.
+- 빌드·게시: 기본 `pnpm build`, 프로젝트 base 빌드, `python3 scripts/package_pages.py`, `node scripts/verify_pages.mjs` 통과. HTML3종 동일성과 `git diff --check` 확인 후 자동 commit/push한다. Pages 실제 배포 완료는 별도 확인 전이다.
+
 ## 2026-11-06 / v17 / 부록42–55쪽의 흐름별 통합
 
 - 요청: 부록의 구현 정보·추가 실험을 관련 본문 사이에 배치하고 새로운 주제는 별도 장으로 설명한다. 배치표와 중복 정리는 `review/APPENDIX_INTEGRATION.md`에 기록했다.

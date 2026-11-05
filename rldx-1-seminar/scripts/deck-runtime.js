@@ -124,9 +124,13 @@ pageNumber.max = String(pages.length);
 const exportMode = new URLSearchParams(location.search).has('export');
 if (exportMode) document.body.dataset.export = 'true';
 function fit() {
-  const scale = Math.min(innerWidth / 1280, (innerHeight - (exportMode ? 0 : 62)) / 720);
-  document.querySelector('#stage').style.transform = `translate(-50%, -50%) scale(${scale})`;
-  document.querySelector('#stage').style.marginTop = exportMode ? '0' : '-24px';
+  const stage = document.querySelector('#stage');
+  // The toolbar may have two rows, touch-sized controls, or a safe-area inset.
+  const availableHeight = exportMode ? innerHeight : Math.max(1, document.querySelector('.deck-toolbar').getBoundingClientRect().top - 12);
+  const scale = Math.min(innerWidth / 1280, availableHeight / 720);
+  stage.style.transform = `translate(-50%, -50%) scale(${scale})`;
+  stage.style.top = `${availableHeight / 2}px`;
+  stage.style.marginTop = '0';
 }
 function hydrate(index) {
   pages[index].querySelectorAll('img[data-asset]').forEach(im => {
@@ -241,6 +245,7 @@ function showFromHash() {
 }
 addEventListener('hashchange', showFromHash);
 addEventListener('resize', fit);
+new ResizeObserver(fit).observe(document.querySelector('.deck-toolbar'));
 addEventListener('beforeprint', () => pages.forEach((_, i) => hydrate(i)));
 window.deckShow = show;
 window.deckData = DECK;

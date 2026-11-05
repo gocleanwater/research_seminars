@@ -90,13 +90,34 @@ body.deck-app { margin: 0; background: #142b40; overflow: hidden; font-family: A
 .deck-app #stage { position: fixed; width: 1280px; height: 720px; top: 50%; left: 50%; transform-origin: center; box-shadow: 0 15px 60px #0004; }
 .deck-app .deck-page { display: none; position: absolute; inset: 0; }
 .deck-app .deck-page.active { display: block; }
-.deck-app .deck-toolbar { position: fixed; z-index: 5; bottom: 9px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 11px; padding: 6px 13px; background: #f8fbfc; color: #183d50; border-radius: 5px; box-shadow: 0 3px 15px #0002; font-size: 14px; white-space: nowrap; }
+.deck-app .deck-toolbar { position: fixed; z-index: 5; bottom: calc(9px + env(safe-area-inset-bottom, 0px)); left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 11px; padding: 6px 13px; background: #f8fbfc; color: #183d50; border-radius: 5px; box-shadow: 0 3px 15px #0002; font-size: 14px; white-space: nowrap; box-sizing: border-box; max-width: calc(100% - 16px - env(safe-area-inset-left, 0px) - env(safe-area-inset-right, 0px)); }
 .deck-toolbar #page-jump { display: flex; align-items: center; gap: 5px; margin: 0; }
 .deck-toolbar #page-number { box-sizing: border-box; width: 3em; padding: 3px 5px; border: 1px solid #a5c5c1; border-radius: 3px; background: white; color: inherit; font: inherit; line-height: 1.5; text-align: center; font-variant-numeric: tabular-nums; appearance: textfield; }
 .deck-toolbar #page-number::-webkit-inner-spin-button, .deck-toolbar #page-number::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
 .deck-toolbar button { background: none; border: 0; color: inherit; font: inherit; padding: 4px 8px; cursor: pointer; border-radius: 3px; }
 .deck-toolbar button:hover { background: #e1eeec; }
 .deck-toolbar button:focus-visible, .deck-toolbar #page-number:focus-visible, .deck-app a:focus-visible { outline: 3px solid #228e85; outline-offset: 3px; }
+/* Touch controls stay usable without scaling the toolbar with the slides. */
+@media (pointer: coarse), (max-width: 640px) {
+  .deck-app .deck-toolbar { font-size: 16px; }
+  .deck-toolbar button, .deck-toolbar #page-number { min-width: 44px; min-height: 44px; touch-action: manipulation; }
+  .deck-toolbar .shortcut { display: none; }
+}
+@media (max-width: 640px) and (orientation: portrait), (max-width: 479px) {
+  .deck-app .deck-toolbar {
+    display: grid; grid-template-columns: repeat(6, minmax(0, 1fr));
+    width: 480px; gap: 4px; padding: 6px 8px; border-radius: 8px;
+    left: max(8px, env(safe-area-inset-left, 0px)); right: max(8px, env(safe-area-inset-right, 0px));
+    margin-inline: auto; transform: none;
+  }
+  .deck-toolbar #prev { grid-column: 1; grid-row: 1; }
+  .deck-toolbar #page-jump { grid-column: 2 / 6; grid-row: 1; justify-content: center; min-width: 0; }
+  .deck-toolbar #next { grid-column: 6; grid-row: 1; }
+  .deck-toolbar #open-toc { grid-column: 1 / 3; grid-row: 2; }
+  .deck-toolbar #open-notes { grid-column: 3 / 5; grid-row: 2; }
+  .deck-toolbar #fullscreen { grid-column: 5 / 7; grid-row: 2; }
+  .deck-toolbar button { padding: 4px; }
+}
 .deck-app dialog { max-width: min(1040px, 88vw); width: 1040px; max-height: 82vh; border: 0; padding: 26px; color: #142b40; background: #fbfcfd; border-radius: 8px; }
 .deck-app dialog::backdrop { background: #0c1c2caa; }
 .deck-app dialog h2 { margin: 0 0 15px; font-size: 25px; }
