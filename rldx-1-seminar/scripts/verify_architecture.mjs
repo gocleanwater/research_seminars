@@ -58,7 +58,7 @@ try{
     await page.locator('.deck-page.active').screenshot({path:path.join(out,`step-${String(index).padStart(2,'0')}.png`)});
     await page.keyboard.press('ArrowRight');
   }
-  assert.equal(await page.locator('.deck-page.active').getAttribute('data-id'),'P006');
+  assert.equal(await page.locator('.deck-page.active').getAttribute('data-id'),'P009');
   await page.keyboard.press('ArrowLeft');assert.equal(await explorer.getAttribute('data-state'),String(tour.states.length-1));
   for(let i=tour.states.length-2;i>=0;i--){await page.keyboard.press('ArrowLeft');assert.equal(await explorer.getAttribute('data-state'),String(i));}
   await page.keyboard.press('ArrowLeft');assert.equal(await page.locator('.deck-page.active').getAttribute('data-id'),'P031');

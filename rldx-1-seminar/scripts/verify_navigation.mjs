@@ -19,8 +19,8 @@ try{
   await pageNumber.click();await page.keyboard.type('5');
   assert.equal(await pageNumber.inputValue(),'5','focusing selects the existing number for replacement');
   assert.equal(await active(),'S001','editing alone does not navigate');
-  await page.keyboard.press('Enter');assert.equal(await active(),'P006');
-  assert.equal(new URL(page.url()).hash,'#P006');
+  await page.keyboard.press('Enter');assert.equal(await active(),'P009');
+  assert.equal(new URL(page.url()).hash,'#P009');
   assert.notEqual(await page.evaluate(()=>document.activeElement?.id),'page-number');
   async function jump(value){await pageNumber.fill(value);await pageNumber.press('Enter');}
   await jump('4');assert.equal(await active(),'P032');
@@ -73,7 +73,7 @@ try{
   await page.locator('#stage').click({position:{x:50,y:30}});
   assert.equal(await page.locator('.architecture-explorer').getAttribute('data-state'),'1');
   for(let i=1;i<tourLength;i++)await page.keyboard.press('ArrowRight');
-  assert.equal(await active(),'P006');
+  assert.equal(await active(),'P009');
   await page.keyboard.press('ArrowLeft');assert.equal(await active(),'P032');
   assert.equal(await page.locator('.architecture-explorer').getAttribute('data-state'),String(tourLength-1));
   for(let i=tourLength-2;i>=0;i--){await page.keyboard.press('ArrowLeft');assert.equal(await page.locator('.architecture-explorer').getAttribute('data-state'),String(i));}
@@ -111,6 +111,11 @@ try{
     await page.keyboard.press('Escape');
     assert.equal(await page.locator(`.deck-page[data-id="${oldId}"]`).count(),0);
   }
+  // Architecture structure precedes its learning/inference equations.
+  await show('P009');
+  for(const id of ['P010','P006','P008','P013']){await page.keyboard.press('ArrowRight');assert.equal(await active(),id);}
+  // Public and in-house data come between the overview and synthetic augmentation.
+  for(const id of ['P033','P034','P014']){await page.keyboard.press('ArrowRight');assert.equal(await active(),id);}
   assert.deepEqual(errors,[]);
   fs.writeFileSync('qa/full-deck/navigation-report.json',JSON.stringify({pageJump:true,pageJumpResetsTour:true,pageJumpValidation:true,pageJumpEscape:true,arrows:true,enterBackspace:true,spaceShiftSpace:true,upDownPageKeys:true,homeEnd:true,canvasClick:true,imageZoom:true,buttonFocus:true,tourReverseBoundary:true,dialogsAndModifiers:true,fullscreenEscape:true,mergedP012Link:true,allMergedLinks:true,movedStudyNotes:true,errors},null,2));
   console.log('PASS: presentation keys/clicks, native buttons, dialogs, and reverse animation boundary.');

@@ -197,3 +197,15 @@ MD의 ‘조작 경험을,’ 직후에 명시적 br를 넣었다. Chrome의 표
 - 기본/base 빌드 및 Slidev25장 오류0, 패키지 생성·로컬Pages 검증 통과. 세 발표 HTML 동일성·git diff --check 확인.
 - 직접 확인: 실제25장 전체 지도, P006 글꼴 비교, MSAT 확대 PNG. review/previews/typography-v10/overview-v10.png, P006-before.png, P006-trial.png; review/previews/deck-v10/P006-v10.png; review/previews/architecture-v10/step-22.png.
 - 결과물은 사용자 검토 전이다. 요청의 조건을 충족해 적용하고 최신 자동게시 지시에 따라 commit·push한다. Pages 배포 완료 여부는 별개다.
+
+## 2026-11-06 / v11 / MSAT 순서 변경·데이터 설명 확장
+
+- 사용자 요청: 기존7·8쪽의 MSAT 입력·Joint Attention을5·6쪽의 학습·추론 수식 앞으로 이동하고, 변경 전 버전을 Git에 보존할 것.9쪽에는 데이터 종류의 직관적 의미, 이어서 공개·자체 데이터 설명 장을 추가할 것.
+- 보존: rldx-v10-before-order-data-20261106 태그가 변경 전 커밋5f5a574를 가리킨다. 확인·복구는 review/ROLLBACK.md. 기존 ID·해시 링크를 유지하고 새 장에 P033/P034를 부여했다.
+- 순서: Fig.3 → P009 입력 → P010 Joint Attention → P006 학습 → P008 추론. 전환 문장과 발표 메모를 수정했다. Noisy chunk는 입력 장에서 개념을 소개하고 뒤의 수식으로 연결한다.
+- P013(9쪽): 공개=다른 로봇이 이미 해본 경험, 자체=목표 로봇으로 직접 모은 경험, 합성=시연을 변형해 늘린 경험. 실제/합성의 원문 큰 범주와 공개/자체의 하위 구분을 명시했다. Fig.4는 합성 파이프라인으로 유지한다.
+- P033(10쪽): 공개6개 데이터셋과 시연의 범위, trajectory·action prior의 직관적 설명. Sec.3.1 PDF p.9 및 Table5 p.41을 확인했다. 명칭·수치의 세부 근거는 N 해설에 보존한다.
+- P034(11쪽): Franka의 촉각/관절 토크 측정, ALLEX의 부위별 원격 조작/전류 기반 토크 추정을 구별한다. Sec.3.2 pp.9–10과 Fig.12(b)(c) p.19를 대조했다. Fig.12에서(b)(c)만 발췌한 파일과 원본 좌표를 기록했다.
+- 보존 검증: 121개 상세 단위의 제목·내용은 태그 버전과 바이트 단위로 동일하다(바깥 공백 제외). S042만 P034로 옮겼으며, 나머지도 각각 정확히 한 번 연결된다. 전체27장, Fig.3은 기존27상태·18화살표다.
+- 실제 검증: verify_sources.py; verify_deck.mjs(27장 PNG, 넘침/이미지실패/오류/외부요청0); verify_architecture.mjs; verify_navigation.mjs(새 순서와 추가 장 사이의 이동 포함); verify_math_font.mjs; 기본/base빌드; verify_slidev.mjs(27장 오류0); package_pages.py; verify_pages.mjs. 최종 소스 EOF 공백 정리 전후 HTML SHA256이 동일하다. git diff --check 및 세HTML동일성 확인.
+- PNG: review/previews/deck-v11/P013-v11.png, P033-v11.png, P034-v11.png. 세 장을 직접 확인했다. 변경 요청과 개별 결과물 승인은 구분하며 사용자 검토 전이다. 최신 지시에 따라 main과 보존 태그를 push한다. Pages 반영 완료는 별도 확인하지 않았다.

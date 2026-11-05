@@ -389,5 +389,26 @@
     ],
     "source": "research_wiki/papers/RLWRLD-RLDX-1 Technical Report.pdf",
     "method": "PDF page render and crop, original colors and labels"
+  },
+  {
+    "file": "fig-12-inhouse.png",
+    "figure": 12,
+    "pdf_page": 19,
+    "panels": [
+      "b",
+      "c"
+    ],
+    "source_image": "fig-12.png",
+    "crop_pixels": [
+      465,
+      0,
+      1329,
+      423
+    ],
+    "size": [
+      864,
+      423
+    ],
+    "method": "Exact crop of existing paper figure extraction; original labels and colors preserved"
   }
 ]

@@ -1,21 +1,21 @@
 # 슬라이드 제작 진행 상황
 
-- 업데이트: 2026-11-06 / v10
-- 현재 단계: Arial·시스템 한글 고딕 적용 및 전체 화면 검증 완료 / 자동 게시.
-- 구성: 기본25장(표지+본문24장), P032 내부27상태·18화살표.
+- 업데이트: 2026-11-06 / v11
+- 현재 단계: MSAT 먼저 설명·데이터 종류 보강·공개/자체2장 추가 / 자동 게시.
+- 구성: 기본27장(표지+본문26장), P032 내부27상태·18화살표.
 - 원본: 9개 섹션 MD. S002–S122의121개 상세 단위는 각각 한 번 연결되며 통합 전과 내용이 같다.
 - 통합: P005→P032, P007→P006, P011→P032/P016, P021→P020. P012→P009/P010의 기존 통합도 유지한다.
-- 흐름: Fig.3→학습 원리→추론 갱신→MSAT 입력→내부 연산→데이터→학습→실행 최적화→평가/분석→결론→의견/미해결.
+- 흐름: Fig.3→MSAT 입력→내부 연산→학습 원리→추론 갱신→데이터 종류→공개→자체→합성→학습→실행 최적화→평가/분석→결론→의견/미해결.
 - 원리와 검증은 분리 유지. Conclusion의 기여 반복을 줄이고 의견은 PEFT/BoN의 적용 조건에 집중한다.
 - 원본 기록 보존: review/versions/before-dedup-v07/; 통합 근거와 계획: review/DEDUPLICATION.md.
-- 게시 정책: 수정·검증 후 추가 확인 없이 commit·push한다. 현재 v10 글꼴 변경도 게시 대상이다.
-- 승인: 수정·축소 요청과 결과물 개별 승인을 구분한다. v10은 검토 전이다.
+- 게시 정책: 수정·검증 후 추가 확인 없이 commit·push한다. 변경 전 v10은 Git 태그로 보존하며 review/ROLLBACK.md에서 확인·복구 방법을 설명한다.
+- 승인: 수정·축소 요청과 결과물 개별 승인을 구분한다. v11은 검토 전이다.
 
 ## 검증
 
 - 원문 PDF·중앙 질문노트·9개 MD를 대조하고, 별도 검토에서 중요한 사실/흐름 문제 없음 확인. 지적된 수식 구분 오타1건을 수정했다.
 - 121개 상세 단위의 제목·내용은 수정 전 지문과 동일하며 각각 정확히 한 번 연결된다.
-- 실제25장 PNG: 넘침0·이미지 오류0·브라우저 오류0·외부 HTTP요청0. 전체 지도와 통합 학습/추론/학습절차/의견 장을 직접 확인했다.
+- 실제27장 PNG: 넘침0·이미지 오류0·브라우저 오류0·외부 HTTP요청0. 전체 지도와 통합 학습/추론/학습절차/의견 장을 직접 확인했다.
 - 27상태·4모듈·18화살표, PPT키·역순,5개퇴역링크,이동된해설,KaTeX·Arial·한글 대체 글꼴 검증 통과.
 - 기본/base 빌드·게시패키지·로컬Pages경로 검증 통과. 실행 명령·한계는 review/VALIDATION.md에 기록한다.
 
@@ -23,33 +23,35 @@
 
 | 순서 | ID | 제목 | 버전 | 상태 | PNG |
 | --- | --- | --- | --- | --- | --- |
-| 1 | S001 | RLDX-1 Technical Report | v10 | 검토 전 | review/previews/deck-v10/S001-v10.png |
-| 2 | P002 | 기존 VLA의 문제 | v10 | 검토 전 | review/previews/deck-v10/P002-v10.png |
-| 3 | P031 | RLDX-1 Overview | v10 | 검토 전 | review/previews/deck-v10/P031-v10.png |
-| 4 | P032 | RLDX-1 Architecture | v10 | 검토 전 | review/previews/deck-v10/P032-v10.png |
-| 5 | P006 | Action Model의 학습 원리 | v10 | 검토 전 | review/previews/deck-v10/P006-v10.png |
-| 6 | P008 | Action Model의 추론 수식 | v10 | 검토 전 | review/previews/deck-v10/P008-v10.png |
-| 7 | P009 | MSAT의 입력 | v10 | 검토 전 | review/previews/deck-v10/P009-v10.png |
-| 8 | P010 | MSAT의 Joint Attention | v10 | 검토 전 | review/previews/deck-v10/P010-v10.png |
-| 9 | P013 | 학습 데이터 | v10 | 검토 전 | review/previews/deck-v10/P013-v10.png |
-| 10 | P014 | Task·Scene Augmentation | v10 | 검토 전 | review/previews/deck-v10/P014-v10.png |
-| 11 | P015 | 합성 데이터 검증 | v10 | 검토 전 | review/previews/deck-v10/P015-v10.png |
-| 12 | P016 | Pre-training | v10 | 검토 전 | review/previews/deck-v10/P016-v10.png |
-| 13 | P017 | Mid-training | v10 | 검토 전 | review/previews/deck-v10/P017-v10.png |
-| 14 | P018 | Post-training | v10 | 검토 전 | review/previews/deck-v10/P018-v10.png |
-| 15 | P019 | RECAP | v10 | 검토 전 | review/previews/deck-v10/P019-v10.png |
-| 16 | P020 | 추론 최적화 | v10 | 검토 전 | review/previews/deck-v10/P020-v10.png |
-| 17 | P022 | Simulation Experiments | v10 | 검토 전 | review/previews/deck-v10/P022-v10.png |
-| 18 | P023 | OpenArm | v10 | 검토 전 | review/previews/deck-v10/P023-v10.png |
-| 19 | P024 | ALLEX | v10 | 검토 전 | review/previews/deck-v10/P024-v10.png |
-| 20 | P025 | Franka | v10 | 검토 전 | review/previews/deck-v10/P025-v10.png |
-| 21 | P026 | Ablation | v10 | 검토 전 | review/previews/deck-v10/P026-v10.png |
-| 22 | P027 | RL·추론 지연 분석 | v10 | 검토 전 | review/previews/deck-v10/P027-v10.png |
-| 23 | P029 | Conclusion | v10 | 검토 전 | review/previews/deck-v10/P029-v10.png |
-| 24 | P028 | 나의 의견 | v10 | 검토 전 | review/previews/deck-v10/P028-v10.png |
-| 25 | P030 | 한계와 미해결 질문 | v10 | 검토 전 | review/previews/deck-v10/P030-v10.png |
+| 1 | S001 | RLDX-1 Technical Report | v11 | 검토 전 | review/previews/deck-v11/S001-v11.png |
+| 2 | P002 | 기존 VLA의 문제 | v11 | 검토 전 | review/previews/deck-v11/P002-v11.png |
+| 3 | P031 | RLDX-1 Overview | v11 | 검토 전 | review/previews/deck-v11/P031-v11.png |
+| 4 | P032 | RLDX-1 Architecture | v11 | 검토 전 | review/previews/deck-v11/P032-v11.png |
+| 5 | P009 | MSAT의 입력 | v11 | 검토 전 | review/previews/deck-v11/P009-v11.png |
+| 6 | P010 | MSAT의 Joint Attention | v11 | 검토 전 | review/previews/deck-v11/P010-v11.png |
+| 7 | P006 | Action Model의 학습 원리 | v11 | 검토 전 | review/previews/deck-v11/P006-v11.png |
+| 8 | P008 | Action Model의 추론 수식 | v11 | 검토 전 | review/previews/deck-v11/P008-v11.png |
+| 9 | P013 | 학습 데이터 | v11 | 검토 전 | review/previews/deck-v11/P013-v11.png |
+| 10 | P033 | 공개 실제 데이터 | v11 | 검토 전 | review/previews/deck-v11/P033-v11.png |
+| 11 | P034 | 자체 실제 데이터 | v11 | 검토 전 | review/previews/deck-v11/P034-v11.png |
+| 12 | P014 | Task·Scene Augmentation | v11 | 검토 전 | review/previews/deck-v11/P014-v11.png |
+| 13 | P015 | 합성 데이터 검증 | v11 | 검토 전 | review/previews/deck-v11/P015-v11.png |
+| 14 | P016 | Pre-training | v11 | 검토 전 | review/previews/deck-v11/P016-v11.png |
+| 15 | P017 | Mid-training | v11 | 검토 전 | review/previews/deck-v11/P017-v11.png |
+| 16 | P018 | Post-training | v11 | 검토 전 | review/previews/deck-v11/P018-v11.png |
+| 17 | P019 | RECAP | v11 | 검토 전 | review/previews/deck-v11/P019-v11.png |
+| 18 | P020 | 추론 최적화 | v11 | 검토 전 | review/previews/deck-v11/P020-v11.png |
+| 19 | P022 | Simulation Experiments | v11 | 검토 전 | review/previews/deck-v11/P022-v11.png |
+| 20 | P023 | OpenArm | v11 | 검토 전 | review/previews/deck-v11/P023-v11.png |
+| 21 | P024 | ALLEX | v11 | 검토 전 | review/previews/deck-v11/P024-v11.png |
+| 22 | P025 | Franka | v11 | 검토 전 | review/previews/deck-v11/P025-v11.png |
+| 23 | P026 | Ablation | v11 | 검토 전 | review/previews/deck-v11/P026-v11.png |
+| 24 | P027 | RL·추론 지연 분석 | v11 | 검토 전 | review/previews/deck-v11/P027-v11.png |
+| 25 | P029 | Conclusion | v11 | 검토 전 | review/previews/deck-v11/P029-v11.png |
+| 26 | P028 | 나의 의견 | v11 | 검토 전 | review/previews/deck-v11/P028-v11.png |
+| 27 | P030 | 한계와 미해결 질문 | v11 | 검토 전 | review/previews/deck-v11/P030-v11.png |
 
-Fig.3의 실제 상태 PNG는 review/previews/architecture-v10/step-00.png–step-26.png다. 세 토큰은08, VLM은11, Memory는17, MSAT입력은22, 처리·출력은25에서 볼 수 있다.
+Fig.3의 실제 상태 PNG는 review/previews/architecture-v11/step-00.png–step-26.png다. 세 토큰은08, VLM은11, Memory는17, MSAT입력은22, 처리·출력은25에서 볼 수 있다.
 
 ## 재개
 
@@ -175,3 +177,15 @@ AGENTS.md → PROJECT.md → 이 파일 → FEEDBACK.md → sections/README.md �
 - 기본/base 빌드 및 Slidev25장 오류0, 패키지 생성·로컬Pages 검증 통과. 세 발표 HTML 동일성·git diff --check 확인.
 - 직접 확인: 실제25장 전체 지도, P006 글꼴 비교, MSAT 확대 PNG. review/previews/typography-v10/overview-v10.png, P006-before.png, P006-trial.png; review/previews/deck-v10/P006-v10.png; review/previews/architecture-v10/step-22.png.
 - 결과물은 사용자 검토 전이다. 요청의 조건을 충족해 적용하고 최신 자동게시 지시에 따라 commit·push한다. Pages 배포 완료 여부는 별개다.
+
+## 2026-11-06 / v11 / MSAT 순서 변경·데이터 설명 확장
+
+- 사용자 요청: 기존7·8쪽의 MSAT 입력·Joint Attention을5·6쪽의 학습·추론 수식 앞으로 이동하고, 변경 전 버전을 Git에 보존할 것.9쪽에는 데이터 종류의 직관적 의미, 이어서 공개·자체 데이터 설명 장을 추가할 것.
+- 보존: rldx-v10-before-order-data-20261106 태그가 변경 전 커밋5f5a574를 가리킨다. 확인·복구는 review/ROLLBACK.md. 기존 ID·해시 링크를 유지하고 새 장에 P033/P034를 부여했다.
+- 순서: Fig.3 → P009 입력 → P010 Joint Attention → P006 학습 → P008 추론. 전환 문장과 발표 메모를 수정했다. Noisy chunk는 입력 장에서 개념을 소개하고 뒤의 수식으로 연결한다.
+- P013(9쪽): 공개=다른 로봇이 이미 해본 경험, 자체=목표 로봇으로 직접 모은 경험, 합성=시연을 변형해 늘린 경험. 실제/합성의 원문 큰 범주와 공개/자체의 하위 구분을 명시했다. Fig.4는 합성 파이프라인으로 유지한다.
+- P033(10쪽): 공개6개 데이터셋과 시연의 범위, trajectory·action prior의 직관적 설명. Sec.3.1 PDF p.9 및 Table5 p.41을 확인했다. 명칭·수치의 세부 근거는 N 해설에 보존한다.
+- P034(11쪽): Franka의 촉각/관절 토크 측정, ALLEX의 부위별 원격 조작/전류 기반 토크 추정을 구별한다. Sec.3.2 pp.9–10과 Fig.12(b)(c) p.19를 대조했다. Fig.12에서(b)(c)만 발췌한 파일과 원본 좌표를 기록했다.
+- 보존 검증: 121개 상세 단위의 제목·내용은 태그 버전과 바이트 단위로 동일하다(바깥 공백 제외). S042만 P034로 옮겼으며, 나머지도 각각 정확히 한 번 연결된다. 전체27장, Fig.3은 기존27상태·18화살표다.
+- 실제 검증: verify_sources.py; verify_deck.mjs(27장 PNG, 넘침/이미지실패/오류/외부요청0); verify_architecture.mjs; verify_navigation.mjs(새 순서와 추가 장 사이의 이동 포함); verify_math_font.mjs; 기본/base빌드; verify_slidev.mjs(27장 오류0); package_pages.py; verify_pages.mjs. 최종 소스 EOF 공백 정리 전후 HTML SHA256이 동일하다. git diff --check 및 세HTML동일성 확인.
+- PNG: review/previews/deck-v11/P013-v11.png, P033-v11.png, P034-v11.png. 세 장을 직접 확인했다. 변경 요청과 개별 결과물 승인은 구분하며 사용자 검토 전이다. 최신 지시에 따라 main과 보존 태그를 push한다. Pages 반영 완료는 별도 확인하지 않았다.
