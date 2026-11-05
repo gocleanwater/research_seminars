@@ -169,3 +169,11 @@ MD의 ‘조작 경험을,’ 직후에 명시적 br를 넣었다. Chrome의 표
 - 수정: 해당 블록만 gathered로 바꿔 각 줄을 독립적으로 중앙 정렬했다. 수식 내용·글꼴 크기·직전 왼쪽 설명 표는 유지했다.
 - 검증: 실제25장PNG 넘침/이미지/브라우저오류/외부요청0,소스·KaTeX생성·기본/base빌드 통과. 실제P008 PNG에서 양쪽 여백 확인. 세HTML동일성 확인 후 자동commit/push.
 - PNG: review/previews/deck-v07/P008-sensor-alignment-v07.png.
+
+## 2026-11-06 / P006 conditioning inputs
+
+- Verified PDF p.8 Sec.2.2: c_t=[h_t,m_t,s_t,p_t]; physical sensing is conditional on availability.
+- Passed: python3 scripts/verify_sources.py; node scripts/verify_deck.mjs (25 slides, overflow/errors/external requests 0); node scripts/verify_math_font.mjs.
+- Passed: pnpm build; pnpm build --base /rldx-1-seminar/; python3 scripts/package_pages.py; node scripts/verify_pages.mjs.
+- Visually inspected review/previews/deck-v09/P006-conditions-v09.png. Final source adjustment corrected initial overflow; no font-size reduction.
+- git diff --check and equality of presentation.html, index.html, and deployment presentation passed. Main content edit only; navigation/tour logic unchanged.

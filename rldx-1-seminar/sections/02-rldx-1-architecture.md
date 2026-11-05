@@ -1272,13 +1272,12 @@ $$
 $$
 
 <p class="callout"><strong>$\mathbf u_\theta$: 학습 가능한 신경망(MSAT)</strong><br>
-논문에서는 <strong>neural vector field</strong>로 부른다.<br>
-$\theta$는 학습되는 신경망의 가중치다.</p>
+Neural vector field; $\theta$는 학습 가중치다.<br>
+<strong>출력:</strong> chunk 전체의 <strong>예측 변화율</strong>.</p>
 
-<strong>함수의 출력:</strong> chunk 전체의 **예측 변화율**.<br>
-어느 방향으로 얼마나 바꿀지를 나타낸다.
-
-<p class="mini">손실은 이 예측 변화율과 정답 $\mathbf v^*$의 오차 제곱합이다.</p>
+<p><strong>조건 입력 $\mathbf c_t=[\mathbf h_t,\mathbf m_t,\mathbf s_t,\mathbf p_t]$</strong><br>
+$\mathbf h_t$: 인지 · $\mathbf m_t$: 기억 · $\mathbf s_t$: 현재 로봇 상태<br>
+$\mathbf p_t$: 현재 물리 센서 신호(사용 가능할 때)</p>
 
 ### 요점
 
@@ -1290,7 +1289,7 @@ Sec.2.2 Eq.(1) · PDF p.8; noisy action chunk는 원문 용어, 미분·좌표�
 
 ### 발표 메모
 
-P006과 P007을 통합했다. Transformer/DiT는 구조, flow matching은 목표, Euler는 추론 갱신이며 고전 diffusion 손실과 순차 적용하는 두 단계가 아니다. S020–026/S028의 유도·수식·용어·shape 해설을 모두 유지한다. 개별 정답 쌍의 직선 target이 상수라는 것과 학습한 vector field가 모든 입력에서 상수라는 것은 다르다. 현재 조건의 센서는 사용 가능할 때 포함한다. Sec.1.1의 c_t는 지시지만 여기서는 Sec.2.2의 전체 조건 정의다. τ의 정확한 샘플링 분포·구현상 loss reduction을 임의 확정하지 않는다. P006 Browser Comment1–4 후속: 본문에서 t/τ 재설명과 c_t 정의·숫자 예시를 빼고 기호 표와 손실 항 해석으로 바꿨다. 원문은 noisy action chunk라고 명시한다. 좌표 j는 action chunk의 시간·행동 차원 전체를 펼쳐 읽기 위한 설명용 인덱스이며 추가 평균/reduction 구현을 확정하지 않는다. 기존 숫자 예시와 시간/조건 설명은 S021/S022/S023/S026 해설에 그대로 보존한다. 최신 annotation 요청: u_θ 자체는 파라미터 θ를 학습하는 neural vector field이며 구현은 MSAT다. u_θ(a^τ,τ,c_t)는 그 함수를 평가해 얻은 예측 변화율이다. 둘을 구분해 u_θ에 직접 underbrace를 연결하고 같은 색의 모델 주석으로 설명한다. 좌표별 손실 전개는 상세 해설에 유지한다.
+P006과 P007을 통합했다. Transformer/DiT는 구조, flow matching은 목표, Euler는 추론 갱신이며 고전 diffusion 손실과 순차 적용하는 두 단계가 아니다. S020–026/S028의 유도·수식·용어·shape 해설을 모두 유지한다. 개별 정답 쌍의 직선 target이 상수라는 것과 학습한 vector field가 모든 입력에서 상수라는 것은 다르다. 현재 조건의 센서는 사용 가능할 때 포함한다. Sec.1.1의 c_t는 지시지만 여기서는 Sec.2.2의 전체 조건 정의다. τ의 정확한 샘플링 분포·구현상 loss reduction을 임의 확정하지 않는다. P006 Browser Comment1–4 후속: 본문에서 t/τ 재설명과 c_t 정의·숫자 예시를 빼고 기호 표와 손실 항 해석으로 바꿨다. 원문은 noisy action chunk라고 명시한다. 좌표 j는 action chunk의 시간·행동 차원 전체를 펼쳐 읽기 위한 설명용 인덱스이며 추가 평균/reduction 구현을 확정하지 않는다. 기존 숫자 예시와 시간/조건 설명은 S021/S022/S023/S026 해설에 그대로 보존한다. 최신 annotation 요청: u_θ 자체는 파라미터 θ를 학습하는 neural vector field이며 구현은 MSAT다. u_θ(a^τ,τ,c_t)는 그 함수를 평가해 얻은 예측 변화율이다. 둘을 구분해 u_θ에 직접 underbrace를 연결하고 같은 색의 모델 주석으로 설명한다. 좌표별 손실 전개는 상세 해설에 유지한다. 2026-11-06 최신 요청에 따라 Sec.2.2 p.8의 조건 입력 c_t=[h_t,m_t,s_t,p_t]를 본문에 다시 명시한다. h_t는 인지 특징, m_t는 기억 특징, s_t는 현재 로봇 상태, p_t는 사용 가능할 때의 현재 물리 센서 신호다.
 
 ### 상세 공부 기록
 
