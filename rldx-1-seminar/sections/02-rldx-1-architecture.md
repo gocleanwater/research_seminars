@@ -1242,7 +1242,7 @@ source_ids: S020, S021, S022, S023, S024, S025, S026, S028
 
 ### 한 문장
 
-정답 $\mathbf a$와 노이즈를 섞어 입력 $\mathbf a^\tau$를 만들고, 정답 변화율을 예측하도록 학습한다.
+노이즈 $\boldsymbol\epsilon$에서 정답 $\mathbf a$로 잇는 직선 경로를 미분한 $\mathbf v^*=\mathbf a-\boldsymbol\epsilon$을 정답 변화율로 삼는다.
 
 ### 본문
 
@@ -1260,7 +1260,7 @@ $$
 </tbody></table>
 
 $$
-\frac{d\mathbf a^\tau}{d\tau}=\mathbf a-\boldsymbol\epsilon=\mathbf v^*
+\frac{d\mathbf a^\tau}{d\tau}=\mathbf a-\boldsymbol\epsilon=\mathbf v^*\quad\text{(정답 변화율)}
 $$
 
 ### 보충

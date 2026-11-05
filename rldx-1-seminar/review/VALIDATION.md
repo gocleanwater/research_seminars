@@ -177,3 +177,11 @@ MD의 ‘조작 경험을,’ 직후에 명시적 br를 넣었다. Chrome의 표
 - Passed: pnpm build; pnpm build --base /rldx-1-seminar/; python3 scripts/package_pages.py; node scripts/verify_pages.mjs.
 - Visually inspected review/previews/deck-v09/P006-conditions-v09.png. Final source adjustment corrected initial overflow; no font-size reduction.
 - git diff --check and equality of presentation.html, index.html, and deployment presentation passed. Main content edit only; navigation/tour logic unchanged.
+
+## 2026-11-06 / P006 / 정답 변화율 v*의 근거
+
+- 사용자 요청: v*를 정답 변화율로 명시하고 왜 학습 target인지 설명할 것.
+- 반영: 미분식의 v* 옆에 ‘정답 변화율’을 직접 표시했다. 도입문은 노이즈 ε에서 정답 a로 잇는 직선 경로를 미분한 값 a−ε를 학습 target으로 삼는다고 설명한다.
+- 근거: Sec.2.2 PDF p.8 Eq.(1)의 target a−ε와 정의된 보간 경로의 미분. 개별 학습 쌍의 target이며, 모든 입력에서 학습된 vector field가 상수라는 의미는 아니다.
+- 검증: 소스 매핑·25장 PNG·수식/실제글꼴·기본/base빌드·로컬Pages 검증 통과. 화면 넘침/이미지실패/브라우저오류/외부요청0. P006 PNG 직접 확인.
+- PNG: review/previews/deck-v09/P006-target-velocity-v09.png. 25장·121개 상세 기록·직전 c_t 설명 유지. 사용자 검토 전이며 자동게시 지시에 따라 commit·push한다.
