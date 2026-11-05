@@ -77,13 +77,6 @@ function renderPictureMarks(state, camera) {
     group.insertBefore(background,textNode);
   }
   function label(id,x,y,options={}){const [px,py]=point(x,y);textLabel(ARCH_TOUR.labels[id].text,px,py,{...options,id});}
-  if(state.scene==='overview'||state.scene==='memory'){
-    // The original overview's circled + denotes a connection. State its actual
-    // token-concatenation meaning rather than suggesting elementwise addition.
-    const [maskX,maskY]=point(1115,580);
-    svg('rect',{x:maskX,y:maskY,width:43*scale,height:33*scale,fill:'white','data-mark-id':'concat-replaces-plus'});
-    label('concat',1136,596,{size:state.scene==='overview'?12:18,color:'#117c75'});
-  }
   if(state.overlay==='vlm-inputs'){
     textLabel('VLM에 들어가는 세 종류의 토큰',370,35,{size:24,id:'input-caption'});
     const groups=[
@@ -103,7 +96,6 @@ function renderPictureMarks(state, camera) {
     if(state.step>=1){box(824,718,264,25,'#7263ad','memory-past');label('memory-past',948,812,{color:'#7263ad'});}
     if(state.step>=2){box(1093,718,85,25,'#15998b','memory-current');label('memory-current',1136,812,{color:'#128376'});}
     if(state.step>=3){box(1093,623,85,27,'#15998b','memory-output');label('memory-output',1190,637,{color:'#128376'});}
-    if(state.step>=4)box(1111,577,50,38,'#15998b','memory-concat');
   }
   if(state.scene==='msat'){
     if(state.step>=1&&state.step<=3){

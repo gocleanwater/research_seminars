@@ -7,9 +7,10 @@
 - 보존: S002–S122의121개 상세 해설과 질문, LaTeX 수식·나눔고딕·PPT 조작 유지. 구체18층 사실은 상세 해설에 보존하며 그림 화면은 ‘중간층’으로 설명한다.
 - 추가: 토큰3종을 그림에 직접 표시. Memory의Qₜ/hₜ/mₜ와concat, MSAT의P/C/A입력·Triple/Double-stream·변화율/denoising을 구분.
 - 결과물: presentation.html과 게시용index.html을 동일하게 생성. slides.md·매핑·ZIP도 갱신한다.
-- 공개 상태: 사용자가v04를 https://gocleanwater.github.io/research_seminars/rldx-1-seminar/ 에 게시했다. 이번v05는 로컬 수정본이며 commit/push/재배포하지 않았다.
+- 공개 상태: 사용자가 bbab11f의v05를 게시한 것을 확인했다. 이번 원문 기호·화살표 후속 수정은 로컬이며 commit/push하지 않았다.
 - 승인: 이전 목차 승인만 있음. v05 결과물의 개별 사용자 승인은 아직 없다.
-- 최신 후속: P013의 ‘조작 경험을,’ 뒤에서 줄을 바꿔 ‘자체 데이터는’을 새 줄로 표시했다. 실제 PNG·줄바꿈·넘침 검사 완료.
+- 최신 P032 후속: 그림 위 concat 덮개를 제거해 원문 기호를 복원하고 Causal Transformer 설명 화살표를 Transformer Blocks에서 시작하도록 옮겼다. 27단계 표시·조작 검사를 통과했다.
+- P013 후속: P013의 ‘조작 경험을,’ 뒤에서 줄을 바꿔 ‘자체 데이터는’을 새 줄로 표시했다. 실제 PNG·줄바꿈·넘침 검사 완료.
 - 다음: 실제 PNG와 로컬 HTML을 검토하고 해당 장/설명 단계의 추가 피드백을 반영한다.
 
 ## 검증
@@ -60,3 +61,16 @@ Fig.3의 실제 상태 PNG는 review/previews/architecture-v05/step-00.png–ste
 ## 재개
 
 AGENTS.md → PROJECT.md → 이 파일 → FEEDBACK.md → sections/README.md → 해당 MD. 생성 HTML만 직접 고치지 않는다. 사용자가 공개를 직접 관리한다.
+
+
+## 2026-11-05 / P032 / MSAT 확대 하단 연결부
+
+- 사용자 요청: MSAT 확대 시 아래 Tactile/Torque와 원문의 ⨁ 기호가 함께 보여야 한다.
+- 반영: MSAT 소개·입력·블록 설명의 7개 상태에서 하단까지 카메라를 확장했다. 원문 기호는 그대로 유지하고, 인접 Memory 제목의 일부가 잘려 나타나지 않도록 표시 영역을 조정했다.
+- 검증: 실제 Chrome PNG에서 두 요소를 확인했다. 27개 상태의 경계·4모듈 조작·정방향/역방향 검사를 통과했다. 기본/base 빌드 성공, 생성 HTML/index 및 게시용 ZIP 갱신.
+- PNG: review/previews/architecture-v05/step-19.png·step-22.png. 사용자 검토 전이며 commit/push는 하지 않았다.
+
+## 2026-11-05 / 게시 승인
+
+- 사용자가 현재 변경 사항의 commit과 push를 명시적으로 요청했다. 이전의 로컬 작업만 허용한 범위는 이번 게시에 한해 변경됐다.
+- 커밋 전 원본 검증, 27상태 아키텍처 검증, 로컬 Pages 경로·본문·해설 검증을 다시 통과했다. 게시 대상은 현재 P032 후속 수정·검증 코드·기록·생성 HTML/ZIP이다.

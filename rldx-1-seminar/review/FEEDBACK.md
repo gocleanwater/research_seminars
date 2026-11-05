@@ -145,3 +145,20 @@
 - 반영: Training Data MD 원본의 해당 위치에 br를 넣고, presentation.html·게시용index.html·slides.md를 재생성했다. 나머지 문구와 글자 크기는 유지했다.
 - 검증: 실제 Chrome에서 해당 위치의 줄바꿈, 본문 가로·세로 넘침 없음, 브라우저 오류 없음 확인. 기본/base 빌드와 ZIP 갱신.
 - PNG: review/previews/deck-v05/P013-linebreak-v05.png. 사용자 개별 승인 전이며 commit/push하지 않았다.
+
+
+## 2026-11-05 / P032 / 원문 기호 복원·Memory 화살표 수정
+
+- Browser Comment1/3: 전체 그림과 Memory 위의 concat 덧씌우기를 없애고 논문 원래 그림을 유지하도록 요청했다.
+- 반영: concat 이름표·흰색 덮개·초록색 테두리를 제거해 원래 원형＋기호를 표시한다. 오른쪽 concat 설명과 MSAT 입력 설명은 유지한다.
+- Browser Comment2: Causal Transformer → mₜ 화살표의 시작점을 Transformer Blocks에 두도록 요청했다. 원문 좌표(1160,683)으로 옮겼다.
+- 검증:27개 상태·4모듈 조작·역순·겹침 검사를 통과했다. 덧씌운 요소가 없고 해당 화살표 시작점이 Transformer Blocks 안에 있음을 실제 DOM에서 확인했다. 기본/base 빌드와 게시용HTML·ZIP을 갱신했다. 원문 비트맵은 변경하지 않았다.
+- PNG: review/previews/architecture-v05/step-00.png·step-16.png·step-17.png. 결과물 개별 승인 전이며 commit/push하지 않았다.
+
+
+## 2026-11-05 / P032 / MSAT 확대 하단 연결부
+
+- 사용자 요청: MSAT 확대 시 아래 Tactile/Torque와 원문의 ⨁ 기호가 함께 보여야 한다.
+- 반영: MSAT 소개·입력·블록 설명의 7개 상태에서 하단까지 카메라를 확장했다. 원문 기호는 그대로 유지하고, 인접 Memory 제목의 일부가 잘려 나타나지 않도록 표시 영역을 조정했다.
+- 검증: 실제 Chrome PNG에서 두 요소를 확인했다. 27개 상태의 경계·4모듈 조작·정방향/역방향 검사를 통과했다. 기본/base 빌드 성공, 생성 HTML/index 및 게시용 ZIP 갱신.
+- PNG: review/previews/architecture-v05/step-19.png·step-22.png. 사용자 검토 전이며 commit/push는 하지 않았다.

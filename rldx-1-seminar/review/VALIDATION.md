@@ -33,3 +33,15 @@ Sec.2.1–2.2 PDFpp.7–9 및 현재 상세 MD를 별도로 대조했다. h/m co
 ## P013 줄바꿈 후속
 
 MD의 ‘조작 경험을,’ 직후에 명시적 br를 넣었다. Chrome의 표시 텍스트에서 ‘조작 경험을,\n자체 데이터는’을 확인했고 본문 가로·세로 넘침과 브라우저 오류는0이었다. PNG는 deck-v05/P013-linebreak-v05.png, 검사 결과는 qa/full-deck/p013-linebreak-report.json이다. 생성 HTML·index·기본/base 빌드·ZIP을 갱신했다.
+
+## 원문 기호·Memory 화살표 후속
+
+그림 위 concat label/mask/green box를 제거하고 원문 기호를 복원했다. Memory의3번째 설명 화살표 시작점을Transformer Blocks 안으로 옮겼다. verify_architecture.mjs의27상태 검사에서 제거한요소0개·시작점의block내포함·정역순·경계를 확인했다. 기본/base 빌드와 게시용HTML/ZIP을 갱신했다. 이전 원문기호를concat으로덮었다는기록은 당시v05이력이다.
+
+
+## 2026-11-05 / P032 / MSAT 확대 하단 연결부
+
+- 사용자 요청: MSAT 확대 시 아래 Tactile/Torque와 원문의 ⨁ 기호가 함께 보여야 한다.
+- 반영: MSAT 소개·입력·블록 설명의 7개 상태에서 하단까지 카메라를 확장했다. 원문 기호는 그대로 유지하고, 인접 Memory 제목의 일부가 잘려 나타나지 않도록 표시 영역을 조정했다.
+- 검증: 실제 Chrome PNG에서 두 요소를 확인했다. 27개 상태의 경계·4모듈 조작·정방향/역방향 검사를 통과했다. 기본/base 빌드 성공, 생성 HTML/index 및 게시용 ZIP 갱신.
+- PNG: review/previews/architecture-v05/step-19.png·step-22.png. 사용자 검토 전이며 commit/push는 하지 않았다.

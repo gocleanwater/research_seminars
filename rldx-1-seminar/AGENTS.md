@@ -72,3 +72,12 @@
 - 기존 전체 그림 → 모듈 확대 → 연결 경로 설명 → 전체 복귀 방식을 Vision Encoder·VLM에서 Memory Module·MSAT까지 확장한다. 버튼·좌우 방향키로 단계별로 이동하고 기존 PPT 조작을 유지한다. 페이지 수를 제한하지 않는다.
 - 최신 사용자 정정에 따라 Memory의 연결은 원소별 덧셈이 아니라 토큰 축의 `C = concat(h_t, m_t)`로 표시한다. 최초 모호함이나 추가 의견과 최신 결정을 구분해 보존한다.
 - MSAT의 flow matching velocity 예측과 반복 denoising 뒤의 최종 clean action chunk를 구분한다. 참조 그림의 손글씨를 원문 사실의 근거로 대체하지 않고 원문 확인 결과를 사용한다.
+
+## P032 그림 기호 — 최신 사용자 정정
+
+- 원문 Fig.3의 연결 기호를 concat 이름표·마스크로 덮지 않는다. 전체 그림과 Memory 확대에서 원문 기호를 유지한다. 결합 방식의 설명은 오른쪽 텍스트에 둔다.
+- Causal Transformer → mₜ 설명 화살표는 출력 토큰이 아니라 Transformer Blocks에서 시작한다.
+
+## 이번 변경의 게시 승인 — 2026-11-05
+
+- 사용자가 “commit까지 하고 push도 해버려”라고 명시했다. 현재 누적된 P032 후속 수정·관련 기록·게시 산출물의 commit 및 origin/main push를 승인했다. 이후의 임의 게시까지 포괄하는 승인으로 확대하지 않는다.

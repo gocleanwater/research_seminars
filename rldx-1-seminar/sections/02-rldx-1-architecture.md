@@ -541,8 +541,6 @@ Fig.3 · PDF p.6; Sec.2.1–2.2 · PDF pp.7–9; 추출 층 비교: Table2(a), p
 
 #### [memory-output] mₜ
 
-#### [concat] concat
-
 #### [stream-p] P stream
 
 #### [stream-c] C stream

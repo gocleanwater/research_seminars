@@ -47,7 +47,14 @@ try{
     }
     if(index===10)assert.match(await explorer.locator('.arch-annotations').innerText(),/과거.*압축/);
     if(index===11){const text=await explorer.locator('.arch-annotations').innerText();assert.match(text,/중간층/);assert.match(text,/cognition token 위치/);assert(!text.includes('18층')&&!text.includes('q 위치'));}
-    if(state.scene==='memory')assert.match(await explorer.locator('[data-label-id="concat"]').textContent(),/concat/);
+    if(state.scene==='memory'||state.scene==='overview'){
+      assert.equal(await explorer.locator('[data-label-id="concat"],[data-mark-id="concat-replaces-plus"],[data-mark-id="memory-concat"]').count(),0,'keep the original paper symbol visible');
+    }
+    if(state.scene==='memory'&&state.step>=3){
+      const origin=await explorer.locator('.arch-paths circle').nth(2).evaluate(e=>({x:Number(e.getAttribute('cx')),y:Number(e.getAttribute('cy'))}));
+      const [x,y,w,h]=state.box,scale=Math.min(740/w,390/h),tx=(740-w*scale)/2-x*scale,ty=(390-h*scale)/2-y*scale;
+      assert(origin.x>=tx+825*scale&&origin.x<=tx+1175*scale&&origin.y>=ty+656*scale&&origin.y<=ty+710*scale,'Causal Transformer arrow starts inside the Transformer Blocks rectangle');
+    }
     await page.locator('.deck-page.active').screenshot({path:path.join(out,`step-${String(index).padStart(2,'0')}.png`)});
     await page.keyboard.press('ArrowRight');
   }
