@@ -1,4 +1,4 @@
-# 슬라이드 색인 — v13
+# 슬라이드 색인 — v14
 
 MD 원본 → HTML. 전체 도식 확대 단계는 P032 안에서 방향키로 이동한다. 개별 결과물은 사용자 검토 전이다.
 
@@ -16,28 +16,31 @@ MD 원본 → HTML. 전체 도식 확대 단계는 P032 안에서 방향키로 �
 | 10 | P033 | Training Data | 공개 실제 데이터 | sections/03-training-data.md |  |
 | 11 | P034 | Training Data | 자체 실제 데이터 | sections/03-training-data.md | S042 |
 | 12 | P014 | Training Data | Task·Scene Augmentation | sections/03-training-data.md | S044, S045, S046, S047, S048, S049, S050 |
-| 13 | P015 | Training Data | 합성 데이터 검증 | sections/03-training-data.md | S051, S052, S053, S054, S055 |
-| 14 | P035 | Training Procedure | 학습 단계 | sections/04-training-procedure.md | S056 |
-| 15 | P016 | Training Procedure | Pre-training | sections/04-training-procedure.md | S057, S059 |
-| 16 | P036 | Training Procedure | 로봇별 입출력 경로 | sections/04-training-procedure.md | S058, S036 |
-| 17 | P017 | Training Procedure | Mid-training | sections/04-training-procedure.md | S060, S061, S062, S063, S064 |
-| 18 | P018 | Training Procedure | Post-training | sections/04-training-procedure.md | S065, S066 |
-| 19 | P019 | Training Procedure | RECAP | sections/04-training-procedure.md | S067, S068, S070, S071 |
-| 20 | P037 | Training Procedure | Critic과 Figure 8 | sections/04-training-procedure.md | S069 |
-| 21 | P020 | Inference Strategy | CUDA Graph | sections/05-inference-strategy.md | S072, S073, S074, S075 |
-| 22 | P038 | Inference Strategy | Kernel Fusion | sections/05-inference-strategy.md | S076, S077, S078, S079, S081 |
-| 23 | P039 | Inference Strategy | Kernel Fusion의 계산 | sections/05-inference-strategy.md | S080 |
-| 24 | P040 | Evaluation and Analysis | 시뮬레이션 벤치마크 | sections/06-evaluation-and-analysis.md | S082 |
-| 25 | P022 | Evaluation and Analysis | Simulation 결과 | sections/06-evaluation-and-analysis.md | S083, S084, S085, S086, S087 |
-| 26 | P041 | Evaluation and Analysis | 실제 로봇 | sections/06-evaluation-and-analysis.md |  |
-| 27 | P042 | Evaluation and Analysis | OpenArm 과제 | sections/06-evaluation-and-analysis.md | S088 |
-| 28 | P023 | Evaluation and Analysis | OpenArm 결과 | sections/06-evaluation-and-analysis.md | S089 |
-| 29 | P043 | Evaluation and Analysis | ALLEX 과제 | sections/06-evaluation-and-analysis.md | S090, S091 |
-| 30 | P024 | Evaluation and Analysis | ALLEX 결과 | sections/06-evaluation-and-analysis.md | S092 |
-| 31 | P044 | Evaluation and Analysis | Franka 과제 | sections/06-evaluation-and-analysis.md | S093, S094 |
-| 32 | P025 | Evaluation and Analysis | Franka 결과 | sections/06-evaluation-and-analysis.md | S095, S096 |
-| 33 | P026 | Ablation and Analysis | Ablation | sections/07-ablation-and-analysis.md | S097, S098, S099, S100, S101, S102 |
-| 34 | P027 | Ablation and Analysis | RL·추론 지연 분석 | sections/07-ablation-and-analysis.md | S103, S104, S105, S106, S107 |
-| 35 | P029 | Conclusion | Conclusion | sections/08-conclusion.md | S116, S117 |
-| 36 | P028 | My opinions and limitation | 나의 의견 | sections/09-my-opinions-and-limitation.md | S108, S109, S110, S111, S112, S113, S114, S115 |
-| 37 | P030 | My opinions and limitation | 한계와 미해결 질문 | sections/09-my-opinions-and-limitation.md | S118, S119, S120, S121 |
+| 13 | P045 | Training Data | 영상 품질 검사 | sections/03-training-data.md | S052 |
+| 14 | P015 | Training Data | 합성 데이터 검증 | sections/03-training-data.md | S051, S055 |
+| 15 | P046 | Training Data | 움직임 일치 검사 | sections/03-training-data.md | S053 |
+| 16 | P047 | Training Data | 일치 검사기의 학습 | sections/03-training-data.md | S054 |
+| 17 | P035 | Training Procedure | 학습 단계 | sections/04-training-procedure.md | S056 |
+| 18 | P016 | Training Procedure | Pre-training | sections/04-training-procedure.md | S057, S059 |
+| 19 | P036 | Training Procedure | 로봇별 입출력 경로 | sections/04-training-procedure.md | S058, S036 |
+| 20 | P017 | Training Procedure | Mid-training | sections/04-training-procedure.md | S060, S061, S062, S063, S064 |
+| 21 | P018 | Training Procedure | Post-training | sections/04-training-procedure.md | S065, S066 |
+| 22 | P019 | Training Procedure | RECAP | sections/04-training-procedure.md | S067, S068, S070, S071 |
+| 23 | P037 | Training Procedure | Critic과 Figure 8 | sections/04-training-procedure.md | S069 |
+| 24 | P020 | Inference Strategy | CUDA Graph | sections/05-inference-strategy.md | S072, S073, S074, S075 |
+| 25 | P038 | Inference Strategy | Kernel Fusion | sections/05-inference-strategy.md | S076, S077, S078, S079, S081 |
+| 26 | P039 | Inference Strategy | Kernel Fusion의 계산 | sections/05-inference-strategy.md | S080 |
+| 27 | P040 | Evaluation and Analysis | 시뮬레이션 벤치마크 | sections/06-evaluation-and-analysis.md | S082 |
+| 28 | P022 | Evaluation and Analysis | Simulation 결과 | sections/06-evaluation-and-analysis.md | S083, S084, S085, S086, S087 |
+| 29 | P041 | Evaluation and Analysis | 실제 로봇 | sections/06-evaluation-and-analysis.md |  |
+| 30 | P042 | Evaluation and Analysis | OpenArm 과제 | sections/06-evaluation-and-analysis.md | S088 |
+| 31 | P023 | Evaluation and Analysis | OpenArm 결과 | sections/06-evaluation-and-analysis.md | S089 |
+| 32 | P043 | Evaluation and Analysis | ALLEX 과제 | sections/06-evaluation-and-analysis.md | S090, S091 |
+| 33 | P024 | Evaluation and Analysis | ALLEX 결과 | sections/06-evaluation-and-analysis.md | S092 |
+| 34 | P044 | Evaluation and Analysis | Franka 과제 | sections/06-evaluation-and-analysis.md | S093, S094 |
+| 35 | P025 | Evaluation and Analysis | Franka 결과 | sections/06-evaluation-and-analysis.md | S095, S096 |
+| 36 | P026 | Ablation and Analysis | Ablation | sections/07-ablation-and-analysis.md | S097, S098, S099, S100, S101, S102 |
+| 37 | P027 | Ablation and Analysis | RL·추론 지연 분석 | sections/07-ablation-and-analysis.md | S103, S104, S105, S106, S107 |
+| 38 | P029 | Conclusion | Conclusion | sections/08-conclusion.md | S116, S117 |
+| 39 | P028 | My opinions and limitation | 나의 의견 | sections/09-my-opinions-and-limitation.md | S108, S109, S110, S111, S112, S113, S114, S115 |
+| 40 | P030 | My opinions and limitation | 한계와 미해결 질문 | sections/09-my-opinions-and-limitation.md | S118, S119, S120, S121 |

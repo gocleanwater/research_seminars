@@ -56,7 +56,7 @@ const keyboardPassed = (await page.locator('.deck-page.active').getAttribute('da
 await page.keyboard.press('g');
 await page.locator('#toc-search').fill('S053');
 await page.locator('.toc-entry:visible').click();
-const searchPassed = (await page.locator('.deck-page.active').getAttribute('data-id')) === 'P015';
+const searchPassed = (await page.locator('.deck-page.active').getAttribute('data-id')) === 'P046';
 await page.keyboard.press('n');
 const notesPassed = await page.locator('#notes[open]').count() === 1 && (await page.locator('#notes-text').innerText()).includes('상세 해설 S053');
 await page.keyboard.press('Escape');

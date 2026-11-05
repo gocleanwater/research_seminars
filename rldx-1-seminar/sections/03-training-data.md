@@ -626,55 +626,146 @@ Fig.5; Sec.3.3 · PDF p.11
 
 원문 캡션을 기준으로 (c)의 생성 경로를 정확히 명시한다. 예시 영상을 보고 전체 합성 집합의 품질을 정량적으로 단정하지 않는다. 개별 augmentation 효과는 이후 Table3의 통제 범위를 따로 설명한다.
 
-## [P015] 합성 데이터 검증
+## [P045] 영상 품질 검사
 
 <!-- slide-meta
 layout: split
 kind: fact
-source_ids: S051, S052, S053, S054, S055
+source_ids: S052
 -->
 
 ### 한 문장
 
-IDM의 추정 행동을 시뮬레이터에서 재생하고, 생성 영상의 움직임과 비교한다.
+영상 자체가 지시와 맞는지, 로봇과 물체의 움직임이 그럴듯한지를 검사용 VLM으로 확인한다.
 
 ### 본문
 
-#### 영상에서 행동으로
+#### 지시와 실제 동작이 맞는가?
 
-<div class="flow">
-<div class="node">관측 쌍</div>
-<div class="arrow">→</div>
-<div class="node">IDM</div>
-<div class="arrow">→</div>
-<div class="node">추정 행동</div>
-</div>
+생성에 사용한 지시와, 영상 속 로봇이 실제로 한 동작을 비교한다.
 
-현재·미래 프레임에서 중간 행동을 추정해 pseudo-label을 만든다. 그 행동을 simulator에서 재생하면 비교용 rollout 영상이 생긴다.
+지시와 다르게 움직였다면 **관찰된 동작에 맞춰 설명을 다시 붙인다(re-caption).**
 
-별도 품질 VLM은 지시 불일치를 re-caption하고, 동작 plausibility를 평가해 선별한다.
+<p class="callout">“무엇을 하라고 했는가?”와<br>“영상에서는 무엇을 했는가?”를 맞추는 검사다.</p>
 
 ### 보충
 
-#### 움직임이 서로 맞는가?
+#### 동작이 그럴듯한가?
 
-두 clip을 frozen V-JEPA2로 인코딩하고 특징을 concat한다. 학습 가능한 query가 cross-attention으로 읽은 뒤 linear head가 일치를 판별한다.
+손의 접근 거리·깊이·방향과 물체 상호작용을 보고 **plausibility를 1–5점으로 평가**한다.
 
-실제 clip+GT 행동 rollout은 positive, 시간·episode가 어긋난 쌍은 negative다.
+미리 정한 기준을 넘는 영상을 남긴다.
 
-<p class="callout">필터 통과는 현실의 물리적 성공 보장이 아니다. 검사기의 정량 신뢰성은 추가 검증이 필요하다.</p>
+<p class="callout">이 단계는 <strong>영상 자체의 품질</strong>을 본다. 영상에 붙인 행동이 맞는지는 다음 검사에서 확인한다.</p>
 
 ### 요점
 
-영상 품질과 영상–행동 정합성을 확인해 학습 쌍을 만든다. 다음은 이 데이터를 학습시키는 순서다.
+영상의 품질과 영상·행동의 일치는 다른 검사다. 다음은 IDM 행동을 실행한 rollout과의 비교다.
 
 ### 출처
 
-Sec.3.3 · PDF pp.11–12; App.B.3 · PDF p.42; 질문노트 Q2
+Sec.3.3 Video Quality Filtering · PDF p.11; App.B.3 · PDF p.42
 
 ### 발표 메모
 
-Negative의 다른 episode는 동일 task instruction을 공유한다. 모델별 설정·필터 임계값 미기재와 오탐·미탐 문제는 상세 단위에 보존한다.
+기존P015의video quality설명을별도장으로분리했다. 검사용VLM은부록에서Gemini API로명시하고지시일치16프레임/plausibility8프레임을입력한다. 구체적API모델버전/점수cutoff는임의추가하지않는다. 영상생성/IDM라벨링/필터링의전체파이프라인은Fig4를따르며발표는검사대상별로설명순서를나눴다. 지시가어긋난영상을모두폐기한다고말하지않고re-caption과plausibility선별을구분한다.
+
+### 상세 공부 기록
+
+#### [S052] Video quality filtering
+
+<!-- study-meta
+layout: split
+kind: fact
+-->
+
+##### 한 문장
+
+지시가 맞는지와 영상 동작이 그럴듯한지를 따로 보고, 필요한 경우 지시를 다시 쓴다.
+
+##### 본문
+
+###### 검사 1: instruction following
+
+생성된 영상의 로봇 동작이 원래 생성 지시를 따르는지 VLM으로 판단한다.
+
+지시에서 벗어났다면 **관찰된 실제 동작에 맞게 re-caption**한다. 이때 바뀌는 것은 영상의 언어 설명이다.
+
+<p class="mini">지시 불일치 샘플을 모두 폐기한다고 단순화하면 re-caption 경로를 놓친다.</p>
+
+##### 보충
+
+###### 검사 2: trajectory plausibility
+
+손의 접근 거리, 깊이, 공간 방향, 물체 상호작용 등을 보고 **1–5점**을 부여해 임계값보다 높은 영상만 남긴다.
+
+부록은 Gemini API를 사용하며, 지시 검사는 균일 추출 16프레임, plausibility 검사는 8프레임을 입력한다고 명시한다.
+
+<p class="callout">이 단계는 영상 품질 검사이며 행동 라벨 정합성 검사는 별도다.</p>
+
+##### 요점
+
+Re-caption은 설명을 고치고, plausibility 선별은 남길 영상을 고른다.
+
+##### 출처
+
+Sec.3.3 · PDF p.11; App.B.3 · PDF p.42
+
+##### 발표 메모
+
+원문은 사전 정의 threshold를 언급하지만 이 본문/부록에는 구체적인 cutoff 값이 없다. Gemini의 세부 버전을 임의로 붙이지 않는다. VLM 점수를 실제 물리 타당성의 정답으로 표현하지 않는다.
+
+## [P015] 합성 데이터 검증
+
+<!-- slide-meta
+layout: full
+kind: fact
+source_ids: S051, S055
+-->
+
+### 한 문장
+
+합성 영상에서 추정한 행동을 시뮬레이터로 실행해 rollout 영상을 만들고, 두 영상의 움직임을 비교한다.
+
+### 본문
+
+<div class="rollout-diagram" role="img" aria-label="A 합성 영상에서 IDM이 행동을 추정한다. Simulator에서 그 행동을 실행해 B rollout 영상을 만든다. A와 B의 영상 특징을 비교해 학습 쌍을 선별한다.">
+<svg class="rollout-connectors" viewBox="0 0 1152 420" aria-hidden="true">
+<defs><marker id="rollout-arrowhead" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 Z" fill="#167e7a"/></marker></defs>
+<g fill="none" stroke="#167e7a" stroke-width="3" marker-end="url(#rollout-arrowhead)">
+<path d="M200 59 H231"/><path d="M438 59 H469"/><path d="M676 59 H707"/><path d="M914 59 H945"/>
+<path d="M100 118 V230 H361"/><path d="M1052 118 V230 H791"/>
+<path d="M576 282 V307 H278 V326"/><path d="M576 307 H874 V326"/>
+</g></svg>
+<div class="rollout-chain">
+<div class="rollout-card video-a"><strong>A 합성 영상</strong><span>생성 모델의 영상</span></div>
+<div class="rollout-card"><strong>IDM</strong><span>행동을 추정</span></div>
+<div class="rollout-card"><strong>추정 행동</strong><span>로봇 제어값</span></div>
+<div class="rollout-card"><strong>Simulator</strong><span>행동 실행</span></div>
+<div class="rollout-card video-b"><strong>B Rollout 영상</strong><span>실행 결과 영상</span></div>
+</div>
+<div class="rollout-compare"><strong>A·B의 영상 특징 비교</strong><span>두 영상의 움직임이 맞는가?</span></div>
+<div class="rollout-decisions">
+<div><strong>일치 높음</strong><br>합성 영상 + 추정 행동을 학습에 사용</div>
+<div><strong>일치 낮음</strong><br>해당 영상·행동 쌍 제외</div>
+</div>
+</div>
+
+### 보충
+
+
+
+### 요점
+
+Rollout은 추정 행동을 시뮬레이터로 실행해 얻은 영상이다. 원래 합성 영상과 움직임을 비교한다.
+
+### 출처
+
+Fig.4 · PDF p.10; Sec.3.3 Motion-Consistency Filtering · PDF p.12; App.B.3 · PDF p.42
+
+### 발표 메모
+
+사용자지적에따라그림에없던simulator와rollout분기를명시했다. A는영상생성기로만든합성영상,IDM출력은영상이아닌pseudo-action, B는그추정action을simulator에서실행해렌더링한영상이다. 원래합성영상A를비교기에직접연결하고,행동실행의결과B를다른입력으로넣는다. 비교는frozenV-JEPA2특징을사용하며다음P046에서설명한다. 높은일치도는합성영상/라벨쌍을선별하는조건이며현실로봇성공의보증으로확대하지않는다. 그림은원문의흐름을읽기위한재도식이고원문에없는초기상태복원방식/임계값을추가하지않는다.
 
 ### 상세 공부 기록
 
@@ -723,7 +814,7 @@ Sec.3.3 · PDF pp.10–12; App.B.3 · PDF p.42
 
 ALLEX IDM horizon $H+1=20$은 mid-training policy의 ALLEX chunk40이나 RECAP 생성40/실행20과 다른 설정이다. 문맥이 다른 horizon 수치를 하나로 합치지 않는다.
 
-#### [S052] Video quality filtering
+#### [S055] 합성 모델과 검증 범위
 
 <!-- study-meta
 layout: split
@@ -732,39 +823,91 @@ kind: fact
 
 ##### 한 문장
 
-지시가 맞는지와 영상 동작이 그럴듯한지를 따로 보고, 필요한 경우 지시를 다시 쓴다.
+생성기·IDM·품질 VLM·일관성 분류기는 서로 다른 오류를 다루는 구성요소다.
 
 ##### 본문
 
-###### 검사 1: instruction following
+###### 무엇을 만들고 검사하는가?
 
-생성된 영상의 로봇 동작이 원래 생성 지시를 따르는지 VLM으로 판단한다.
-
-지시에서 벗어났다면 **관찰된 실제 동작에 맞게 re-caption**한다. 이때 바뀌는 것은 영상의 언어 설명이다.
-
-<p class="mini">지시 불일치 샘플을 모두 폐기한다고 단순화하면 re-caption 경로를 놓친다.</p>
+- **영상 생성:** GR-1은 Cosmos-Predict2-14B, ALLEX는 Cosmos-Predict2.5-2B를 로봇 영상에 적응한다.
+- **IDM:** 영상에서 pseudo-action을 추정한다.
+- **Gemini:** 지시 일치·영상 plausibility를 평가한다.
+- **V-JEPA2 probe:** 영상과 action rollout의 움직임 일치를 평가한다.
 
 ##### 보충
 
-###### 검사 2: trajectory plausibility
+###### 확인된 설정과 남은 검증
 
-손의 접근 거리, 깊이, 공간 방향, 물체 상호작용 등을 보고 **1–5점**을 부여해 임계값보다 높은 영상만 남긴다.
+GR-1 생성기는 공개 영상 3,027+92개로 LoRA rank32, 10K steps 학습한다. ALLEX 생성기는 자체·타 로봇 영상을 섞어 20K steps 전체 학습한다.
 
-부록은 Gemini API를 사용하며, 지시 검사는 균일 추출 16프레임, plausibility 검사는 8프레임을 입력한다고 명시한다.
+<p class="callout">구현 설정이 있다는 사실과 검사기가 신뢰할 만하다는 정량 근거는 다르다.</p>
 
-<p class="callout">이 단계는 영상 품질 검사이며 행동 라벨 정합성 검사는 별도다.</p>
+오탐·미탐, 실제→합성 분포 차이, 필터별 기여는 추가 확인할 항목이다.
 
 ##### 요점
 
-Re-caption은 설명을 고치고, plausibility 선별은 남길 영상을 고른다.
+여러 모델의 검사를 통과했다는 사실을 현실에서의 성공 보장으로 바꾸지 않는다.
 
 ##### 출처
 
-Sec.3.3 · PDF p.11; App.B.3 · PDF p.42
+App.B.3 · PDF p.42; Sec.3.3 · PDF pp.10–12; 질문노트 Q2·Q8
 
 ##### 발표 메모
 
-원문은 사전 정의 threshold를 언급하지만 이 본문/부록에는 구체적인 cutoff 값이 없다. Gemini의 세부 버전을 임의로 붙이지 않는다. VLM 점수를 실제 물리 타당성의 정답으로 표현하지 않는다.
+GR-1:93-frame432×768, batch4. ALLEX:ALLEX/OpenArm/ActionNet 2:1:1, 93-frame432×768, batch8, uniform full-episode sampling과16FPS consecutive random sampling. Re-caption용 Qwen3-VL8B 또는30B-A3B와 품질 검사 Gemini를 구분한다. 본문 학습 설정은 검증·재현 실행을 뜻하지 않는다.
+
+## [P046] 움직임 일치 검사
+
+<!-- slide-meta
+layout: split
+kind: fact
+source_ids: S053
+-->
+
+### 한 문장
+
+A 합성 영상과 B rollout 영상에서 특징을 뽑고, 작은 판정기가 두 영상의 움직임이 맞는지 판단한다.
+
+### 본문
+
+#### 비교할 두 입력
+
+<div class="sequence">
+<div class="step"><strong>A 합성 영상</strong><br>고정된 V-JEPA2 → 영상 특징 A</div>
+<div class="step"><strong>B Rollout 영상</strong><br>같은 V-JEPA2 → 영상 특징 B</div>
+</div>
+
+V-JEPA2는 <strong>학습하지 않고 고정(frozen)</strong>한다.
+
+두 영상의 픽셀을 그대로 빼는 대신, 인코더가 뽑은 **영상 특징**을 비교한다.
+
+### 보충
+
+#### 작은 판정기 — Attentive probe
+
+두 영상의 특징을 읽고 움직임의 일치 여부를 판단하도록 학습하는 모듈이다.
+
+<div class="sequence">
+<div class="step">특징 A·B를 토큰 방향으로 concat</div>
+<div class="step">학습 가능한 query가 cross-attention으로 읽기</div>
+<div class="step">Linear head → 일치 logit → 일치 확률</div>
+</div>
+
+일치 확률이 정한 기준을 넘는 쌍을 남긴다.
+
+### 요점
+
+두 영상은 같은 고정 인코더로 특징을 뽑고, 그 특징 위의 작은 판정기를 학습해 비교한다.
+
+### 출처
+
+Sec.3.3 Motion-Consistency Filtering · PDF p.12; App.B.3 · PDF p.42
+
+### 발표 메모
+
+Attentive probe는learnable query+single cross-attention+linear head로구성된다. A와B의embedding을concat하므로query는두clip의특징을모두참고한다. A는synthetic video, B는IDM-predicted action simulator rollout이라는입력의유래를반복명시했다. V-JEPA2는frozen이며probe를학습한다. 판별logit을확률로바꿔threshold선별하는설명은원문의logit/probability서술을연결한다. 이페이지의합성쌍선별과다음페이지실제시연/GTpair로판정기를학습하는과정을구분한다.
+
+### 상세 공부 기록
 
 #### [S053] Motion-consistency classifier
 
@@ -809,6 +952,53 @@ Sec.3.3 · PDF p.12; App.B.3 · PDF p.42
 ##### 발표 메모
 
 logit→probability는 이진 분류 설명을 위한 연결이다. 원문은 alignment logit과 alignment probability 선별을 함께 명시한다. 하나의 learnable query와 단일 cross-attention layer를 유지한다. V-JEPA2 자체를 이 데이터로 전부 fine-tune했다고 쓰지 않는다.
+
+## [P047] 일치 검사기의 학습
+
+<!-- slide-meta
+layout: split
+kind: fact
+source_ids: S054
+-->
+
+### 한 문장
+
+판정기는 실제 시연과 그 정답 행동을 재생한 영상을 기준으로, 움직임이 맞거나 어긋나는 쌍을 배운다.
+
+### 본문
+
+#### 일치하는 쌍 — Positive
+
+<div class="sequence">
+<div class="step"><strong>실제 시연 영상</strong></div>
+<div class="step"><strong>그 시연의 정답 행동</strong>을 simulator에서 실행한 rollout 영상</div>
+</div>
+
+겉모습이 실제·시뮬레이션으로 달라도 **같은 행동에 대응하는 움직임**을 갖는다.
+
+### 보충
+
+#### 어긋나는 쌍 — Negative
+
+**같은 episode의 시간 구간을 어긋나게** 짝짓거나,
+
+**같은 task instruction을 가진 다른 episode**의 영상을 짝짓는다.
+
+<p class="callout">같은 작업 이름이어도 구체적인 손·물체의 움직임은 다를 수 있다는 점을 배우게 한다.</p>
+
+### 요점
+
+실제 시연·정답 행동으로 판정기를 학습하고, 학습된 판정기로 합성 영상·추정 행동 쌍을 선별한다.
+
+### 출처
+
+Sec.3.3 Motion-Consistency Filtering · PDF p.12; 질문노트 Q2
+
+### 발표 메모
+
+학습positive는실제clip+그clip의GT-action simulator rollout이다. 합성clip+IDM-action pair는학습된classifier가검사할대상이며정답positive로자동간주하지않는다. Negative는동일episode시간이동또는동일task의다른episode를쓴다. 정확한양/음성pair수/비율/threshold/오탐미탐률은보고서의명시범위를넘어추가하지않는다. 기존S054를그대로보존하고본문에서는입력유래와기준을먼저설명한다.
+
+### 상세 공부 기록
 
 #### [S054] Classifier는 어떤 쌍으로 배우는가?
 
@@ -855,45 +1045,3 @@ Sec.3.3 · Motion-Consistency Filtering · PDF p.12
 ##### 발표 메모
 
 “언어 유사성만 보지 않도록 한다”는 negative 구성의 교육적 해석이다. 원문은 두 종류 negative를 명시하지만 비율·전체 pair 수·오탐미탐률은 이 절에 없다.
-
-#### [S055] 합성 모델과 검증 범위
-
-<!-- study-meta
-layout: split
-kind: fact
--->
-
-##### 한 문장
-
-생성기·IDM·품질 VLM·일관성 분류기는 서로 다른 오류를 다루는 구성요소다.
-
-##### 본문
-
-###### 무엇을 만들고 검사하는가?
-
-- **영상 생성:** GR-1은 Cosmos-Predict2-14B, ALLEX는 Cosmos-Predict2.5-2B를 로봇 영상에 적응한다.
-- **IDM:** 영상에서 pseudo-action을 추정한다.
-- **Gemini:** 지시 일치·영상 plausibility를 평가한다.
-- **V-JEPA2 probe:** 영상과 action rollout의 움직임 일치를 평가한다.
-
-##### 보충
-
-###### 확인된 설정과 남은 검증
-
-GR-1 생성기는 공개 영상 3,027+92개로 LoRA rank32, 10K steps 학습한다. ALLEX 생성기는 자체·타 로봇 영상을 섞어 20K steps 전체 학습한다.
-
-<p class="callout">구현 설정이 있다는 사실과 검사기가 신뢰할 만하다는 정량 근거는 다르다.</p>
-
-오탐·미탐, 실제→합성 분포 차이, 필터별 기여는 추가 확인할 항목이다.
-
-##### 요점
-
-여러 모델의 검사를 통과했다는 사실을 현실에서의 성공 보장으로 바꾸지 않는다.
-
-##### 출처
-
-App.B.3 · PDF p.42; Sec.3.3 · PDF pp.10–12; 질문노트 Q2·Q8
-
-##### 발표 메모
-
-GR-1:93-frame432×768, batch4. ALLEX:ALLEX/OpenArm/ActionNet 2:1:1, 93-frame432×768, batch8, uniform full-episode sampling과16FPS consecutive random sampling. Re-caption용 Qwen3-VL8B 또는30B-A3B와 품질 검사 Gemini를 구분한다. 본문 학습 설정은 검증·재현 실행을 뜻하지 않는다.

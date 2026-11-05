@@ -202,3 +202,17 @@ body.deck-app { margin: 0; background: #142b40; overflow: hidden; font-family: A
 /* Figure 12: keep robot identities beside the three platform photos. */
 .robot-glossary { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
 .robot-glossary p { margin: 0; }
+
+/* P015: trace a generated video through actions to a second, simulated video. */
+.rollout-diagram { position: relative; width: 100%; height: 420px; }
+.rollout-connectors { position: absolute; inset: 0; width: 100%; height: 420px; pointer-events: none; }
+.rollout-chain { position: absolute; inset: 0 0 auto; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 38px; }
+.rollout-card { min-height: 118px; padding: 14px 10px; background: #edf3f5; border-top: 3px solid #6994a3; text-align: center; }
+.rollout-card strong, .rollout-card span, .rollout-compare span { display: block; }
+.rollout-card span { margin-top: 8px; font-size: 22px; }
+.rollout-card.video-a { background: #e6f2ef; border-color: #167e7a; }
+.rollout-card.video-b { background: #edf0fa; border-color: #7073a5; }
+.rollout-compare { position: absolute; left: 370px; top: 175px; width: 412px; height: 108px; padding: 16px 12px; background: #e6f2ef; border: 2px solid #167e7a; text-align: center; }
+.rollout-compare span { margin-top: 6px; }
+.rollout-decisions { position: absolute; left: 0; right: 0; top: 331px; display: grid; grid-template-columns: 1fr 1fr; gap: 42px; }
+.rollout-decisions > div { padding: 8px 12px; background: #edf3f5; border-left: 3px solid #6994a3; text-align: center; }

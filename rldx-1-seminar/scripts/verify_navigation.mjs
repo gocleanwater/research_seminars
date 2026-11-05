@@ -116,6 +116,8 @@ try{
   for(const id of ['P010','P006','P008','P013']){await page.keyboard.press('ArrowRight');assert.equal(await active(),id);}
   // Public and in-house data come between the overview and synthetic augmentation.
   for(const id of ['P033','P034','P014']){await page.keyboard.press('ArrowRight');assert.equal(await active(),id);}
+  // Generated video, simulator rollout, feature comparison, then classifier training.
+  for(const id of ['P045','P015','P046','P047','P035']){await page.keyboard.press('ArrowRight');assert.equal(await active(),id);}
   // Purpose first, then each training stage; graph and fused-kernel explanations stay separate.
   await show('P035');
   for(const id of ['P016','P036','P017','P018','P019','P037','P020','P038','P039','P040']){await page.keyboard.press('ArrowRight');assert.equal(await active(),id);}

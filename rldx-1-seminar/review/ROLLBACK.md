@@ -1,5 +1,13 @@
 # 버전 보존과 복구
 
+## v14 변경 전 버전
+
+- 태그: `rldx-v13-before-rollout-explanation-20261106`
+- 커밋: `b0a116f` — 평가 과제·로봇 소개를 보강한37장
+- 이후 v14: 검증 설명을 영상 품질 → rollout 비교 흐름 → 특징 비교 → 판정기 학습으로 나눈40장. 상세121개 내용은 동일하다.
+- 저장소 루트에서 비교: `git diff rldx-v13-before-rollout-explanation-20261106 -- rldx-1-seminar/sections/03-training-data.md`
+- 복구는 필요한 변경을 새 커밋으로 되돌린다. 원격 main을 reset/force-push하지 않는다.
+
 ## v13 변경 전 버전
 
 - 태그: `rldx-v12-before-evaluation-context-20261106`

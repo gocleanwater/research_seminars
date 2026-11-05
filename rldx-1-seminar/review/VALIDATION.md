@@ -1,5 +1,19 @@
 # v09 페이지 번호 입력 검증 — 2026-11-06
 
+## 2026-11-06 / v14 / 합성 영상과 rollout 비교
+
+- 요청: P015에서 rollout 영상의 생성 과정과 원래 합성 영상과의 비교가 보이지 않아 어렵다는 피드백. 실제 원문 Sec.3.3 PDF pp.10–12 및 App.B.3 p.42와 질문노트 Q2를 대조했다.
+- 수정: P015는 A 합성 영상 → IDM → 추정 행동 → Simulator → B rollout 영상, A·B 영상 특징 비교, 일치 여부에 따른 선별로 그렸다. IDM의 출력은 로봇 제어값이고 rollout은 실행 결과 영상이라는 차이를 명시했다.
+- 설명 분리: P045는 영상 자체 품질, P015는 전체 비교 흐름, P046은 고정 V-JEPA2와 attentive probe, P047은 실제 시연/GT 행동을 이용한 positive 및 시간·episode가 어긋난 negative 학습이다. 검사기를 학습하는 쌍과 합성 데이터에 적용하는 쌍을 구별한다.40장은 한도가 아니다.
+- 보존: 변경 전 태그 `rldx-v13-before-rollout-explanation-20261106`의121개 상세 단위를 정규식으로 추출해 비교했다. 바깥 공백을 제외한 제목·본문 전체가 동일하고 각각 정확히 한 번 연결된다. 기존 장 ID와 Fig.3 내부 상태는 유지했다.
+- 실행: `python3 scripts/build_deck.py`, `python3 scripts/verify_sources.py`, `node scripts/verify_deck.mjs` 통과.40개 기본 화면에서 넘침·이미지 실패·브라우저 오류·외부 요청0. 최초 P046의 literal 강조 표시는 HTML strong으로 고쳐 재검증했다.
+- 실제 PNG 확인: `review/previews/deck-v14/P045-v14.png`, `P015-v14.png`, `P046-v14.png`, `P047-v14.png`. P015 비교 분기·rollout 카드·결과 상자와 글자 배치를 직접 확인했다. 글꼴 크기를 줄이지 않았다.
+- 탐색: `node scripts/verify_navigation.mjs` 통과. 새 검사4장→학습 단계 순서, 이동한 S053 해설 검색, 번호 입력·첫 내부 상태·방향키·역순·대화상자·기존 별칭 링크를 확인했다.
+- 수식·글꼴: `node scripts/verify_math_font.mjs` 통과. Arial 영문/한글 대체 글꼴, 내장 Nanum, KaTeX 및 전체 상세 해설 수식 너비를 확인했다.
+- 빌드: 기본 `pnpm build`와 `pnpm build --base /rldx-1-seminar/` 통과. `node scripts/verify_slidev.mjs`에서40장·오류0·실패0.
+- 게시 산출물: `python3 scripts/package_pages.py`, `node scripts/verify_pages.mjs` 통과. repository 하위 경로·랜딩 링크·표지·Fig.3·해설 및 외부 요청0을 확인했다. presentation/index/게시 index 동일성과 `git diff --check`도 통과했다.
+- 사용자 결과물 검토 전이다. 수정 후 자동 게시 지시에 따라 관련 파일과 보존 태그를 commit·push한다. GitHub Pages 실제 배포 완료는 별도 확인하지 않았다.
+
 - 먼저 입력칸 부재로 verify_navigation.mjs가 실패(0≠1)하는 것을 확인한 후 기능을 구현했다.
 - verify_navigation.mjs:클릭후기존번호전체선택,5입력/Enter→5번째P006,4→P032첫단계,진행후같은4재입력→첫단계,1/마지막장,빈값/0/초과/소수거부,Esc입력취소시단계보존,800px폭툴바경계 통과.
 - 기존 PPT키·빈화면클릭·그림확대·검색/G/N·전체화면·정역순·퇴역링크도 같은실제브라우저검사에서 통과했다.
