@@ -49,11 +49,11 @@ def main():
     cover = (ROOT / 'content/cover.html').read_text()
     total = len(content) + 1
     slides = [('S001', 'RLDX-1 Technical Report', cover, '표지. 움직임·기억·물리 센싱을 지원하는 범용 로봇 조작 연구다. 원문 Fig.1을 사용한다.', '<p>Figure 1은 데이터·아키텍처·학습·추론·평가를 연결하는 전체 시스템 개요다. 원문 PDF p.1.</p>')]
-    markdown = '---' + frontmatter + '---\n\n<!-- slide-id: S001 | revision: v04 | status: draft -->\n\n' + cover + '\n'
+    markdown = '---' + frontmatter + '---\n\n<!-- slide-id: S001 | revision: v05 | status: draft -->\n\n' + cover + '\n'
     for i, s in enumerate(content, 2):
         markup = slide_markup(s, i, total)
         notes = s.get('notes', '')
-        markdown += f'\n---\nlayout: none\n---\n\n<!-- slide-id: {s["id"]} | revision: v04 | status: draft -->\n\n{markup}\n\n<!--\n{notes.replace("-->", "→")}\n-->\n'
+        markdown += f'\n---\nlayout: none\n---\n\n<!-- slide-id: {s["id"]} | revision: v05 | status: draft -->\n\n{markup}\n\n<!--\n{notes.replace("-->", "→")}\n-->\n'
         slides.append((s['id'], s['title'], markup, notes, s['study_html']))
     (ROOT / 'slides.md').write_text(markdown)
 
@@ -84,8 +84,10 @@ def main():
 <dialog id="image-dialog"><button class="dialog-close" aria-label="닫기">×</button><img alt="확대한 원문 그림"></dialog>
 <script>const DECK={data};const ASSETS={json.dumps(assets)};const ARCH_TOUR={json.dumps(tour, ensure_ascii=False).replace(chr(60), chr(92) + "u003c")};{script}</script></body></html>'''
     (ROOT / 'presentation.html').write_text(html)
-    (ROOT / 'content/deck-manifest.json').write_text(json.dumps([{'order': i + 1, 'id': sid, 'title': title, 'chapter': chapter(sid), 'version': 'v04', 'status': '전체 초안 / 미승인', 'source_ids': next((s['source_ids'] for s in content if s['id'] == sid), ['S001'])} for i, (sid, title, _, _, _) in enumerate(slides)], ensure_ascii=False, indent=2))
-    index = ['# 슬라이드 색인 — v04', '', 'MD 원본 → HTML. 전체 도식 확대 단계는 P032 안에서 방향키로 이동한다. 개별 결과물은 사용자 검토 전이다.', '', '| 순서 | ID | 섹션 | 제목 | MD 원본 | 상세 단위 |', '| --- | --- | --- | --- | --- | --- |']
+    # Keep the manually published Pages entry in sync with the generated deck.
+    (ROOT / 'index.html').write_text(html)
+    (ROOT / 'content/deck-manifest.json').write_text(json.dumps([{'order': i + 1, 'id': sid, 'title': title, 'chapter': chapter(sid), 'version': 'v05', 'status': '전체 초안 / 미승인', 'source_ids': next((s['source_ids'] for s in content if s['id'] == sid), ['S001'])} for i, (sid, title, _, _, _) in enumerate(slides)], ensure_ascii=False, indent=2))
+    index = ['# 슬라이드 색인 — v05', '', 'MD 원본 → HTML. 전체 도식 확대 단계는 P032 안에서 방향키로 이동한다. 개별 결과물은 사용자 검토 전이다.', '', '| 순서 | ID | 섹션 | 제목 | MD 원본 | 상세 단위 |', '| --- | --- | --- | --- | --- | --- |']
     index.append('| 1 | S001 | 표지 | RLDX-1 Technical Report | content/cover.html | — |')
     for i, s in enumerate(content, 2):
         index.append(f"| {i} | {s['id']} | {s['chapter']} | {s['title']} | {s['markdown_source']} | {', '.join(s['source_ids'])} |")

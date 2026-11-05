@@ -5,6 +5,7 @@ import {pathToFileURL} from 'node:url';
 import {chromium} from 'playwright-chromium';
 const browser=await chromium.launch({headless:true,executablePath:'/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'});
 const page=await browser.newPage({viewport:{width:1280,height:800}});
+const tourLength=JSON.parse(fs.readFileSync('content/architecture-tour.json','utf8')).states.length;
 const errors=[];page.on('pageerror',e=>errors.push(String(e)));
 async function active(){return page.locator('.deck-page.active').getAttribute('data-id');}
 async function show(id){await page.evaluate(id=>window.deckShow(window.deckData.findIndex(s=>s.id===id)),id);}
@@ -34,11 +35,11 @@ try{
   assert.equal(await page.locator('.architecture-explorer').getAttribute('data-state'),'0');
   await page.locator('#stage').click({position:{x:50,y:30}});
   assert.equal(await page.locator('.architecture-explorer').getAttribute('data-state'),'1');
-  for(let i=1;i<13;i++)await page.keyboard.press('ArrowRight');
+  for(let i=1;i<tourLength;i++)await page.keyboard.press('ArrowRight');
   assert.equal(await active(),'P005');
   await page.keyboard.press('ArrowLeft');assert.equal(await active(),'P032');
-  assert.equal(await page.locator('.architecture-explorer').getAttribute('data-state'),'12');
-  for(let i=11;i>=0;i--){await page.keyboard.press('ArrowLeft');assert.equal(await page.locator('.architecture-explorer').getAttribute('data-state'),String(i));}
+  assert.equal(await page.locator('.architecture-explorer').getAttribute('data-state'),String(tourLength-1));
+  for(let i=tourLength-2;i>=0;i--){await page.keyboard.press('ArrowLeft');assert.equal(await page.locator('.architecture-explorer').getAttribute('data-state'),String(i));}
   await page.keyboard.press('ArrowLeft');assert.equal(await active(),'P031');
   // Text entry and modifier shortcuts do not drive presentation navigation.
   await page.keyboard.press('g');await page.locator('#toc-search').fill('P032');

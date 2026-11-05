@@ -4,7 +4,7 @@ import http from 'node:http';
 import assert from 'node:assert/strict';
 import {chromium} from 'playwright-chromium';
 const root=path.resolve('deployment/site/research_seminar');
-const prefix='/research_seminar/';
+const prefix='/research_seminars/';
 const server=http.createServer((req,res)=>{
   const url=new URL(req.url,'http://localhost').pathname;
   if(!url.startsWith(prefix)){res.writeHead(404).end();return;}

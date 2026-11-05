@@ -215,35 +215,35 @@ source_ids: S008, S009, S010, S011, S012, S013, S014, S015
 
 ### 한 문장
 
-전체 그림에서 Vision Encoder와 VLM을 눌러 차례로 살펴본다.
+전체 그림에서 Vision Encoder·VLM·Memory Module·MSAT를 차례로 살펴본다.
 
 ### 본문
 
-Figure 3의 Vision Encoder와 VLM을 누르거나 방향키로 확대해 처리 경로를 살펴본다.
+Figure 3의 네 모듈을 누르거나 방향키로 확대해 입력·처리·출력을 살펴본다.
 
 ### 보충
 
 ### 요점
 
-전체 구조 → Vision Encoder → 전체 구조 → VLM 순서로 살펴본다.
+전체 → Vision Encoder → 전체 → VLM → 전체 → Memory Module → 전체 → MSAT
 
 ### 출처
 
-Fig.3 · PDF p.6; Sec.2.1 · PDF p.7; cognition 추출 층: Table2(a), pp.24–25
+Fig.3 · PDF p.6; Sec.2.1–2.2 · PDF pp.7–9; 추출 층 비교: Table2(a), pp.24–25
 
 ### 발표 메모
 
-그림은 시각적 요약이다. Vision Encoder는27층 중9층 뒤에 motion module을 삽입한다. LLM에서는4층 뒤에 과거 관측을 압축하고 선택한18층의 cognition 위치 출력을 사용한다. 약30% 깊이의 동기를 해당 위치가 모든 설정에서 최적이라는 실험 결과로 과장하지 않는다.
+그림은 시각적 요약이다. Vision Encoder는27층 중9층 뒤에 motion module을 삽입한다. LLM에서는4층 뒤에 과거 관측을 압축한다. 화면은 중간층이라고 설명하며, 실제18층 선택과 비교 실험은 연결된 상세 해설에 보존한다. Memory는 과거 Qₜ와 현재 hₜ를 concat해 mₜ를 만들고, hₜ·mₜ를 concat한 토큰을 C stream에 제공한다. MSAT는 초반 stream별 residual과 후반 C-A concat을 구분하며, 한 forward의 변화율로 미래 후보를 반복 갱신한다. 메모리 상세는 P005, MSAT 상세는 P009–P012, 학습·추론 수식은 P006–P008에서 확인한다. 약30% 깊이의 동기를 모든 설정에서 최적이라는 실험 결과로 과장하지 않는다.
 
 ### 확대 단계
 
 #### [0] RLDX-1 Architecture
 
-핵심: Vision Encoder와 VLM을 누르거나 오른쪽 방향키로 설명을 시작한다.
+핵심: 네 모듈을 누르거나 오른쪽 방향키로 처리 경로를 차례로 살펴본다.
 
-설명: 먼저 왼쪽에서 영상과 지시를 표현으로 바꾸고, 오른쪽 MSAT에서 행동을 생성한다.
+설명: 영상·언어 표현에서 시작해 긴 기억과 물리 센서를 연결하고, 행동 생성까지 따라간다.
 
-요점: 전체 구조 → Vision Encoder → 전체 구조 → VLM 순서로 살펴본다.
+요점: 전체 → Vision Encoder → 전체 → VLM → 전체 → Memory Module → 전체 → MSAT
 
 #### [1] Vision Encoder
 
@@ -257,7 +257,7 @@ Fig.3 · PDF p.6; Sec.2.1 · PDF p.7; cognition 추출 층: Table2(a), pp.24–2
 
 핵심: 총 27층 중 먼저 1–9층에서 시각 특징을 추출한다.
 
-설명: 
+설명:
 
 요점: Motion Extractor의 입력은 처음 9개 층을 거친 시각 특징이다.
 
@@ -265,7 +265,7 @@ Fig.3 · PDF p.6; Sec.2.1 · PDF p.7; cognition 추출 층: Table2(a), pp.24–2
 
 핵심: 9층 뒤에서 주변 시공간 특징의 유사성으로 움직임 정보를 구한다.
 
-설명: 
+설명:
 
 요점: STSS는 이웃 특징 간 상관을 담고, STSS encoder가 움직임 특징으로 변환한다.
 
@@ -273,7 +273,7 @@ Fig.3 · PDF p.6; Sec.2.1 · PDF p.7; cognition 추출 층: Table2(a), pp.24–2
 
 핵심: 추출한 움직임 특징을 기존 시각 특징에 residual로 더한다.
 
-설명: 
+설명:
 
 요점: 기존 표현을 교체하는 대신, 같은 위치의 특징에 움직임 정보를 더해 보정한다.
 
@@ -281,7 +281,7 @@ Fig.3 · PDF p.6; Sec.2.1 · PDF p.7; cognition 추출 층: Table2(a), pp.24–2
 
 핵심: 10–27층은 움직임 정보가 더해진 시각 특징을 계속 처리한다.
 
-설명: 
+설명:
 
 요점: 다음 설명을 누르면 전체 Fig.3으로 돌아간다.
 
@@ -303,43 +303,155 @@ Fig.3 · PDF p.6; Sec.2.1 · PDF p.7; cognition 추출 층: Table2(a), pp.24–2
 
 #### [8] VLM
 
-핵심: 여러 프레임의 영상 토큰, 지시 토큰, 64개 cognition tokens를 이어 붙인다.
+핵심: 세 구간의 색과 이름을 구분하고, 이 토큰들을 이어 붙여 VLM에 입력한다.
 
-설명: 
+설명:
 
-요점: 그림 속 색은 토큰 종류와 시간에 따른 관측을 구분한다. cognition token은 64개다.
+요점: 보라색: 영상 토큰 · 연한 초록색: 언어 토큰 · 청록색: cognition tokens 64개
 
 #### [9] VLM
 
 핵심: 초반 1–4층은 여러 프레임을 함께 처리하며 시간 맥락을 모은다.
 
-설명: 
+설명:
 
 요점: 초기 4층의 DeepStack 시각 특징 주입을 활용한 뒤 과거 토큰을 압축한다.
 
 #### [10] VLM
 
-핵심: 4층 뒤에서 과거 관측 hidden states만 평균 풀링해 context token 하나로 압축한다.
+핵심: 4층 뒤에서 과거 프레임 특징을 평균내어 context token 하나로 압축한다.
 
-설명: 
+설명:
 
-요점: 현재 관측·언어 지시·cognition tokens는 남기고 과거 관측만 압축한다.
+요점: 과거 프레임 특징만 하나로 압축하고, 현재 관측·언어·cognition 토큰은 유지한다.
 
 #### [11] VLM
 
-핵심: 선택한 18층에서 cognition token 위치의 출력을 hₜ로 추출한다.
+핵심: 중간층에서 cognition token 위치의 출력 특징 hₜ를 얻어 행동 생성에 전달한다.
 
-설명: 
+설명:
 
-요점: 18층은 특징을 가져오는 위치이며, 언어 출력 head를 뜻하지 않는다.
+요점: cognition token 위치의 출력이 행동 생성에 사용할 cognition features hₜ다.
 
 #### [12] RLDX-1 Architecture
 
-핵심: hₜ는 Memory Module과 MSAT로 이어진다. 다음 장부터 각 모듈을 연결한다.
+핵심: 현재 cognition features hₜ에 더 긴 과거 이력을 연결하는 Memory Module을 살펴본다.
 
-설명: 지금까지 Vision Encoder와 VLM의 처리 경로를 살펴봤다. 이제 과거 cognition을 유지하는 Memory Module, 이 표현과 상태·센서를 결합하는 MSAT를 살펴본다.
+설명: VLM 안의 과거 프레임 압축과, 이전 로봇 시점의 cognition features를 저장하는 장기 기억을 구분한다.
 
-요점: 다음 장은 Memory Module이다. Vision Encoder·VLM을 눌러 다시 볼 수도 있다.
+요점: 다음 설명을 누르면 Memory Module을 확대한다.
+
+#### [13] Memory Module
+
+핵심: 이전 시점의 cognition features와 현재 특징으로 긴 이력을 반영한다.
+
+설명: 과거 시점의 cognition features를 저장하고, 현재 특징이 이 이력을 읽는다. 화살표를 한 단계씩 따라간다.
+
+요점: 과거 Qₜ → 현재 hₜ와 concat → memory mₜ → hₜ·mₜ concat 순서다.
+
+#### [14] Memory Module
+
+핵심: 과거 cognition features를 queue Qₜ에 시점별로 저장한다.
+
+설명:
+
+요점: 과거 특징 3묶음은 각각 여러 cognition 벡터를 포함한다.
+
+#### [15] Memory Module
+
+핵심: 과거 queue Qₜ와 현재 cognition features hₜ를 토큰 방향으로 concat한다.
+
+설명:
+
+요점: 과거 기록을 담은 Qₜ와 현재 입력 hₜ를 구분한다.
+
+#### [16] Memory Module
+
+핵심: 현재 특징이 causal attention으로 과거 이력을 읽어 memory features mₜ를 만든다.
+
+설명:
+
+요점: 미래 시점의 정보를 보지 않으며, 과거·현재의 특징을 처리한다.
+
+#### [17] Memory Module
+
+핵심: 현재 hₜ와 memory mₜ를 concat해 MSAT의 C stream으로 전달한다.
+
+설명:
+
+요점: hₜ·mₜ를 이어 붙인 cognition·memory 토큰이 C stream의 입력이 된다.
+
+#### [18] RLDX-1 Architecture
+
+핵심: 이제 cognition·memory와 로봇 상태·센서를 처리하는 MSAT를 살펴본다.
+
+설명: 입력 P/C/A를 먼저 구분하고, Triple-stream → Double-stream → Denoising 순서로 따라간다.
+
+요점: 다음 설명을 누르면 MSAT를 확대한다.
+
+#### [19] MSAT
+
+핵심: 현재 조건과 noisy 미래 후보를 구분하고, stream 사이의 정보 교환을 살펴본다.
+
+설명: 그림은 물리 센서가 있는 경우다. 초반에는 P/C/A, 후반에는 P와 C-A의 두 경로를 사용한다.
+
+요점: P/C/A 입력 → Triple-stream → C-A/P Double-stream → 변화율·반복 갱신
+
+#### [20] MSAT의 입력
+
+핵심: P stream은 현재 센서값과 noisy 미래 센서 후보를 함께 입력받는다.
+
+설명:
+
+요점: 현재 센서값은 조건이고, noisy 미래 센서 신호는 생성할 후보다.
+
+#### [21] MSAT의 입력
+
+핵심: C stream은 hₜ와 mₜ를 토큰 방향으로 concat한 cognition·memory 입력이다.
+
+설명:
+
+요점: C stream의 concat(hₜ,mₜ)는 현재 장면과 긴 이력을 함께 제공한다.
+
+#### [22] MSAT의 입력
+
+핵심: A stream은 현재 로봇 상태와 noisy action chunk를 입력받는다.
+
+설명:
+
+요점: 그림에 생략된 denoising timestep τ도 A stream 앞의 토큰으로 전달된다.
+
+#### [23] MSAT의 블록
+
+핵심: Triple-stream에서 각 stream은 자신의 경로를 유지하며 joint attention으로 정보를 교환한다.
+
+설명:
+
+요점: stream별 Q/K/V → joint attention → 분리 → stream별 residual update
+
+#### [24] MSAT의 블록
+
+핵심: 후반에는 C와 A를 토큰 방향으로 concat하고, P와 C-A의 Double-stream으로 처리한다.
+
+설명:
+
+요점: 초반 residual 덧셈과 후반 C-A concat은 서로 다른 연산이다.
+
+#### [25] MSAT의 행동 생성
+
+핵심: 한 forward에서 예측한 변화율로 미래 후보를 갱신하고 denoising을 반복한다.
+
+설명:
+
+요점: 반복이 끝나면 Future Actions와 Future Signals를 얻는다. 현재 조건은 계속 참조한다.
+
+#### [26] RLDX-1 Architecture
+
+핵심: 영상·언어 → cognition → memory → MSAT → 미래 행동·센서 신호를 연결했다.
+
+설명: Vision Encoder는 움직임, VLM은 행동용 표현, Memory는 긴 이력, MSAT는 조건부 미래 후보 갱신을 담당한다. 네 영역을 눌러 다시 볼 수 있다.
+
+요점: 다음 장부터 Memory·MSAT·행동 생성 원리를 더 자세히 확인한다.
 
 ### 화살표 설명
 
@@ -361,19 +473,83 @@ Fig.3 · PDF p.6; Sec.2.1 · PDF p.7; cognition 추출 층: Table2(a), pp.24–2
 
 #### [vlm-1] 세 종류의 입력 토큰
 
-설명: 영상 토큰 · 언어 토큰 · cognition tokens 64개
+설명: 영상·언어·cognition 토큰을 함께 입력한다.
 
 #### [vlm-2] 초반 1–4층
 
-설명: 여러 프레임을 읽고 시간 맥락을 현재 관측과 cognition에 모은다.
+설명: 여러 프레임 정보를 읽어 시간 맥락을 모은다.
 
-#### [vlm-3] 4층 뒤 · 과거 관측 압축
+#### [vlm-3] 4층 뒤 · 과거 프레임 압축
 
-설명: 과거 hidden states의 평균 → context 1개. 현재·지시·q는 유지한다.
+설명: 과거 프레임 특징을 context token 하나로 압축한다.
 
-#### [vlm-4] 선택한 18층의 q 위치
+#### [vlm-4] 중간층 · cognition 특징 추출
 
-설명: 64개 cognition features hₜ를 행동 모델로 전달한다.
+설명: cognition token 위치의 출력 hₜ를 행동 생성에 전달한다.
+
+#### [memory-1] 과거 cognition features · Qₜ
+
+설명: 이전 시점의 cognition 특징 3묶음을 저장한다.
+
+#### [memory-2] 과거와 현재를 concat
+
+설명: 과거 Qₜ와 현재 hₜ를 토큰 방향으로 이어 붙인다.
+
+#### [memory-3] Causal Transformer → mₜ
+
+설명: 과거 이력을 읽어 memory 특징 mₜ를 만든다.
+
+#### [memory-4] hₜ·mₜ concat → C stream
+
+설명: 두 특징을 이어 붙여 행동 모델에 전달한다.
+
+#### [msat-1] P stream · 물리 센서
+
+설명: 현재 센서 · noisy 미래 센서 후보
+
+#### [msat-2] C stream · cognition·memory
+
+설명: hₜ와 mₜ를 토큰 방향으로 concat
+
+#### [msat-3] A stream · 로봇 상태·행동
+
+설명: 현재 상태 · noisy action chunk
+
+#### [msat-4] Triple-stream · 정보 교환
+
+설명: joint attention 뒤 다시 분리해 각 stream에서 residual로 갱신한다.
+
+#### [msat-5] C-A concat → Double-stream
+
+설명: C와 A를 통합한다. P와 C-A는 계속 정보를 교환한다.
+
+#### [msat-6] 변화율 → Denoising 반복
+
+설명: 조건은 유지, 후보는 반복 갱신. 끝나면 미래 행동·센서 신호를 얻는다.
+
+### 그림 위 표시
+
+#### [vlm-video] 영상 토큰
+
+#### [vlm-language] 언어 토큰
+
+#### [vlm-cognition] cognition tokens · 64개
+
+#### [memory-past] 과거 Qₜ
+
+#### [memory-current] 현재 hₜ
+
+#### [memory-output] mₜ
+
+#### [concat] concat
+
+#### [stream-p] P stream
+
+#### [stream-c] C stream
+
+#### [stream-a] A stream
+
+#### [stream-c-concat] concat(hₜ,mₜ)
 
 ### 상세 공부 기록
 
@@ -455,7 +631,7 @@ $$
 \mathbf{h}_t=F_\theta\bigl([\mathbf{v}_t,\boldsymbol{\ell}_t,\mathbf{q}]\bigr)_{\mathbf{q}\text{ 위치}}
 $$
 
-선택한 Transformer 층에서 **q 위치에 대응하는 출력들**을 $\mathbf{h}_{t}$로 남긴다. 나머지 위치의 출력은 action decoder 전달용으로 버린다. $\mathbf{h}_{t}$는 단일 숫자나 자연어 문장이 아니라 여러 hidden vectors로 이루어진 표현이다.
+선택한 Transformer 층에서 **cognition token 위치에 대응하는 출력들**을 $\mathbf{h}_{t}$로 남긴다. 나머지 위치의 출력은 action decoder 전달용으로 버린다. $\mathbf{h}_{t}$는 단일 숫자나 자연어 문장이 아니라 여러 hidden vectors로 이루어진 표현이다.
 
 <p class="callout">64는 cognition token 수다. 영상 patch token 수나 생성할 action 개수를 뜻하지 않는다.</p>
 
@@ -469,7 +645,7 @@ Sec.2.1 Cognition Tokens · PDF p.7
 
 ##### 발표 메모
 
-수식의 아래첨자 q 위치는 원문을 읽기 쉽게 선택 연산으로 풀어 쓴 표기다. 원문은 $\mathbf{x}=[\mathbf{v}_t,\boldsymbol{\ell}_t,\mathbf{q}]$를 입력하고 cognition token에 대응하는 출력 특징만 남긴다고 명시한다. q를 “무조건 정보를 모두 보존하는 압축”으로 설명하지 않는다. 이때 cognition의 hidden states를 추출하는 층은 S010에서 분리해 설명한다.
+수식의 아래첨자 cognition token 위치는 원문을 읽기 쉽게 선택 연산으로 풀어 쓴 표기다. 원문은 $\mathbf{x}=[\mathbf{v}_t,\boldsymbol{\ell}_t,\mathbf{q}]$를 입력하고 cognition token에 대응하는 출력 특징만 남긴다고 명시한다. q를 “무조건 정보를 모두 보존하는 압축”으로 설명하지 않는다. 이때 cognition의 hidden states를 추출하는 층은 S010에서 분리해 설명한다.
 
 #### [S010] 특징을 추출하는 층
 
@@ -488,7 +664,7 @@ kind: fact
 
 <div class="sequence">
 <div class="step">입력 → 초기 Transformer 층: 시각·언어 특징 처리</div>
-<div class="step"><strong>중간 18층 → q 위치 특징 $\mathbf{h}_{t}$ 추출 → action model</strong></div>
+<div class="step"><strong>중간 18층 → cognition token 위치 특징 $\mathbf{h}_{t}$ 추출 → action model</strong></div>
 <div class="step">더 뒤의 Transformer 층 → 언어 출력 head → 텍스트 예측</div>
 </div>
 
@@ -831,8 +1007,8 @@ kind: fact
 | 표현 | 생성 | 사용 |
 | --- | --- | --- |
 | context token | LLM 4층 뒤<br>과거 관측 평균 | LLM 후속 층의 입력 |
-| $\mathbf{h}_{t}$ cognition | 선택 층의<br>q 위치 출력 | memory와 action model |
-| $\mathbf{m}_{t}$ memory | 과거 h + 현재 h를<br>memory Transformer로 처리 | $\mathbf{h}_{t}$와 함께 action model |
+| $\mathbf{h}_{t}$ cognition | 선택 층의<br>cognition token 위치 출력 | memory와 action model |
+| $\mathbf{m}_{t}$ memory | 과거 Qₜ와 현재 hₜ를 concat해<br>memory Transformer로 처리 | $\mathbf{h}_{t}$와 함께 action model |
 
 ##### 보충
 
@@ -1382,7 +1558,7 @@ kind: fact
 **초반 triple-stream:** 세 경로가 각자의 파라미터로 처리되면서 joint attention을 수행한다.
 
 $$
-\underbrace{\mathbf{C}+\mathbf{A}}_{\text{토큰 통합}}\to\text{C-A}
+\operatorname{concat}(\mathbf{C},\mathbf{A})\to\text{C-A}
 $$
 
 <div class="token-row"><span class="token a">C-A 통합 stream</span><span class="token p">P stream</span></div>
@@ -1477,7 +1653,7 @@ caption: Figure 3 · 원문 구조도: VLM·motion·memory·MSAT와 행동/물�
 <div class="flow">
 <div class="node">영상·지시<br>motion-aware VLM</div>
 <div class="arrow">→</div>
-<div class="node">$\mathbf{h}_{t}$ + memory $\mathbf{m}_{t}$</div>
+<div class="node">$\operatorname{concat}(\mathbf{h}_{t},\mathbf{m}_{t})$<br>cognition·memory 토큰</div>
 <div class="arrow">→</div>
 <div class="node">MSAT<br>행동·센서 변화율</div>
 <div class="arrow">→</div>

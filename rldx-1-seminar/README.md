@@ -2,7 +2,7 @@
 
 아홉 섹션의 Markdown을 직접 편집해 오프라인 HTML 발표를 만든다. 이전 30장 제한은 해제됐으며, 설명의 순서와 단계별 흐름을 우선한다. 본문에 연결된 N 상세 해설에는 공부한 수식·예시·실험 조건·미해결 질문을 보존한다.
 
-MD 입력 연결과 Figure 3 상호작용을 반영한 v04 초안을 만들었다. 실제 검증 결과는 [VALIDATION.md](review/VALIDATION.md), 진행 상태는 [PROGRESS.md](review/PROGRESS.md)를 확인한다. 이전 결과를 새 구현의 검증으로 간주하지 않는다.
+MD 입력 연결과 Figure 3 상호작용을 반영한 v05 초안을 만들었다. 실제 검증 결과는 [VALIDATION.md](review/VALIDATION.md), 진행 상태는 [PROGRESS.md](review/PROGRESS.md)를 확인한다. 이전 결과를 새 구현의 검증으로 간주하지 않는다.
 
 ## 발표 열기
 
@@ -15,7 +15,7 @@ MD 입력 연결과 Figure 3 상호작용을 반영한 v04 초안을 만들었�
 - `G`: 제목·본문 ID·상세 단위 ID로 목차 검색.
 - `N`: 해당 장의 상세 공부 기록과 출처.
 - 일반 그림 클릭: 확대. Esc: 대화상자 닫기 또는 전체 화면 종료. `F`: 전체 화면 전환.
-- Figure 3: Vision Encoder·VLM 영역 확대와 순차 화살표 설명을 적용하는 대상. 화면의 안내와 클릭·방향키로 단계를 탐색하며, 전체 구조로 복귀한다. 13개 설명 단계를 클릭·방향키로 탐색한다.
+- Figure 3: Vision Encoder·VLM·Memory Module·MSAT 네 영역을 클릭해 확대한다. 27개 설명 단계를 방향키·버튼으로 탐색하며, 이전 방향으로도 되돌아간다. 영상·언어·cognition 토큰은 그림 위에 직접 표시한다.
 
 표지는 Fig.1, Architecture overview는 Fig.2, 구조 설명은 Fig.3을 사용한다. 정확한 영어 섹션명·짧은 명사형 제목을 표시하고, 상단 우측 분류 표지는 제거한다. 원문 설명·저자 해석·우리 해석·예시·미해결의 구분은 본문과 출처에 유지한다.
 
@@ -35,7 +35,7 @@ MD 입력 연결과 Figure 3 상호작용을 반영한 v04 초안을 만들었�
 | [08-conclusion.md](sections/08-conclusion.md) | Conclusion |
 | [09-my-opinions-and-limitation.md](sections/09-my-opinions-and-limitation.md) | My opinions and limitation |
 
-`## [P...]` 아래 본문·보충·요점·출처와 연결된 상세 공부 기록을 함께 관리한다. ID와 `source_ids`의 의미를 보존한다. Figure 3의 설명 문구는 Architecture MD의 확대 단계·화살표 설명에서 수정하고, 위치 설정은 [architecture-tour.json](content/architecture-tour.json)에 둔다. 수식은 별도 설명 장을 유지하며, `$...$`·`$$...$$` LaTeX 문법을 KaTeX로 렌더링한다. 한글 글꼴은 HTML에 내장한 나눔고딕이다.
+`## [P...]` 아래 본문·보충·요점·출처와 연결된 상세 공부 기록을 함께 관리한다. ID와 `source_ids`의 의미를 보존한다. Figure 3의 설명 문구는 Architecture MD의 확대 단계·화살표 설명·그림 위 표시에서 수정하고, 위치 설정은 [architecture-tour.json](content/architecture-tour.json)에 둔다. 수식은 별도 설명 장을 유지하며, `$...$`·`$$...$$` LaTeX 문법을 KaTeX로 렌더링한다. 한글 글꼴은 HTML에 내장한 나눔고딕이다.
 
 [scripts/migrate_sections.py](scripts/migrate_sections.py)는 기존 JSON을 아홉 MD로 옮긴 **일회성 마이그레이터**다. 평소 편집·빌드에서 다시 실행하지 않는다. `--force`는 이후 MD 편집을 JSON으로 덮어쓸 수 있다. `content/main-*.json`과 기존 상세 JSON은 마이그레이션 스냅샷으로 남긴다.
 
@@ -49,7 +49,7 @@ python3 scripts/verify_sources.py
 python3 scripts/build_deck.py
 ```
 
-생성기는 MD를 읽어 [slides.md](slides.md), [presentation.html](presentation.html), [deck-manifest.json](content/deck-manifest.json)을 갱신한다. 생성 결과만 직접 고치면 재생성 시 덮어쓰이므로 MD를 수정한다. 표지는 생성기가 Fig.1로 구성한다. 원문 PDF의 참조 위치는 [PROJECT.md](PROJECT.md)에 있다.
+생성기는 MD를 읽어 [slides.md](slides.md), [presentation.html](presentation.html), 게시용 [index.html](index.html), [deck-manifest.json](content/deck-manifest.json)을 갱신한다. 두 HTML은 같은 내용이므로 발표를 수정할 때 index.html을 따로 복사할 필요가 없다. 생성 결과만 직접 고치면 재생성 시 덮어쓰이므로 MD를 수정한다. 표지는 생성기가 Fig.1로 구성한다. 원문 PDF의 참조 위치는 [PROJECT.md](PROJECT.md)에 있다.
 
 Slidev는 정적 배치 검토용이다. Fig.3 상호작용과 G/N을 포함한 발표는 presentation.html을 사용한다. Slidev 개발 화면은 다음으로 연다.
 
@@ -91,3 +91,9 @@ node scripts/verify_pages.mjs
 Canva 작업은 취소됐다. 현재 원본과 결과물은 로컬 Markdown·HTML에서 관리한다. GitHub 저장소 생성·push·Pages 배포는 진행하지 않는다. 게시 준비 자료인 [GITHUB_PAGES.md](deployment/GITHUB_PAGES.md)와 [package_pages.py](scripts/package_pages.py)는 사용자가 직접 게시할 때의 안내·도구다. 이번 v02의 업로드 ZIP까지 로컬에서 준비했으며 실제 업로드·게시 설정은 하지 않았다.
 
 공부 기록·원문·슬라이드 원본·피드백·승인 이력을 보존한다. 삭제나 공개를 자동으로 수행하는 작업은 없다. 이전 30장 구성과 초기 표지의 기록은 [OUTLINE.md](OUTLINE.md), [FEEDBACK.md](review/FEEDBACK.md), `review/versions/`에서 확인할 수 있다.
+
+## v05 그림 설명과 공개 주소
+
+Fig.3은 세 토큰 구간을 직접 표시하고, 과거 프레임 특징의 압축과 중간층 cognition 출력을 설명한다. Memory는 Qₜ와 현재 hₜ → mₜ → concat(hₜ,mₜ) 순서다. MSAT는 P/C/A 입력과 Triple/Double-stream, 변화율·denoising을 나눠 설명한다.
+
+사용자가 게시한 주소는 https://gocleanwater.github.io/research_seminars/rldx-1-seminar/ 이다. 저장소 이름의 끝 s를 포함한다. 이번 로컬 수정은 아직 commit/push하지 않았다. v05의 게시용 index.html은 생성해 두었다.

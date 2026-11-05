@@ -183,3 +183,9 @@ body.deck-app { margin: 0; background: #142b40; overflow: hidden; font-family: '
 
 /* Wider text columns accommodate Nanum Gothic without reducing type size. */
 .seminar-slide .seminar-body.figure.balanced { grid-template-columns: 1fr 1fr; }
+
+/* v05: four module hotspots and figure-local semantic labels. */
+.arch-memory-hotspot { left: 810px; top: 615px; width: 383px; height: 174px; }
+.arch-msat-hotspot { left: 810px; top: 177px; width: 640px; height: 402px; }
+.arch-picture-marks text { font-family: 'Nanum Gothic', sans-serif; font-weight: 700; }
+.architecture-explorer .arch-controls button { padding-left: 9px; padding-right: 9px; }

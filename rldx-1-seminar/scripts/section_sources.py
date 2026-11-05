@@ -7,7 +7,7 @@ import re
 import shutil
 import subprocess
 
-FIELDS = ['한 문장', '본문', '보충', '요점', '출처', '발표 메모', '상세 공부 기록', '확대 단계', '화살표 설명']
+FIELDS = ['한 문장', '본문', '보충', '요점', '출처', '발표 메모', '상세 공부 기록', '확대 단계', '화살표 설명', '그림 위 표시']
 KIND_LABELS = {'fact': '원문 설명·결과', 'authors': '저자 해석', 'interpretation': '우리 해석', 'example': '설명용 예시', 'question': '미해결 질문'}
 STUDY_FIELDS = ['한 문장', '본문', '보충', '요점', '출처', '발표 메모']
 NODE_FALLBACK = '/Users/jungsoo_ko/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin/node'
@@ -135,8 +135,8 @@ def apply_tour_text(tour, page):
             value = re.search(r'^' + label + r':[ \t]*([^\r\n]*)$', match[3], re.M)
             if value:
                 state[key] = value[1].strip()
-    arrows = list(re.finditer(r'^#### \[(vision|vlm)-(\d+)\][ \t]+([^\n]+)\n(.*?)(?=^#### \[|\Z)', parts.get('화살표 설명', ''), re.M | re.S))
-    expected = Counter((scene, index) for scene in ('vision', 'vlm')
+    arrows = list(re.finditer(r'^#### \[(vision|vlm|memory|msat)-(\d+)\][ \t]+([^\n]+)\n(.*?)(?=^#### \[|\Z)', parts.get('화살표 설명', ''), re.M | re.S))
+    expected = Counter((scene, index) for scene in tour['annotations']
                        for index in range(1, len(tour['annotations'][scene]) + 1))
     if Counter((match[1], int(match[2])) for match in arrows) != expected:
         raise ValueError('Markdown arrow IDs do not match tour configuration')
@@ -146,4 +146,9 @@ def apply_tour_text(tour, page):
         value = re.search(r'^설명:[ \t]*([^\r\n]*)$', match[4], re.M)
         if value:
             note['text'] = value[1].strip()
+    labels = list(re.finditer(r'^#### \[([a-z-]+)\][ \t]+([^\n]+)$', parts.get('그림 위 표시', ''), re.M))
+    if {match[1] for match in labels} != set(tour.get('labels', {})):
+        raise ValueError('Markdown overlay label IDs do not match tour configuration')
+    for match in labels:
+        tour['labels'][match[1]]['text'] = match[2].strip()
     return tour

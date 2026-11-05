@@ -1,7 +1,7 @@
 # 프로젝트 설정
 
 - 논문: RLDX-1 Technical Report
-- 상태: PPT 방식의 다음/이전 탐색·역방향 설명 단계 보완 / v04 사용자 검토 대기
+- 상태: P032 네 모듈 확대·직접 토큰 표시·concat 반영 / v05 구현·검증 완료 / 사용자 검토 대기
 - 목적: 전체 맥락의 HTML 발표와 자세한 공부 기록을 함께 유지하고, 사용자 피드백에 따라 장별로 수정
 - 형식: 오프라인 단일 HTML 중심 / Slidev 생성 소스 병행
 - 발표 시간·장수·청중: 별도 제한 없음. 이전 30장 한도는 해제
@@ -10,15 +10,17 @@
 - 마이그레이션: `scripts/migrate_sections.py`는 JSON에서 MD를 처음 만든 일회성 도구. 평소 빌드에서 재실행하지 않음
 - 이전 자료: `content/main-*.json`과 상세 JSON은 마이그레이션 스냅샷으로 보존. 이후 내용 수정은 MD에서 진행
 - 상세 공부 기록: 기존 S002–S122를 연결한 N 해설로 보존. 본문 장수와 상세 단위 수를 일대일 대응하지 않음
-- 결과물: `presentation.html`(오프라인 발표), `slides.md`(Slidev 생성 소스), `review/SLIDE_INDEX.md`(본문·상세 해설 매핑)
+- 결과물: `presentation.html`·`index.html`(동일한 오프라인/게시용 발표), `slides.md`(Slidev 생성 소스), `review/SLIDE_INDEX.md`(본문·상세 해설 매핑)
 - 발표 구성: Fig.1 표지 → Problems → RLDX-1 Architecture(Fig.2 overview, Fig.3 구조) → Training Data → Training Procedure → Inference Strategy → Evaluation and Analysis → Ablation and Analysis → Conclusion → My opinions and limitation
-- Figure 3: Vision Encoder·VLM에 클릭·방향키 기반 확대/복귀와 순차 화살표 설명. 수식은 별도 장에서 설명
+- Figure 3: 전체 그림 → Vision Encoder·VLM·Memory Module·MSAT 네 모듈 확대/복귀와 순차 화살표 설명. 버튼·좌우 방향키와 기존 PPT 조작 유지. 수식은 별도 장에서 설명
+- P032 v05: video·language·cognition(64) 토큰 범위를 그림에 묶음 괄호·화살표로 표시, 과거 프레임 → context 1개에 ‘압축’ 명시. 본문은 ‘중간층’과 ‘cognition token 위치의 출력 특징을 행동 생성을 위해 전달’, 18층 사실은 상세 해설에 보존
+- Memory 최신 정정: `C = concat(h_t, m_t)`로 토큰 축 연결 표시. MSAT velocity 예측과 최종 clean action chunk는 구분해 설명. 원문 대조 및 27개 설명 상태·기본30개 화면 검증 완료
 - 제목·표지: 정확한 영어 섹션명과 짧은 명사형 제목. 상단 우측 분류 표지는 제거
 - 시각 자료: 원문 그림을 사용하며 그래프는 원문 이미지 또는 Chart.js 사용 가능
 - 디자인 참고: Gravity PDF·kahadra/10.30 중심, 사용자의 U-Net 발표는 보조. `review/REFERENCE_REVIEW.md` 참고
 - 수식·글꼴: Markdown LaTeX → KaTeX, 나눔고딕 3종 내장. 글꼴 설치·CDN 연결 없이 표시
 - Canva: 작업 취소. 로컬 Markdown·HTML을 수정
-- 공개: GitHub 저장소 생성·push·Pages 배포 수행하지 않음. 사용자가 직접 게시할 때의 안내는 `deployment/GITHUB_PAGES.md`
+- 공개: 현재 사이트 https://gocleanwater.github.io/research_seminars/rldx-1-seminar/ (research_seminars, 복수형 경로). 사용자가 직접 게시하며 이 작업에서 GitHub 저장소 생성·push·Pages 배포 수행하지 않음. 사용자가 직접 게시할 때의 안내는 `deployment/GITHUB_PAGES.md`
 - 승인: 전체 제작·수정 요청과 개별 장 승인 구분. 과거 목차 승인 이외의 승인을 추정하지 않음
 - 원문: `../../research_wiki/papers/RLWRLD-RLDX-1 Technical Report.pdf`
 - 공부 기록: `../../research_wiki/RLDX-1_질문노트.md`

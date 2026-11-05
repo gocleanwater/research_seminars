@@ -3,6 +3,8 @@ import path from 'node:path';
 import assert from 'node:assert/strict';
 import {pathToFileURL} from 'node:url';
 import {chromium} from 'playwright-chromium';
+const version=JSON.parse(fs.readFileSync('content/deck-manifest.json','utf8'))[0].version;
+fs.mkdirSync(`review/previews/deck-${version}`,{recursive:true});
 const browser=await chromium.launch({headless:true,executablePath:'/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'});
 const page=await browser.newPage({viewport:{width:1280,height:720}});
 const errors=[],external=[];
@@ -26,7 +28,7 @@ try{
   assert.equal(await page.locator('.katex-error').count(),0);
   const annotations=await page.locator('.deck-page.active annotation').allTextContents();
   assert(annotations.some(t=>t.includes('\\lVert')&&t.includes('\\rVert_2^2')),'loss norm and square must remain explicit LaTeX');
-  await page.locator('.deck-page.active').screenshot({path:'review/previews/deck-v03/math-loss-v03.png'});
+  await page.locator('.deck-page.active').screenshot({path:`review/previews/deck-${version}/math-loss-${version}.png`});
   await page.keyboard.press('n');
   assert(await page.locator('#notes-text .katex').count()>0,'detail notes must typeset math');
   await page.evaluate(()=>document.fonts.ready);

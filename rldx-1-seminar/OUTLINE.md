@@ -1,6 +1,6 @@
 # 전체 목차
 
-상태: **페이지 수 제한 해제 / 9개 섹션 MD 편집 원본 / 인터랙션·생성 흐름 검증 완료 / v02 검토 대기**
+상태: **페이지 수 제한 없음 / 9개 섹션 MD 편집 원본 / P032 v05 피드백 반영·검증 진행 중 / 결과물 미승인**
 업데이트: 2026-11-05
 
 관련 설명을 자연스럽게 연결하되 화살표·단계 설명을 위해 필요한 화면 수를 제한하지 않는다. 본문과 상세 공부 기록은 아홉 `sections/*.md`에서 편집한다. 전체 제작·수정 허가는 개별 장의 결과물 승인과 구분한다.
@@ -21,7 +21,17 @@ Fig.1을 사용하는 표지 뒤에 아래 섹션을 따른다. 섹션명은 영
 | [08-conclusion.md](sections/08-conclusion.md) | Conclusion | P029 |
 | [09-my-opinions-and-limitation.md](sections/09-my-opinions-and-limitation.md) | My opinions and limitation | P028, P030 |
 
-Architecture는 Fig.2로 입출력 overview를 보여준 뒤 Fig.3의 전체 구조를 설명한다. Fig.3은 Vision Encoder·VLM에만 클릭·방향키 기반 확대/복귀와 순차 화살표 설명을 적용한다. Flow matching·학습·추론 수식은 별도 장에서 다룬다. 장 ID와 화면 순서는 분리하고, 새 설명을 추가할 때 기존 ID의 의미를 바꾸지 않는다.
+Architecture는 Fig.2로 입출력 overview를 보여준 뒤 Fig.3의 전체 구조를 설명한다. Fig.3은 전체 그림을 보여준 뒤 Vision Encoder·VLM·Memory Module·MSAT 네 모듈에 클릭·방향키 기반 확대/복귀와 순차 화살표 설명을 적용한다. 단계 버튼과 좌우 방향키로 전진·후진하며 기존 PPT 조작을 유지한다. Flow matching·학습·추론 수식은 별도 장에서 다룬다. 장 ID와 화면 순서는 분리하고, 새 설명을 추가할 때 기존 ID의 의미를 바꾸지 않는다.
+
+## P032 v05 반영 계획 — 진행 중
+
+1. VLM 토큰 구간 video·language·cognition(64)을 그림에 직접 묶음 괄호(underbrace)와 화살표로 표시한다. 사용자의 추가 주석 참조 그림을 배치 참고로 사용한다.
+2. 과거 프레임 → context token 1개에 ‘압축’을 명시한다.
+3. 본문은 ‘중간층’과 ‘cognition token 위치의 출력 특징을 행동 생성을 위해 전달’로 설명하고, 구체적인 18층 사실은 N 상세 해설에 보존한다.
+4. 전체 그림 → 확대 → 주석 → 전체 복귀를 Memory Module까지 확장한다. Memory는 최신 정정에 따라 `C = concat(h_t, m_t)`로 토큰 축 연결을 표시한다.
+5. 같은 확대·화살표 설명을 MSAT까지 확장한다. MSAT의 velocity 예측은 반복 denoising 후의 최종 clean action chunk와 구분한다.
+
+버튼·좌우 방향키와 기존 PPT 조작을 유지하며 설명에 필요한 페이지·단계를 제한하지 않는다. 실제 구현·화면 검증 완료 및 사용자 승인은 별도 기록한다.
 
 ## 편집과 보존
 
