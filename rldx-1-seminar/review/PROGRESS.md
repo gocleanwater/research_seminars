@@ -1,68 +1,80 @@
 # 슬라이드 제작 진행 상황
 
-- 업데이트: 2026-11-06 / v14
-- 현재 단계: 합성 영상·IDM 행동·시뮬레이터 rollout·두 영상 비교를 그림으로 설명 / 자동 게시.
-- 구성: 기본40장(표지+본문39장), P032 내부27상태·18화살표 유지.
+- 업데이트: 2026-11-06 / v15
+- 현재 단계: Fig.3 뒤 Vision Encoder·Motion·VLM·VQA·Memory 설명12장 추가 / 자동 게시.
+- 구성: 기본52장(표지+본문51장), P032 내부27상태·18화살표 유지.
 - 원본: 9개 섹션 MD. S002–S122의121개 상세 단위는 각각 한 번 연결되며 통합 전과 내용이 같다.
 - 통합: P005→P032, P007→P006, P011→P032/P036, P021→P038. P012→P009/P010의 기존 통합도 유지한다.
-- 흐름: Fig.3→MSAT 입력→내부 연산→학습 원리→추론 갱신→데이터 종류→공개→자체→합성→학습→실행 최적화→평가/분석→결론→의견/미해결.
+- 흐름: Fig.3→Vision·Motion·VLM/VQA·cognition·시간 압축·Memory→MSAT 입력→내부 연산→학습 원리→추론 갱신→데이터→학습→실행 최적화→평가/분석→결론→의견/미해결.
 - 원리와 검증은 분리 유지. Conclusion의 기여 반복을 줄이고 의견은 PEFT/BoN의 적용 조건에 집중한다.
 - 원본 기록 보존: review/versions/before-dedup-v07/; 통합 근거와 계획: review/DEDUPLICATION.md.
-- 게시 정책: 수정·검증 후 추가 확인 없이 commit·push한다. 변경 전 v10은 Git 태그로 보존하며 review/ROLLBACK.md에서 확인·복구 방법을 설명한다.
-- 승인: 수정 요청과 결과물 개별 승인을 구분한다. v14는 검토 전이다.
+- 게시 정책: 수정·검증 후 추가 확인 없이 commit·push한다. 변경 전 상태는 Git 태그로 보존하며 review/ROLLBACK.md에서 확인·복구 방법을 설명한다.
+- 승인: 수정 요청과 결과물 개별 승인을 구분한다. v15는 검토 전이다.
 
 ## 검증
 
-- 이번 변경은 원문 PDF pp.10–12·42와 기존 합성 데이터 MD를 대조했다. Rollout의 생성 과정과 두 영상 비교를 먼저 설명한다.
+- 이번 변경은 원문 PDF pp.6–8·13·25와 기존 S008–S019 및 질문노트 Q4/Q5를 대조했다. VQA는 기존 N 해설에서 본문으로 꺼내 설명한다.
 - 121개 상세 단위의 제목·내용은 수정 전 지문과 동일하며 각각 정확히 한 번 연결된다.
-- 실제40장 PNG: 넘침0·이미지 오류0·브라우저 오류0·외부 HTTP요청0. 새 검증 화면4장을 직접 확인했다.
-- PPT키·역순·번호 입력·퇴역링크·이동된해설·KaTeX·Arial·한글 대체 글꼴 검증 통과. 기존 Fig.3은 유지했다.
+- 실제52장 PNG: 넘침0·이미지 오류0·브라우저 오류0·외부 HTTP요청0. 새 설명12장을 직접 확인했다.
+- PPT키·역순·번호 입력·퇴역링크·이동된해설·KaTeX·Arial·한글 대체 글꼴 및 Fig.3의27상태 검증 통과.
 - 기본/base 빌드와 게시패키지 검증 결과 및 한계는 review/VALIDATION.md에 기록한다.
 
 ## 기본 화면
 
 | 순서 | ID | 제목 | 버전 | 상태 | PNG |
 | --- | --- | --- | --- | --- | --- |
-| 1 | S001 | RLDX-1 Technical Report | v14 | 검토 전 | review/previews/deck-v14/S001-v14.png |
-| 2 | P002 | 기존 VLA의 문제 | v14 | 검토 전 | review/previews/deck-v14/P002-v14.png |
-| 3 | P031 | RLDX-1 Overview | v14 | 검토 전 | review/previews/deck-v14/P031-v14.png |
-| 4 | P032 | RLDX-1 Architecture | v14 | 검토 전 | review/previews/deck-v14/P032-v14.png |
-| 5 | P009 | MSAT의 입력 | v14 | 검토 전 | review/previews/deck-v14/P009-v14.png |
-| 6 | P010 | MSAT의 Joint Attention | v14 | 검토 전 | review/previews/deck-v14/P010-v14.png |
-| 7 | P006 | Action Model의 학습 원리 | v14 | 검토 전 | review/previews/deck-v14/P006-v14.png |
-| 8 | P008 | Action Model의 추론 수식 | v14 | 검토 전 | review/previews/deck-v14/P008-v14.png |
-| 9 | P013 | 학습 데이터 | v14 | 검토 전 | review/previews/deck-v14/P013-v14.png |
-| 10 | P033 | 공개 실제 데이터 | v14 | 검토 전 | review/previews/deck-v14/P033-v14.png |
-| 11 | P034 | 자체 실제 데이터 | v14 | 검토 전 | review/previews/deck-v14/P034-v14.png |
-| 12 | P014 | Task·Scene Augmentation | v14 | 검토 전 | review/previews/deck-v14/P014-v14.png |
-| 13 | P045 | 영상 품질 검사 | v14 | 검토 전 | review/previews/deck-v14/P045-v14.png |
-| 14 | P015 | 합성 데이터 검증 | v14 | 검토 전 | review/previews/deck-v14/P015-v14.png |
-| 15 | P046 | 움직임 일치 검사 | v14 | 검토 전 | review/previews/deck-v14/P046-v14.png |
-| 16 | P047 | 일치 검사기의 학습 | v14 | 검토 전 | review/previews/deck-v14/P047-v14.png |
-| 17 | P035 | 학습 단계 | v14 | 검토 전 | review/previews/deck-v14/P035-v14.png |
-| 18 | P016 | Pre-training | v14 | 검토 전 | review/previews/deck-v14/P016-v14.png |
-| 19 | P036 | 로봇별 입출력 경로 | v14 | 검토 전 | review/previews/deck-v14/P036-v14.png |
-| 20 | P017 | Mid-training | v14 | 검토 전 | review/previews/deck-v14/P017-v14.png |
-| 21 | P018 | Post-training | v14 | 검토 전 | review/previews/deck-v14/P018-v14.png |
-| 22 | P019 | RECAP | v14 | 검토 전 | review/previews/deck-v14/P019-v14.png |
-| 23 | P037 | Critic과 Figure 8 | v14 | 검토 전 | review/previews/deck-v14/P037-v14.png |
-| 24 | P020 | CUDA Graph | v14 | 검토 전 | review/previews/deck-v14/P020-v14.png |
-| 25 | P038 | Kernel Fusion | v14 | 검토 전 | review/previews/deck-v14/P038-v14.png |
-| 26 | P039 | Kernel Fusion의 계산 | v14 | 검토 전 | review/previews/deck-v14/P039-v14.png |
-| 27 | P040 | 시뮬레이션 벤치마크 | v14 | 검토 전 | review/previews/deck-v14/P040-v14.png |
-| 28 | P022 | Simulation 결과 | v14 | 검토 전 | review/previews/deck-v14/P022-v14.png |
-| 29 | P041 | 실제 로봇 | v14 | 검토 전 | review/previews/deck-v14/P041-v14.png |
-| 30 | P042 | OpenArm 과제 | v14 | 검토 전 | review/previews/deck-v14/P042-v14.png |
-| 31 | P023 | OpenArm 결과 | v14 | 검토 전 | review/previews/deck-v14/P023-v14.png |
-| 32 | P043 | ALLEX 과제 | v14 | 검토 전 | review/previews/deck-v14/P043-v14.png |
-| 33 | P024 | ALLEX 결과 | v14 | 검토 전 | review/previews/deck-v14/P024-v14.png |
-| 34 | P044 | Franka 과제 | v14 | 검토 전 | review/previews/deck-v14/P044-v14.png |
-| 35 | P025 | Franka 결과 | v14 | 검토 전 | review/previews/deck-v14/P025-v14.png |
-| 36 | P026 | Ablation | v14 | 검토 전 | review/previews/deck-v14/P026-v14.png |
-| 37 | P027 | RL·추론 지연 분석 | v14 | 검토 전 | review/previews/deck-v14/P027-v14.png |
-| 38 | P029 | Conclusion | v14 | 검토 전 | review/previews/deck-v14/P029-v14.png |
-| 39 | P028 | 나의 의견 | v14 | 검토 전 | review/previews/deck-v14/P028-v14.png |
-| 40 | P030 | 한계와 미해결 질문 | v14 | 검토 전 | review/previews/deck-v14/P030-v14.png |
+| 1 | S001 | RLDX-1 Technical Report | v15 | 검토 전 | review/previews/deck-v15/S001-v15.png |
+| 2 | P002 | 기존 VLA의 문제 | v15 | 검토 전 | review/previews/deck-v15/P002-v15.png |
+| 3 | P031 | RLDX-1 Overview | v15 | 검토 전 | review/previews/deck-v15/P031-v15.png |
+| 4 | P032 | RLDX-1 Architecture | v15 | 검토 전 | review/previews/deck-v15/P032-v15.png |
+| 5 | P048 | Vision Encoder | v15 | 검토 전 | review/previews/deck-v15/P048-v15.png |
+| 6 | P049 | Motion Module | v15 | 검토 전 | review/previews/deck-v15/P049-v15.png |
+| 7 | P050 | Motion Module의 Residual | v15 | 검토 전 | review/previews/deck-v15/P050-v15.png |
+| 8 | P051 | VLM과 로봇 VQA | v15 | 검토 전 | review/previews/deck-v15/P051-v15.png |
+| 9 | P052 | Cognition Tokens | v15 | 검토 전 | review/previews/deck-v15/P052-v15.png |
+| 10 | P053 | Cognition Features의 추출 | v15 | 검토 전 | review/previews/deck-v15/P053-v15.png |
+| 11 | P054 | VLM의 시간 정보 | v15 | 검토 전 | review/previews/deck-v15/P054-v15.png |
+| 12 | P055 | 과거 프레임 압축 | v15 | 검토 전 | review/previews/deck-v15/P055-v15.png |
+| 13 | P056 | Memory Module | v15 | 검토 전 | review/previews/deck-v15/P056-v15.png |
+| 14 | P057 | Memory Module의 계산 | v15 | 검토 전 | review/previews/deck-v15/P057-v15.png |
+| 15 | P058 | Memory의 시간 범위 | v15 | 검토 전 | review/previews/deck-v15/P058-v15.png |
+| 16 | P059 | Context·Cognition·Memory | v15 | 검토 전 | review/previews/deck-v15/P059-v15.png |
+| 17 | P009 | MSAT의 입력 | v15 | 검토 전 | review/previews/deck-v15/P009-v15.png |
+| 18 | P010 | MSAT의 Joint Attention | v15 | 검토 전 | review/previews/deck-v15/P010-v15.png |
+| 19 | P006 | Action Model의 학습 원리 | v15 | 검토 전 | review/previews/deck-v15/P006-v15.png |
+| 20 | P008 | Action Model의 추론 수식 | v15 | 검토 전 | review/previews/deck-v15/P008-v15.png |
+| 21 | P013 | 학습 데이터 | v15 | 검토 전 | review/previews/deck-v15/P013-v15.png |
+| 22 | P033 | 공개 실제 데이터 | v15 | 검토 전 | review/previews/deck-v15/P033-v15.png |
+| 23 | P034 | 자체 실제 데이터 | v15 | 검토 전 | review/previews/deck-v15/P034-v15.png |
+| 24 | P014 | Task·Scene Augmentation | v15 | 검토 전 | review/previews/deck-v15/P014-v15.png |
+| 25 | P045 | 영상 품질 검사 | v15 | 검토 전 | review/previews/deck-v15/P045-v15.png |
+| 26 | P015 | 합성 데이터 검증 | v15 | 검토 전 | review/previews/deck-v15/P015-v15.png |
+| 27 | P046 | 움직임 일치 검사 | v15 | 검토 전 | review/previews/deck-v15/P046-v15.png |
+| 28 | P047 | 일치 검사기의 학습 | v15 | 검토 전 | review/previews/deck-v15/P047-v15.png |
+| 29 | P035 | 학습 단계 | v15 | 검토 전 | review/previews/deck-v15/P035-v15.png |
+| 30 | P016 | Pre-training | v15 | 검토 전 | review/previews/deck-v15/P016-v15.png |
+| 31 | P036 | 로봇별 입출력 경로 | v15 | 검토 전 | review/previews/deck-v15/P036-v15.png |
+| 32 | P017 | Mid-training | v15 | 검토 전 | review/previews/deck-v15/P017-v15.png |
+| 33 | P018 | Post-training | v15 | 검토 전 | review/previews/deck-v15/P018-v15.png |
+| 34 | P019 | RECAP | v15 | 검토 전 | review/previews/deck-v15/P019-v15.png |
+| 35 | P037 | Critic과 Figure 8 | v15 | 검토 전 | review/previews/deck-v15/P037-v15.png |
+| 36 | P020 | CUDA Graph | v15 | 검토 전 | review/previews/deck-v15/P020-v15.png |
+| 37 | P038 | Kernel Fusion | v15 | 검토 전 | review/previews/deck-v15/P038-v15.png |
+| 38 | P039 | Kernel Fusion의 계산 | v15 | 검토 전 | review/previews/deck-v15/P039-v15.png |
+| 39 | P040 | 시뮬레이션 벤치마크 | v15 | 검토 전 | review/previews/deck-v15/P040-v15.png |
+| 40 | P022 | Simulation 결과 | v15 | 검토 전 | review/previews/deck-v15/P022-v15.png |
+| 41 | P041 | 실제 로봇 | v15 | 검토 전 | review/previews/deck-v15/P041-v15.png |
+| 42 | P042 | OpenArm 과제 | v15 | 검토 전 | review/previews/deck-v15/P042-v15.png |
+| 43 | P023 | OpenArm 결과 | v15 | 검토 전 | review/previews/deck-v15/P023-v15.png |
+| 44 | P043 | ALLEX 과제 | v15 | 검토 전 | review/previews/deck-v15/P043-v15.png |
+| 45 | P024 | ALLEX 결과 | v15 | 검토 전 | review/previews/deck-v15/P024-v15.png |
+| 46 | P044 | Franka 과제 | v15 | 검토 전 | review/previews/deck-v15/P044-v15.png |
+| 47 | P025 | Franka 결과 | v15 | 검토 전 | review/previews/deck-v15/P025-v15.png |
+| 48 | P026 | Ablation | v15 | 검토 전 | review/previews/deck-v15/P026-v15.png |
+| 49 | P027 | RL·추론 지연 분석 | v15 | 검토 전 | review/previews/deck-v15/P027-v15.png |
+| 50 | P029 | Conclusion | v15 | 검토 전 | review/previews/deck-v15/P029-v15.png |
+| 51 | P028 | 나의 의견 | v15 | 검토 전 | review/previews/deck-v15/P028-v15.png |
+| 52 | P030 | 한계와 미해결 질문 | v15 | 검토 전 | review/previews/deck-v15/P030-v15.png |
 
 Fig.3의 실제 상태 PNG는 review/previews/architecture-v13/step-00.png–step-26.png다. 세 토큰은08, VLM은11, Memory는17, MSAT입력은22, 처리·출력은25에서 볼 수 있다.
 

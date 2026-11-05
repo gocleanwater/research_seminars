@@ -58,7 +58,7 @@ try{
     await page.locator('.deck-page.active').screenshot({path:path.join(out,`step-${String(index).padStart(2,'0')}.png`)});
     await page.keyboard.press('ArrowRight');
   }
-  assert.equal(await page.locator('.deck-page.active').getAttribute('data-id'),'P009');
+  assert.equal(await page.locator('.deck-page.active').getAttribute('data-id'),'P048');
   await page.keyboard.press('ArrowLeft');assert.equal(await explorer.getAttribute('data-state'),String(tour.states.length-1));
   for(let i=tour.states.length-2;i>=0;i--){await page.keyboard.press('ArrowLeft');assert.equal(await explorer.getAttribute('data-state'),String(i));}
   await page.keyboard.press('ArrowLeft');assert.equal(await page.locator('.deck-page.active').getAttribute('data-id'),'P031');
@@ -79,7 +79,7 @@ try{
   await page.waitForTimeout(800);
   await page.emulateMedia({reducedMotion:'reduce'});
   assert.equal(await page.locator('.arch-camera').evaluate(el=>getComputedStyle(el).transitionDuration),'0s');
-  await page.keyboard.press('n');assert.equal(await page.locator('#notes[open]').count(),1);assert.match(await page.locator('#notes-text').innerText(),/S008/);
+  await page.keyboard.press('n');assert.equal(await page.locator('#notes[open]').count(),1);assert.match(await page.locator('#notes-text').innerText(),/S040/);
   await page.keyboard.press('Escape');assert.equal(await page.locator('.header-kind').count(),0);assert.deepEqual(errors,[]);
   fs.writeFileSync('qa/full-deck/architecture-report.json',JSON.stringify({states:tour.states.length,arrows:Object.values(tour.annotations).reduce((n,items)=>n+items.length,0),modules:Object.keys(tour.focus),directTokenLabels:true,concat:true,bounds:true,keyboardReverse:true,hotspots:true,animation:true,reducedMotion:true,errors},null,2));
   console.log(`PASS: ${tour.states.length} states, four module zooms, token labels, concat, forward/reverse, bounds, animation/reduced motion.`);

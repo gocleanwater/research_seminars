@@ -19,8 +19,8 @@ try{
   await pageNumber.click();await page.keyboard.type('5');
   assert.equal(await pageNumber.inputValue(),'5','focusing selects the existing number for replacement');
   assert.equal(await active(),'S001','editing alone does not navigate');
-  await page.keyboard.press('Enter');assert.equal(await active(),'P009');
-  assert.equal(new URL(page.url()).hash,'#P009');
+  await page.keyboard.press('Enter');assert.equal(await active(),'P048');
+  assert.equal(new URL(page.url()).hash,'#P048');
   assert.notEqual(await page.evaluate(()=>document.activeElement?.id),'page-number');
   async function jump(value){await pageNumber.fill(value);await pageNumber.press('Enter');}
   await jump('4');assert.equal(await active(),'P032');
@@ -73,7 +73,7 @@ try{
   await page.locator('#stage').click({position:{x:50,y:30}});
   assert.equal(await page.locator('.architecture-explorer').getAttribute('data-state'),'1');
   for(let i=1;i<tourLength;i++)await page.keyboard.press('ArrowRight');
-  assert.equal(await active(),'P009');
+  assert.equal(await active(),'P048');
   await page.keyboard.press('ArrowLeft');assert.equal(await active(),'P032');
   assert.equal(await page.locator('.architecture-explorer').getAttribute('data-state'),String(tourLength-1));
   for(let i=tourLength-2;i>=0;i--){await page.keyboard.press('ArrowLeft');assert.equal(await page.locator('.architecture-explorer').getAttribute('data-state'),String(i));}
@@ -111,6 +111,9 @@ try{
     await page.keyboard.press('Escape');
     assert.equal(await page.locator(`.deck-page[data-id="${oldId}"]`).count(),0);
   }
+  // Visual and language representations are explained between the overview and MSAT.
+  await show('P048');
+  for(const id of ['P049','P050','P051','P052','P053','P054','P055','P056','P057','P058','P059','P009']){await page.keyboard.press('ArrowRight');assert.equal(await active(),id);}
   // Architecture structure precedes its learning/inference equations.
   await show('P009');
   for(const id of ['P010','P006','P008','P013']){await page.keyboard.press('ArrowRight');assert.equal(await active(),id);}

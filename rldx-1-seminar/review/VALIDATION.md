@@ -1,5 +1,20 @@
 # v09 페이지 번호 입력 검증 — 2026-11-06
 
+## 2026-11-06 / v15 / Vision·VLM·Memory 본문 설명
+
+- 요청: VQA가 발표에 들어 있는지 확인하고 기존4페이지 Fig.3과5페이지 MSAT 사이에 Vision Encoder·Motion Module·VLM·Memory Module 설명을 추가할 것.
+- 대조 근거: 원문 Sec.2.1 PDF pp.6–7, Sec.2.2 p.8, 실제 frame offset·STSS 추가·memory 설정 p.13, 중간층/VQA 검증 Table2 p.25, 기존 S008–S019 및 질문노트 Q4/Q5. VQA는 기존 S008 N 해설에 있었지만 별도 발표 본문 설명이 부족했음을 확인했다.
+- 구성: 새 P048–P059를5–16페이지에 삽입했다. Vision Encoder/4시점 관측 → STSS → residual 수식 → VLM·로봇 VQA3범주 → cognition tokens → 중간층 출력 선택 수식 → causal 시간 처리 → 과거 평균 압축 → Memory 구조 → Memory 계산/입력256개 벡터 → 저장 간격·미해결 → context/cognition/memory 구별. 기존 MSAT는17페이지부터 이어진다.
+- 사실/해설 구별: VQA 예시 질문은 실제 prompt 인용으로 표시하지 않는다. 중간층과 cognition 위치 선택 식은 해설용 표기로 표시한다. Memory 입력의 과거192+현재64=256은 계산한 입력 벡터 수이며 m_t 출력 token 수로 확대하지 않는다. H/H+1 차이와 cache 갱신·초기화 미명세는 유지한다.
+- 보존: 변경 전 태그 `rldx-v14-before-vlm-memory-explanation-20261106`와121개 상세 단위를 추출 비교해 바깥 공백을 제외한 전체 내용이 동일함을 확인했다.11개 단위는 새 본문 장으로 옮기고 S016은 기존 P005→P032 링크 호환을 위해 P032 해설에 유지했다. 새 본문을 추가해52장이 됐으며 기존 ID를 재사용하지 않았다.
+- 원문 그림: Fig.3의 Vision/Memory 영역을 CSS로 보여 준다. 원본 PNG는 변경하지 않았고 원문의 연결 기호를 유지한다. 최초 crop에 걸친 다른 모듈의 글자를 확인해 범위를 조정한 뒤 다시 실제 PNG를 확인했다.
+- 소스/화면: `python3 scripts/build_deck.py`, `python3 scripts/verify_sources.py`, `node scripts/verify_deck.mjs` 통과.52개 기본 PNG에서 넘침·이미지 실패·브라우저 오류·외부 요청0. P048–P059 실제 PNG12장을 직접 확인했으며 글자 크기를 줄이지 않았다.
+- 조작: `node scripts/verify_navigation.mjs`와 `node scripts/verify_architecture.mjs` 통과.5페이지 번호 입력은 새 Vision Encoder로 이동한다. Fig.3 마지막 단계 다음은 P048이며 역방향은 Fig.3 마지막 단계로 복귀한다. 새12장→MSAT 순서,27개 내부 상태·4모듈·18화살표, 기존 별칭·이동된 해설·번호 입력·대화상자·전체화면을 확인했다.
+- 수식/글꼴: `node scripts/verify_math_font.mjs` 통과. Arial 영문/한글 대체 글꼴·내장 Nanum·KaTeX·전체 상세 해설의 수식 너비를 확인했다. 새 본문 수식도52장 기본 화면의 DOM 경계와 실제 PNG에서 확인했다.
+- 빌드: 기본 `pnpm build`와 `pnpm build --base /rldx-1-seminar/` 통과. `node scripts/verify_slidev.mjs`에서52장·브라우저 오류0·실패0.
+- 게시: `python3 scripts/package_pages.py`, `node scripts/verify_pages.mjs` 통과. repository 하위 경로·랜딩·표지·Fig.3·해설을 확인했고 외부 요청0. presentation/index/게시 index 동일성 및 `git diff --check` 통과.
+- 수정·검증 후 자동 게시 지시에 따라 관련 파일과 보존 태그를 commit·push한다. 사용자 결과물 승인 및 GitHub Pages 실제 배포 완료는 별도 확인 전이다.
+
 ## 2026-11-06 / v14 / 합성 영상과 rollout 비교
 
 - 요청: P015에서 rollout 영상의 생성 과정과 원래 합성 영상과의 비교가 보이지 않아 어렵다는 피드백. 실제 원문 Sec.3.3 PDF pp.10–12 및 App.B.3 p.42와 질문노트 Q2를 대조했다.

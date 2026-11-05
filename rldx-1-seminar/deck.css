@@ -203,6 +203,16 @@ body.deck-app { margin: 0; background: #142b40; overflow: hidden; font-family: A
 .robot-glossary { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
 .robot-glossary p { margin: 0; }
 
+/* Figure 3 source fragments for the detailed architecture explanations. */
+.architecture-crop-figure { height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; background: white; }
+.architecture-crop { position: relative; overflow: hidden; flex: none; }
+.architecture-crop img { position: absolute; max-width: none; cursor: zoom-in; }
+.architecture-crop.vision-crop { width: 310px; height: 330px; }
+.architecture-crop.vision-crop img { width: 1048px; height: 609px; left: -10px; top: -28px; }
+.architecture-crop.memory-crop { width: 480px; height: 288px; }
+.architecture-crop.memory-crop img { width: 1796.4px; height: 1044px; left: -962.4px; top: -696px; }
+.architecture-crop-figure figcaption { margin-top: 12px; font-size: 17px; line-height: 1.4; color: #5c707d; }
+
 /* P015: trace a generated video through actions to a second, simulated video. */
 .rollout-diagram { position: relative; width: 100%; height: 420px; }
 .rollout-connectors { position: absolute; inset: 0; width: 100%; height: 420px; pointer-events: none; }

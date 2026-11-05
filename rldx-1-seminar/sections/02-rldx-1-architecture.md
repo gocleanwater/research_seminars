@@ -210,7 +210,7 @@ Sec.1.1, Fig.2 · PDF p.5
 <!-- slide-meta
 layout: explorer
 kind: fact
-source_ids: S008, S009, S010, S011, S012, S013, S014, S015, S016, S017, S018, S019, S035, S040
+source_ids: S016, S035, S040
 -->
 
 ### 한 문장
@@ -233,7 +233,7 @@ Fig.3 · PDF p.6; Sec.2.1–2.2 · PDF pp.7–9; 추출 층 비교: Table2(a), p
 
 ### 발표 메모
 
-그림은 시각적 요약이다. Vision Encoder는27층 중9층 뒤에 motion module을 삽입한다. LLM에서는4층 뒤에 과거 관측을 압축한다. 화면은 중간층이라고 설명하며, 실제18층 선택과 비교 실험은 연결된 상세 해설에 보존한다. Memory는 과거 Qₜ와 현재 hₜ를 concat해 mₜ를 만들고, hₜ·mₜ를 concat한 토큰을 C stream에 제공한다. MSAT는 초반 stream별 residual과 후반 C-A concat을 구분하며, 한 forward의 변화율로 미래 후보를 반복 갱신한다. Memory 구조와 stream 전환은 이 확대 설명에서 마무리한다. 다음 P009–P010에서 입력과 내부 연산을 살펴본 뒤 P006–P008에서 학습 변화율과 추론 갱신 수식을 연결한다. 로봇별 projection은 P016의 공통·전용 경로와 함께 설명한다. 약30% 깊이의 동기를 모든 설정에서 최적이라는 실험 결과로 과장하지 않는다.
+그림은 시각적 요약이다. Vision Encoder는27층 중9층 뒤에 motion module을 삽입한다. LLM에서는4층 뒤에 과거 관측을 압축한다. 화면은 중간층이라고 설명하며, 실제18층 선택과 비교 실험은 연결된 상세 해설에 보존한다. Memory는 과거 Qₜ와 현재 hₜ를 concat해 mₜ를 만들고, hₜ·mₜ를 concat한 토큰을 C stream에 제공한다. MSAT는 초반 stream별 residual과 후반 C-A concat을 구분하며, 한 forward의 변화율로 미래 후보를 반복 갱신한다. 전체 지도 뒤 P048–P059에서 Vision Encoder·Motion·로봇 VQA·cognition·시간 압축·Memory를 자세히 설명한다. 그 뒤 P009–P010의 MSAT 입력·내부 연산과 P006–P008의 학습·추론 수식으로 연결한다. 로봇별 projection은 P016의 공통·전용 경로와 함께 설명한다. 약30% 깊이의 동기를 모든 설정에서 최적이라는 실험 결과로 과장하지 않는다.
 
 ### 확대 단계
 
@@ -451,7 +451,7 @@ Fig.3 · PDF p.6; Sec.2.1–2.2 · PDF pp.7–9; 추출 층 비교: Table2(a), p
 
 설명: Vision Encoder는 움직임, VLM은 행동용 표현, Memory는 긴 이력, MSAT는 조건부 미래 후보 갱신을 담당한다. 네 영역을 눌러 다시 볼 수 있다.
 
-요점: 다음은 MSAT 입력과 Joint Attention을 자세히 보고, 학습·추론 수식으로 연결한다.
+요점: 다음은 Vision Encoder·Motion·VLM·VQA·Memory를 자세히 설명하고 MSAT로 연결한다.
 
 ### 화살표 설명
 
@@ -551,393 +551,6 @@ Fig.3 · PDF p.6; Sec.2.1–2.2 · PDF pp.7–9; 추출 층 비교: Table2(a), p
 
 ### 상세 공부 기록
 
-#### [S008] 로봇용 VQA 적응
-
-<!-- study-meta
-layout: split
-kind: fact
--->
-
-##### 한 문장
-
-장면을 설명하는 능력을 로봇의 공간 관계·하위 작업·행동과 연결한다.
-
-##### 본문
-
-###### 기반 모델에 더하는 로봇 경험
-
-<div class="flow">
-<div class="node">Qwen3-VL 8B</div>
-<div class="arrow">→</div>
-<div class="node">로봇 VQA로<br>fine-tuning</div>
-<div class="arrow">→</div>
-<div class="node">RLDX-1-VLM</div>
-</div>
-
-범용 시각·언어 이해만으로는 목표를 위해 지금 어떤 하위 작업을 해야 하는지, 손과 물체가 어떤 공간 관계인지, 관측과 제어가 어떻게 연결되는지 충분하지 않을 수 있다. 저자는 로봇 trajectory 관측에서 세 종류의 질문·답을 만든다.
-
-##### 보충
-
-###### 세 가지 supervision
-
-- **공간 관계:** end-effector와 목표 물체 사이의 관계.
-- **중간 subtask:** 전체 목표를 위한 현재 단계.
-- **낮은 수준의 action:** 현재 로봇 프레임에 대응하는 행동.
-
-<span class="label example">질문 형식의 설명용 예시</span> “컵은 손의 어느 쪽에 있는가?” “집은 뒤 무엇을 해야 하는가?”처럼 로봇 판단에 필요한 단서를 묻는다. 실제 데이터의 prompt를 그대로 인용한 것은 아니다.
-
-##### 요점
-
-VQA는 행동을 직접 실행하는 단계가 아니라, 행동에 유용한 VLM 표현을 만드는 적응 단계다.
-
-##### 출처
-
-Sec.2.1 · PDF pp.6–7
-
-##### 발표 메모
-
-원문은 Qwen3-VL 8B를 로봇 관련 VQA 데이터로 fine-tuning한 결과를 RLDX-1-VLM으로 사용한다고 설명한다. VQA의 답 형식·개별 prompt·정확한 dataset 규모는 이 문단에서 제시하지 않는다. 행동 출력은 뒤의 action model이 담당한다. Table2b의 57.5→60.9 비교는 뒤의 별도 ablation 장에서 다루며, 전체 recipe의 모든 효과로 일반화하지 않는다.
-
-#### [S009] Cognition tokens와 hₜ
-
-<!-- study-meta
-layout: split
-kind: fact
--->
-
-##### 한 문장
-
-학습 가능한 64개 query를 뒤에 붙이고, 그 위치의 hidden states를 행동 모델로 보낸다.
-
-##### 본문
-
-###### 입력은 함께, 출력은 선택해서
-
-$$
-\mathbf{v}_t=E_\theta(\mathbf{o}_{t-K:t})
-$$
-
-<div class="token-row"><span class="token">영상 $\mathbf{v}_{t}$</span><span class="token">언어 $\boldsymbol{\ell}_{t}$</span><span class="token c">q × 64</span></div>
-
-영상 특징과 지시 토큰 뒤에 cognition tokens **q**를 이어 붙여 VLM backbone에 넣는다. q는 학습 가능한 query tokens로, 앞의 시각·언어 맥락을 참고해 행동 예측에 필요한 정보를 모은다.
-
-##### 보충
-
-###### 어느 출력을 가져오는가?
-
-$$
-\mathbf{h}_t=F_\theta\bigl([\mathbf{v}_t,\boldsymbol{\ell}_t,\mathbf{q}]\bigr)_{\mathbf{q}\text{ 위치}}
-$$
-
-선택한 Transformer 층에서 **cognition token 위치에 대응하는 출력들**을 $\mathbf{h}_{t}$로 남긴다. 나머지 위치의 출력은 action decoder 전달용으로 버린다. $\mathbf{h}_{t}$는 단일 숫자나 자연어 문장이 아니라 여러 hidden vectors로 이루어진 표현이다.
-
-<p class="callout">64는 cognition token 수다. 영상 patch token 수나 생성할 action 개수를 뜻하지 않는다.</p>
-
-##### 요점
-
-“뒤에 붙인 학습 가능한 질문 64개가 현재 장면·지시를 행동용 표현으로 읽어낸다.”
-
-##### 출처
-
-Sec.2.1 Cognition Tokens · PDF p.7
-
-##### 발표 메모
-
-수식의 아래첨자 cognition token 위치는 원문을 읽기 쉽게 선택 연산으로 풀어 쓴 표기다. 원문은 $\mathbf{x}=[\mathbf{v}_t,\boldsymbol{\ell}_t,\mathbf{q}]$를 입력하고 cognition token에 대응하는 출력 특징만 남긴다고 명시한다. q를 “무조건 정보를 모두 보존하는 압축”으로 설명하지 않는다. 이때 cognition의 hidden states를 추출하는 층은 S010에서 분리해 설명한다.
-
-#### [S010] 특징을 추출하는 층
-
-<!-- study-meta
-layout: split
-kind: fact
--->
-
-##### 한 문장
-
-18층 hidden states를 선택하는 것과 언어 출력 head를 바꾸는 것은 다른 선택이다.
-
-##### 본문
-
-###### 층 안의 표현과 마지막 출력
-
-<div class="sequence">
-<div class="step">입력 → 초기 Transformer 층: 시각·언어 특징 처리</div>
-<div class="step"><strong>중간 18층 → cognition token 위치 특징 $\mathbf{h}_{t}$ 추출 → action model</strong></div>
-<div class="step">더 뒤의 Transformer 층 → 언어 출력 head → 텍스트 예측</div>
-</div>
-
-논문은 마지막 LLM 층 대신 중간층의 특징을 사용한다. 언어 생성에 특화된 후기 표현보다 조작에 필요한 시각 정보와 의미 정보의 균형이 낫다는 것이 저자의 설명이다.
-
-##### 보충
-
-###### 실험이 보여준 범위
-
-| 선택 층 | 성공률 |
-| --- | --- |
-| 8층 | 51.1% |
-| **18층** | **60.9%** |
-| 28층 | 56.3% |
-
-RoboCasa Kitchen의 별도 base-architecture 실험에서 세 후보 중 18층이 가장 높다. “모든 층·모든 작업에서 18층이 최적”인 결과는 아니다.
-
-<p class="mini">후기 블록과 vocabulary 출력 head는 서로 다른 요소다.</p>
-
-##### 요점
-
-특징을 어디서 꺼낼지는 실험한 설계 선택이며, 출력 head 자체를 선택하는 문제가 아니다.
-
-##### 출처
-
-Sec.2.1 · PDF p.7; Sec.6.5, Table2(a) · PDF pp.24–25
-
-##### 발표 메모
-
-원문은 action decoding에 intermediate hidden states를 사용한다고 설명하고, Sec6.5는 Layer18을 base로 사용한다. 이 ablation의 variant는 대규모 policy pre-training 없이 학습한다고 서술한다. 이미 학습된 Qwen VLM까지 완전 무작위 초기화했다는 뜻으로 읽지 않는다. 시각 grounding와 semantic abstraction의 균형은 수치 자체가 아니라 저자의 해석이다. 뒤의 S098에서 설정과 근거 강도를 다시 다룬다.
-
-#### [S011] 여러 프레임의 표기
-
-<!-- study-meta
-layout: split
-kind: fact
--->
-
-##### 한 문장
-
-$\mathbf{o}_{t-K:t}$는 시간 정보를 가진 관측 묶음이며, 실제 학습은 네 시점을 샘플링한다.
-
-##### 본문
-
-###### 한 장으로 구분하기 어려운 움직임
-
-<div class="token-row"><span class="token">t−6</span><span class="token">t−4</span><span class="token">t−2</span><span class="token c">t 현재</span></div>
-
-실제 pre-training 설정은 상대 시간 간격 <strong>{−6, −4, −2, 0}</strong>의 네 프레임을 사용한다. $\mathbf{o}_{t-K:t}$는 과거부터 현재까지의 관측을 묶는 표기이며, 이 실험에서 모든 중간 시점을 빠짐없이 넣는다는 뜻은 아니다.
-
-$$
-\mathbf{v}_t=E_\theta(\text{여러 시점의 영상 관측})
-$$
-
-##### 보충
-
-###### 같은 위치라도 움직임은 다를 수 있다
-
-<span class="label example">설명용 상황</span> 공이 현재 화면 중앙에 있어도, 과거에 왼쪽에 있었다면 오른쪽으로 이동 중이고 과거에 오른쪽에 있었다면 왼쪽으로 이동 중일 수 있다. 여러 프레임은 그 차이를 판단할 단서를 준다.
-
-$\mathbf{v}_{t}$는 그 관측 묶음을 vision encoder로 처리한 특징이다. 영상 원본이나 단일 프레임의 좌표와 동일하지 않다. 각 프레임의 공간 위치와 프레임 간 관계를 다음 motion module에서 함께 활용한다.
-
-##### 요점
-
-시간 범위 표기, 실제 샘플 프레임 수, 영상 특징은 각각 구분해서 읽어야 한다.
-
-##### 출처
-
-Sec.2.1 · PDF p.7; Sec.4.1 Implementation Details · PDF p.13
-
-##### 발표 메모
-
-네 프레임의 상대 offset은 원문 PDF13에서 직접 확인했다. fps를 가정해 초 단위로 환산하지 않는다. 여러 카메라 view가 있을 수 있으나 여기의 네 시점과 카메라 개수는 서로 다르다. Vision token 수를 cognition token64개와 혼동하지 않는다. 여러 프레임 입력은 pre-training부터 있으며 STSS 모듈 추가는 mid-training에서 다룬다.
-
-#### [S012] Motion module과 STSS
-
-<!-- study-meta
-layout: split
-kind: fact
--->
-
-##### 한 문장
-
-특징의 시공간 이웃 간 유사성에서 “어디로 무엇이 달라졌는가”의 단서를 만든다.
-
-##### 본문
-
-###### 특징을 바로 행동으로 바꾸기 전에
-
-<div class="sequence">
-<div class="step">ViT 앞 i개 층 → 시공간 특징 $\mathbf{v}_{t}^{(i)}$</div>
-<div class="step">각 특징과 주변 시공간 이웃의 correlation → STSS tensor $S_{t}$</div>
-<div class="step">STSS encoder $S_{\theta}$($S_{t}$) → motion features</div>
-</div>
-
-STSS는 **space-time self-similarity**다. 시간과 공간으로 가까운 특징들의 대응·변화를 계산한 결과를 별도 encoder가 읽어 움직임을 표현한다.
-
-##### 보충
-
-###### 공이 오른쪽으로 이동한다면
-
-<span class="label example">직관을 위한 예시</span> 이전 프레임의 공 특징이 다음 프레임의 오른쪽 이웃과 더 비슷하다면, 그 correlation 배치가 이동 방향의 단서가 될 수 있다. 논문이 이 모듈의 출력을 정확한 optical flow나 공의 속도값이라고 정의한 것은 아니다.
-
-실제 삽입 위치는 vision encoder **27층 중 9층 뒤**다. 저자는 약 30% 깊이에 물리 관련 단서가 풍부하다는 선행 관찰을 동기로 들며, 여기서 모든 삽입 위치를 비교한 실험을 제시하지 않는다.
-
-##### 요점
-
-STSS는 이웃 특징의 관계를 계산해 움직임 단서를 더하는 모듈이다.
-
-##### 출처
-
-Sec.2.1 Functionality1: Motion Awareness · PDF p.7
-
-##### 발표 메모
-
-원문은 각 spatio-temporal feature와 local neighbors의 correlation을 계산한다고 명시한다. 이 설명만으로 이웃의 정확한 크기, 상관 함수의 normalization, tensor shape를 확정하지 않는다. STSS를 attention softmax와 동일시하지 않는다. $\mathbf{S}_t$는 STSS tensor이고 $S_\theta$는 그 tensor를 읽는 학습 모듈이다. 이 모듈을 적용한 후 residual update하는 식은 다음 S013에서 확대한다.
-
-#### [S013] Residual connection
-
-<!-- study-meta
-layout: split
-kind: fact
--->
-
-##### 한 문장
-
-원래 시각 특징을 유지하는 경로에 움직임 특징의 보정을 원소별로 더한다.
-
-##### 본문
-
-###### 원문의 residual update
-
-$$
-\widetilde{\mathbf{v}}_t^{(i)}=\mathbf{v}_t^{(i)}+S_\theta(\mathbf{S}_t)
-$$
-
-- <strong>$\mathbf{v}_{t}^{(i)}$:</strong> vision encoder 앞 i층이 만든 기존 특징.
-- <strong>$S_{\theta}$($S_{t}$):</strong> 시공간 유사성에서 얻은 motion features.
-- <strong>$\widetilde{\mathbf{v}}_t^{(i)}$:</strong> 보정 후 뒤쪽 vision 층으로 전달할 특징.
-
-덧셈 가능한 shape로 두 표현을 맞춘 뒤 더한다. 특징 벡터를 길게 이어 붙이는 concat과는 다르다.
-
-##### 보충
-
-###### 숫자로 보는 보정
-
-<span class="label example">2차원 설명용 예시</span>
-
-$$
-\text{기존 특징}\quad [2.0,\,1.0]
-$$
-
-$$
-+\;\text{움직임 보정}\quad [0.3,\,-0.2]
-$$
-
-$$
-=[2.3,\,0.8]
-$$
-
-출력 차원은 그대로이며 값이 바뀐다. “기존 경로가 있다”는 말은 기존 특징값을 변하지 않게 보관한다는 뜻이 아니다. 뒤의 encoder 층은 합쳐진 표현을 계속 변환한다.
-
-##### 요점
-
-Residual의 +는 같은 위치·차원의 보정이고, concat은 토큰이나 특징을 이어 붙이는 연산이다.
-
-##### 출처
-
-Sec.2.1 Motion Awareness의 residual 식 · PDF p.7
-
-##### 발표 메모
-
-원문 v tilde 식을 그대로 항별로 해설했다. 벡터 숫자는 실제 feature 값이나 모델 계측 결과가 아니다. Residual branch가 언제나 작은 수치를 낸다거나 정보 손실을 없앤다고 주장하지 않는다. MSAT에서도 stream별 residual update가 나오지만, 모듈 위치와 입력은 서로 다르다.
-
-#### [S014] Self-attention과 causal mask
-
-<!-- study-meta
-layout: split
-kind: fact
--->
-
-##### 한 문장
-
-뒤쪽 위치는 허용된 앞쪽 정보를 읽어 자신의 표현을 갱신할 수 있다.
-
-##### 본문
-
-###### 정보를 읽는 기본 연산
-
-$$
-\begin{aligned}
-\operatorname{Attention}(\mathbf{Q},\mathbf{K},\mathbf{V})
-&=\operatorname{softmax}\!\left(\frac{\mathbf{Q}\mathbf{K}^{\mathsf T}}{\sqrt d}+\mathbf{M}\right)\mathbf{V}
-\end{aligned}
-$$
-
-**Q**는 무엇을 찾을지, **K**는 참고할 특징의 주소, **V**는 가져올 내용을 표현하는 학습된 벡터다. mask M은 참고할 수 없는 위치의 점수를 차단한다. 각 query 위치는 허용된 value들을 가중합해 새로운 표현을 얻는다.
-
-<p class="mini">위 식은 Transformer의 일반 배경식이다. RLDX-1 구현의 모든 attention 세부를 정의하는 식은 아니다.</p>
-
-##### 보충
-
-###### 앞→뒤 순서가 하는 일
-
-<span class="label example">세 위치로 단순화</span>
-
-| 읽는 위치 ↓ | 과거 | 현재 | q |
-| --- | --- | --- | --- |
-| 과거 | ○ | × | × |
-| 현재 | ○ | ○ | × |
-| q | ○ | ○ | ○ |
-
-초반 LLM의 causal 구조로 과거 맥락을 현재 프레임과 뒤의 cognition tokens에 모은다. 이는 action을 한 개씩 생성한다는 뜻은 아니다.
-
-##### 요점
-
-Causal mask는 정보 접근 방향을 정한다. 위치마다 표현을 계산하는 것과 순차 행동 생성은 구분한다.
-
-##### 출처
-
-Sec.2.1 · PDF p.7; 배경: Vaswani et al., Sec.3.2 (arXiv:1706.03762)
-
-##### 발표 메모
-
-일반 scaled dot-product attention과 causal masking은 원전 https://arxiv.org/html/1706.03762v7 의 Sec3.1–3.2를 참조했다. 표는 로봇 관측과 q의 시간순서를 설명하는 단순화이며, 실제 Qwen3-VL의 multimodal mask 전체를 재현한 표가 아니다. M의 허용 위치는0, 차단 위치는−∞로 두는 배경 설명이다. MSAT의 joint attention에 이 causal mask를 그대로 적용한다고 주장하지 않는다.
-
-#### [S015] 과거 프레임 압축
-
-<!-- study-meta
-layout: split
-kind: fact
--->
-
-##### 한 문장
-
-LLM의 4층 뒤에서 과거 관측 hidden states를 한 context token으로 평균 낸다.
-
-##### 본문
-
-###### 초반에는 시간 맥락을 읽는다
-
-<div class="sequence">
-<div class="step">초기 4층: 시간순 영상 토큰 + 지시 + q를 처리</div>
-<div class="step">과거 관측 hidden states → average pooling → context 1개</div>
-<div class="step">이후 층: context + 현재 관측 + 지시 + q를 처리</div>
-</div>
-
-현재 프레임은 남기고, **과거 관측 위치의 표현**을 평균 낸 context token으로 교체한다. 원본 영상을 평균 내서 흐린 한 장을 만드는 과정이 아니다.
-
-##### 보충
-
-###### 왜 4층까지 기다리는가?
-
-Qwen3-VL의 **DeepStack**은 vision encoder의 여러 수준 특징을 초기 4개 LLM 층에 주입한다. 저자는 이 과정을 압축 없이 활용하도록 4층 뒤에 압축한다고 설명한다.
-
-$$
-\mathrm{context}=\frac{\mathbf{z}_1+\cdots+\mathbf{z}_{N_{\mathrm{past}}}}{N_{\mathrm{past}}}
-$$
-
-<p class="eq-caption">원문의 average pooling을 풀어 쓴 개념식. z는 해당 층의 과거 관측 hidden vectors다.</p>
-
-토큰 수를 줄여 이후 attention 계산을 가볍게 하면서, 초반에 모인 시간 맥락을 활용하려는 설계다.
-
-##### 요점
-
-압축 대상은 과거 관측 표현이고, 현재 관측·지시·cognition 위치는 계속 유지한다.
-
-##### 출처
-
-Sec.2.1 Motion Awareness, LLM backbone · PDF p.7
-
-##### 발표 메모
-
-원문은 과거 observations를 single context token으로 압축하고 현재 관측·지시·q와 함께 후속 블록에서 처리한다고 명시한다. 평균식은 해설용이다. 모든 camera/view별 실제 token grouping이나 구현상 packing 방식은 이 문단에서 명시되지 않는다. 4층 선택 이유는 DeepStack 활용이며, 2층 대비 성능 개선치를 이 절이 보고하는 것은 아니다. VLM 내부 context token을 이후 장의 memory features와 구별한다.
-
 #### [S016] Context·cognition·memory
 
 <!-- study-meta
@@ -978,164 +591,6 @@ Fig.3, Sec.2.1 · PDF pp.6–7
 ##### 발표 메모
 
 원문은 64 cognition tokens, past observation single context token, memory queue nmem3을 각각 명시한다. 세 개수를 서로 같은 것으로 해석하지 않는다. $\mathbf{m}_t$가 어떤 출력 위치만 선택하는지의 세부는 본문의 $\mathbf{m}_t=M_\theta([\mathbf{Q}_t,\mathbf{h}_t])$ 이상으로 임의 보완하지 않는다. Fig3의 memory module을 볼 때 VLM 내부 Video Token Compression과의 위치 차이를 함께 짚는다.
-
-#### [S017] Memory queue
-
-<!-- study-meta
-layout: split
-kind: fact
--->
-
-##### 한 문장
-
-과거 cognition features 3묶음에 현재 $\mathbf{h}_t$를 붙여 긴 이력을 다시 읽는다.
-
-##### 본문
-
-###### 저장하는 것은 과거 영상 원본이 아니다
-
-<div class="token-row"><span class="token c">과거 h ①</span><span class="token c">과거 h ②</span><span class="token c">과거 h ③</span></div>
-
-$$
-\mathbf{Q}_t=[\text{과거 cognition features 3묶음}]
-$$
-
-<div class="flow">
-<div class="node">[$\mathbf{Q}_{t}$, $\mathbf{h}_{t}$]</div>
-<div class="arrow">→</div>
-<div class="node">Memory<br>Transformer</div>
-<div class="arrow">→</div>
-<div class="node">$\mathbf{m}_{t}$</div>
-</div>
-
-현재 관측에 보이지 않는 과거 사건이 행동에 필요할 때를 위해, 이전에 계산한 행동용 특징을 cache에 저장한다.
-
-##### 보충
-
-###### 서로 다른 두 개의 수
-
-<strong>$n_{\mathrm{mem}}$=3</strong>은 cache에 남기는 과거 시점 묶음 수다. 각 h는 cognition features이므로 “숫자 3개”나 “q token 3개”를 뜻하지 않는다. 현재 $\mathbf{h}_{t}$를 더하면 시간상 네 묶음을 memory module이 처리한다.
-
-<span class="label example">Shell game의 직관</span> 컵의 현재 외형만 같아 보여도, 앞서 무엇을 어느 컵에 숨겼는지가 선택을 바꿀 수 있다. queue는 그 과거 관측의 표현을 전달하는 통로다.
-
-##### 요점
-
-긴 이력의 저장 단위는 과거 시점의 cognition features이며, 현재 특징과 함께 읽는다.
-
-##### 출처
-
-Sec.2.1 Functionality2: Long-Term Memory · PDF p.7
-
-##### 발표 메모
-
-원문 memory module은 lightweight Transformer이며 $n_{\mathrm{mem}}=3$이다. $\mathbf{h}_t$는64 cognition token의 hidden features라는 앞 설명을 유지한다. 저장한 features의 dtype·메모리 크기, gradient 처리, 실제 cache 교체 코드는 이 절에서 확인하지 않았다. 설명용 shell game 예시는 원문에 든 대표 동기이며, 정확한 평가 절차는 S090/S094에서 구분한다.
-
-#### [S018] 시간 범위와 갱신의 미해결점
-
-<!-- study-meta
-layout: split
-kind: question
--->
-
-##### 한 문장
-
-저장 간격과 과거 범위는 제시되지만, 매 시점의 cache 관리 규칙까지 확정되지는 않는다.
-
-##### 본문
-
-###### 본문에서 확인한 시간 범위
-
-| 설정 | chunk 길이 | 과거 범위 |
-| --- | --- | --- |
-| ALLEX | 40 timesteps | 120 timesteps |
-| Franka | 16 timesteps | 48 timesteps |
-
-Sec.4.2는 세 묶음을 **H+1 간격**으로 저장하며 chunk 길이에 맞춘다고 설명한다. 이 수치를 실제 초 단위로 읽으려면 제어 주기 등 추가 정보가 필요하다.
-
-##### 보충
-
-###### 표기와 명세의 남은 질문
-
-$$
-\mathbf{Q}_t=[\mathbf{h}_{t-3H},\mathbf{h}_{t-2H},\mathbf{h}_{t-H}]
-$$
-
-Sec.2.1의 문장은 **H+1**, 바로 아래 queue 수식은 **H** 간격이다.
-
-- 로봇 시점 t가 바뀔 때 언제 저장·교체하는가?
-- 시작 시 과거 세 묶음이 부족하면 무엇으로 채우는가?
-- episode 경계에서 queue를 어떻게 초기화하는가?
-
-<p class="mini">이 규칙은 검토한 문단에서 확인되지 않았다. 임의의 고정 격자표로 구현 동작을 확정하지 않는다.</p>
-
-##### 요점
-
-시간 간격의 서술과 정확한 갱신·초기화 알고리즘을 구분하고 미해결로 남긴다.
-
-##### 출처
-
-Sec.2.1 · PDF p.7; Sec.4.2 Functionality Expansion · PDF p.13; 질문노트 Q5
-
-##### 발표 메모
-
-H+1=40이면 H=39라고 단순 대입해서 원문의 $\mathbf{h}_{t-H}$식과 memory120 범위를 동시에 일치시킬 수 없다. 이 장은 불일치를 임의 수정하지 않는다. 저자 코드의 exact cache policy는 확인하지 않았고, 본문 명세 불충분을 모델 자체의 동작 결함으로 확대하지 않는다. AppC의40예측/20실행 설정 역시 모든 memory 저장 타이밍을 해명하는 근거가 아니다.
-
-#### [S019] Memory features mₜ
-
-<!-- study-meta
-layout: split
-kind: fact
--->
-
-##### 한 문장
-
-Causal memory Transformer의 출력과 현재 $\mathbf{h}_t$를 모두 행동 모델로 전달한다.
-
-##### 본문
-
-###### 과거→현재 방향으로 이력을 통합
-
-$$
-\mathbf{m}_t=M_\theta([\mathbf{Q}_t,\mathbf{h}_t])
-$$
-
-<div class="sequence">
-<div class="step">오래된 h → 더 최근 h → 현재 h 순서로 입력</div>
-<div class="step">나중 시점의 cognition은 자신과 앞선 시점만 참고</div>
-<div class="step">이력을 반영한 $\mathbf{m}_{t}$ 생성</div>
-</div>
-
-causal attention은 나중 시점이 이전 이력을 참고할 수 있게 하면서 시간 순서를 보존한다. 현재 관측만으로 드러나지 않는 작업 진행 상태를 읽으려는 설계다.
-
-##### 보충
-
-###### 현재 표현도 따로 남긴다
-
-<div class="flow">
-<div class="node">현재 $\mathbf{h}_{t}$</div>
-<div class="arrow">↘</div>
-<div class="node">Action model<br>[$\mathbf{h}_{t}$, $\mathbf{m}_{t}$]</div>
-</div>
-
-<div class="flow">
-<div class="node">Memory $\mathbf{m}_{t}$</div>
-<div class="arrow">↗</div>
-<div class="node">현재 + 긴 이력</div>
-</div>
-
-memory output으로 $\mathbf{h}_{t}$를 완전히 대체하지 않는다. 원문은 두 특징을 모두 전달한다고 명시한다. 대괄호를 사용한 입력 표기만으로 두 벡터를 원소별로 더한다고 해석해서는 안 된다.
-
-##### 요점
-
-이제 $\mathbf{h}_t$·$\mathbf{m}_t$는 조건이 된다. 다음 단계는 이 조건 아래 미래 행동 chunk를 생성하는 일이다.
-
-##### 출처
-
-Sec.2.1 Long-Term Memory; Sec.2.2 · PDF pp.7–8
-
-##### 발표 메모
-
-원문은 memory features $\mathbf{m}_t$와 original cognition tokens $\mathbf{h}_t$를 모두 action model에 feed한다고 명시한다. $\mathbf{m}_t$의 정확한 output selection이나 learned pooling은 제공된 식 이상으로 확정하지 않는다. 그림의 화살표 두 개는 병행 전달을 설명하며 실제 별도 network 두 개를 의미하지 않는다. 이후 flow matching 설명에서 $\mathbf{c}_t=[\mathbf{h}_t,\mathbf{m}_t,\mathbf{s}_t,\mathbf{p}_t]$의 구성 요소로 연결한다.
 
 #### [S035] Triple-stream에서 double-stream으로
 
@@ -1231,6 +686,1149 @@ Fig.3, Sec.2.1–2.2 · PDF pp.6–9; 질문노트 Q1·Q5–Q7
 ##### 발표 메모
 
 Fig.3의 Denoise 표시는 미래 행동·센서 후보의 생성과 연결한다. Action chunk의 각 미래 행동을 autoregressive하게 하나씩 출력하는 흐름으로 읽지 않는다. VLM에서 현재 조건을 얻는 과정과 MSAT denoising 반복은 개념적으로 구별되며 실제 feature caching 구현은 이 그림만으로 단정하지 않는다. Fig.3 caption의 previous actions 표현을 추가 제어 입력 명세로 확장하지 않고 본문의 $\mathbf{s}_t$, noisy actions 설명을 따른다. 현재 sensor는 observed condition, future physical prediction은 auxiliary objective라는 구분을 다시 짚는다. 각 module의 독립적인 인과 기여는 구조도 자체로 검증되지 않는다.
+
+## [P048] Vision Encoder
+
+<!-- slide-meta
+layout: split
+kind: fact
+source_ids: S011
+-->
+
+### 한 문장
+
+여러 시점의 관측을 시각 특징으로 바꾸고, 중간에 움직임 단서를 추가해 VLM으로 전달한다.
+
+### 본문
+
+<figure class="architecture-crop-figure"><div class="architecture-crop vision-crop"><img src="/figures/fig-03.png" alt="Figure 3의 영상 관측, Vision Encoder와 Motion Extractor"></div><figcaption>Figure 3 · 영상 관측과 Vision Encoder</figcaption></figure>
+
+### 보충
+
+#### 한 장면의 모양 + 프레임 사이의 변화
+
+<div class="sequence">
+<div class="step"><strong>1–9층:</strong> 입력 영상의 시각 특징 추출</div>
+<div class="step"><strong>9층 뒤:</strong> Motion Module로 움직임 특징 추가</div>
+<div class="step"><strong>10–27층:</strong> 보정된 특징을 계속 처리</div>
+</div>
+
+실제 pre-training은 현재 기준 <strong>−6, −4, −2, 0</strong>의 네 시점 관측을 사용한다.
+
+출력은 영상 픽셀이 아니라, VLM이 읽을 <strong>영상 특징 토큰</strong>이다.
+
+### 요점
+
+여러 프레임 입력은 pre-training부터 사용하고, STSS Motion Module은 mid-training에서 추가한다.
+
+### 출처
+
+Fig.3 · PDF p.6; Sec.2.1 · p.7; Sec.4.1–4.2 · p.13
+
+### 발표 메모
+
+원문 Vision Encoder는 총27층이며9층 뒤에 STSS 모듈을 residual로 삽입한다. 1–9층/10–27층 구분은 그 위치를 읽기 쉽게 푼 것이다. 30% 깊이에 물리 단서가 풍부하다는 선행 관찰이 동기이며 이 보고서가 모든 삽입 위치의 최적성을 입증한 것은 아니다. 네 프레임과 카메라 개수를 혼동하지 않고 초 단위로 환산하지 않는다.
+
+### 상세 공부 기록
+
+#### [S011] 여러 프레임의 표기
+
+<!-- study-meta
+layout: split
+kind: fact
+-->
+
+##### 한 문장
+
+$\mathbf{o}_{t-K:t}$는 시간 정보를 가진 관측 묶음이며, 실제 학습은 네 시점을 샘플링한다.
+
+##### 본문
+
+###### 한 장으로 구분하기 어려운 움직임
+
+<div class="token-row"><span class="token">t−6</span><span class="token">t−4</span><span class="token">t−2</span><span class="token c">t 현재</span></div>
+
+실제 pre-training 설정은 상대 시간 간격 <strong>{−6, −4, −2, 0}</strong>의 네 프레임을 사용한다. $\mathbf{o}_{t-K:t}$는 과거부터 현재까지의 관측을 묶는 표기이며, 이 실험에서 모든 중간 시점을 빠짐없이 넣는다는 뜻은 아니다.
+
+$$
+\mathbf{v}_t=E_\theta(\text{여러 시점의 영상 관측})
+$$
+
+##### 보충
+
+###### 같은 위치라도 움직임은 다를 수 있다
+
+<span class="label example">설명용 상황</span> 공이 현재 화면 중앙에 있어도, 과거에 왼쪽에 있었다면 오른쪽으로 이동 중이고 과거에 오른쪽에 있었다면 왼쪽으로 이동 중일 수 있다. 여러 프레임은 그 차이를 판단할 단서를 준다.
+
+$\mathbf{v}_{t}$는 그 관측 묶음을 vision encoder로 처리한 특징이다. 영상 원본이나 단일 프레임의 좌표와 동일하지 않다. 각 프레임의 공간 위치와 프레임 간 관계를 다음 motion module에서 함께 활용한다.
+
+##### 요점
+
+시간 범위 표기, 실제 샘플 프레임 수, 영상 특징은 각각 구분해서 읽어야 한다.
+
+##### 출처
+
+Sec.2.1 · PDF p.7; Sec.4.1 Implementation Details · PDF p.13
+
+##### 발표 메모
+
+네 프레임의 상대 offset은 원문 PDF13에서 직접 확인했다. fps를 가정해 초 단위로 환산하지 않는다. 여러 카메라 view가 있을 수 있으나 여기의 네 시점과 카메라 개수는 서로 다르다. Vision token 수를 cognition token64개와 혼동하지 않는다. 여러 프레임 입력은 pre-training부터 있으며 STSS 모듈 추가는 mid-training에서 다룬다.
+
+## [P049] Motion Module
+
+<!-- slide-meta
+layout: split
+kind: fact
+source_ids: S012
+-->
+
+### 한 문장
+
+공간과 시간으로 가까운 시각 특징들의 유사성을 계산해, 프레임 사이의 움직임 단서를 추출한다.
+
+### 본문
+
+#### STSS — Space-Time Self-Similarity
+
+<div class="sequence">
+<div class="step">ViT 앞 9층이 만든 시공간 특징</div>
+<div class="step">각 특징과 주변 시공간 이웃의 correlation 계산</div>
+<div class="step">STSS tensor를 encoder가 읽어 motion features 생성</div>
+</div>
+
+<strong>Space</strong>는 주변 위치, <strong>Time</strong>은 프레임 사이의 관계다. 비슷한 특징이 어느 이웃에서 나타나는지 살핀다.
+
+### 보충
+
+#### 모양만으로 구분하기 어려운 변화
+
+<p class="callout"><span class="label example">직관 예시</span> 공이 지금 중앙에 있어도, 이전에 왼쪽에 있었는지 오른쪽에 있었는지에 따라 이동 방향이 달라진다.</p>
+
+이전 공 특징과 다음 프레임의 오른쪽 이웃이 비슷하다면, 그 <strong>유사성의 배치</strong>가 오른쪽 이동의 단서가 된다.
+
+이 단서를 기존 시각 특징에 더하고, 뒤쪽 ViT 층에서 함께 처리한다.
+
+### 요점
+
+STSS는 시각 특징의 시공간 관계를 읽는 단계다. 다음은 motion features를 더하는 residual 연산이다.
+
+### 출처
+
+Sec.2.1 Functionality 1: Motion Awareness · PDF p.7
+
+### 발표 메모
+
+공 예시는 개념을 설명하는 상황이며 실제 입력 영상이나 측정값이 아니다. STSS 출력이 정확한 공 속도 또는 optical flow라고 정의하지 않는다. local neighborhood의 정확한 범위·상관 함수·tensor shape는 이 문단 이상으로 임의 지정하지 않는다.
+
+### 상세 공부 기록
+
+#### [S012] Motion module과 STSS
+
+<!-- study-meta
+layout: split
+kind: fact
+-->
+
+##### 한 문장
+
+특징의 시공간 이웃 간 유사성에서 “어디로 무엇이 달라졌는가”의 단서를 만든다.
+
+##### 본문
+
+###### 특징을 바로 행동으로 바꾸기 전에
+
+<div class="sequence">
+<div class="step">ViT 앞 i개 층 → 시공간 특징 $\mathbf{v}_{t}^{(i)}$</div>
+<div class="step">각 특징과 주변 시공간 이웃의 correlation → STSS tensor $S_{t}$</div>
+<div class="step">STSS encoder $S_{\theta}$($S_{t}$) → motion features</div>
+</div>
+
+STSS는 **space-time self-similarity**다. 시간과 공간으로 가까운 특징들의 대응·변화를 계산한 결과를 별도 encoder가 읽어 움직임을 표현한다.
+
+##### 보충
+
+###### 공이 오른쪽으로 이동한다면
+
+<span class="label example">직관을 위한 예시</span> 이전 프레임의 공 특징이 다음 프레임의 오른쪽 이웃과 더 비슷하다면, 그 correlation 배치가 이동 방향의 단서가 될 수 있다. 논문이 이 모듈의 출력을 정확한 optical flow나 공의 속도값이라고 정의한 것은 아니다.
+
+실제 삽입 위치는 vision encoder **27층 중 9층 뒤**다. 저자는 약 30% 깊이에 물리 관련 단서가 풍부하다는 선행 관찰을 동기로 들며, 여기서 모든 삽입 위치를 비교한 실험을 제시하지 않는다.
+
+##### 요점
+
+STSS는 이웃 특징의 관계를 계산해 움직임 단서를 더하는 모듈이다.
+
+##### 출처
+
+Sec.2.1 Functionality1: Motion Awareness · PDF p.7
+
+##### 발표 메모
+
+원문은 각 spatio-temporal feature와 local neighbors의 correlation을 계산한다고 명시한다. 이 설명만으로 이웃의 정확한 크기, 상관 함수의 normalization, tensor shape를 확정하지 않는다. STSS를 attention softmax와 동일시하지 않는다. $\mathbf{S}_t$는 STSS tensor이고 $S_\theta$는 그 tensor를 읽는 학습 모듈이다. 이 모듈을 적용한 후 residual update하는 식은 다음 S013에서 확대한다.
+
+## [P050] Motion Module의 Residual
+
+<!-- slide-meta
+layout: split
+kind: fact
+source_ids: S013
+-->
+
+### 한 문장
+
+기존 시각 특징에 움직임 특징을 원소별로 더해, 같은 shape의 보정된 표현을 만든다.
+
+### 본문
+
+#### 원문의 특징 갱신
+
+$$
+\widetilde{\mathbf v}^{(i)}_t
+=\mathbf v^{(i)}_t+S_\theta(\mathbf S_t)
+$$
+
+| 기호 | 의미 |
+| --- | --- |
+| $\mathbf v^{(i)}_t$ | 앞 $i$개 ViT 층의 시각 특징 |
+| $\mathbf S_t$ | 시공간 이웃의 유사성 tensor |
+| $S_\theta$ | STSS를 움직임 특징으로 바꾸는 encoder |
+| $\widetilde{\mathbf v}^{(i)}_t$ | 보정 후 다음 ViT 층으로 갈 특징 |
+
+### 보충
+
+#### 여기의 +는 원소별 덧셈
+
+두 경로의 같은 위치·차원을 더한다. <strong>출력 shape는 유지되고 특징값이 바뀐다.</strong>
+
+<div class="sequence">
+<div class="step">기존 시각 특징 경로를 그대로 연결</div>
+<div class="step">Motion Module의 출력으로 보정</div>
+<div class="step">보정된 특징을 10–27층에서 계속 변환</div>
+</div>
+
+Memory의 hₜ·mₜ를 이어 붙이는 <strong>concat</strong>과 구분한다.
+
+### 요점
+
+Residual addition은 같은 shape의 특징을 보정하고, concat은 토큰이나 특징을 이어 붙인다.
+
+### 출처
+
+Sec.2.1 Motion Awareness의 residual 식 · PDF p.7
+
+### 발표 메모
+
+원문의 i는 임의의 중간층을 나타내는 설명 표기이며 실제 삽입은9층 뒤다. S_t는 tensor, S_theta는 학습 모듈이다. shape 유지가 정보의 완전 보존을 보장한다거나, residual branch가 항상 작은 수치라고 주장하지 않는다.
+
+### 상세 공부 기록
+
+#### [S013] Residual connection
+
+<!-- study-meta
+layout: split
+kind: fact
+-->
+
+##### 한 문장
+
+원래 시각 특징을 유지하는 경로에 움직임 특징의 보정을 원소별로 더한다.
+
+##### 본문
+
+###### 원문의 residual update
+
+$$
+\widetilde{\mathbf{v}}_t^{(i)}=\mathbf{v}_t^{(i)}+S_\theta(\mathbf{S}_t)
+$$
+
+- <strong>$\mathbf{v}_{t}^{(i)}$:</strong> vision encoder 앞 i층이 만든 기존 특징.
+- <strong>$S_{\theta}$($S_{t}$):</strong> 시공간 유사성에서 얻은 motion features.
+- <strong>$\widetilde{\mathbf{v}}_t^{(i)}$:</strong> 보정 후 뒤쪽 vision 층으로 전달할 특징.
+
+덧셈 가능한 shape로 두 표현을 맞춘 뒤 더한다. 특징 벡터를 길게 이어 붙이는 concat과는 다르다.
+
+##### 보충
+
+###### 숫자로 보는 보정
+
+<span class="label example">2차원 설명용 예시</span>
+
+$$
+\text{기존 특징}\quad [2.0,\,1.0]
+$$
+
+$$
++\;\text{움직임 보정}\quad [0.3,\,-0.2]
+$$
+
+$$
+=[2.3,\,0.8]
+$$
+
+출력 차원은 그대로이며 값이 바뀐다. “기존 경로가 있다”는 말은 기존 특징값을 변하지 않게 보관한다는 뜻이 아니다. 뒤의 encoder 층은 합쳐진 표현을 계속 변환한다.
+
+##### 요점
+
+Residual의 +는 같은 위치·차원의 보정이고, concat은 토큰이나 특징을 이어 붙이는 연산이다.
+
+##### 출처
+
+Sec.2.1 Motion Awareness의 residual 식 · PDF p.7
+
+##### 발표 메모
+
+원문 v tilde 식을 그대로 항별로 해설했다. 벡터 숫자는 실제 feature 값이나 모델 계측 결과가 아니다. Residual branch가 언제나 작은 수치를 낸다거나 정보 손실을 없앤다고 주장하지 않는다. MSAT에서도 stream별 residual update가 나오지만, 모듈 위치와 입력은 서로 다르다.
+
+## [P051] VLM과 로봇 VQA
+
+<!-- slide-meta
+layout: split
+kind: fact
+source_ids: S008
+-->
+
+### 한 문장
+
+Qwen3-VL 8B를 로봇 관측의 질문·답으로 fine-tuning해, 조작에 필요한 이해를 보강한다.
+
+### 본문
+
+#### VQA — Visual Question Answering
+
+영상 관측을 보고 질문에 답하는 학습이다. 로봇 trajectory에서 질문·답을 만들어 VLM을 적응시킨다.
+
+<div class="sequence">
+<div class="step">범용 모델 <strong>Qwen3-VL 8B</strong></div>
+<div class="step">로봇 관련 VQA로 fine-tuning</div>
+<div class="step"><strong>RLDX-1-VLM</strong></div>
+</div>
+
+장면을 알아보는 능력을 손·목표 물체·현재 조작 단계와 연결하려는 목적이다.
+
+### 보충
+
+#### 로봇 VQA의 세 가지 내용
+
+| 원문이 제시한 범주 | 직관적인 의미 |
+| --- | --- |
+| 손끝과 목표 물체의 공간 관계 | 손과 물체가 어디에 있는가? |
+| 목표를 위한 중간 subtask | 지금 어떤 단계를 해야 하는가? |
+| 현재 로봇 프레임의 low-level action | 이 관측에 어떤 제어 행동이 대응하는가? |
+
+<p class="mini">오른쪽 질문은 범주를 풀어 쓴 설명용 예시다. 실제 데이터셋 prompt의 인용이 아니다.</p>
+
+### 요점
+
+VQA는 VLM의 행동 관련 표현을 보강하는 학습이다. 실제 행동 chunk는 뒤의 Action Model이 생성한다.
+
+### 출처
+
+Sec.2.1 RLDX-1-VLM · PDF pp.6–7; 검증 결과는 Table2(b) · p.25
+
+### 발표 메모
+
+VQA 설명은 기존 S008 상세 노트에 있었으나 발표 본문에서는 충분히 드러나지 않았다. 원문은 공간 관계·subtask·현재 프레임의 low-level action 세 범주를 명시한다. 정확한 prompt·답변 형식·데이터 크기를 만들어내지 않는다. VQA 효과의 정량 비교와 Fig.19 해석은 뒤 Ablation에 남겨 원리 설명과 실험 결과를 구분한다.
+
+### 상세 공부 기록
+
+#### [S008] 로봇용 VQA 적응
+
+<!-- study-meta
+layout: split
+kind: fact
+-->
+
+##### 한 문장
+
+장면을 설명하는 능력을 로봇의 공간 관계·하위 작업·행동과 연결한다.
+
+##### 본문
+
+###### 기반 모델에 더하는 로봇 경험
+
+<div class="flow">
+<div class="node">Qwen3-VL 8B</div>
+<div class="arrow">→</div>
+<div class="node">로봇 VQA로<br>fine-tuning</div>
+<div class="arrow">→</div>
+<div class="node">RLDX-1-VLM</div>
+</div>
+
+범용 시각·언어 이해만으로는 목표를 위해 지금 어떤 하위 작업을 해야 하는지, 손과 물체가 어떤 공간 관계인지, 관측과 제어가 어떻게 연결되는지 충분하지 않을 수 있다. 저자는 로봇 trajectory 관측에서 세 종류의 질문·답을 만든다.
+
+##### 보충
+
+###### 세 가지 supervision
+
+- **공간 관계:** end-effector와 목표 물체 사이의 관계.
+- **중간 subtask:** 전체 목표를 위한 현재 단계.
+- **낮은 수준의 action:** 현재 로봇 프레임에 대응하는 행동.
+
+<span class="label example">질문 형식의 설명용 예시</span> “컵은 손의 어느 쪽에 있는가?” “집은 뒤 무엇을 해야 하는가?”처럼 로봇 판단에 필요한 단서를 묻는다. 실제 데이터의 prompt를 그대로 인용한 것은 아니다.
+
+##### 요점
+
+VQA는 행동을 직접 실행하는 단계가 아니라, 행동에 유용한 VLM 표현을 만드는 적응 단계다.
+
+##### 출처
+
+Sec.2.1 · PDF pp.6–7
+
+##### 발표 메모
+
+원문은 Qwen3-VL 8B를 로봇 관련 VQA 데이터로 fine-tuning한 결과를 RLDX-1-VLM으로 사용한다고 설명한다. VQA의 답 형식·개별 prompt·정확한 dataset 규모는 이 문단에서 제시하지 않는다. 행동 출력은 뒤의 action model이 담당한다. Table2b의 57.5→60.9 비교는 뒤의 별도 ablation 장에서 다루며, 전체 recipe의 모든 효과로 일반화하지 않는다.
+
+## [P052] Cognition Tokens
+
+<!-- slide-meta
+layout: split
+kind: fact
+source_ids: S009
+-->
+
+### 한 문장
+
+영상·지시 뒤에 학습 가능한 64개 토큰을 붙이고, 그 위치의 출력 특징을 행동 모델에 전달한다.
+
+### 본문
+
+#### 입력 위치와 출력 위치의 연결
+
+<div class="token-row"><span class="token c">영상 토큰</span><span class="token">언어 토큰</span><span class="token a">cognition tokens × 64</span></div>
+
+<div class="sequence">
+<div class="step">VLM의 attention으로 시각·언어 맥락 읽기</div>
+<div class="step">각 입력 위치에 대응하는 hidden vector 갱신</div>
+<div class="step"><strong>중간층의 cognition 위치 출력 → hₜ</strong></div>
+</div>
+
+### 보충
+
+#### 붙이기만 해서 정보가 생기지는 않는다
+
+Concat은 토큰을 놓는 방식이다. <strong>정보를 모으는 계산은 Transformer의 attention과 특징 변환</strong>에서 일어난다.
+
+학습 과정에서 cognition tokens와 모델이 행동 예측에 유용한 특징을 만들도록 조정된다.
+
+<p class="callout">행동 모델로 보내는 것은 q 자체가 아니라, <strong>q가 있던 위치의 출력 hₜ</strong>다.</p>
+
+### 요점
+
+hₜ는 자연어 답변이 아니라 64개 cognition token 위치에서 꺼낸 행동용 특징 벡터 묶음이다.
+
+### 출처
+
+Sec.2.1 Cognition Tokens · PDF p.7
+
+### 발표 메모
+
+q를64개의 실제 자연어 질문이라고 주장하지 않는다. query token은 학습 가능한 입력 embedding이며 VLM 계산을 거친 해당 위치 출력들을 h_t로 사용한다. 나머지 위치 출력은 action decoder 전달용으로 남기지 않지만 내부 attention에는 이미 기여했다. 정보의 완전 보존을 주장하지 않는다.
+
+### 상세 공부 기록
+
+#### [S009] Cognition tokens와 hₜ
+
+<!-- study-meta
+layout: split
+kind: fact
+-->
+
+##### 한 문장
+
+학습 가능한 64개 query를 뒤에 붙이고, 그 위치의 hidden states를 행동 모델로 보낸다.
+
+##### 본문
+
+###### 입력은 함께, 출력은 선택해서
+
+$$
+\mathbf{v}_t=E_\theta(\mathbf{o}_{t-K:t})
+$$
+
+<div class="token-row"><span class="token">영상 $\mathbf{v}_{t}$</span><span class="token">언어 $\boldsymbol{\ell}_{t}$</span><span class="token c">q × 64</span></div>
+
+영상 특징과 지시 토큰 뒤에 cognition tokens **q**를 이어 붙여 VLM backbone에 넣는다. q는 학습 가능한 query tokens로, 앞의 시각·언어 맥락을 참고해 행동 예측에 필요한 정보를 모은다.
+
+##### 보충
+
+###### 어느 출력을 가져오는가?
+
+$$
+\mathbf{h}_t=F_\theta\bigl([\mathbf{v}_t,\boldsymbol{\ell}_t,\mathbf{q}]\bigr)_{\mathbf{q}\text{ 위치}}
+$$
+
+선택한 Transformer 층에서 **cognition token 위치에 대응하는 출력들**을 $\mathbf{h}_{t}$로 남긴다. 나머지 위치의 출력은 action decoder 전달용으로 버린다. $\mathbf{h}_{t}$는 단일 숫자나 자연어 문장이 아니라 여러 hidden vectors로 이루어진 표현이다.
+
+<p class="callout">64는 cognition token 수다. 영상 patch token 수나 생성할 action 개수를 뜻하지 않는다.</p>
+
+##### 요점
+
+“뒤에 붙인 학습 가능한 질문 64개가 현재 장면·지시를 행동용 표현으로 읽어낸다.”
+
+##### 출처
+
+Sec.2.1 Cognition Tokens · PDF p.7
+
+##### 발표 메모
+
+수식의 아래첨자 cognition token 위치는 원문을 읽기 쉽게 선택 연산으로 풀어 쓴 표기다. 원문은 $\mathbf{x}=[\mathbf{v}_t,\boldsymbol{\ell}_t,\mathbf{q}]$를 입력하고 cognition token에 대응하는 출력 특징만 남긴다고 명시한다. q를 “무조건 정보를 모두 보존하는 압축”으로 설명하지 않는다. 이때 cognition의 hidden states를 추출하는 층은 S010에서 분리해 설명한다.
+
+## [P053] Cognition Features의 추출
+
+<!-- slide-meta
+layout: split
+kind: fact
+source_ids: S010
+-->
+
+### 한 문장
+
+영상 특징·지시·cognition tokens를 함께 처리하고, 중간층에서 cognition 위치의 특징만 선택한다.
+
+### 본문
+
+#### 인코딩 → 이어 붙이기 → 출력 선택
+
+$$
+\mathbf v_t=E_\theta(\mathbf o_{t-K:t})
+$$
+
+$$
+\mathbf x=[\mathbf v_t,\boldsymbol\ell_t,\mathbf q]
+$$
+
+$$
+\mathbf h_t=F_\theta^{(\mathrm{mid})}(\mathbf x)_{\mathrm{cognition}}
+$$
+
+<p class="mini">마지막 식은 원문의 출력 선택을 풀어 쓴 설명용 표기다.</p>
+
+### 보충
+
+| 기호 | 의미 |
+| --- | --- |
+| $E_\theta$ | Vision Encoder |
+| $\mathbf o_{t-K:t}$ | 과거부터 현재까지의 영상 관측 묶음 |
+| $\boldsymbol\ell_t$ | 언어 지시의 토큰 표현 |
+| $\mathbf q$ | 학습 가능한 cognition tokens 64개 |
+| $F_\theta^{(\mathrm{mid})}$ | VLM backbone의 중간층까지 계산 |
+
+마지막 언어 생성층 대신 <strong>중간층</strong>을 사용한다. 저자는 조작에 필요한 시각 정보와 의미 정보의 균형을 이유로 든다.
+
+### 요점
+
+같은 시퀀스를 처리해도, Action Model에는 cognition token 위치의 출력 특징만 전달한다.
+
+### 출처
+
+Sec.2.1 · PDF p.7; 층 선택 비교: Table2(a) · p.25
+
+### 발표 메모
+
+mid와 cognition 아래첨자는 설명용 선택 연산이다. 원문은 최종층 대신 중간층을 사용한다고 하고 Table2(a)는8/18/28층 중18층60.9%를 보고한다. 사용자 지시에 따라 발표 본문은 중간층으로 쓰고18층 사실은 S010 N 해설에 보존한다. language head를 선택한다는 뜻이 아니며 이 절의 h_t는64개 출력 벡터다. 각 벡터 차원 d는 여기서 임의 수치화하지 않는다.
+
+### 상세 공부 기록
+
+#### [S010] 특징을 추출하는 층
+
+<!-- study-meta
+layout: split
+kind: fact
+-->
+
+##### 한 문장
+
+18층 hidden states를 선택하는 것과 언어 출력 head를 바꾸는 것은 다른 선택이다.
+
+##### 본문
+
+###### 층 안의 표현과 마지막 출력
+
+<div class="sequence">
+<div class="step">입력 → 초기 Transformer 층: 시각·언어 특징 처리</div>
+<div class="step"><strong>중간 18층 → cognition token 위치 특징 $\mathbf{h}_{t}$ 추출 → action model</strong></div>
+<div class="step">더 뒤의 Transformer 층 → 언어 출력 head → 텍스트 예측</div>
+</div>
+
+논문은 마지막 LLM 층 대신 중간층의 특징을 사용한다. 언어 생성에 특화된 후기 표현보다 조작에 필요한 시각 정보와 의미 정보의 균형이 낫다는 것이 저자의 설명이다.
+
+##### 보충
+
+###### 실험이 보여준 범위
+
+| 선택 층 | 성공률 |
+| --- | --- |
+| 8층 | 51.1% |
+| **18층** | **60.9%** |
+| 28층 | 56.3% |
+
+RoboCasa Kitchen의 별도 base-architecture 실험에서 세 후보 중 18층이 가장 높다. “모든 층·모든 작업에서 18층이 최적”인 결과는 아니다.
+
+<p class="mini">후기 블록과 vocabulary 출력 head는 서로 다른 요소다.</p>
+
+##### 요점
+
+특징을 어디서 꺼낼지는 실험한 설계 선택이며, 출력 head 자체를 선택하는 문제가 아니다.
+
+##### 출처
+
+Sec.2.1 · PDF p.7; Sec.6.5, Table2(a) · PDF pp.24–25
+
+##### 발표 메모
+
+원문은 action decoding에 intermediate hidden states를 사용한다고 설명하고, Sec6.5는 Layer18을 base로 사용한다. 이 ablation의 variant는 대규모 policy pre-training 없이 학습한다고 서술한다. 이미 학습된 Qwen VLM까지 완전 무작위 초기화했다는 뜻으로 읽지 않는다. 시각 grounding와 semantic abstraction의 균형은 수치 자체가 아니라 저자의 해석이다. 뒤의 S098에서 설정과 근거 강도를 다시 다룬다.
+
+## [P054] VLM의 시간 정보
+
+<!-- slide-meta
+layout: split
+kind: fact
+source_ids: S014
+-->
+
+### 한 문장
+
+초반 LLM 층은 과거부터 현재 순서의 관측을 읽고, causal 구조로 시간 맥락을 모은다.
+
+### 본문
+
+#### Causal attention — 참고할 방향 제한
+
+나중 위치는 앞선 정보를 읽을 수 있지만, 앞선 위치는 뒤쪽 정보를 미리 읽지 못한다.
+
+| 읽는 위치 ↓ | 과거 | 현재 | cognition |
+| --- | --- | --- | --- |
+| 과거 | ○ | × | × |
+| 현재 | ○ | ○ | × |
+| cognition | ○ | ○ | ○ |
+
+<p class="mini">○ 참고 가능 · × 차단. 시간 방향을 보여 주는 단순화이며 실제 전체 mask를 재현한 표는 아니다.</p>
+
+### 보충
+
+#### 초반 1–4층에서 모으는 맥락
+
+<div class="sequence">
+<div class="step">여러 시점의 관측 토큰을 시간순으로 입력</div>
+<div class="step">현재 관측과 cognition 위치에 과거 맥락 축적</div>
+<div class="step">그 뒤 과거 토큰을 압축해 후속 계산 절감</div>
+</div>
+
+프레임을 네 번 관측한 뒤 동작하는 규칙이 아니다. <strong>한 VLM 계산 안에서 층을 통과하는 과정</strong>이다.
+
+### 요점
+
+Attention은 정보 교환 방식이고, causal mask는 그때 어느 위치를 참고할 수 있는지 정한다.
+
+### 출처
+
+Sec.2.1 Motion Awareness, LLM backbone · PDF p.7; attention 배경은 상세 해설 S014
+
+### 발표 메모
+
+표는 기존 공부 기록의 단순화다. 실제 Qwen3-VL의 모든 multimodal attention mask를 새로 정의한 것이 아니다. cognition tokens는 언어 지시도 참고한다. 초반4층 이후 압축은 로봇 timestep4가 지난다는 의미와 구분한다. MSAT의 joint attention에 같은 causal mask를 그대로 대입하지 않는다.
+
+### 상세 공부 기록
+
+#### [S014] Self-attention과 causal mask
+
+<!-- study-meta
+layout: split
+kind: fact
+-->
+
+##### 한 문장
+
+뒤쪽 위치는 허용된 앞쪽 정보를 읽어 자신의 표현을 갱신할 수 있다.
+
+##### 본문
+
+###### 정보를 읽는 기본 연산
+
+$$
+\begin{aligned}
+\operatorname{Attention}(\mathbf{Q},\mathbf{K},\mathbf{V})
+&=\operatorname{softmax}\!\left(\frac{\mathbf{Q}\mathbf{K}^{\mathsf T}}{\sqrt d}+\mathbf{M}\right)\mathbf{V}
+\end{aligned}
+$$
+
+**Q**는 무엇을 찾을지, **K**는 참고할 특징의 주소, **V**는 가져올 내용을 표현하는 학습된 벡터다. mask M은 참고할 수 없는 위치의 점수를 차단한다. 각 query 위치는 허용된 value들을 가중합해 새로운 표현을 얻는다.
+
+<p class="mini">위 식은 Transformer의 일반 배경식이다. RLDX-1 구현의 모든 attention 세부를 정의하는 식은 아니다.</p>
+
+##### 보충
+
+###### 앞→뒤 순서가 하는 일
+
+<span class="label example">세 위치로 단순화</span>
+
+| 읽는 위치 ↓ | 과거 | 현재 | q |
+| --- | --- | --- | --- |
+| 과거 | ○ | × | × |
+| 현재 | ○ | ○ | × |
+| q | ○ | ○ | ○ |
+
+초반 LLM의 causal 구조로 과거 맥락을 현재 프레임과 뒤의 cognition tokens에 모은다. 이는 action을 한 개씩 생성한다는 뜻은 아니다.
+
+##### 요점
+
+Causal mask는 정보 접근 방향을 정한다. 위치마다 표현을 계산하는 것과 순차 행동 생성은 구분한다.
+
+##### 출처
+
+Sec.2.1 · PDF p.7; 배경: Vaswani et al., Sec.3.2 (arXiv:1706.03762)
+
+##### 발표 메모
+
+일반 scaled dot-product attention과 causal masking은 원전 https://arxiv.org/html/1706.03762v7 의 Sec3.1–3.2를 참조했다. 표는 로봇 관측과 q의 시간순서를 설명하는 단순화이며, 실제 Qwen3-VL의 multimodal mask 전체를 재현한 표가 아니다. M의 허용 위치는0, 차단 위치는−∞로 두는 배경 설명이다. MSAT의 joint attention에 이 causal mask를 그대로 적용한다고 주장하지 않는다.
+
+## [P055] 과거 프레임 압축
+
+<!-- slide-meta
+layout: split
+kind: fact
+source_ids: S015
+-->
+
+### 한 문장
+
+LLM의 4층 뒤에서 과거 관측의 hidden states를 평균 풀링해 context token 하나로 압축한다.
+
+### 본문
+
+#### 1–4층: 여러 프레임 그대로
+
+<div class="token-row"><span class="token c">과거 ①</span><span class="token c">과거 ②</span><span class="token c">과거 ③</span><span class="token c">현재</span></div>
+
+여러 프레임의 시간 관계를 먼저 읽는다. Qwen3-VL의 <strong>DeepStack</strong>도 초기 4층에 여러 수준의 시각 특징을 주입한다.
+
+#### 4층 뒤: 과거만 평균 풀링
+
+<div class="sequence">
+<div class="step">과거 관측 위치의 hidden states → context 1개</div>
+<div class="step">현재 관측·언어 지시·cognition 위치는 유지</div>
+</div>
+
+### 보충
+
+#### 이후 층이 처리하는 입력
+
+<div class="token-row"><span class="token c">context 1개</span><span class="token c">현재 관측</span><span class="token">지시</span><span class="token a">cognition × 64</span></div>
+
+토큰 수를 줄여 후속 attention 계산을 가볍게 하면서, 앞선 층에서 모은 시간 맥락을 활용한다.
+
+<p class="callout">평균 내는 것은 <strong>과거 관측의 특징 벡터</strong>다. 영상 픽셀을 겹쳐 한 장의 그림으로 만드는 과정은 아니다.</p>
+
+### 요점
+
+Context token은 이번 VLM 입력의 과거 프레임을 압축한 표현이며, 뒤의 장기 Memory Module과 다르다.
+
+### 출처
+
+Sec.2.1 Motion Awareness, LLM backbone · PDF p.7
+
+### 발표 메모
+
+원문은 DeepStack을 압축 없이 활용하기 위해2층 대신4층 뒤에 압축한다고 설명한다. 현재 관측·지시·q를 평균에 넣지 않는다. 원본 영상이 아니라 해당 층 hidden states를 평균 낸다. 정확한 camera/view별 packing이나 mask 전체는 이 문단에서 확인되지 않았다.
+
+### 상세 공부 기록
+
+#### [S015] 과거 프레임 압축
+
+<!-- study-meta
+layout: split
+kind: fact
+-->
+
+##### 한 문장
+
+LLM의 4층 뒤에서 과거 관측 hidden states를 한 context token으로 평균 낸다.
+
+##### 본문
+
+###### 초반에는 시간 맥락을 읽는다
+
+<div class="sequence">
+<div class="step">초기 4층: 시간순 영상 토큰 + 지시 + q를 처리</div>
+<div class="step">과거 관측 hidden states → average pooling → context 1개</div>
+<div class="step">이후 층: context + 현재 관측 + 지시 + q를 처리</div>
+</div>
+
+현재 프레임은 남기고, **과거 관측 위치의 표현**을 평균 낸 context token으로 교체한다. 원본 영상을 평균 내서 흐린 한 장을 만드는 과정이 아니다.
+
+##### 보충
+
+###### 왜 4층까지 기다리는가?
+
+Qwen3-VL의 **DeepStack**은 vision encoder의 여러 수준 특징을 초기 4개 LLM 층에 주입한다. 저자는 이 과정을 압축 없이 활용하도록 4층 뒤에 압축한다고 설명한다.
+
+$$
+\mathrm{context}=\frac{\mathbf{z}_1+\cdots+\mathbf{z}_{N_{\mathrm{past}}}}{N_{\mathrm{past}}}
+$$
+
+<p class="eq-caption">원문의 average pooling을 풀어 쓴 개념식. z는 해당 층의 과거 관측 hidden vectors다.</p>
+
+토큰 수를 줄여 이후 attention 계산을 가볍게 하면서, 초반에 모인 시간 맥락을 활용하려는 설계다.
+
+##### 요점
+
+압축 대상은 과거 관측 표현이고, 현재 관측·지시·cognition 위치는 계속 유지한다.
+
+##### 출처
+
+Sec.2.1 Motion Awareness, LLM backbone · PDF p.7
+
+##### 발표 메모
+
+원문은 과거 observations를 single context token으로 압축하고 현재 관측·지시·q와 함께 후속 블록에서 처리한다고 명시한다. 평균식은 해설용이다. 모든 camera/view별 실제 token grouping이나 구현상 packing 방식은 이 문단에서 명시되지 않는다. 4층 선택 이유는 DeepStack 활용이며, 2층 대비 성능 개선치를 이 절이 보고하는 것은 아니다. VLM 내부 context token을 이후 장의 memory features와 구별한다.
+
+## [P056] Memory Module
+
+<!-- slide-meta
+layout: split
+kind: fact
+source_ids: S017
+-->
+
+### 한 문장
+
+현재의 짧은 영상만으로 알 수 없는 과거 사건을, 이전 cognition features의 cache로 전달한다.
+
+### 본문
+
+<figure class="architecture-crop-figure"><div class="architecture-crop memory-crop"><img src="/figures/fig-03.png" alt="Figure 3의 과거 cognition features, Memory Transformer와 출력 연결"></div><figcaption>Figure 3 · VLM 뒤에 붙는 Memory Module</figcaption></figure>
+
+### 보충
+
+#### 저장하는 것은 과거 h의 묶음
+
+<p class="callout"><span class="label example">Shell game</span> 지금 상자들이 같아 보여도, 앞서 어느 상자에 물체를 넣었는지가 선택을 바꾼다.</p>
+
+<div class="sequence">
+<div class="step"><strong>Qₜ:</strong> 과거 cognition features 3묶음</div>
+<div class="step"><strong>hₜ:</strong> 이번 관측에서 얻은 현재 특징</div>
+<div class="step">과거 + 현재를 Memory Transformer로 처리</div>
+</div>
+
+원본 영상 전체를 매번 다시 입력하지 않고, 이전에 계산한 특징을 사용한다.
+
+### 요점
+
+짧은 관측 안의 움직임은 VLM에서, 더 긴 작업 이력은 VLM 뒤의 Memory Module에서 다룬다.
+
+### 출처
+
+Fig.3 · PDF p.6; Sec.2.1 Functionality 2: Long-Term Memory · p.7
+
+### 발표 메모
+
+원문은 shell game을 장기 기억이 필요한 동기로 든다. 그림의 상자 예시는 해당 실험과 연결한 직관이며 모든 과거 사건을 완벽히 복원한다고 주장하지 않는다. 저장 단위는64개 cognition feature의 묶음이고 n_mem=3은 과거 묶음 수다. 그림의 원문 연결 기호를 유지하고 결합 방식은 다음 수식 장에서 설명한다.
+
+### 상세 공부 기록
+
+#### [S017] Memory queue
+
+<!-- study-meta
+layout: split
+kind: fact
+-->
+
+##### 한 문장
+
+과거 cognition features 3묶음에 현재 $\mathbf{h}_t$를 붙여 긴 이력을 다시 읽는다.
+
+##### 본문
+
+###### 저장하는 것은 과거 영상 원본이 아니다
+
+<div class="token-row"><span class="token c">과거 h ①</span><span class="token c">과거 h ②</span><span class="token c">과거 h ③</span></div>
+
+$$
+\mathbf{Q}_t=[\text{과거 cognition features 3묶음}]
+$$
+
+<div class="flow">
+<div class="node">[$\mathbf{Q}_{t}$, $\mathbf{h}_{t}$]</div>
+<div class="arrow">→</div>
+<div class="node">Memory<br>Transformer</div>
+<div class="arrow">→</div>
+<div class="node">$\mathbf{m}_{t}$</div>
+</div>
+
+현재 관측에 보이지 않는 과거 사건이 행동에 필요할 때를 위해, 이전에 계산한 행동용 특징을 cache에 저장한다.
+
+##### 보충
+
+###### 서로 다른 두 개의 수
+
+<strong>$n_{\mathrm{mem}}$=3</strong>은 cache에 남기는 과거 시점 묶음 수다. 각 h는 cognition features이므로 “숫자 3개”나 “q token 3개”를 뜻하지 않는다. 현재 $\mathbf{h}_{t}$를 더하면 시간상 네 묶음을 memory module이 처리한다.
+
+<span class="label example">Shell game의 직관</span> 컵의 현재 외형만 같아 보여도, 앞서 무엇을 어느 컵에 숨겼는지가 선택을 바꿀 수 있다. queue는 그 과거 관측의 표현을 전달하는 통로다.
+
+##### 요점
+
+긴 이력의 저장 단위는 과거 시점의 cognition features이며, 현재 특징과 함께 읽는다.
+
+##### 출처
+
+Sec.2.1 Functionality2: Long-Term Memory · PDF p.7
+
+##### 발표 메모
+
+원문 memory module은 lightweight Transformer이며 $n_{\mathrm{mem}}=3$이다. $\mathbf{h}_t$는64 cognition token의 hidden features라는 앞 설명을 유지한다. 저장한 features의 dtype·메모리 크기, gradient 처리, 실제 cache 교체 코드는 이 절에서 확인하지 않았다. 설명용 shell game 예시는 원문에 든 대표 동기이며, 정확한 평가 절차는 S090/S094에서 구분한다.
+
+## [P057] Memory Module의 계산
+
+<!-- slide-meta
+layout: split
+kind: fact
+source_ids: S019
+-->
+
+### 한 문장
+
+과거 Qₜ와 현재 hₜ를 이어 붙여 memory features mₜ를 만들고, 현재 특징과 함께 MSAT에 전달한다.
+
+### 본문
+
+#### 과거 + 현재 → Memory Transformer
+
+$$
+\mathbf m_t=M_\theta([\mathbf Q_t,\mathbf h_t])
+$$
+
+<div class="sequence">
+<div class="step">오래된 h → 최근 h → 현재 h 순서로 배치</div>
+<div class="step">나중 시점은 자신과 이전 시점만 참고</div>
+<div class="step">과거 이력을 반영한 memory features mₜ 생성</div>
+</div>
+
+현재 특징 hₜ도 남겨, memory와 함께 행동 모델에 전달한다.
+
+### 보충
+
+#### C stream으로 전달할 특징
+
+$$
+\mathbf C=\operatorname{concat}(\mathbf h_t,\mathbf m_t)
+$$
+
+<strong>토큰 축으로 이어 붙이는 concat</strong>이다. Motion Module의 원소별 residual 덧셈과 구분한다.
+
+| Memory 입력의 구성 | 벡터 수 |
+| --- | --- |
+| 과거 3묶음 × cognition 64개 | 192 |
+| 현재 hₜ | 64 |
+| 합쳐서 Transformer에 입력 | 256 |
+
+### 요점
+
+Causal attention으로 과거를 읽은 mₜ와 현재 hₜ를 모두 사용한다. mₜ가 현재 특징을 대체하지 않는다.
+
+### 출처
+
+Sec.2.1 Long-Term Memory · PDF p.7; Sec.2.2 MSAT · p.8
+
+### 발표 메모
+
+256은 n_mem3과64 cognition tokens에서 계산한 Memory 입력의 벡터 개수다. 각 벡터의 차원 d와 구별하며 m_t 출력의 token 수를256 또는64로 임의 확정하지 않는다. M_theta는 lightweight causal Transformer다. C concat 식은 Sec.2.2의 입력 [h_t,m_t]를 풀어 쓴 설명 표기이고 m_t 계산식은 원문에 명시돼 있다.
+
+### 상세 공부 기록
+
+#### [S019] Memory features mₜ
+
+<!-- study-meta
+layout: split
+kind: fact
+-->
+
+##### 한 문장
+
+Causal memory Transformer의 출력과 현재 $\mathbf{h}_t$를 모두 행동 모델로 전달한다.
+
+##### 본문
+
+###### 과거→현재 방향으로 이력을 통합
+
+$$
+\mathbf{m}_t=M_\theta([\mathbf{Q}_t,\mathbf{h}_t])
+$$
+
+<div class="sequence">
+<div class="step">오래된 h → 더 최근 h → 현재 h 순서로 입력</div>
+<div class="step">나중 시점의 cognition은 자신과 앞선 시점만 참고</div>
+<div class="step">이력을 반영한 $\mathbf{m}_{t}$ 생성</div>
+</div>
+
+causal attention은 나중 시점이 이전 이력을 참고할 수 있게 하면서 시간 순서를 보존한다. 현재 관측만으로 드러나지 않는 작업 진행 상태를 읽으려는 설계다.
+
+##### 보충
+
+###### 현재 표현도 따로 남긴다
+
+<div class="flow">
+<div class="node">현재 $\mathbf{h}_{t}$</div>
+<div class="arrow">↘</div>
+<div class="node">Action model<br>[$\mathbf{h}_{t}$, $\mathbf{m}_{t}$]</div>
+</div>
+
+<div class="flow">
+<div class="node">Memory $\mathbf{m}_{t}$</div>
+<div class="arrow">↗</div>
+<div class="node">현재 + 긴 이력</div>
+</div>
+
+memory output으로 $\mathbf{h}_{t}$를 완전히 대체하지 않는다. 원문은 두 특징을 모두 전달한다고 명시한다. 대괄호를 사용한 입력 표기만으로 두 벡터를 원소별로 더한다고 해석해서는 안 된다.
+
+##### 요점
+
+이제 $\mathbf{h}_t$·$\mathbf{m}_t$는 조건이 된다. 다음 단계는 이 조건 아래 미래 행동 chunk를 생성하는 일이다.
+
+##### 출처
+
+Sec.2.1 Long-Term Memory; Sec.2.2 · PDF pp.7–8
+
+##### 발표 메모
+
+원문은 memory features $\mathbf{m}_t$와 original cognition tokens $\mathbf{h}_t$를 모두 action model에 feed한다고 명시한다. $\mathbf{m}_t$의 정확한 output selection이나 learned pooling은 제공된 식 이상으로 확정하지 않는다. 그림의 화살표 두 개는 병행 전달을 설명하며 실제 별도 network 두 개를 의미하지 않는다. 이후 flow matching 설명에서 $\mathbf{c}_t=[\mathbf{h}_t,\mathbf{m}_t,\mathbf{s}_t,\mathbf{p}_t]$의 구성 요소로 연결한다.
+
+## [P058] Memory의 시간 범위
+
+<!-- slide-meta
+layout: split
+kind: fact
+source_ids: S018
+-->
+
+### 한 문장
+
+매 프레임을 모두 쌓는 대신 action chunk 길이 간격으로 과거 특징을 저장해, 제한된 cache로 긴 이력을 본다.
+
+### 본문
+
+#### 원문이 제시한 저장 간격과 범위
+
+| Mid-training 설정 | 저장 간격 | 과거 범위 |
+| --- | --- | --- |
+| ALLEX | 40 timesteps | 120 timesteps |
+| Franka | 16 timesteps | 48 timesteps |
+
+Sec.4.2는 <strong>chunk 길이 H+1 간격</strong>으로 최근 3묶음을 저장한다고 설명한다.
+
+같은 시점의 64개 특징을 세 번 복제하는 것이 아니라, <strong>이전 서로 다른 시점에서 계산한 h</strong>를 사용한다.
+
+### 보충
+
+#### 아직 확정할 수 없는 갱신 규칙
+
+<div class="sequence">
+<div class="step">t가 바뀔 때 정확히 언제 cache를 저장·교체하는가?</div>
+<div class="step">시작 시 과거가 부족하면 어떻게 채우는가?</div>
+<div class="step">Episode 경계에서 어떻게 초기화하는가?</div>
+</div>
+
+<p class="mini">본문은 H+1 간격, Sec.2.1 queue 수식은 H 간격으로 표기한다. 정확한 구현 규칙은 미해결 질문으로 남긴다.</p>
+
+### 요점
+
+과거 특징 3묶음과 시간 범위는 확인된다. 매 timestep의 정확한 cache 갱신 표는 임의로 만들지 않는다.
+
+### 출처
+
+Sec.2.1 · PDF p.7; Sec.4.2 Functionality Expansion · p.13; 질문노트 Q5
+
+### 발표 메모
+
+120/48은 Sec.4.2의 명시 수치이며 Hz나 초 단위로 바꾸지 않는다. H+1의 문장과 H의 수식 불일치를 보존한다. 앞서 공부할 때 제시했던 t=120/121의 sliding 또는 고정격자 예시는 확인된 구현이 아니므로 재사용하지 않는다. 명세 부족을 모델이 작동하지 않는다는 주장으로 확대하지 않는다.
+
+### 상세 공부 기록
+
+#### [S018] 시간 범위와 갱신의 미해결점
+
+<!-- study-meta
+layout: split
+kind: question
+-->
+
+##### 한 문장
+
+저장 간격과 과거 범위는 제시되지만, 매 시점의 cache 관리 규칙까지 확정되지는 않는다.
+
+##### 본문
+
+###### 본문에서 확인한 시간 범위
+
+| 설정 | chunk 길이 | 과거 범위 |
+| --- | --- | --- |
+| ALLEX | 40 timesteps | 120 timesteps |
+| Franka | 16 timesteps | 48 timesteps |
+
+Sec.4.2는 세 묶음을 **H+1 간격**으로 저장하며 chunk 길이에 맞춘다고 설명한다. 이 수치를 실제 초 단위로 읽으려면 제어 주기 등 추가 정보가 필요하다.
+
+##### 보충
+
+###### 표기와 명세의 남은 질문
+
+$$
+\mathbf{Q}_t=[\mathbf{h}_{t-3H},\mathbf{h}_{t-2H},\mathbf{h}_{t-H}]
+$$
+
+Sec.2.1의 문장은 **H+1**, 바로 아래 queue 수식은 **H** 간격이다.
+
+- 로봇 시점 t가 바뀔 때 언제 저장·교체하는가?
+- 시작 시 과거 세 묶음이 부족하면 무엇으로 채우는가?
+- episode 경계에서 queue를 어떻게 초기화하는가?
+
+<p class="mini">이 규칙은 검토한 문단에서 확인되지 않았다. 임의의 고정 격자표로 구현 동작을 확정하지 않는다.</p>
+
+##### 요점
+
+시간 간격의 서술과 정확한 갱신·초기화 알고리즘을 구분하고 미해결로 남긴다.
+
+##### 출처
+
+Sec.2.1 · PDF p.7; Sec.4.2 Functionality Expansion · PDF p.13; 질문노트 Q5
+
+##### 발표 메모
+
+H+1=40이면 H=39라고 단순 대입해서 원문의 $\mathbf{h}_{t-H}$식과 memory120 범위를 동시에 일치시킬 수 없다. 이 장은 불일치를 임의 수정하지 않는다. 저자 코드의 exact cache policy는 확인하지 않았고, 본문 명세 불충분을 모델 자체의 동작 결함으로 확대하지 않는다. AppC의40예측/20실행 설정 역시 모든 memory 저장 타이밍을 해명하는 근거가 아니다.
+
+## [P059] Context·Cognition·Memory
+
+<!-- slide-meta
+layout: full
+kind: fact
+source_ids:
+-->
+
+### 한 문장
+
+세 표현은 생성 위치와 역할이 다르다. VLM 내부의 압축 결과와 행동 모델로 전달할 특징을 구별한다.
+
+### 본문
+
+| 표현 | 어디서 만드는가? | 무엇을 담고 어디에 쓰는가? |
+| --- | --- | --- |
+| <strong>Context token</strong><br>1개 | LLM의 4층 뒤<br>과거 관측 hidden states 평균 | 이번 입력의 과거 프레임 맥락<br>VLM 후속 층의 입력 |
+| <strong>Cognition features hₜ</strong><br>64개 위치의 출력 | VLM 중간층<br>cognition token 위치에서 추출 | 현재 영상 묶음·언어 지시의 행동용 표현<br>Memory와 MSAT에 전달 |
+| <strong>Memory features mₜ</strong> | VLM 뒤의 Memory Transformer<br>과거 Qₜ와 현재 hₜ를 함께 처리 | 더 긴 작업 이력을 반영한 표현<br>hₜ와 concat해 MSAT에 전달 |
+
+<p class="callout"><strong>영상 + 지시 → hₜ → 과거 이력과 함께 mₜ → [hₜ, mₜ]를 C stream에 입력</strong></p>
+
+### 보충
+
+### 요점
+
+이제 시각·언어·긴 이력을 행동용 특징으로 만들었다. 다음은 상태·센서와 함께 MSAT에 넣는 방법이다.
+
+### 출처
+
+Fig.3; Sec.2.1–2.2 · PDF pp.6–8; 기존 공부 기록 S016은 P032 N 해설에 보존
+
+### 발표 메모
+
+세 표현의 구별은 기존 S016의 개념 정리다. S016을 P032 해설에 남겨 기존 P005→P032 Memory 링크에서 계속 찾을 수 있게 한다. 이 본문은 새 실험 결과가 아니라 원문의 생성 위치와 전달 경로를 함께 읽는 요약이다. m_t의 출력 token 수는 원문 식 이상으로 확정하지 않는다.
+
+### 상세 공부 기록
 
 ## [P009] MSAT의 입력
 

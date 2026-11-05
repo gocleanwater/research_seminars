@@ -1,5 +1,12 @@
 # 논문 슬라이드 제작 규칙
 
+## Vision·VLM·Memory 설명 — 2026-11-06 / v15
+
+- 사용자 요청에 따라 Fig.3(P032,4쪽)과 MSAT(P009,이전5쪽) 사이에 P048–P059 설명을 추가한다. VQA는 S008 N 해설에만 있었으므로 로봇 공간 관계·subtask·현재 프레임의 low-level action 세 범주와 학습 목적을 본문에서 풀어 설명한다.
+- Vision Encoder·STSS motion·residual, VLM·cognition 위치 출력·중간층, causal 시간 처리·과거 압축, Memory queue·계산·시간 범위 순서로 읽는다. 수식 장은 별도로 두고 source 수식과 해설용 선택 표기를 구별한다.
+- 기존 상세121개 내용과27개 Fig.3 상태를 보존한다. Memory의 H/H+1 및 갱신·초기화는 미해결로 유지하며, 출력 m_t의 token 수를 임의 확정하지 않는다.
+- 변경 전 태그는 rldx-v14-before-vlm-memory-explanation-20261106이다. 수정·검증 뒤 자동 commit/push 지시를 유지한다.
+
 ## 합성 데이터 검증 — 2026-11-06 / v14
 
 - P015에는 합성 영상 A → IDM → 추정 행동 → Simulator → rollout 영상 B의 전체 흐름과 A·B 비교 분기를 표시한다. Rollout은 추정 행동 자체가 아니라 그 행동을 시뮬레이터에서 실행해 얻은 영상이다.

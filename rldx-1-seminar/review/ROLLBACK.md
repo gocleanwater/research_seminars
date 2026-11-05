@@ -1,5 +1,13 @@
 # 버전 보존과 복구
 
+## v15 변경 전 버전
+
+- 태그: `rldx-v14-before-vlm-memory-explanation-20261106`
+- 커밋: `3e7a412` — rollout 비교를 보강한40장
+- 이후 v15: 기존4/5페이지 사이에 Vision·Motion·VLM·VQA·Memory 설명12장을 삽입한52장. 상세121개는 내용이 같다.
+- 저장소 루트에서 비교: `git diff rldx-v14-before-vlm-memory-explanation-20261106 -- rldx-1-seminar/sections/02-rldx-1-architecture.md`
+- 필요한 변경을 새 커밋으로 되돌리며 원격 main을 reset/force-push하지 않는다.
+
 ## v14 변경 전 버전
 
 - 태그: `rldx-v13-before-rollout-explanation-20261106`
