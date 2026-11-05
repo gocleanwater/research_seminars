@@ -1,5 +1,13 @@
 # 피드백 기록
 
+## 2026-11-06 / Ablation / 일곱 근거의 상세 설명
+
+- 사용자: Table2(a) 중간층 선택, Table2(b) VQA, Fig.19 attention, Table3 합성 데이터, Fig.20 RL 작업, Fig.21 RECAP 반복, Table4 단계별 추론 최적화를 모두 자세히 설명할 것. 페이지 증가를 허용하며 저자의 중간층 해석 같은 직관도 본문에 포함할 것.
+- 대조: Sec.6.5 PDF pp.24–26, App.C p.43, App.F p.47, 기존 S097–S107 및 질문노트의6.5 검토 기록을 확인했다.
+- 반영: 기존2장 요약을13장으로 확장했다. 지도→층 선택→VQA 효과→Fig.19→합성 설정/결과→Fig.20→Fig.21 지표/큰 그래프/수치와 직관→Table4 측정 조건/결과/누적 효과 해석 순서다.
+- 분류: 원문 수치와 저자의 원인 설명, 우리의 컵/문제집/효율 비유를 구분한다. 별도 base 실험과 full recipe, pool과sampling, 성공률과frames/attempts, p50과전체제어지연 및 누적배수와직전배수를 구별한다.
+- 보존: S097–S107을 필요한 장으로 재배치하며 전체121개 상세 내용은 유지한다. 결과물 승인은 별도이며 기존 자동 commit/push 지시를 따른다.
+
 ## 2026-11-06 / P032 다음 / Vision·VLM·Memory 본문 설명
 
 - 사용자: VQA를 VLM에서 설명했는지 확인하고, Action Model 외의 Vision Encoder·Motion Module·VLM·Memory Module도 기존4/5페이지 사이에 설명을 넣도록 요청했다.

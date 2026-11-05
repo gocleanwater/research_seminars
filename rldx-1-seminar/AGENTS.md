@@ -1,5 +1,11 @@
 # 논문 슬라이드 제작 규칙
 
+## Ablation 상세화 — 2026-11-06 / v16
+
+- 사용자 요청에 따라 Table2(a), Table2(b), Fig.19, Table3, Fig.20, Fig.21, Table4를 각각 자세히 다룬다. 실험 설정·관측 결과·저자의 해석·우리의 직관을 본문에서 구별하고 페이지 수를 제한하지 않는다.
+- 중간층의 시각 grounding/의미적 추상화 균형은 저자의 해석으로 표시한다. Fig.19는 마지막 prompt token→image patch, Table3은 합성 pool 크기/실제:합성 sampling1:1, Fig.21은frames/비틀기 횟수, Table4는고정desktop의p50이다.
+- 누적1.63배와kernel의직전대비1.12배를 구별한다.13개 본문 장으로 나누되 기존 상세121개와 ID 의미·출처·미해결을 보존한다. 변경 전 태그는 rldx-v15-before-detailed-ablation-20261106이다.
+
 ## Vision·VLM·Memory 설명 — 2026-11-06 / v15
 
 - 사용자 요청에 따라 Fig.3(P032,4쪽)과 MSAT(P009,이전5쪽) 사이에 P048–P059 설명을 추가한다. VQA는 S008 N 해설에만 있었으므로 로봇 공간 관계·subtask·현재 프레임의 low-level action 세 범주와 학습 목적을 본문에서 풀어 설명한다.

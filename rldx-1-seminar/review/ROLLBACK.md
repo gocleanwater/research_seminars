@@ -1,5 +1,13 @@
 # 버전 보존과 복구
 
+## v16 변경 전 버전
+
+- 태그: `rldx-v15-before-detailed-ablation-20261106`
+- 커밋: `c22968a` — Vision·VLM·Memory를 보강한52장, Ablation은2장 요약
+- 이후 v16: Ablation을13장으로 나눈63장. 상세121개는 내용이 같다.
+- 저장소 루트에서 비교: `git diff rldx-v15-before-detailed-ablation-20261106 -- rldx-1-seminar/sections/07-ablation-and-analysis.md`
+- 복구는 필요한 변경을 새 커밋으로 되돌리며 원격 main을 reset/force-push하지 않는다.
+
 ## v15 변경 전 버전
 
 - 태그: `rldx-v14-before-vlm-memory-explanation-20261106`

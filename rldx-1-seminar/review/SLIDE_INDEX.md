@@ -1,4 +1,4 @@
-# 슬라이드 색인 — v15
+# 슬라이드 색인 — v16
 
 MD 원본 → HTML. 전체 도식 확대 단계는 P032 안에서 방향키로 이동한다. 개별 결과물은 사용자 검토 전이다.
 
@@ -51,8 +51,19 @@ MD 원본 → HTML. 전체 도식 확대 단계는 P032 안에서 방향키로 �
 | 45 | P024 | Evaluation and Analysis | ALLEX 결과 | sections/06-evaluation-and-analysis.md | S092 |
 | 46 | P044 | Evaluation and Analysis | Franka 과제 | sections/06-evaluation-and-analysis.md | S093, S094 |
 | 47 | P025 | Evaluation and Analysis | Franka 결과 | sections/06-evaluation-and-analysis.md | S095, S096 |
-| 48 | P026 | Ablation and Analysis | Ablation | sections/07-ablation-and-analysis.md | S097, S098, S099, S100, S101, S102 |
-| 49 | P027 | Ablation and Analysis | RL·추론 지연 분석 | sections/07-ablation-and-analysis.md | S103, S104, S105, S106, S107 |
-| 50 | P029 | Conclusion | Conclusion | sections/08-conclusion.md | S116, S117 |
-| 51 | P028 | My opinions and limitation | 나의 의견 | sections/09-my-opinions-and-limitation.md | S108, S109, S110, S111, S112, S113, S114, S115 |
-| 52 | P030 | My opinions and limitation | 한계와 미해결 질문 | sections/09-my-opinions-and-limitation.md | S118, S119, S120, S121 |
+| 48 | P026 | Ablation and Analysis | Ablation and Analysis | sections/07-ablation-and-analysis.md | S097, S107 |
+| 49 | P060 | Ablation and Analysis | VLM의 특징 추출 층 | sections/07-ablation-and-analysis.md | S098 |
+| 50 | P061 | Ablation and Analysis | 로봇 VQA의 효과 | sections/07-ablation-and-analysis.md | S099 |
+| 51 | P062 | Ablation and Analysis | VQA 전후의 Attention | sections/07-ablation-and-analysis.md | S100 |
+| 52 | P063 | Ablation and Analysis | 합성 데이터 규모 실험 | sections/07-ablation-and-analysis.md | S101 |
+| 53 | P064 | Ablation and Analysis | 합성 데이터의 성능 효과 | sections/07-ablation-and-analysis.md | S102 |
+| 54 | P065 | Ablation and Analysis | RL 평가 작업 | sections/07-ablation-and-analysis.md | S103 |
+| 55 | P070 | Ablation and Analysis | RECAP 결과의 지표 | sections/07-ablation-and-analysis.md |  |
+| 56 | P066 | Ablation and Analysis | RECAP 반복 결과 | sections/07-ablation-and-analysis.md | S104 |
+| 57 | P067 | Ablation and Analysis | RECAP 개선의 의미 | sections/07-ablation-and-analysis.md |  |
+| 58 | P027 | Ablation and Analysis | 추론 지연 측정 | sections/07-ablation-and-analysis.md | S105 |
+| 59 | P068 | Ablation and Analysis | 추론 최적화의 단계별 효과 | sections/07-ablation-and-analysis.md | S106 |
+| 60 | P069 | Ablation and Analysis | 추론 최적화의 해석 | sections/07-ablation-and-analysis.md |  |
+| 61 | P029 | Conclusion | Conclusion | sections/08-conclusion.md | S116, S117 |
+| 62 | P028 | My opinions and limitation | 나의 의견 | sections/09-my-opinions-and-limitation.md | S108, S109, S110, S111, S112, S113, S114, S115 |
+| 63 | P030 | My opinions and limitation | 한계와 미해결 질문 | sections/09-my-opinions-and-limitation.md | S118, S119, S120, S121 |

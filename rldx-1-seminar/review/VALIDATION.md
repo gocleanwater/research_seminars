@@ -1,5 +1,21 @@
 # v09 페이지 번호 입력 검증 — 2026-11-06
 
+## 2026-11-06 / v16 / Ablation 일곱 근거의 상세화
+
+- 요청: Table2(a)·Table2(b)·Fig.19·Table3·Fig.20·Fig.21·Table4를 모두 자세히 설명하고, 저자의 중간층 해석처럼 직관을 주는 설명을 본문에 포함할 것. 페이지 수를 제한하지 않는다.
+- 대조: 원문 Sec.6.5 PDF pp.24–26, App.C p.43, App.F p.47, 기존 S097–S107 및 질문노트의6.5 검토 기록을 읽었다. 원문 Fig.19/20/21 PNG도 직접 확인했다.
+- 구성: P026 지도 → P060 층 선택 → P061 VQA 효과 → P062 attention → P063/P064 합성 규모 설정/결과 → P065 전구 작업 → P070 지표 → P066 확대 그래프 → P067 RECAP 수치·해석 → P027 지연 측정 → P068 최적화 결과 → P069 효과 해석. 기존2장을13장으로 나눠 전체63장이다.48–60페이지가 Ablation이다.
+- 본문 해석: 초기층 의미 정보/후기층 시각 정렬/중간층 균형은 저자의 해석으로 표시한다. 손·물체 위치와 목표 이해, 문제집 다양성, 반복 상호작용의 효율, 실행 준비/중간 메모리 비용은 우리의 직관으로 구별한다. 실제 prompt나 새 인과 실험으로 제시하지 않는다.
+- 수치·범위: Table2(a)51.1/60.9/56.3, VQA57.5→60.9(+3.4%p), 합성41.0/45.6/46.6/50.1(+9.1%p), BC1056±326/12.7±3.0→RECAP3 353±22/4.1±0.3, Table4 두 variant의 모든 행을 원문과 대조했다. 합성 pool과sampling1:1, frames/attempts와성공률, 누적1.63배와kernel추가1.12배, policy p50과전체제어지연을 구별한다.
+- 보존: `rldx-v15-before-detailed-ablation-20261106`(c22968a)의121개 상세 단위를 추출해 비교했다. 바깥 공백을 제외한 내용이 동일하고 각각 정확히 한 번 연결된다. S097/S107은 P026, S098–S106은 각각 해당 상세 본문 장으로 재배치했다.
+- 소스/화면: `python3 scripts/build_deck.py`, `python3 scripts/verify_sources.py`, `node scripts/verify_deck.mjs` 통과.63장 PNG에서 넘침·이미지 실패·브라우저 오류·외부 요청0. 처음 발견한 P062/P063/P068 넘침은 행 설명의 구성 변경·문장 재배치·중복 소제목 정리로 해결했다. 글꼴 크기는 유지했다.
+- 실제 시각 확인: v16의 P026, P060–P070 중 Ablation13개 PNG를 직접 확인했다. Fig.21은 지표를 P070으로 나누고 P066에서 큰 원문 그래프를 보여 주도록 했다. 본문 수식·각주·표·해석 상자의 경계를 확인했다.
+- 탐색: `node scripts/verify_navigation.mjs` 통과. 일곱 분석 항목을 순서대로 탐색해 Conclusion으로 이어지는지 확인했고 번호 입력·역순·기존 별칭·Fig.3 경계도 유지했다.
+- 수식/글꼴: `node scripts/verify_math_font.mjs` 통과. Arial/한글 fallback·내장 Nanum·KaTeX·전체 N 해설 수식 너비를 확인했다. P069의 두 비율 수식도 본문 DOM과 실제 PNG에서 확인했다.
+- 빌드: 기본 `pnpm build`와 `pnpm build --base /rldx-1-seminar/` 통과. `node scripts/verify_slidev.mjs`에서63장·브라우저 오류0·실패0을 확인했다.
+- 게시 산출물: `python3 scripts/package_pages.py`, `node scripts/verify_pages.mjs` 통과. repository 경로·랜딩·표지·Fig.3·해설 및 외부 요청0을 확인했다. presentation/index/게시 index 동일성과 `git diff --check` 통과.
+- 사용자 결과물 승인 전이다. 수정 후 자동 게시 지시에 따라 관련 소스·기록·HTML·ZIP 및 변경 전 태그를 commit·push한다. GitHub Pages 실제 반영 완료는 별도 확인 전이다.
+
 ## 2026-11-06 / v15 / Vision·VLM·Memory 본문 설명
 
 - 요청: VQA가 발표에 들어 있는지 확인하고 기존4페이지 Fig.3과5페이지 MSAT 사이에 Vision Encoder·Motion Module·VLM·Memory Module 설명을 추가할 것.
