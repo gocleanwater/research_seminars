@@ -1744,13 +1744,18 @@ layout: none
 
 <!-- slide-id: P014 | revision: v20 | status: draft -->
 
-<section class="seminar-slide" data-slide-id="P014"><header class="seminar-header"><div class="chapter-label">Training Data</div><h1>Task·Scene Augmentation</h1><p class="slide-lead">지시의 변형과 시각적 변형을 나누되, 원본 장면에서 가능한 동작을 유지하려 한다.</p></header><div class="seminar-body figure"><figure class="paper-figure"><img src="/figures/fig-05.png" alt="Figure 5 · (a) 원본 (b) 지시 변형 (c) I2I 편집 후 I2V 생성" loading="eager"><figcaption>Figure 5 · (a) 원본 (b) 지시 변형 (c) I2I 편집 후 I2V 생성</figcaption></figure><div class="body-main"><h3>무엇을 할지, 어디에서 할지</h3>
-<p><strong>Task:</strong> 행동·물체·위치·손을 재조합하거나 원본 skill을 조건으로 변형한다. 두 전략의 결과는 겹칠 수 있다.</p>
-<p><strong>Scene:</strong> 시작 장면을 I2I로 편집해 I2V로 생성하거나, V2V로 영상의 색·질감을 바꾸며 움직임을 보존하려 한다.</p>
-<p class="callout">Canny edge는 구조 보존을 유도한다. 실행 가능성을 보장하지 않으며, 구체적인 판정 규칙·prompt는 미확인이다.</p></div></div><div class="takeaway">Task는 지시를, Scene은 시각 조건을 바꾼다. 다음은 생성 영상에 행동을 붙이고 검사하는 단계다.</div><footer class="seminar-footer"><span class="source">Sec.3.3; Fig.5 · PDF p.11; App.B.3 · PDF p.42; 질문노트 Q8</span><span class="slide-id">P014 · 016/76</span></footer></section>
+<section class="seminar-slide" data-slide-id="P014"><header class="seminar-header"><div class="chapter-label">Training Data</div><h1>Task·Scene Augmentation</h1><p class="slide-lead">Task는 지시를, Scene은 시작 이미지와 영상의 외관을 바꿔 합성 데이터를 다양화한다.</p></header><div class="seminar-body figure"><figure class="paper-figure"><img src="/figures/fig-05.png" alt="Figure 5 · (a) 원본 (b) 지시 변형 (c) I2I 편집 후 I2V 생성" loading="eager"><figcaption>Figure 5 · (a) 원본 (b) 지시 변형 (c) I2I 편집 후 I2V 생성</figcaption></figure><div class="body-main"><p><strong>Task:</strong> 행동·물체·위치·손을 재조합하거나 원본 skill을 조건으로 변형한다. 두 전략의 결과는 겹칠 수 있다.</p>
+<p><strong>Scene:</strong> 시작 이미지를 I2I로 편집 → I2V로 영상 생성. V2V는 생성된 영상의 색·질감을 바꾸며 동작을 유지하려 한다.</p>
+<p class="callout"><strong>Canny edge map = 윤곽선 안내선.</strong><br>I2I·V2V에 컵·손·테이블의 경계를 조건으로 주어, 외관을 바꾸면서도 <strong>대략적인 배치·형태를 따르도록 유도</strong>한다.</p></div></div><div class="takeaway">Scene은 외관의 다양성을 늘리고, Canny 윤곽선은 구조를 따라갈 단서를 제공한다.</div><footer class="seminar-footer"><span class="source">Sec.3.3; Fig.5 · PDF p.11; App.B.3 · PDF p.42</span><span class="slide-id">P014 · 016/76</span></footer></section>
 
 <!--
-왼쪽 세 행을 원본·task 변형·scene 변형 순으로 읽는다. 다음 장에서 생성 영상의 행동 라벨과 검증으로 넘어간다.
+왼쪽 세 행을 원본·task 변형·scene 변형 순으로 읽는다. Canny edge 조건은 Scene Augmentation의 설명이다.
+
+“장면을 다양화할 때 아무 제약 없이 새 이미지를 만들면, 손과 물체의 배치까지 크게 달라질 수 있습니다. 그래서 원본의 경계·윤곽을 나타내는 Canny edge map을 생성 모델의 조건으로 제공합니다. 컵이 어디에 있고 테이블 경계가 어디인지 같은 단서를 안내선으로 주면서, 외관을 바꿀 때도 대략적인 구조를 따라가도록 유도하는 것입니다. 이 안내선 비유는 생성 조건의 역할을 풀어 쓴 설명입니다.”
+
+“이미지 수준에서는 FLUX.2-dev로 시작 프레임의 테이블 외관, 대상 물체의 정체·외형, 조명, 배경을 바꿉니다. 이때 edge 조건으로 원래 장면 구조를 참고하게 하고, 편집한 시작 이미지에서 I2V로 새 영상을 생성합니다. Fig.5(c)가 이 I2I→I2V 경로의 예시입니다. 영상 수준의 V2V에서는 다시 edge 조건을 사용해 물체의 정체·형태와 움직임을 유지하면서 색·질감을 바꾸려 합니다. 두 단계가 허용하는 변형 범위는 다릅니다.”
+
+윤곽은 생성 모델이 참고하는 조건이며 위치·접촉·물리 타당성을 정확히 보장하는 규칙으로 설명하지 않는다. Fig.5(c)를 V2V만의 결과로 소개하지 않는다. 다음 장에서 생성 영상의 행동 라벨과 검증으로 넘어간다.
 
 S044 Factorized task augmentation
 지시를 네 요소로 나누고 시작 장면을 조건으로 재조합한다.
