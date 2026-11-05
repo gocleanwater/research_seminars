@@ -1,4 +1,4 @@
-# 슬라이드 색인 — v22
+# 슬라이드 색인 — v23
 
 MD 원본 → HTML. 전체 도식 확대 단계는 P032 안에서 방향키로 이동한다. 개별 결과물은 사용자 검토 전이다.
 
@@ -10,20 +10,20 @@ MD 원본 → HTML. 전체 도식 확대 단계는 P032 안에서 방향키로 �
 | 4 | P032 | RLDX-1 Architecture | RLDX-1 Architecture | sections/02-rldx-1-architecture.md | S016, S035, S040, S011, S012, S013, S009, S010, S014, S015, S017, S019, S018 |
 | 5 | P051 | RLDX-1 Architecture | VLM과 로봇 VQA | sections/02-rldx-1-architecture.md | S008 |
 | 6 | P009 | RLDX-1 Architecture | MSAT의 입력 | sections/02-rldx-1-architecture.md | S031, S032, S037, S038 |
-| 7 | P010 | RLDX-1 Architecture | MSAT의 Joint Attention | sections/02-rldx-1-architecture.md | S033, S034, S039 |
-| 8 | P006 | RLDX-1 Architecture | Action Model의 학습 원리 | sections/02-rldx-1-architecture.md | S020, S021, S022, S023, S024, S025, S026, S028 |
-| 9 | P008 | RLDX-1 Architecture | Action Model의 추론 수식 | sections/02-rldx-1-architecture.md | S027, S029, S030 |
-| 10 | P071 | RLDX-1 Architecture | Action Chunk의 실행 | sections/02-rldx-1-architecture.md | S071 |
-| 11 | P013 | Training Data | 학습 데이터 | sections/03-training-data.md | S041, S043 |
-| 12 | P033 | Training Data | 공개 실제 데이터 | sections/03-training-data.md |  |
-| 13 | P034 | Training Data | 자체 실제 데이터 | sections/03-training-data.md | S042 |
-| 14 | P072 | Training Data | 로봇 영상 생성 모델 | sections/03-training-data.md |  |
-| 15 | P014 | Training Data | Task·Scene Augmentation | sections/03-training-data.md | S044, S045, S046, S047, S048, S049, S050 |
-| 16 | P015 | Training Data | 합성 데이터 검증 | sections/03-training-data.md | S055, S051, S052, S053 |
-| 17 | P047 | Training Data | 일치 검사기의 학습 | sections/03-training-data.md | S054 |
-| 18 | P035 | Training Procedure | 학습 단계 | sections/04-training-procedure.md | S056 |
-| 19 | P016 | Training Procedure | Pre-training | sections/04-training-procedure.md | S057, S059 |
-| 20 | P036 | Training Procedure | 로봇별 입출력 경로 | sections/04-training-procedure.md | S058, S036 |
+| 7 | P036 | RLDX-1 Architecture | 로봇별 입출력 경로 | sections/02-rldx-1-architecture.md | S058, S036 |
+| 8 | P010 | RLDX-1 Architecture | MSAT의 Joint Attention | sections/02-rldx-1-architecture.md | S033, S034, S039 |
+| 9 | P006 | RLDX-1 Architecture | Action Model의 학습 원리 | sections/02-rldx-1-architecture.md | S020, S021, S022, S023, S024, S025, S026, S028 |
+| 10 | P008 | RLDX-1 Architecture | Action Model의 추론 수식 | sections/02-rldx-1-architecture.md | S027, S029, S030 |
+| 11 | P071 | RLDX-1 Architecture | Action Chunk의 실행 | sections/02-rldx-1-architecture.md | S071 |
+| 12 | P013 | Training Data | 학습 데이터 | sections/03-training-data.md | S041, S043 |
+| 13 | P033 | Training Data | 공개 실제 데이터 | sections/03-training-data.md |  |
+| 14 | P034 | Training Data | 자체 실제 데이터 | sections/03-training-data.md | S042 |
+| 15 | P072 | Training Data | 로봇 영상 생성 모델 | sections/03-training-data.md |  |
+| 16 | P014 | Training Data | Task·Scene Augmentation | sections/03-training-data.md | S044, S045, S046, S047, S048, S049, S050 |
+| 17 | P015 | Training Data | 합성 데이터 검증 | sections/03-training-data.md | S055, S051, S052, S053 |
+| 18 | P047 | Training Data | 일치 검사기의 학습 | sections/03-training-data.md | S054 |
+| 19 | P035 | Training Procedure | 학습 단계 | sections/04-training-procedure.md | S056 |
+| 20 | P016 | Training Procedure | Pre-training | sections/04-training-procedure.md | S057, S059 |
 | 21 | P017 | Training Procedure | Mid-training | sections/04-training-procedure.md | S060, S061, S062, S063, S064 |
 | 22 | P018 | Training Procedure | Post-training | sections/04-training-procedure.md | S065, S066 |
 | 23 | P019 | Training Procedure | RECAP | sections/04-training-procedure.md | S067, S068, S070 |

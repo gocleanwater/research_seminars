@@ -99,6 +99,11 @@ try{
   assert.match(await page.locator('#notes-text').innerText(),/상세 해설 S037/);
   assert.match(await page.locator('#notes-text').innerText(),/상세 해설 S038/);
   await page.keyboard.press('Escape');await page.keyboard.press('ArrowRight');
+  assert.equal(await active(),'P036');
+  assert(!(await page.locator('.deck-page.active').innerText()).includes('256'));
+  await page.keyboard.press('n');
+  assert.match(await page.locator('#notes-text .study-intro').innerText(),/256 trajectories/);
+  await page.keyboard.press('Escape');await page.keyboard.press('ArrowRight');
   assert.equal(await active(),'P010');await page.keyboard.press('n');
   assert.match(await page.locator('#notes-text').innerText(),/상세 해설 S039/);
   await page.keyboard.press('Escape');
@@ -132,8 +137,10 @@ try{
   for(const term of ['Vision Encoder 발표 대본','첫 번째 화살표','STSS','Residual addition','10–27층','VLM 발표 대본','세 종류의 입력','causal 구조','과거 프레임 특징의 압축','cognition 위치 출력','Memory Module 발표 대본','과거 cognition features의 queue','Causal Transformer의 계산','저장 간격과 과거 범위'])assert(scriptText.includes(term),term);
   await page.keyboard.press('Escape');
   // Architecture structure precedes its learning/inference equations.
+  await jump('7');assert.equal(await active(),'P036');
+  assert.match(await page.locator('.deck-page.active').innerText(),/RLDX-1 Architecture/);
   await show('P009');
-  for(const id of ['P010','P006','P008','P071','P013']){await page.keyboard.press('ArrowRight');assert.equal(await active(),id);}
+  for(const id of ['P036','P010','P006','P008','P071','P013']){await page.keyboard.press('ArrowRight');assert.equal(await active(),id);}
   // Public and in-house data come between the overview and synthetic augmentation.
   for(const id of ['P033','P034','P072','P014']){await page.keyboard.press('ArrowRight');assert.equal(await active(),id);}
   // Generated video, simulator rollout, feature comparison, then classifier training.
@@ -144,7 +151,7 @@ try{
   await page.keyboard.press('Escape');
   // Purpose first, then each training stage; graph and fused-kernel explanations stay separate.
   await show('P035');
-  for(const id of ['P016','P036','P017','P018','P019','P037','P075','P076','P077','P020','P038','P039','P078','P040']){await page.keyboard.press('ArrowRight');assert.equal(await active(),id);}
+  for(const id of ['P016','P017','P018','P019','P037','P075','P076','P077','P020','P038','P039','P078','P040']){await page.keyboard.press('ArrowRight');assert.equal(await active(),id);}
   // Benchmarks and real robot/task photos come before their result plots.
   for(const id of ['P079','P080','P022','P091','P092','P093','P094','P041','P082','P042','P081','P023','P043','P024','P044','P025','P026']){await page.keyboard.press('ArrowRight');assert.equal(await active(),id);}
   // Follow the seven ablation topics without skipping their separate conditions and interpretations.

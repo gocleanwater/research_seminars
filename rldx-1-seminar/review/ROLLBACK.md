@@ -1,5 +1,12 @@
 # 버전 보존과 복구
 
+## v23 변경 전 버전
+
+- 태그: `rldx-v22-before-projection-reorder-20261106`, 변경 전 커밋 `be4eb7a`.
+- 기존20쪽 P036을 새7쪽 Architecture로 이동했다. 전체72장과121개 공부 기록은 유지한다.
+- 저장소 루트에서 비교: `git diff rldx-v22-before-projection-reorder-20261106 -- rldx-1-seminar/sections`
+- 복구는 필요한 변경을 새 커밋으로 되돌리며 main을 reset/force-push하지 않는다.
+
 ## v22 변경 전: 합성 데이터 검증 대본 통합
 
 - 태그: `rldx-v21-before-synthetic-validation-notes-20261106` (`74b77bf`).

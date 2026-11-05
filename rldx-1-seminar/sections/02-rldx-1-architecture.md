@@ -233,7 +233,7 @@ Fig.3 · PDF p.6; Sec.2.1–2.2 · PDF pp.7–9; 추출 층 비교: Table2(a), p
 
 ### 발표 메모
 
-그림은 시각적 요약이다. Vision Encoder는27층 중9층 뒤에 motion module을 삽입한다. LLM에서는4층 뒤에 과거 관측을 압축한다. 화면은 중간층이라고 설명하며, 실제18층 선택과 비교 실험은 연결된 상세 해설에 보존한다. Memory는 과거 Qₜ와 현재 hₜ를 concat해 mₜ를 만들고, hₜ·mₜ를 concat한 토큰을 C stream에 제공한다. MSAT는 초반 stream별 residual과 후반 C-A concat을 구분하며, 한 forward의 변화율로 미래 후보를 반복 갱신한다. Vision Encoder·STSS·residual은 이 장의 확대 단계에서 아래 대본으로 설명한다. Cognition tokens·중간층 출력·시간 정보·과거 압축은 아래 VLM 확대 대본에서 설명한다. Memory 구조·계산·시간 범위도 아래 Memory 확대 대본에서 설명한다. 별도 본문은 P051의 로봇 VQA와 P009의 MSAT 입력으로 이어진다. 그 뒤 P009–P010의 MSAT 입력·내부 연산과 P006–P008의 학습·추론 수식으로 연결한다. 로봇별 projection은 P016의 공통·전용 경로와 함께 설명한다. 약30% 깊이의 동기를 모든 설정에서 최적이라는 실험 결과로 과장하지 않는다.
+그림은 시각적 요약이다. Vision Encoder는27층 중9층 뒤에 motion module을 삽입한다. LLM에서는4층 뒤에 과거 관측을 압축한다. 화면은 중간층이라고 설명하며, 실제18층 선택과 비교 실험은 연결된 상세 해설에 보존한다. Memory는 과거 Qₜ와 현재 hₜ를 concat해 mₜ를 만들고, hₜ·mₜ를 concat한 토큰을 C stream에 제공한다. MSAT는 초반 stream별 residual과 후반 C-A concat을 구분하며, 한 forward의 변화율로 미래 후보를 반복 갱신한다. Vision Encoder·STSS·residual은 이 장의 확대 단계에서 아래 대본으로 설명한다. Cognition tokens·중간층 출력·시간 정보·과거 압축은 아래 VLM 확대 대본에서 설명한다. Memory 구조·계산·시간 범위도 아래 Memory 확대 대본에서 설명한다. 별도 본문은 P051의 로봇 VQA와 P009의 MSAT 입력으로 이어진다. 그 뒤 P009 입력 → P036 로봇별 입출력 경로 → P010 내부 연산 → P006–P008 학습·추론 수식으로 연결한다. 공통 projection의 학습 설정은 P016 Pre-training의 설명(N)에서 보충한다. 약30% 깊이의 동기를 모든 설정에서 최적이라는 실험 결과로 과장하지 않는다.
 
 
 
@@ -1691,6 +1691,144 @@ Sec.2.2 Further Design Choices · PDF p.9; 배경: RoFormer Sec.3.2 (arXiv:2104.
 ##### 발표 메모
 
 배경 원전 https://arxiv.org/html/2104.09864v5 의 Sec.3.2에서 회전 행렬을 이용한 QK의 상대 위치 관계를 확인했다. 식의 R은 동일 frequency 구조에서 $\mathbf{R}_m^{\mathsf T}\mathbf{R}_n=\mathbf{R}_{n-m}$인 rotation operator다. 실제 RoPE는 feature dimension 쌍마다 여러 frequency를 사용한다. 여기서는 RLDX-1의 정확한 frequency/index 배치나 P/C 적용을 추정하지 않고, A stream 적용이라는 원문 범위만 말한다.
+
+## [P036] 로봇별 입출력 경로
+
+<!-- slide-meta
+layout: split
+kind: fact
+source_ids: S058, S036
+-->
+
+### 한 문장
+
+로봇마다 다른 상태·행동 차원을 공통 MSAT에 연결하면서, 새 로봇 적응의 초기값도 준비한다.
+
+### 본문
+
+#### 로봇별 전용 경로
+
+<div class="sequence">
+<div class="step">로봇별 state·action 형식</div>
+<div class="step">전용 input projection → 공유 MSAT</div>
+<div class="step">전용 output projection → 로봇의 행동</div>
+</div>
+
+**직관:** 로봇마다 다른 입출력 규격을 공통 특징 공간에 맞추는 변환기다.
+
+### 보충
+
+#### 새 로봇을 위한 공통 경로
+
+로봇 구분 없이 쓰는 **embodiment-agnostic encoder–decoder**도 함께 학습한다.
+
+입력의 일부 차원을 고정 크기로 zero-padding한다.
+
+<p class="callout">여러 몸체를 경험한 공통 변환기를 새 로봇 fine-tuning의 출발점으로 사용한다.</p>
+
+### 요점
+
+Projection은 서로 다른 로봇과 공유 모델을 연결한다. P stream에만 붙는 센서 모듈이 아니다.
+
+### 출처
+
+Sec.2.2 · PDF p.8; Sec.4.1 · PDF pp.12–13
+
+### 발표 메모
+
+MSAT 입력을 본 뒤, 서로 다른 로봇의 상태·행동을 공유 모델에 연결하는 구조를 설명한다. 다음 P010에서 그 안의 joint attention을 살펴본다. 공통 경로의 학습 방법은 Pre-training에 해당한다. 원문은 매 batch에서256 trajectories를 공통 encoder-decoder로 보낸다고 하며 전체 corpus가256개라는 뜻이 아니다. 전용 경로를 공통 경로로 대체하거나 동일 sample의 이중 학습 순서를 임의로 추가하지 않는다. Shared module의 정확한 padding 축 배열은 명시된 leading dimensions를 넘어 확정하지 않는다.
+
+### 상세 공부 기록
+
+#### [S058] 공통 projection과 256개 trajectory
+
+<!-- study-meta
+layout: split
+kind: fact
+-->
+
+##### 한 문장
+
+로봇별 입출력 경로를 유지하면서, 일부 샘플로 새 로봇 적응용 공통 경로도 학습한다.
+
+##### 본문
+
+###### 같은 공간, 두 입출력 연결부
+
+<div class="sequence">
+<div class="step">기본 경로: 로봇별 state/action → embodiment-specific projection</div>
+<div class="step">일부 샘플: 크기를 맞춘 state/action → embodiment-agnostic encoder–decoder</div>
+<div class="step">공유 latent 표현과 행동 모델을 학습</div>
+</div>
+
+공통 경로의 입력은 고정 크기에 맞게 앞쪽 차원을 zero-padding한다.
+
+##### 보충
+
+###### 256은 어떤 수인가?
+
+각 batch에서 **trajectory 256개를 무작위로 선택해 공통 경로로 보낸다.** 공통 projection의 출력 차원이나 로봇 종류 수가 아니다.
+
+Global batch는 8,192다. 저자는 공통 경로를 미관측 embodiment fine-tuning의 강한 초기값으로 활용하려 한다.
+
+<p class="mini">256개를 별도 추가 batch로 더 학습한다고 원문에 없는 절차를 만들지 않는다.</p>
+
+##### 요점
+
+공통 projection은 로봇별 경로를 대체하기보다 새 로봇 적응을 준비하는 경로다.
+
+##### 출처
+
+Sec.4.1 · PDF pp.12–13
+
+##### 발표 메모
+
+원문 문구는 randomly sample256 trajectories for each batch and route them through shared encoder-decoder. Batch8192와 trajectory256의 단위를 그대로 유지하며 전체 corpus256개로 해석하지 않는다. Shared module이 zero-padding에 사용하는 정확한 차원 배치는 이 문단만으로 추가 확정하지 않는다.
+
+#### [S036] 로봇별 입출력 projection
+
+<!-- study-meta
+layout: split
+kind: fact
+-->
+
+##### 한 문장
+
+MSAT의 공통 내부와, 로봇마다 다른 상태·행동 공간을 연결하는 얇은 층을 구별한다.
+
+##### 본문
+
+###### 플랫폼마다 다른 숫자 공간
+
+<div class="sequence">
+<div class="step"><strong>로봇별 input projection</strong><br>해당 로봇의 state·action → 공유 latent space</div>
+<div class="step"><strong>공유 MSAT</strong><br>여러 embodiment가 같은 본체 파라미터를 학습</div>
+<div class="step"><strong>로봇별 output projection</strong><br>공유 표현 → 해당 로봇 공간의 예측 출력</div>
+</div>
+
+관절 수와 end-effector 구성이 달라도 공유 latent space를 통해 하나의 행동 모델로 연결한다.
+
+##### 보충
+
+###### P stream과는 다른 분리 기준
+
+**로봇별 projection:** embodiment 간 입력·출력 공간의 차이를 다룬다.
+
+**P stream:** 물리 센서라는 모달리티를 별도 파라미터 경로에서 다룬다. 로봇 이름별로 C/A/P를 하나씩 정하는 구조가 아니다.
+
+Sec.4.1은 새 embodiment 적응을 위해 별도의 **embodiment-agnostic projection**도 일부 샘플로 학습한다고 설명한다. 공유 MSAT, 로봇별 연결층, 공통 연결층은 각각 다른 요소다.
+
+##### 요점
+
+공유 본체를 유지하면서 로봇 공간을 맞추는 연결층과, 모달리티별 stream을 구분한다.
+
+##### 출처
+
+Sec.2.2 MSAT · PDF p.8; Sec.4.1 Generalization to New Embodiments · PDF p.12
+
+##### 발표 메모
+
+원문은 lightweight embodiment-specific projection을 MSAT input/output에 둔다고 명시한다. Output은 모델 velocity prediction을 해당 action space로 연결하는 맥락이며 직접 위치 목표만 출력한다고 좁히지 않는다. Sec.4.1은 agnostic projection의 input을 leading dimensions에 zero-pad한다고 서술한다. 구체적인 batch의 256 trajectory 설정은 S058에서 다룬다. Franka/ALLEX의 정확한 dimension을 임의로 예시하지 않았다.
 
 ## [P010] MSAT의 Joint Attention
 
