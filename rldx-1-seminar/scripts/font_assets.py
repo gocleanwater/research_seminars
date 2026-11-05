@@ -35,7 +35,7 @@ def prepare_typography(root):
     css += re.sub(r'src:([^;]+);', woff_source, katex_css)
     (destination / 'LICENSE').write_text(katex_license)
     (root / 'typography.css').write_text(css)
-    (root / 'content/typography-manifest.json').write_text(json.dumps({'body_font': 'Nanum Gothic', 'nanum': faces, 'katex_version': json.loads((katex / 'package.json').read_text())['version'], 'nanum_fonts_modified': False}, ensure_ascii=False, indent=2))
+    (root / 'content/typography-manifest.json').write_text(json.dumps({'body_font': 'Arial', 'korean_font_priority': ['Apple SD Gothic Neo', 'Malgun Gothic', 'Nanum Gothic'], 'system_fonts_bundled': False, 'nanum': faces, 'katex_version': json.loads((katex / 'package.json').read_text())['version'], 'nanum_fonts_modified': False}, ensure_ascii=False, indent=2))
     return css
 
 def inline_fonts(css, root):

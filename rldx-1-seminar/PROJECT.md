@@ -1,7 +1,7 @@
 # 프로젝트 설정
 
 - 논문: RLDX-1 Technical Report
-- 상태: v09 / 하단 페이지 번호 입력·첫 단계 이동 / 기본25장·상세121단위 유지
+- 상태: v10 / Arial·시스템 한글 고딕 / 기본25장·상세121단위 유지
 - 목적: 전체 맥락의 HTML 발표와 자세한 공부 기록을 함께 유지하고, 사용자 피드백에 따라 장별로 수정
 - 형식: 오프라인 단일 HTML 중심 / Slidev 생성 소스 병행
 - 발표 시간·장수·청중: 별도 제한 없음. 이전 30장 한도는 해제
@@ -19,7 +19,7 @@
 - 제목·표지: 정확한 영어 섹션명과 짧은 명사형 제목. 상단 우측 분류 표지는 제거
 - 시각 자료: 원문 그림을 사용하며 그래프는 원문 이미지 또는 Chart.js 사용 가능
 - 디자인 참고: Gravity PDF·kahadra/10.30 중심, 사용자의 U-Net 발표는 보조. `review/REFERENCE_REVIEW.md` 참고
-- 수식·글꼴: Markdown LaTeX → KaTeX, 나눔고딕 3종 내장. 명시적 자간0. 글꼴 설치·CDN 연결 없이 표시
+- 수식·글꼴: Markdown LaTeX → KaTeX. 영문 Arial, 한글 Apple SD Gothic Neo → Malgun Gothic → 내장 Nanum Gothic. 명시적 자간0. Arial·시스템 한글 글꼴은 OS 설치본을 사용하며 다른 환경에는 내장 나눔고딕으로 대체한다. 외부 CDN은 사용하지 않는다.
 - Canva: 작업 취소. 로컬 Markdown·HTML을 수정
 - 공개: https://gocleanwater.github.io/research_seminars/rldx-1-seminar/ (복수형 research_seminars). 최신 사용자 지시에 따라 수정·검증 후 추가 확인 없이 commit하고 origin/main에 push한다. Pages 배포 완료는 확인한 경우에만 보고한다.
 - 승인: 전체 제작·수정 요청과 개별 장 승인 구분. 과거 목차 승인 이외의 승인을 추정하지 않음

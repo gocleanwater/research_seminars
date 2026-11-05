@@ -18,7 +18,12 @@ try{
   const {root}=await cdp.send('DOM.getDocument');
   const {nodeId}=await cdp.send('DOM.querySelector',{nodeId:root.nodeId,selector:'.deck-page.active .cover-description'});
   const {fonts}=await cdp.send('CSS.getPlatformFontsForNode',{nodeId});
-  assert(fonts.some(f=>/NanumGothic/.test(f.familyName)&&f.isCustomFont&&f.glyphCount>0),'Korean glyphs must use embedded Nanum Gothic');
+  assert(fonts.some(f=>/Apple SD Gothic Neo|Malgun Gothic|NanumGothic/.test(f.familyName)&&f.glyphCount>0),'Korean glyphs must use a Korean fallback');
+  const {nodeId:latinNode}=await cdp.send('DOM.querySelector',{nodeId:root.nodeId,selector:'.deck-page.active h1'});
+  const {fonts:latinFonts}=await cdp.send('CSS.getPlatformFontsForNode',{nodeId:latinNode});
+  assert(latinFonts.some(f=>f.familyName==='Arial'&&f.glyphCount>0),'Latin glyphs must paint with Arial');
+  // Nanum remains embedded for systems without Apple/Microsoft Korean fonts.
+  await page.evaluate(()=>Promise.all([400,700,800].map(w=>document.fonts.load(`${w} 24px "Nanum Gothic"`,'한글'))));
   const fontFaces=await page.evaluate(()=>[...document.fonts].filter(f=>f.family.includes('Nanum Gothic')).map(f=>({weight:f.weight,status:f.status})));
   assert.equal(fontFaces.length,3);assert(fontFaces.every(f=>f.status==='loaded'));
   await page.evaluate(()=>window.deckShow(window.deckData.findIndex(s=>s.id==='P006')));
@@ -46,6 +51,6 @@ try{
   }
   assert.deepEqual(allNoteOverflows,[],'All detail formula blocks should fit the notes dialog');
   assert.deepEqual(errors,[]);assert.deepEqual(external,[]);
-  fs.writeFileSync('qa/full-deck/math-font-report.json',JSON.stringify({fonts,fontFaces,katexHtml:true,mathml:true,fraction:true,lossNorm:true,detailNotes:true,notePages:pageCount-1,allNoteOverflows,errors,externalRequests:external},null,2));
-  console.log('PASS: Korean glyphs paint with embedded Nanum Gothic; LaTeX inline/display, true fraction/norm, detail notes; external requests 0.');
+  fs.writeFileSync('qa/full-deck/math-font-report.json',JSON.stringify({fonts,latinFonts,fontFaces,katexHtml:true,mathml:true,fraction:true,lossNorm:true,detailNotes:true,notePages:pageCount-1,allNoteOverflows,errors,externalRequests:external},null,2));
+  console.log('PASS: Arial Latin / Korean fallback glyphs, embedded Nanum fallback; LaTeX inline/display, true fraction/norm, detail notes; external requests 0.');
 }finally{await browser.close();}

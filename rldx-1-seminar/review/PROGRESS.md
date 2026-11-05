@@ -1,55 +1,55 @@
 # 슬라이드 제작 진행 상황
 
-- 업데이트: 2026-11-06 / v09
-- 현재 단계: 하단 페이지 번호 입력·첫 단계 이동 검증 완료 / 자동 게시.
+- 업데이트: 2026-11-06 / v10
+- 현재 단계: Arial·시스템 한글 고딕 적용 및 전체 화면 검증 완료 / 자동 게시.
 - 구성: 기본25장(표지+본문24장), P032 내부27상태·18화살표.
 - 원본: 9개 섹션 MD. S002–S122의121개 상세 단위는 각각 한 번 연결되며 통합 전과 내용이 같다.
 - 통합: P005→P032, P007→P006, P011→P032/P016, P021→P020. P012→P009/P010의 기존 통합도 유지한다.
 - 흐름: Fig.3→학습 원리→추론 갱신→MSAT 입력→내부 연산→데이터→학습→실행 최적화→평가/분석→결론→의견/미해결.
 - 원리와 검증은 분리 유지. Conclusion의 기여 반복을 줄이고 의견은 PEFT/BoN의 적용 조건에 집중한다.
 - 원본 기록 보존: review/versions/before-dedup-v07/; 통합 근거와 계획: review/DEDUPLICATION.md.
-- 게시 정책: 수정·검증 후 추가 확인 없이 commit·push한다. 현재 v09 페이지 탐색 수정도 게시 대상이다.
-- 승인: 수정·축소 요청과 결과물 개별 승인을 구분한다. v09은 검토 전이다.
+- 게시 정책: 수정·검증 후 추가 확인 없이 commit·push한다. 현재 v10 글꼴 변경도 게시 대상이다.
+- 승인: 수정·축소 요청과 결과물 개별 승인을 구분한다. v10은 검토 전이다.
 
 ## 검증
 
 - 원문 PDF·중앙 질문노트·9개 MD를 대조하고, 별도 검토에서 중요한 사실/흐름 문제 없음 확인. 지적된 수식 구분 오타1건을 수정했다.
 - 121개 상세 단위의 제목·내용은 수정 전 지문과 동일하며 각각 정확히 한 번 연결된다.
 - 실제25장 PNG: 넘침0·이미지 오류0·브라우저 오류0·외부 HTTP요청0. 전체 지도와 통합 학습/추론/학습절차/의견 장을 직접 확인했다.
-- 27상태·4모듈·18화살표, PPT키·역순,5개퇴역링크,이동된해설,KaTeX·나눔고딕 검증 통과.
+- 27상태·4모듈·18화살표, PPT키·역순,5개퇴역링크,이동된해설,KaTeX·Arial·한글 대체 글꼴 검증 통과.
 - 기본/base 빌드·게시패키지·로컬Pages경로 검증 통과. 실행 명령·한계는 review/VALIDATION.md에 기록한다.
 
 ## 기본 화면
 
 | 순서 | ID | 제목 | 버전 | 상태 | PNG |
 | --- | --- | --- | --- | --- | --- |
-| 1 | S001 | RLDX-1 Technical Report | v09 | 검토 전 | review/previews/deck-v09/S001-v09.png |
-| 2 | P002 | 기존 VLA의 문제 | v09 | 검토 전 | review/previews/deck-v09/P002-v09.png |
-| 3 | P031 | RLDX-1 Overview | v09 | 검토 전 | review/previews/deck-v09/P031-v09.png |
-| 4 | P032 | RLDX-1 Architecture | v09 | 검토 전 | review/previews/deck-v09/P032-v09.png |
-| 5 | P006 | Action Model의 학습 원리 | v09 | 검토 전 | review/previews/deck-v09/P006-v09.png |
-| 6 | P008 | Action Model의 추론 수식 | v09 | 검토 전 | review/previews/deck-v09/P008-v09.png |
-| 7 | P009 | MSAT의 입력 | v09 | 검토 전 | review/previews/deck-v09/P009-v09.png |
-| 8 | P010 | MSAT의 Joint Attention | v09 | 검토 전 | review/previews/deck-v09/P010-v09.png |
-| 9 | P013 | 학습 데이터 | v09 | 검토 전 | review/previews/deck-v09/P013-v09.png |
-| 10 | P014 | Task·Scene Augmentation | v09 | 검토 전 | review/previews/deck-v09/P014-v09.png |
-| 11 | P015 | 합성 데이터 검증 | v09 | 검토 전 | review/previews/deck-v09/P015-v09.png |
-| 12 | P016 | Pre-training | v09 | 검토 전 | review/previews/deck-v09/P016-v09.png |
-| 13 | P017 | Mid-training | v09 | 검토 전 | review/previews/deck-v09/P017-v09.png |
-| 14 | P018 | Post-training | v09 | 검토 전 | review/previews/deck-v09/P018-v09.png |
-| 15 | P019 | RECAP | v09 | 검토 전 | review/previews/deck-v09/P019-v09.png |
-| 16 | P020 | 추론 최적화 | v09 | 검토 전 | review/previews/deck-v09/P020-v09.png |
-| 17 | P022 | Simulation Experiments | v09 | 검토 전 | review/previews/deck-v09/P022-v09.png |
-| 18 | P023 | OpenArm | v09 | 검토 전 | review/previews/deck-v09/P023-v09.png |
-| 19 | P024 | ALLEX | v09 | 검토 전 | review/previews/deck-v09/P024-v09.png |
-| 20 | P025 | Franka | v09 | 검토 전 | review/previews/deck-v09/P025-v09.png |
-| 21 | P026 | Ablation | v09 | 검토 전 | review/previews/deck-v09/P026-v09.png |
-| 22 | P027 | RL·추론 지연 분석 | v09 | 검토 전 | review/previews/deck-v09/P027-v09.png |
-| 23 | P029 | Conclusion | v09 | 검토 전 | review/previews/deck-v09/P029-v09.png |
-| 24 | P028 | 나의 의견 | v09 | 검토 전 | review/previews/deck-v09/P028-v09.png |
-| 25 | P030 | 한계와 미해결 질문 | v09 | 검토 전 | review/previews/deck-v09/P030-v09.png |
+| 1 | S001 | RLDX-1 Technical Report | v10 | 검토 전 | review/previews/deck-v10/S001-v10.png |
+| 2 | P002 | 기존 VLA의 문제 | v10 | 검토 전 | review/previews/deck-v10/P002-v10.png |
+| 3 | P031 | RLDX-1 Overview | v10 | 검토 전 | review/previews/deck-v10/P031-v10.png |
+| 4 | P032 | RLDX-1 Architecture | v10 | 검토 전 | review/previews/deck-v10/P032-v10.png |
+| 5 | P006 | Action Model의 학습 원리 | v10 | 검토 전 | review/previews/deck-v10/P006-v10.png |
+| 6 | P008 | Action Model의 추론 수식 | v10 | 검토 전 | review/previews/deck-v10/P008-v10.png |
+| 7 | P009 | MSAT의 입력 | v10 | 검토 전 | review/previews/deck-v10/P009-v10.png |
+| 8 | P010 | MSAT의 Joint Attention | v10 | 검토 전 | review/previews/deck-v10/P010-v10.png |
+| 9 | P013 | 학습 데이터 | v10 | 검토 전 | review/previews/deck-v10/P013-v10.png |
+| 10 | P014 | Task·Scene Augmentation | v10 | 검토 전 | review/previews/deck-v10/P014-v10.png |
+| 11 | P015 | 합성 데이터 검증 | v10 | 검토 전 | review/previews/deck-v10/P015-v10.png |
+| 12 | P016 | Pre-training | v10 | 검토 전 | review/previews/deck-v10/P016-v10.png |
+| 13 | P017 | Mid-training | v10 | 검토 전 | review/previews/deck-v10/P017-v10.png |
+| 14 | P018 | Post-training | v10 | 검토 전 | review/previews/deck-v10/P018-v10.png |
+| 15 | P019 | RECAP | v10 | 검토 전 | review/previews/deck-v10/P019-v10.png |
+| 16 | P020 | 추론 최적화 | v10 | 검토 전 | review/previews/deck-v10/P020-v10.png |
+| 17 | P022 | Simulation Experiments | v10 | 검토 전 | review/previews/deck-v10/P022-v10.png |
+| 18 | P023 | OpenArm | v10 | 검토 전 | review/previews/deck-v10/P023-v10.png |
+| 19 | P024 | ALLEX | v10 | 검토 전 | review/previews/deck-v10/P024-v10.png |
+| 20 | P025 | Franka | v10 | 검토 전 | review/previews/deck-v10/P025-v10.png |
+| 21 | P026 | Ablation | v10 | 검토 전 | review/previews/deck-v10/P026-v10.png |
+| 22 | P027 | RL·추론 지연 분석 | v10 | 검토 전 | review/previews/deck-v10/P027-v10.png |
+| 23 | P029 | Conclusion | v10 | 검토 전 | review/previews/deck-v10/P029-v10.png |
+| 24 | P028 | 나의 의견 | v10 | 검토 전 | review/previews/deck-v10/P028-v10.png |
+| 25 | P030 | 한계와 미해결 질문 | v10 | 검토 전 | review/previews/deck-v10/P030-v10.png |
 
-Fig.3의 실제 상태 PNG는 review/previews/architecture-v09/step-00.png–step-26.png다. 세 토큰은08, VLM은11, Memory는17, MSAT입력은22, 처리·출력은25에서 볼 수 있다.
+Fig.3의 실제 상태 PNG는 review/previews/architecture-v10/step-00.png–step-26.png다. 세 토큰은08, VLM은11, Memory는17, MSAT입력은22, 처리·출력은25에서 볼 수 있다.
 
 ## 재개
 
@@ -163,3 +163,15 @@ AGENTS.md → PROJECT.md → 이 파일 → FEEDBACK.md → sections/README.md �
 - 근거: Sec.2.2 PDF p.8 Eq.(1)의 target a−ε와 정의된 보간 경로의 미분. 개별 학습 쌍의 target이며, 모든 입력에서 학습된 vector field가 상수라는 의미는 아니다.
 - 검증: 소스 매핑·25장 PNG·수식/실제글꼴·기본/base빌드·로컬Pages 검증 통과. 화면 넘침/이미지실패/브라우저오류/외부요청0. P006 PNG 직접 확인.
 - PNG: review/previews/deck-v09/P006-target-velocity-v09.png. 25장·121개 상세 기록·직전 c_t 설명 유지. 사용자 검토 전이며 자동게시 지시에 따라 commit·push한다.
+
+## 2026-11-06 / v10 / Arial·한글 고딕 전환
+
+- 사용자 요청: Arial 스타일로 바꿔 전체 화면의 겹침·잘림·이상 여부를 확인하고, 문제가 없으면 적용할 것.
+- 결정: Arial에는 한글이 없어 영문은 Arial, 한글은 Apple SD Gothic Neo → Malgun Gothic → 내장 Nanum Gothic 순서로 표시한다. 수식은 KaTeX를 유지한다. 시스템 글꼴은 복사·배포하지 않으며 기존 나눔고딕 3종은 최종 대체용으로 보존한다.
+- 실제 Mac Chrome 렌더링: 영문 ArialMT, 한글 AppleSDGothicNeo-Regular 확인. Windows의 실제 맑은 고딕 렌더링은 이번 환경에서 확인하지 못했으며 OS별 모양 차이는 가능하다.
+- CSS 제목·본문·표지·버튼·Fig.3 주석·해설·한글 수식 주석에 같은 우선순위를 적용했다. 글자 크기·자간0·콘텐츠·25장·121개 상세 단위는 유지했다.
+- 검증: verify_sources.py; verify_deck.mjs(25장, 넘침/이미지실패/브라우저오류/외부요청0); verify_architecture.mjs(27상태·4모듈·18화살표·겹침/경계); verify_navigation.mjs; verify_math_font.mjs(실제 Arial/한글 fallback, 내장 fallback 3종, 전체 해설 수식).
+- 추가 배치 검사: 시스템 한글과 내장 Nanum 대체 모드 각각25장. 제목/본문/표/출처/해설 가로 넘침0, 제목 모두 한 줄. qa/full-deck/typography-v10-report.json.
+- 기본/base 빌드 및 Slidev25장 오류0, 패키지 생성·로컬Pages 검증 통과. 세 발표 HTML 동일성·git diff --check 확인.
+- 직접 확인: 실제25장 전체 지도, P006 글꼴 비교, MSAT 확대 PNG. review/previews/typography-v10/overview-v10.png, P006-before.png, P006-trial.png; review/previews/deck-v10/P006-v10.png; review/previews/architecture-v10/step-22.png.
+- 결과물은 사용자 검토 전이다. 요청의 조건을 충족해 적용하고 최신 자동게시 지시에 따라 commit·push한다. Pages 배포 완료 여부는 별개다.

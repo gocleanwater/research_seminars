@@ -63,4 +63,4 @@ $$
 
 문장 안에서는 `$\tau$`, `$\mathbf{a}_{t:t+H}$`처럼 쓴다. KaTeX가 빌드할 때 분수·첨자·벡터·노름으로 렌더링하며, 코드 블록은 수식으로 변환하지 않는다. LaTeX 오류는 생성 단계에서 알려 준다. 한국어 조사와 붙은 수식을 굵게 강조할 때 Markdown 구분자가 그대로 나오면 `<strong>$...$</strong>`를 사용한다.
 
-한글 제목·본문·해설은 나눔고딕 Regular/Bold/ExtraBold다. 수학 기호는 KaTeX의 수학 글꼴을 사용한다. 글꼴과 수식 스타일은 단일 HTML에 포함되므로 별도 글꼴 설치나 외부 CDN 연결이 필요하지 않다. 글꼴 원본·라이선스는 public/fonts/nanum-gothic/, public/fonts/katex/에 있으며 font_assets.py는 원본 Nanum TTF를 수정하지 않고 포함한다.
+제목·본문·해설은 Arial을 우선한다. Arial에 없는 한글은 Apple SD Gothic Neo → Malgun Gothic → 내장 Nanum Gothic 순서로 표시한다. Arial·Apple·Microsoft 글꼴은 OS 설치본을 사용하므로 환경에 따라 한글 모양은 달라질 수 있다. 수학 기호는 KaTeX를 유지한다. 내장 나눔고딕 3종과 KaTeX는 단일 HTML에 포함되며 외부 CDN은 필요 없다. 원본·라이선스는 public/fonts/nanum-gothic/, public/fonts/katex/에 있고 font_assets.py는 원본 Nanum TTF를 수정하지 않는다.

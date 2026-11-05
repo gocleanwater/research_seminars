@@ -269,3 +269,15 @@
 - 근거: Sec.2.2 PDF p.8 Eq.(1)의 target a−ε와 정의된 보간 경로의 미분. 개별 학습 쌍의 target이며, 모든 입력에서 학습된 vector field가 상수라는 의미는 아니다.
 - 검증: 소스 매핑·25장 PNG·수식/실제글꼴·기본/base빌드·로컬Pages 검증 통과. 화면 넘침/이미지실패/브라우저오류/외부요청0. P006 PNG 직접 확인.
 - PNG: review/previews/deck-v09/P006-target-velocity-v09.png. 25장·121개 상세 기록·직전 c_t 설명 유지. 사용자 검토 전이며 자동게시 지시에 따라 commit·push한다.
+
+## 2026-11-06 / v10 / Arial·한글 고딕 전환
+
+- 사용자 요청: Arial 스타일로 바꿔 전체 화면의 겹침·잘림·이상 여부를 확인하고, 문제가 없으면 적용할 것.
+- 결정: Arial에는 한글이 없어 영문은 Arial, 한글은 Apple SD Gothic Neo → Malgun Gothic → 내장 Nanum Gothic 순서로 표시한다. 수식은 KaTeX를 유지한다. 시스템 글꼴은 복사·배포하지 않으며 기존 나눔고딕 3종은 최종 대체용으로 보존한다.
+- 실제 Mac Chrome 렌더링: 영문 ArialMT, 한글 AppleSDGothicNeo-Regular 확인. Windows의 실제 맑은 고딕 렌더링은 이번 환경에서 확인하지 못했으며 OS별 모양 차이는 가능하다.
+- CSS 제목·본문·표지·버튼·Fig.3 주석·해설·한글 수식 주석에 같은 우선순위를 적용했다. 글자 크기·자간0·콘텐츠·25장·121개 상세 단위는 유지했다.
+- 검증: verify_sources.py; verify_deck.mjs(25장, 넘침/이미지실패/브라우저오류/외부요청0); verify_architecture.mjs(27상태·4모듈·18화살표·겹침/경계); verify_navigation.mjs; verify_math_font.mjs(실제 Arial/한글 fallback, 내장 fallback 3종, 전체 해설 수식).
+- 추가 배치 검사: 시스템 한글과 내장 Nanum 대체 모드 각각25장. 제목/본문/표/출처/해설 가로 넘침0, 제목 모두 한 줄. qa/full-deck/typography-v10-report.json.
+- 기본/base 빌드 및 Slidev25장 오류0, 패키지 생성·로컬Pages 검증 통과. 세 발표 HTML 동일성·git diff --check 확인.
+- 직접 확인: 실제25장 전체 지도, P006 글꼴 비교, MSAT 확대 PNG. review/previews/typography-v10/overview-v10.png, P006-before.png, P006-trial.png; review/previews/deck-v10/P006-v10.png; review/previews/architecture-v10/step-22.png.
+- 결과물은 사용자 검토 전이다. 요청의 조건을 충족해 적용하고 최신 자동게시 지시에 따라 commit·push한다. Pages 배포 완료 여부는 별개다.

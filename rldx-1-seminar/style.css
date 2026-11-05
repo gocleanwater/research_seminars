@@ -12,7 +12,7 @@
 .slidev-layout {
   background: var(--seminar-bg);
   color: var(--seminar-ink);
-  font-family: 'Nanum Gothic', Arial, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+  font-family: Arial, 'Apple SD Gothic Neo', 'Malgun Gothic', 'Nanum Gothic', sans-serif;
   padding: 64px 76px 72px;
   font-size: 27px;
   line-height: 1.6;
@@ -41,7 +41,7 @@
   overflow: hidden;
   background: #fbfcfd;
   color: #142b40;
-  font-family: 'Nanum Gothic', Arial, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+  font-family: Arial, 'Apple SD Gothic Neo', 'Malgun Gothic', 'Nanum Gothic', sans-serif;
 }
 .cover-slide .cover-image-field {
   position: absolute;

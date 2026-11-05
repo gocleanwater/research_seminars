@@ -1,5 +1,11 @@
 {
-  "body_font": "Nanum Gothic",
+  "body_font": "Arial",
+  "korean_font_priority": [
+    "Apple SD Gothic Neo",
+    "Malgun Gothic",
+    "Nanum Gothic"
+  ],
+  "system_fonts_bundled": false,
   "nanum": [
     {
       "weight": 400,
