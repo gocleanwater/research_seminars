@@ -16,7 +16,7 @@ fonts:
 layout: none
 ---
 
-<!-- slide-id: S001 | revision: v05 | status: draft -->
+<!-- slide-id: S001 | revision: v07 | status: draft -->
 
 <div class="cover-slide cover-figure1">
   <div class="cover-image-field" aria-hidden="true"></div>
@@ -41,7 +41,7 @@ layout: none
 layout: none
 ---
 
-<!-- slide-id: P002 | revision: v05 | status: draft -->
+<!-- slide-id: P002 | revision: v07 | status: draft -->
 
 <section class="seminar-slide" data-slide-id="P002"><header class="seminar-header"><div class="chapter-label">Problems</div><h1>기존 VLA의 문제</h1><p class="slide-lead">폭넓은 장면 이해만으로는 움직임·과거 사건·접촉 상태를 충분히 다루기 어렵다.</p></header><div class="seminar-body full"><div class="body-main"><div class="three-scenes">
 <div>
@@ -56,7 +56,7 @@ layout: none
 <div class="scene-contact"><span class="gripper">손</span><b>⇄</b><span class="moving-object">물체</span></div>
 <h3>가려진 접촉</h3>
 <p>힘·미끄러짐 같은 작은 변화는 영상만으로 파악하기 어렵다. 촉각·토크가 단서를 준다.</p></div>
-</div></div></div><div class="takeaway">RLDX-1은 VLM의 범용 이해에 motion awareness·long-term memory·physical sensing을 더한다.</div><footer class="seminar-footer"><span class="source">Sec.1 · PDF p.3 · 상황 도식은 설명용</span><span class="slide-id">P002 · 002/30</span></footer></section>
+</div></div></div><div class="takeaway">RLDX-1은 VLM의 범용 이해에 motion awareness·long-term memory·physical sensing을 더한다.</div><footer class="seminar-footer"><span class="source">Sec.1 · PDF p.3 · 상황 도식은 설명용</span><span class="slide-id">P002 · 002/25</span></footer></section>
 
 <!--
 Task·action·policy 및 VLM·VLA의 기본 구분은 상세 해설에 보존한다. 세 기능의 필요성을 보여주는 사례와 각 모듈의 독립적 인과 효과를 입증한 실험은 다르다.
@@ -138,14 +138,14 @@ Occlusion은 손이나 물체에 의해 중요한 부분이 가려지는 상황�
 layout: none
 ---
 
-<!-- slide-id: P031 | revision: v05 | status: draft -->
+<!-- slide-id: P031 | revision: v07 | status: draft -->
 
 <section class="seminar-slide" data-slide-id="P031"><header class="seminar-header"><div class="chapter-label">RLDX-1 Architecture</div><h1>RLDX-1 Overview</h1><p class="slide-lead">관측과 지시를 표현으로 바꾸고, 로봇 상태·센서와 함께 미래 action chunk를 만든다.</p></header><div class="seminar-body figure"><figure class="paper-figure"><img src="/figures/fig-02.png" alt="Figure 2 · RLDX-1 전체 흐름" loading="eager"><figcaption>Figure 2 · RLDX-1 전체 흐름</figcaption></figure><div class="body-main"><h3>관측 → 표현 → 행동</h3>
 <p><strong>영상·지시:</strong> VLM에서 현재 cognition features를 추출한다.</p>
 <p><strong>과거:</strong> Memory Module이 이전 cognition 정보를 더한다.</p>
 <p><strong>상태·센서:</strong> MSAT가 cognition·memory와 함께 처리한다.</p>
 <p><strong>출력:</strong> 여러 미래 시점의 수치 행동을 묶은 action chunk다.</p>
-</div></div><div class="takeaway">다음은 Figure 3에서 Vision Encoder와 VLM의 내부 경로를 확대해 살펴본다.</div><footer class="seminar-footer"><span class="source">Fig.2 · Sec.1.1 · PDF p.5; Fig.1 · PDF p.1</span><span class="slide-id">P031 · 003/30</span></footer></section>
+</div></div><div class="takeaway">다음은 Figure 3에서 Vision Encoder와 VLM의 내부 경로를 확대해 살펴본다.</div><footer class="seminar-footer"><span class="source">Fig.2 · Sec.1.1 · PDF p.5; Fig.1 · PDF p.1</span><span class="slide-id">P031 · 003/25</span></footer></section>
 
 <!--
 전체 시스템 Fig.1·세 로봇 플랫폼·모델 입출력 표기와 지도는 이 장의 상세 해설에 연결한다. 이어지는 Fig.3 해설에서는 전체 구조와 확대된 부위를 오가며 설명한다.
@@ -226,7 +226,7 @@ Sec.1.1, Fig.2 · PDF p.5
 layout: none
 ---
 
-<!-- slide-id: P032 | revision: v05 | status: draft -->
+<!-- slide-id: P032 | revision: v07 | status: draft -->
 
 <section class="seminar-slide" data-slide-id="P032"><header class="seminar-header"><div class="chapter-label">RLDX-1 Architecture</div><h1>RLDX-1 Architecture</h1><p class="slide-lead">전체 그림에서 Vision Encoder·VLM·Memory Module·MSAT를 차례로 살펴본다.</p></header><div class="seminar-body explorer"><div class="architecture-explorer" data-scene="overview" data-step="0" data-state="0">
   <div class="arch-viewport" aria-label="Figure 3 확대 영역">
@@ -244,10 +244,10 @@ layout: none
     <div class="arch-mode-buttons"><button data-arch-reset>전체 그림</button><button data-arch-focus="vision">Vision Encoder</button><button data-arch-focus="vlm">VLM</button><button data-arch-focus="memory">Memory Module</button><button data-arch-focus="msat">MSAT</button></div>
     <div class="arch-step-buttons"><button data-arch-prev>← 이전 설명</button><span class="arch-step-counter"></span><button data-arch-next>다음 설명 →</button></div>
   </div>
-</div></div><div class="takeaway">전체 → Vision Encoder → 전체 → VLM → 전체 → Memory Module → 전체 → MSAT</div><footer class="seminar-footer"><span class="source">Fig.3 · PDF p.6; Sec.2.1–2.2 · PDF pp.7–9; 추출 층 비교: Table2(a), pp.24–25</span><span class="slide-id">P032 · 004/30</span></footer></section>
+</div></div><div class="takeaway">전체 → Vision Encoder → 전체 → VLM → 전체 → Memory Module → 전체 → MSAT</div><footer class="seminar-footer"><span class="source">Fig.3 · PDF p.6; Sec.2.1–2.2 · PDF pp.7–9; 추출 층 비교: Table2(a), pp.24–25</span><span class="slide-id">P032 · 004/25</span></footer></section>
 
 <!--
-그림은 시각적 요약이다. Vision Encoder는27층 중9층 뒤에 motion module을 삽입한다. LLM에서는4층 뒤에 과거 관측을 압축한다. 화면은 중간층이라고 설명하며, 실제18층 선택과 비교 실험은 연결된 상세 해설에 보존한다. Memory는 과거 Qₜ와 현재 hₜ를 concat해 mₜ를 만들고, hₜ·mₜ를 concat한 토큰을 C stream에 제공한다. MSAT는 초반 stream별 residual과 후반 C-A concat을 구분하며, 한 forward의 변화율로 미래 후보를 반복 갱신한다. 메모리 상세는 P005, MSAT 상세는 P009–P012, 학습·추론 수식은 P006–P008에서 확인한다. 약30% 깊이의 동기를 모든 설정에서 최적이라는 실험 결과로 과장하지 않는다.
+그림은 시각적 요약이다. Vision Encoder는27층 중9층 뒤에 motion module을 삽입한다. LLM에서는4층 뒤에 과거 관측을 압축한다. 화면은 중간층이라고 설명하며, 실제18층 선택과 비교 실험은 연결된 상세 해설에 보존한다. Memory는 과거 Qₜ와 현재 hₜ를 concat해 mₜ를 만들고, hₜ·mₜ를 concat한 토큰을 C stream에 제공한다. MSAT는 초반 stream별 residual과 후반 C-A concat을 구분하며, 한 forward의 변화율로 미래 후보를 반복 갱신한다. Memory 구조와 stream 전환은 이 확대 설명에서 마무리한다. 다음 P006–P008에서 생성 후보·변화율을 이해한 뒤 P009–P010에서 입력과 연산을 연결한다. 로봇별 projection은 P016의 공통·전용 경로와 함께 설명한다. 약30% 깊이의 동기를 모든 설정에서 최적이라는 실험 결과로 과장하지 않는다.
 
 S008 로봇용 VQA 적응
 장면을 설명하는 능력을 로봇의 공간 관계·하위 작업·행동과 연결한다.
@@ -451,45 +451,6 @@ $$
 압축 대상은 과거 관측 표현이고, 현재 관측·지시·cognition 위치는 계속 유지한다.
 Sec.2.1 Motion Awareness, LLM backbone · PDF p.7
 원문은 과거 observations를 single context token으로 압축하고 현재 관측·지시·q와 함께 후속 블록에서 처리한다고 명시한다. 평균식은 해설용이다. 모든 camera/view별 실제 token grouping이나 구현상 packing 방식은 이 문단에서 명시되지 않는다. 4층 선택 이유는 DeepStack 활용이며, 2층 대비 성능 개선치를 이 절이 보고하는 것은 아니다. VLM 내부 context token을 이후 장의 memory features와 구별한다.
--->
-
----
-layout: none
----
-
-<!-- slide-id: P005 | revision: v05 | status: draft -->
-
-<section class="seminar-slide" data-slide-id="P005"><header class="seminar-header"><div class="chapter-label">RLDX-1 Architecture</div><h1>Memory Module</h1><p class="slide-lead">이전 h 세 묶음과 현재 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="bold">h</mi><mi>t</mi></msub></mrow><annotation encoding="application/x-tex">\mathbf{h}_t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.8444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathbf">h</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>를 memory Transformer로 읽고, 현재 표현도 함께 남긴다.</p></header><div class="seminar-body split"><div class="body-main"><h3>VLM 뒤에 붙는 memory module</h3>
-<div class="token-row"><span class="token c">과거 h ①</span><span class="token c">과거 h ②</span><span class="token c">과거 h ③</span><span class="token c">현재 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="bold">h</mi><mi>t</mi></msub></mrow><annotation encoding="application/x-tex">\mathbf{h}_{t}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.8444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathbf">h</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">t</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span></div>
-<div class="equation"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi mathvariant="bold">m</mi><mi>t</mi></msub><mo>=</mo><msub><mi>M</mi><mi>θ</mi></msub><mo stretchy="false">(</mo><mo stretchy="false">[</mo><msub><mi mathvariant="bold">Q</mi><mi>t</mi></msub><mo separator="true">,</mo><msub><mi mathvariant="bold">h</mi><mi>t</mi></msub><mo stretchy="false">]</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\mathbf{m}_t=M_\theta([\mathbf{Q}_t,\mathbf{h}_t])</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.5944em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathbf">m</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.109em;">M</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.109em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.0278em;">θ</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">([</span><span class="mord"><span class="mord mathbf">Q</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathbf">h</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">])</span></span></span></span></span></div>
-<p>causal attention으로 나중 시점이 이전 이력을 읽는다. <strong><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="bold">h</mi><mi>t</mi></msub></mrow><annotation encoding="application/x-tex">\mathbf{h}_{t}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.8444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathbf">h</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">t</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>와 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="bold">m</mi><mi>t</mi></msub></mrow><annotation encoding="application/x-tex">\mathbf{m}_{t}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.5944em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathbf">m</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">t</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> 모두</strong> action model에 전달한다. VLM 안의 context token과 다른 단계다.</p>
-</div><div class="body-aside"><h3>범위는 제시, 관리 규칙은 미해결</h3>
-<table>
-<thead>
-<tr>
-<th>로봇</th>
-<th>저장 간격</th>
-<th>과거 범위</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>ALLEX</td>
-<td>40 steps</td>
-<td>120 steps</td>
-</tr>
-<tr>
-<td>Franka</td>
-<td>16 steps</td>
-<td>48 steps</td>
-</tr>
-</tbody>
-</table>
-<p>문장은 <strong>H+1</strong> 간격, queue 식은 <strong>H</strong> 간격이다. 정확한 저장·교체 시점과 episode 초기화·기억 부족 처리 규칙은 확인되지 않았다.</p>
-</div></div><div class="takeaway">짧은 프레임 압축과 긴 이력 저장을 구별한다. 이제 이 조건으로 미래 행동을 생성한다.</div><footer class="seminar-footer"><span class="source">Sec.2.1 Long-Term Memory · PDF p.7; Sec.4.2 · PDF p.13; 질문노트 Q5</span><span class="slide-id">P005 · 005/30</span></footer></section>
-
-<!--
-$n_{\mathrm{mem}}=3$은 과거 시점 묶음 수이며 각 묶음은 cognition features다. 고정 격자 예시를 실제 cache 정책으로 확정하지 않는다. 문서의 미명세를 모델 동작 결함으로 확대하지 않는다.
 
 S016 Context·cognition·memory
 세 표현은 모두 맥락을 담지만, 생성 위치와 전달 경로가 다르다.
@@ -597,199 +558,6 @@ memory output으로 $\mathbf{h}_{t}$를 완전히 대체하지 않는다. 원문
 이제 $\mathbf{h}_t$·$\mathbf{m}_t$는 조건이 된다. 다음 단계는 이 조건 아래 미래 행동 chunk를 생성하는 일이다.
 Sec.2.1 Long-Term Memory; Sec.2.2 · PDF pp.7–8
 원문은 memory features $\mathbf{m}_t$와 original cognition tokens $\mathbf{h}_t$를 모두 action model에 feed한다고 명시한다. $\mathbf{m}_t$의 정확한 output selection이나 learned pooling은 제공된 식 이상으로 확정하지 않는다. 그림의 화살표 두 개는 병행 전달을 설명하며 실제 별도 network 두 개를 의미하지 않는다. 이후 flow matching 설명에서 $\mathbf{c}_t=[\mathbf{h}_t,\mathbf{m}_t,\mathbf{s}_t,\mathbf{p}_t]$의 구성 요소로 연결한다.
--->
-
----
-layout: none
----
-
-<!-- slide-id: P009 | revision: v05 | status: draft -->
-
-<section class="seminar-slide" data-slide-id="P009"><header class="seminar-header"><div class="chapter-label">RLDX-1 Architecture</div><h1>MSAT의 입력</h1><p class="slide-lead">C·A·P는 전용 normalization·projection을 갖고, QKV를 모아 정보를 교환한다.</p></header><div class="seminar-body split"><div class="body-main"><h3>초반의 입력 배치</h3>
-<table>
-<thead>
-<tr>
-<th>경로</th>
-<th>입력</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>C</td>
-<td>cognition <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="bold">h</mi><mi>t</mi></msub></mrow><annotation encoding="application/x-tex">\mathbf{h}_{t}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.8444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathbf">h</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">t</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>, memory <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="bold">m</mi><mi>t</mi></msub></mrow><annotation encoding="application/x-tex">\mathbf{m}_{t}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.5944em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathbf">m</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">t</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></td>
-</tr>
-<tr>
-<td>A</td>
-<td>현재 상태 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="bold">s</mi><mi>t</mi></msub></mrow><annotation encoding="application/x-tex">\mathbf{s}_{t}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.5944em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathbf">s</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">t</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>, 행동 후보 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi mathvariant="bold">a</mi><mi>τ</mi></msup></mrow><annotation encoding="application/x-tex">\mathbf{a}^{\tau}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.6644em;"></span><span class="mord"><span class="mord mathbf">a</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6644em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.1132em;">τ</span></span></span></span></span></span></span></span></span></span></span></span></td>
-</tr>
-<tr>
-<td>P</td>
-<td>현재 센서 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="bold">p</mi><mi>t</mi></msub></mrow><annotation encoding="application/x-tex">\mathbf{p}_{t}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.6389em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathbf">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">t</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>, 미래 후보 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi mathvariant="bold">p</mi><mi>τ</mi></msup></mrow><annotation encoding="application/x-tex">\mathbf{p}^{\tau}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.8588em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathbf">p</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6644em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.1132em;">τ</span></span></span></span></span></span></span></span></span></span></span></span></td>
-</tr>
-</tbody>
-</table>
-<p><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>τ</mi></mrow><annotation encoding="application/x-tex">\tau</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.1132em;">τ</span></span></span></span> 토큰은 A 앞에 놓인다. 물리 신호가 없으면 P stream의 attention을 mask할 수 있다.</p>
-</div><div class="body-aside"><h3>전용 파라미터와 공통 attention</h3>
-<div class="sequence">
-<div class="step">각 stream의 Norm → 각자의 QKV projection</div>
-<div class="step">Q·K·V를 각각 <strong>토큰 축으로 concat</strong></div>
-<div class="step">joint self-attention으로 모달리티 간 정보 교환</div>
-</div>
-<p>고차원 cognition, 저차원 state, 희소한 센서 신호를 다루는 설계다. 정보를 교환해도 stream별 변환 파라미터는 구분될 수 있다.</p>
-</div></div><div class="takeaway">전용 stream은 서로 보지 않는다는 뜻이 아니다. Attention 출력 위치를 따라 다시 나눈다.</div><footer class="seminar-footer"><span class="source">Sec.2.2 MSAT·Physical Sensing · PDF pp.8–9; Fig.3 · PDF p.6</span><span class="slide-id">P009 · 006/30</span></footer></section>
-
-<!--
-입력은 개념적 배치이며 실제 tokenization shape까지 확정하지 않는다. Stream 분리 자체의 독립적 성능 우위는 설계 의도와 구분한다. q cognition token, Q attention query, $\mathbf{Q}_t$ memory queue를 혼동하지 않는다.
-
-S031 P·C·A의 입력 구성
-모달리티를 전용 경로로 처리하되, attention으로 서로 정보를 교환한다.
-###### 초기 stream의 역할
-
-| Stream | 개념적 입력 | 내용 |
-| --- | --- | --- |
-| **C** | $[\mathbf{h}_t,\mathbf{m}_t]$ | cognition·memory |
-| **A** | $[\mathbf{s}_t,\mathbf{a}_{t:t+H}^{\tau}]$ | 현재 상태·행동 후보 |
-| **P** | $[\mathbf{p}_t,\mathbf{p}_{t+1:t+L}^{\tau}]$ | 현재 센서·미래 후보 |
-
-$\tau$는 인코딩한 한 토큰으로 A의 앞에 더한다. P는 물리 신호를 사용할 때 추가되는 경로이며, 센서가 없을 때 P attention을 mask할 수 있다.
-###### 왜 세 경로로 나누는가?
-
-cognition은 고차원 시각·언어 맥락, state는 저차원이지만 정확한 로봇 운동학 정보, 촉각·토크는 희소하지만 접촉에 중요한 정보다. 원문은 이 **의미와 데이터 규모의 이질성**을 설계 동기로 든다.
-
-이는 각 기능 모듈과 stream이 일대일이라는 뜻이 아니다. Motion과 memory는 VLM·memory module에서 만들어져 C 경로의 입력이 되고, A는 미래 행동을 생성하는 경로다.
-
-<p class="mini">초기 입력 배치는 MSAT 문단을 따른다. Physical Sensing 마지막의 C 표기 불일치는 S034에서 남긴다.</p>
-Stream은 입력별 파라미터 경로이며, 기능 모듈 이름과 동일한 분류가 아니다.
-Sec.2.2 MSAT·Physical Sensing · PDF p.8; timestep token · PDF p.9; Fig.3 · PDF p.6
-P=\[current p, noisy future p\]는 Fig.3의 Current/Noised Future 및 Physical Sensing 문단을 합친 개념적 입력이다. 본문의 개별 tokenization shape는 단정하지 않는다. C/A stream 설명은 MSAT 문단에 명시되어 있다. 괄호나 대괄호를 원소별 덧셈으로 확정하지 않는다. 센서 희소성 때문에 분리가 도움 된다는 의도와 single-stream 대비 독립 실험 근거는 구분한다.
-
-S032 Stream별 QKV
-Normalization과 QKV projection은 stream별로 따로 두고, attention 입력을 공통 공간에 모은다.
-###### 같은 연산 종류, 다른 파라미터
-
-$$
-\mathbf{C}\to\operatorname{Norm}_C\to(\mathbf{Q}_C,\mathbf{K}_C,\mathbf{V}_C)
-$$
-
-$$
-\mathbf{A}\to\operatorname{Norm}_A\to(\mathbf{Q}_A,\mathbf{K}_A,\mathbf{V}_A)
-$$
-
-$$
-\mathbf{P}\to\operatorname{Norm}_P\to(\mathbf{Q}_P,\mathbf{K}_P,\mathbf{V}_P)
-$$
-
-각 stream은 자신의 normalization과 attention input projection을 가진다. 공통 attention을 하기 전에도 모달리티에 맞게 표현을 변환할 여지가 있다.
-###### 교환을 위해 토큰 축으로 묶기
-
-$$
-\mathbf{Q}=\operatorname{concat}(\mathbf{Q}_C,\mathbf{Q}_A,\mathbf{Q}_P)
-$$
-
-K·V도 같은 순서로 이어 붙인다. Joint attention에서 각 stream의 query는 다른 stream의 key·value를 참고할 수 있다. **정보 교환**과 **전용 파라미터 유지**가 동시에 가능하다.
-
-<p class="callout">QKV를 함께 계산하는 attention 단계와, 후반에 C·A를 한 stream으로 합치는 구조 변경은 별개의 일이다.</p>
-
-<p class="mini">Q는 attention query이며 memory queue $\mathbf{Q}_{t}$와 다르다.</p>
-전용 stream은 서로 보지 않는다는 뜻이 아니라, 일부 변환 파라미터를 분리한다는 뜻이다.
-Sec.2.2 MSAT 문단 · PDF p.8
-원문은 각 stream이 자체 normalization과 attention input QKV projections를 가진다고 명시한다. QKV를 공통 token axis에 붙여 joint attention하고 출력을 분할한다. 식은 원문 연산 순서를 기호로 풀어 쓴 것이며 특정 linear weight 이름이나 정확한 norm 배치를 추가한 구현 명세가 아니다. 입력 stream hidden width와 attention head 수는 이 문단만으로 확정하지 않는다. q는 VLM cognition token, Q는 attention query, $\mathbf{Q}_t$는 memory queue이므로 구별한다.
--->
-
----
-layout: none
----
-
-<!-- slide-id: P010 | revision: v05 | status: draft -->
-
-<section class="seminar-slide" data-slide-id="P010"><header class="seminar-header"><div class="chapter-label">RLDX-1 Architecture</div><h1>MSAT의 Joint Attention</h1><p class="slide-lead">Joint attention은 정보는 섞어도 query 위치 수를 유지하므로 출력을 stream별로 돌려보낼 수 있다.</p></header><div class="seminar-body split"><div class="body-main"><h3>C 4개 + A 3개로 보는 원리</h3>
-<p><span class="label example">실제 모델 shape가 아닌 예시</span></p>
-<div class="token-row"><span class="token c"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mn>1</mn></msub></mrow><annotation encoding="application/x-tex">C_1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0715em;">C</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0715em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span><span class="token c"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">C_2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0715em;">C</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0715em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span><span class="token c"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mn>3</mn></msub></mrow><annotation encoding="application/x-tex">C_3</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0715em;">C</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0715em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span><span class="token c"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mn>4</mn></msub></mrow><annotation encoding="application/x-tex">C_4</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0715em;">C</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0715em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight">4</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span><span class="token a"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>A</mi><mn>1</mn></msub></mrow><annotation encoding="application/x-tex">A_1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">A</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span><span class="token a"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>A</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">A_2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">A</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span><span class="token a"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>A</mi><mn>3</mn></msub></mrow><annotation encoding="application/x-tex">A_3</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">A</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span></div>
-<div class="equation"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mtable rowspacing="0.25em" columnalign="right left" columnspacing="0em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mi mathvariant="bold">Q</mi><mo separator="true">,</mo><mi mathvariant="bold">K</mi><mo separator="true">,</mo><mi mathvariant="bold">V</mi></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>:</mo><mtext>  </mtext><mn>7</mn><mo>×</mo><mi>d</mi></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mtext>attention</mtext></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>:</mo><mtext>  </mtext><mn>7</mn><mo>×</mo><mn>7</mn><mo>→</mo><mtext>출력: </mtext><mn>7</mn><mo>×</mo><mi>d</mi></mrow></mstyle></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
-\mathbf{Q},\mathbf{K},\mathbf{V}&amp;:\;7\times d\\
-\text{attention}&amp;:\;7\times7\to\text{출력: }7\times d
-\end{aligned}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:2.7em;vertical-align:-1.1em;"></span><span class="mord"><span class="mtable"><span class="col-align-r"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.6em;"><span style="top:-3.76em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathbf">Q</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathbf">K</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathbf" style="margin-right:0.016em;">V</span></span></span><span style="top:-2.26em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord text"><span class="mord">attention</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.1em;"><span></span></span></span></span></span><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.6em;"><span style="top:-3.76em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">:</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord">7</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord mathnormal">d</span></span></span><span style="top:-2.26em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">:</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord">7</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord">7</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord text"><span class="mord hangul_fallback">출력</span><span class="mord">: </span></span><span class="mord">7</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord mathnormal">d</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.1em;"><span></span></span></span></span></span></span></span></span></span></span></span></div>
-<p>앞 4개 출력은 C, 뒤 3개는 A로 나눈다. 각 출력은 다른 stream의 정보를 이미 읽었을 수 있다.</p>
-</div><div class="body-aside"><h3>Residual과 후반 concat은 다르다</h3>
-<div class="equation"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mtable rowspacing="0.25em" columnalign="right left" columnspacing="0em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><msup><mi mathvariant="bold">C</mi><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msup></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mi mathvariant="bold">C</mi><mo>+</mo><mi mathvariant="normal">Δ</mi><mi mathvariant="bold">C</mi><mo separator="true">,</mo><mspace width="1em"/><msup><mi mathvariant="bold">A</mi><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msup><mo>=</mo><mi mathvariant="bold">A</mi><mo>+</mo><mi mathvariant="normal">Δ</mi><mi mathvariant="bold">A</mi></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mtext>후반:</mtext><mspace width="1em"/><mtext>C-A</mtext></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mi mathvariant="normal">concat</mi><mo>⁡</mo><mo stretchy="false">(</mo><msup><mi mathvariant="bold">C</mi><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msup><mo separator="true">,</mo><msup><mi mathvariant="bold">A</mi><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msup><mo stretchy="false">)</mo></mrow></mstyle></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
-\mathbf{C}&#x27;&amp;=\mathbf{C}+\Delta\mathbf{C},\quad\mathbf{A}&#x27;=\mathbf{A}+\Delta\mathbf{A}\\
-\text{후반:}\quad\text{C-A}&amp;=\operatorname{concat}(\mathbf{C}&#x27;,\mathbf{A}&#x27;)
-\end{aligned}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:2.7em;vertical-align:-1.1em;"></span><span class="mord"><span class="mtable"><span class="col-align-r"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.6em;"><span style="top:-3.76em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathbf">C</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8019em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span></span></span><span style="top:-2.26em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord text"><span class="mord hangul_fallback">후반</span><span class="mord">:</span></span><span class="mspace" style="margin-right:1em;"></span><span class="mord text"><span class="mord">C-A</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.1em;"><span></span></span></span></span></span><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.6em;"><span style="top:-3.76em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord mathbf">C</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord">Δ</span><span class="mord mathbf">C</span><span class="mpunct">,</span><span class="mspace" style="margin-right:1em;"></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathbf">A</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8019em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord mathbf">A</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord">Δ</span><span class="mord mathbf">A</span></span></span><span style="top:-2.26em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mop"><span class="mord mathrm">concat</span></span><span class="mopen">(</span><span class="mord"><span class="mord mathbf">C</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8019em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathbf">A</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8019em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.1em;"><span></span></span></span></span></span></span></span></span></span></span></span></div>
-<p>처음에는 각 stream에 보정을 더한다. <strong>후반에는 C·A를 한 시퀀스로 통합</strong>한다. 덧셈과 토큰 이어 붙이기를 구별해야 한다.</p>
-<p class="mini"><span class="label question">표기 불일치</span> 앞 문단은 noisy action을 A에 배치하지만 마지막 물리 센싱 요약은 C라고 쓴다. 오타 여부는 미확인이다.</p></div></div><div class="takeaway">공통 attention, stream별 residual, 후반 C-A 통합은 서로 다른 단계다.</div><footer class="seminar-footer"><span class="source">Sec.2.2 MSAT 및 마지막 요약 문장 · PDF p.8; 질문노트 Q1·Q6</span><span class="slide-id">P010 · 007/30</span></footer></section>
-
-<!--
-d가 같은 single-head 예시는 출력 row가 query row에 대응하는 원리를 설명한다. 실제 cognition은 64 tokens다. Δ는 residual 보정의 개념 표기이며 정확한 projection·MLP 구현을 추가한 명세가 아니다.
-
-S033 Joint attention과 출력 shape
-C 토큰 4개와 A 토큰 3개를 함께 읽어도, 출력 위치 7개는 그대로 남아 다시 나눌 수 있다.
-###### 토큰 수가 보존되는 attention
-
-<span class="label example">P를 생략한 교육용 C4 / A3</span>
-
-| 단계 | shape |
-| --- | --- |
-| C의 Q·K·V | 각 4 × d |
-| A의 Q·K·V | 각 3 × d |
-| 붙인 Q·K·V | 각 7 × d |
-| attention weights | 7 × 7 |
-| attention output | 7 × d |
-###### 출력 위치와 읽은 정보는 다르다
-
-<div class="token-row"><span class="token c">$C_1$</span><span class="token c">$C_2$</span><span class="token c">$C_3$</span><span class="token c">$C_4$</span><span class="token a">$A_1$</span><span class="token a">$A_2$</span><span class="token a">$A_3$</span></div>
-
-각 query 위치에 출력 벡터가 하나씩 생긴다. 앞 네 위치는 C로, 뒤 세 위치는 A로 돌려보낸다. C 위치의 출력도 A의 정보를 읽었을 수 있으므로 “C 출력에 C 정보만 있다”는 뜻은 아니다.
-
-**4·3·d**는 원리를 보이는 예시다. 실제 cognition은64 tokens이며, 이 표를 모델의 실제 전체 shape로 읽지 않는다.
-Attention은 여러 정보를 섞지만 query 위치를 없애지 않기 때문에 stream별 분할이 가능하다.
-Sec.2.2의 joint attention·split 설명 · PDF p.8; shape는 설명용 예시
-설명상 single head를 가정하고 Q/K/V의 feature 폭을 같은 d로 두었다. 실제 multi-head의 QK dimension과 V dimension은 다를 수 있고 head concat/projection도 있으므로 이 표가 구현 shape 명세는 아니다. 7×7은 query 7개가 key 7개를 참고하는 관계 수다. Output row는 query row에 대응한다. P stream이 있으면 그 token 수만큼 행도 추가되지만 같은 원리로 원래 길이에 따라 분할할 수 있다.
-
-S034 Residual update와 concat
-한 블록 안의 stream별 덧셈과, 후반 C·A 시퀀스 통합은 서로 다른 연산이다.
-###### 초반 블록: 나눠서 다시 더한다
-
-$$
-\text{joint attention}\to[\Delta\mathbf{C},\Delta\mathbf{A},\Delta\mathbf{P}]
-$$
-
-$$
-\begin{aligned}
-\mathbf{C}'&=\mathbf{C}+\Delta\mathbf{C}\\
-\mathbf{A}'&=\mathbf{A}+\Delta\mathbf{A}\\
-\mathbf{P}'&=\mathbf{P}+\Delta\mathbf{P}
-\end{aligned}
-$$
-
-위 식은 원문의 **stream-wise residual update**를 단순화한 개념식이다. 출력 위치를 나눈 후 각 경로의 원래 특징에 보정을 더한다. 이 단계에서는 C와 A의 stream 구분이 계속 남는다.
-###### 후반 블록: C와 A를 한 시퀀스로
-
-$$
-\mathbf{X}_{\mathrm{C-A}}=\operatorname{concat}(\mathbf{C}',\mathbf{A}')
-$$
-
-여기서는 토큰 축으로 이어 붙여 후속 단일 C-A 경로에서 처리한다. 원소별로 더해 토큰 수를 줄이는 연산이 아니다.
-
-<p class="callout"><span class="label question">본문 표기 불일치</span> MSAT 문단은 noisy actions를 <strong>A</strong>에 넣지만, Physical Sensing 마지막 문장은 “C stream”이라고 쓴다. 초기 입력은 앞의 명시적 배치를 따르되, 오타인지 별도 의도인지는 확정하지 않는다.</p>
-정보 교환 → stream별 residual → 후반 C-A 통합을 구분해야 Fig.3을 정확히 읽을 수 있다.
-Sec.2.2 MSAT 및 Physical Sensing 마지막 문장 · PDF p.8; 질문노트 Q1·Q6
-Δ 기호는 joint attention 출력을 residual에 더하는 개념적 보정량을 표시한다. 정확한 output projection·MLP 등 모든 세부를 그대로 수식화한 것은 아니다. 원문은 stream별 residual updates를 명시한다. 후반 C-A merge와 초반 QKV concatenation을 같은 “concat” 한 단어로 뭉개지 않는다. 최종 C 표기를 저자의 오타로 단정하지 않고 문서의 서술 불일치로 남긴다.
--->
-
----
-layout: none
----
-
-<!-- slide-id: P011 | revision: v05 | status: draft -->
-
-<section class="seminar-slide" data-slide-id="P011"><header class="seminar-header"><div class="chapter-label">RLDX-1 Architecture</div><h1>MSAT의 Stream 구성</h1><p class="slide-lead">VLM·memory가 조건을 준비하고, 공유 action model이 미래 행동과 센서 후보를 다듬는다.</p></header><div class="seminar-body figure"><figure class="paper-figure"><img src="/figures/fig-03.png" alt="Figure 3 · motion·memory·physics를 연결한 RLDX-1 구조" loading="eager"><figcaption>Figure 3 · motion·memory·physics를 연결한 RLDX-1 구조</figcaption></figure><div class="body-main"><h3>분리·통합과 로봇별 연결</h3>
-<p><strong>센서 있음:</strong> C/A/P → C-A/P<br><strong>센서 없음:</strong> C/A → C-A</p>
-<p>P는 물리 신호가 있을 때 독립 경로로 남아 C-A와 정보를 교환한다.</p>
-<p>로봇별 input projection → <strong>공유 MSAT</strong> → 로봇별 output projection으로 서로 다른 state·action 공간을 연결한다.</p>
-<p class="mini">새 embodiment용 공통 projection도 일부 샘플로 학습한다. P 경로와 로봇별 연결층은 서로 다른 분리 기준이다.</p></div></div><div class="takeaway">구조는 연결됐다. 입력 모달리티의 차이와 로봇 몸체의 차이는 서로 다른 경계에서 처리한다.</div><footer class="seminar-footer"><span class="source">Fig.3 · PDF p.6; Sec.2.2 · PDF p.8; Sec.4.1 · PDF p.12</span><span class="slide-id">P011 · 008/30</span></footer></section>
-
-<!--
-그림의 denoise는 chunk 전체의 반복 갱신이다. VLM 내부 프레임 압축, VLM 뒤 memory, action model 안의 stream 처리를 위치별로 짚는다. 상세 화면에서 embodiment-specific과 agnostic projection을 비교한다.
 
 S035 Triple-stream에서 double-stream으로
 물리 신호가 있을 때는 C와 A가 합쳐진 뒤에도 P 경로가 따로 남는다.
@@ -820,28 +588,6 @@ $$
 Sec.2.2 MSAT · PDF p.8; Fig.3 · PDF p.6
 기본 double-then-single 구조가 physical stream을 추가하면 triple-then-double이 된다. 각 stage의 정확한 block 개수는 이 문단에서 명시하지 않으므로 임의로 절반씩이라고 그리지 않는다. P가 없는 경우 attention mask로 운영 가능하다는 설명과 별도의 완전히 다른 네트워크를 선택한다는 해석은 구별한다. stream 수 자체를 denoising 반복 횟수로 해석하지 않는다.
 
-S036 로봇별 입출력 projection
-MSAT의 공통 내부와, 로봇마다 다른 상태·행동 공간을 연결하는 얇은 층을 구별한다.
-###### 플랫폼마다 다른 숫자 공간
-
-<div class="sequence">
-<div class="step"><strong>로봇별 input projection</strong><br>해당 로봇의 state·action → 공유 latent space</div>
-<div class="step"><strong>공유 MSAT</strong><br>여러 embodiment가 같은 본체 파라미터를 학습</div>
-<div class="step"><strong>로봇별 output projection</strong><br>공유 표현 → 해당 로봇 공간의 예측 출력</div>
-</div>
-
-관절 수와 end-effector 구성이 달라도 공유 latent space를 통해 하나의 행동 모델로 연결한다.
-###### P stream과는 다른 분리 기준
-
-**로봇별 projection:** embodiment 간 입력·출력 공간의 차이를 다룬다.
-
-**P stream:** 물리 센서라는 모달리티를 별도 파라미터 경로에서 다룬다. 로봇 이름별로 C/A/P를 하나씩 정하는 구조가 아니다.
-
-Sec.4.1은 새 embodiment 적응을 위해 별도의 **embodiment-agnostic projection**도 일부 샘플로 학습한다고 설명한다. 공유 MSAT, 로봇별 연결층, 공통 연결층은 각각 다른 요소다.
-공유 본체를 유지하면서 로봇 공간을 맞추는 연결층과, 모달리티별 stream을 구분한다.
-Sec.2.2 MSAT · PDF p.8; Sec.4.1 Generalization to New Embodiments · PDF p.12
-원문은 lightweight embodiment-specific projection을 MSAT input/output에 둔다고 명시한다. Output은 모델 velocity prediction을 해당 action space로 연결하는 맥락이며 직접 위치 목표만 출력한다고 좁히지 않는다. Sec.4.1은 agnostic projection의 input을 leading dimensions에 zero-pad한다고 서술한다. 구체적인 batch의 256 trajectory 설정은 S058에서 다룬다. Franka/ALLEX의 정확한 dimension을 임의로 예시하지 않았다.
-
 S040 Figure 3 전체 해석
 표현을 준비하는 VLM·memory와, 미래 후보를 반복 갱신하는 MSAT를 연결한다.
 <div class="flow">
@@ -865,151 +611,31 @@ Fig.3의 Denoise 표시는 미래 행동·센서 후보의 생성과 연결한�
 layout: none
 ---
 
-<!-- slide-id: P012 | revision: v05 | status: draft -->
+<!-- slide-id: P006 | revision: v07 | status: draft -->
 
-<section class="seminar-slide" data-slide-id="P012"><header class="seminar-header"><div class="chapter-label">RLDX-1 Architecture</div><h1>MSAT의 블록 구성</h1><p class="slide-lead">생성 진행도와 행동 순서를 구별해 주입하고, 정규화와 비선형 특징 변환을 더한다.</p></header><div class="seminar-body split"><div class="body-main"><h3>τ와 행동 위치는 다른 정보</h3>
-<div class="sequence">
-<div class="step"><strong><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>τ</mi></mrow><annotation encoding="application/x-tex">\tau</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.1132em;">τ</span></span></span></span>:</strong> sinusoidal embedding → MLP → A 앞의 한 토큰</div>
-<div class="step"><strong>행동 순서:</strong> A stream에 RoPE 적용</div>
-</div>
-<p><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>τ</mi></mrow><annotation encoding="application/x-tex">\tau</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.1132em;">τ</span></span></span></span> 토큰은 joint attention으로 현재 denoising timestep을 전달한다. RoPE는 위치별 Q·K 회전을 통해 상대 시간 관계를 반영한다. 둘 다 행동을 한 개씩 생성하도록 강제하는 규칙은 아니다.</p>
-</div><div class="body-aside"><h3>정규화와 특징 변환</h3>
-<p><strong>RMSNorm:</strong> 특징의 크기를 정규화한다. Query·key에도 적용한다.</p>
-<p><strong>SwiGLU:</strong> 비선형 gate로 토큰 내부의 특징을 변환한다.</p>
-<p>Attention은 토큰 간 정보를 교환하고, FFN은 각 토큰의 특징을 바꾼다. 상세 수식은 N 해설에 보존한다.</p>
-</div></div><div class="takeaway">무엇을 생성할지와 어떻게 처리할지 이해했다. 다음은 이 구조를 채운 데이터와 학습이다.</div><footer class="seminar-footer"><span class="source">Sec.2.2 Further Design Choices · PDF p.9; 배경: arXiv:2104.09864, 1910.07467, 2002.05202</span><span class="slide-id">P012 · 009/30</span></footer></section>
-
-<!--
-RMS와 bias를 생략한 SwiGLU FFN 식은 배경 해설용이다. $\tau$는 adaLN 대신 in-context token으로 넣는다. 이 구성 각각의 독립 성능 이득은 해당 문단에서 측정하지 않는다.
-
-S037 Denoising timestep 토큰
-$\tau$를 한 토큰으로 인코딩해 A 앞에 붙이고 joint attention으로 다른 경로에도 알린다.
-###### 값 하나를 모델 입력 특징으로
-
-<div class="flow">
-<div class="node">$\tau\in[0,1]$</div>
-<div class="arrow">→</div>
-<div class="node">sinusoidal<br>embedding</div>
-<div class="arrow">→</div>
-<div class="node">MLP</div>
-</div>
-
-<div class="token-row"><span class="token a">$\tau$ 토큰</span><span class="token a">$\mathbf{s}_{t}$</span><span class="token a">$\mathbf{a}^{\tau}_{t:t+H}$ 토큰들</span></div>
-
-변환된 $\tau$ 표현을 A 시퀀스 맨 앞의 한 토큰으로 넣는다. 이 토큰도 다른 A token처럼 attention에 참여한다.
-###### 왜 현재 생성 단계가 필요한가?
-
-<span class="label interpretation">직관</span> 노이즈가 많은 후보와 거의 완성된 후보에서 필요한 보정이 다를 수 있다. $\tau$는 모델에 “현재 생성 경로의 어디를 다루는지”를 알려준다.
-
-저자는 joint self-attention을 통해 $\tau$ 신호가 모든 모달리티에 전달될 수 있다고 설명한다. 매 블록의 feature에 affine modulation을 적용하는 **adaLN 방식 대신 in-context token**을 쓰는 선택이다.
-
-<p class="mini">$\tau$ 토큰을 추가하는 것은 미래 행동 한 개를 추가하는 것이 아니다. 물리 시간 t와도 구별한다.</p>
-$\tau$는 별도 control knob처럼 밖에서만 쓰이는 값이 아니라, MSAT가 읽는 한 입력 토큰이다.
-Sec.2.2 Further Design Choices for MSAT · PDF p.9
-원문은 sinusoidal embedding+MLP, A sequence 앞의 single token, joint attention을 통한 모든 modality로의 전파, per-block affine modulation을 사용하지 않는 점을 명시한다. Encoding의 frequency 개수·MLP width·layer 수는 이 문단에서 확정하지 않는다. 이 토큰을 텍스트 숫자 “0.25”를 tokenizer에 입력하는 방식으로 설명하지 않는다. 어느 $\tau$에서 어떤 정보가 얼마나 전파되는지는 추가 해석이나 측정이 필요하다.
-
-S038 RoPE와 행동 순서
-행동 토큰의 위치에 따라 Q·K를 회전시켜 attention 점수에 상대 순서를 반영한다.
-###### 행동 chunk에도 순서가 있다
-
-<div class="token-row"><span class="token a">$\mathbf{a}_{t}$</span><span class="token a">$\mathbf{a}_{t+1}$</span><span class="token a">$\mathbf{a}_{t+2}$</span><span class="token a">⋯</span></div>
-
-같은 행동 값의 집합이라도 어느 시점에 놓이는지가 중요하다. RLDX-1은 **A stream에 rotary positional embeddings**를 적용해 chunk 안의 상대 시간 구조를 포착하도록 한다.
-
-배경 원전의 직관은 위치 m의 query와 위치 n의 key를 각 위치에 따른 각도로 회전시킨 뒤 서로 비교하는 것이다.
-###### 절대 회전에서 상대 위치가 나온다
-
-$$
-\widetilde{\mathbf{q}}_m=\mathbf{R}_m\mathbf{q}_m,\quad\widetilde{\mathbf{k}}_n=\mathbf{R}_n\mathbf{k}_n
-$$
-
-$$
-\begin{aligned}
-\widetilde{\mathbf{q}}_m^{\mathsf T}\widetilde{\mathbf{k}}_n
-&=\mathbf{q}_m^{\mathsf T}\mathbf{R}_{n-m}\mathbf{k}_n
-\end{aligned}
-$$
-
-<p class="eq-caption">RoPE의 원리를 간단히 표현한 배경식. 회전 차이가 n−m을 반영한다.</p>
-
-따라서 attention은 내용과 위치 관계를 함께 읽을 수 있다. RoPE는 행동 토큰을 하나씩 생성하게 만드는 causal mask가 아니며, denoising timestep $\tau$를 나타내는 토큰과도 다르다.
-행동 순서를 나타내는 위치 정보와 생성 진행도를 나타내는 $\tau$ 정보는 별개다.
-Sec.2.2 Further Design Choices · PDF p.9; 배경: RoFormer Sec.3.2 (arXiv:2104.09864)
-배경 원전 https://arxiv.org/html/2104.09864v5 의 Sec.3.2에서 회전 행렬을 이용한 QK의 상대 위치 관계를 확인했다. 식의 R은 동일 frequency 구조에서 $\mathbf{R}_m^{\mathsf T}\mathbf{R}_n=\mathbf{R}_{n-m}$인 rotation operator다. 실제 RoPE는 feature dimension 쌍마다 여러 frequency를 사용한다. 여기서는 RLDX-1의 정확한 frequency/index 배치나 P/C 적용을 추정하지 않고, A stream 적용이라는 원문 범위만 말한다.
-
-S039 RMSNorm과 SwiGLU
-정규화는 특징 크기를 조절하고, FFN은 각 토큰 안의 특징을 비선형으로 변환한다.
-###### RMSNorm: 평균 제곱 크기로 나누기
-
-$$
-\operatorname{RMS}(\mathbf{x})=\sqrt{\frac{x_1^2+\cdots+x_d^2}{d}}
-$$
-
-각 토큰의 특징 벡터를 RMS 크기에 따라 정규화하고 학습 가능한 scale로 조절한다. LayerNorm과 달리 평균을 빼는 recentering을 생략하는 것이 배경 원전의 핵심이다.
-
-RLDX-1은 RMSNorm을 채택하며 **query와 key에도** 적용한다고 명시한다. 값이 모두 같아지거나 정보 교환 자체를 수행하는 연산은 아니다.
-###### SwiGLU: 두 변환을 곱하는 gate
-
-$$
-\begin{aligned}
-\mathbf{g}&=\operatorname{SiLU}(\mathbf{x}W_g)\\
-\mathbf{v}&=\mathbf{x}W_v\\
-\operatorname{FFN}(\mathbf{x})&=(\mathbf{g}\odot\mathbf{v})W_o
-\end{aligned}
-$$
-
-<p class="eq-caption">bias를 생략한 배경용 개념식. $\odot$는 원소별 곱이다.</p>
-
-한 경로의 비선형 값이 다른 경로의 특징을 조절한다. 이 FFN은 토큰마다 특징을 변환하고, attention은 토큰 사이 정보를 교환한다. 보고서는 이 구성 요소를 채택했다고 설명하지만 각각의 독립 성능 이득을 이 문단에서 측정하지 않는다.
-RMSNorm·SwiGLU·attention은 블록 안의 서로 다른 역할을 담당한다.
-Sec.2.2 Further Design Choices · PDF p.9; 배경: arXiv:1910.07467, arXiv:2002.05202
-배경 원전 https://arxiv.org/html/1910.07467v1 의 Sec.4와 https://arxiv.org/html/2002.05202v1 의 Sec.2 식(5)–(6)을 확인했다. RMS 식은 root mean square 정의이며 정규화한 값에 learned gain을 곱하며 구현에 따라 수치 안정화 항을 더한다. 출력 공식 전체 대신 RMS 정의만 표시했다. SwiGLU 식은 bias 생략 개념식이며 $\operatorname{SiLU}(x)=x\operatorname{sigmoid}(x)$인 $\operatorname{Swish}_1$ gate를 쓴다. 실제 RLDX-1 weight 이름이나 FFN width를 명세한 것은 아니다. QK에 RMSNorm을 적용한다는 사실과 구체 shape는 구별한다.
--->
-
----
-layout: none
----
-
-<!-- slide-id: P006 | revision: v05 | status: draft -->
-
-<section class="seminar-slide" data-slide-id="P006"><header class="seminar-header"><div class="chapter-label">RLDX-1 Architecture</div><h1>Action Model의 행동 생성 원리</h1><p class="slide-lead">Transformer가 조건부 변화율을 학습하고, 노이즈 후보를 정답 행동 쪽으로 이동시킨다.</p></header><div class="seminar-body split"><div class="body-main"><h3>이름보다 역할로 구분하기</h3>
-<table>
-<thead>
-<tr>
-<th>역할</th>
-<th>이 논문의 선택</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>신경망 구조</td>
-<td>Transformer 기반 MSAT / DiT</td>
-</tr>
-<tr>
-<td>학습 목표</td>
-<td>flow matching의 velocity 회귀</td>
-</tr>
-<tr>
-<td>추론 생성</td>
-<td>Euler 방법의 반복 갱신</td>
-</tr>
-</tbody>
-</table>
-<p><strong>t</strong>는 실제 로봇 시점, <strong><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>τ</mi></mrow><annotation encoding="application/x-tex">\tau</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.1132em;">τ</span></span></span></span></strong>는 생성 중인 후보를 다듬는 denoising timestep이다.</p>
-</div><div class="body-aside"><h3>현재 조건 아래 미래 후보를 만든다</h3>
-<div class="equation"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mtable rowspacing="0.25em" columnalign="right left" columnspacing="0em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><msub><mi mathvariant="bold">c</mi><mi>t</mi></msub></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mo stretchy="false">[</mo><msub><mi mathvariant="bold">h</mi><mi>t</mi></msub><mo separator="true">,</mo><msub><mi mathvariant="bold">m</mi><mi>t</mi></msub><mo separator="true">,</mo><msub><mi mathvariant="bold">s</mi><mi>t</mi></msub><mo separator="true">,</mo><msub><mi mathvariant="bold">p</mi><mi>t</mi></msub><mo stretchy="false">]</mo></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><msup><mi mathvariant="bold">a</mi><mi>τ</mi></msup></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mi>τ</mi><mi mathvariant="bold">a</mi><mo>+</mo><mo stretchy="false">(</mo><mn>1</mn><mo>−</mo><mi>τ</mi><mo stretchy="false">)</mo><mi mathvariant="bold-italic">ϵ</mi></mrow></mstyle></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
-\mathbf{c}_t&amp;=[\mathbf{h}_t,\mathbf{m}_t,\mathbf{s}_t,\mathbf{p}_t]\\
-\mathbf{a}^{\tau}&amp;=\tau\mathbf{a}+(1-\tau)\boldsymbol{\epsilon}
-\end{aligned}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:2.7em;vertical-align:-1.1em;"></span><span class="mord"><span class="mtable"><span class="col-align-r"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.6em;"><span style="top:-3.76em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathbf">c</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span><span style="top:-2.26em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathbf">a</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7144em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.1132em;">τ</span></span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.1em;"><span></span></span></span></span></span><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.6em;"><span style="top:-3.76em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mopen">[</span><span class="mord"><span class="mord mathbf">h</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathbf">m</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathbf">s</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathbf">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">]</span></span></span><span style="top:-2.26em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord mathnormal" style="margin-right:0.1132em;">τ</span><span class="mord mathbf">a</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord mathnormal" style="margin-right:0.1132em;">τ</span><span class="mclose">)</span><span class="mord"><span class="mord"><span class="mord boldsymbol">ϵ</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.1em;"><span></span></span></span></span></span></span></span></span></span></span></span></div>
-<p>h·m은 cognition·memory, s·p는 현재 상태·센서다. <strong><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="bold">a</mi><mo>=</mo><msub><mi mathvariant="bold">a</mi><mrow><mi>t</mi><mo>:</mo><mi>t</mi><mo>+</mo><mi>H</mi></mrow></msub></mrow><annotation encoding="application/x-tex">\mathbf{a}=\mathbf{a}_{t:t+H}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.4444em;"></span><span class="mord mathbf">a</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:0.6528em;vertical-align:-0.2083em;"></span><span class="mord"><span class="mord mathbf">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">t</span><span class="mrel mtight">:</span><span class="mord mathnormal mtight">t</span><span class="mbin mtight">+</span><span class="mord mathnormal mtight" style="margin-right:0.0813em;">H</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2083em;"><span></span></span></span></span></span></span></span></span></span></strong>는 정답 행동 H+1개, <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="bold-italic">ϵ</mi></mrow><annotation encoding="application/x-tex">\boldsymbol{\epsilon}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.4444em;"></span><span class="mord"><span class="mord"><span class="mord boldsymbol">ϵ</span></span></span></span></span></span>는 같은 shape의 표준 정규 노이즈다.</p>
-<div class="equation"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mtable rowspacing="0.25em" columnalign="right left" columnspacing="0em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mi>τ</mi><mo>=</mo><mn>0</mn></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>:</mo><mtext>  </mtext><mtext>노이즈 </mtext><mi mathvariant="bold-italic">ϵ</mi></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mi>τ</mi><mo>=</mo><mn>1</mn></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>:</mo><mtext>  </mtext><mtext>정답 행동 </mtext><mi mathvariant="bold">a</mi></mrow></mstyle></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
-\tau=0&amp;:\;\text{노이즈 }\boldsymbol{\epsilon}\\
-\tau=1&amp;:\;\text{정답 행동 }\mathbf{a}
-\end{aligned}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:2.7em;vertical-align:-1.1em;"></span><span class="mord"><span class="mtable"><span class="col-align-r"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.6em;"><span style="top:-3.76em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.1132em;">τ</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord">0</span></span></span><span style="top:-2.26em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.1132em;">τ</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.1em;"><span></span></span></span></span></span><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.6em;"><span style="top:-3.76em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">:</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord text"><span class="mord hangul_fallback">노이즈</span><span class="mord"> </span></span><span class="mord"><span class="mord"><span class="mord boldsymbol">ϵ</span></span></span></span></span><span style="top:-2.26em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">:</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord text"><span class="mord hangul_fallback">정답</span><span class="mord"> </span><span class="mord hangul_fallback">행동</span><span class="mord"> </span></span><span class="mord mathbf">a</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.1em;"><span></span></span></span></span></span></span></span></span></span></span></span></div>
-</div></div><div class="takeaway">학습에서는 정답으로 경로를 만들 수 있다. 모델이 배울 것은 그 경로의 변화율이다.</div><footer class="seminar-footer"><span class="source">Sec.2.2 · PDF p.8; 배경: DiT arXiv:2212.09748, Flow Matching arXiv:2210.02747</span><span class="slide-id">P006 · 010/30</span></footer></section>
+<section class="seminar-slide" data-slide-id="P006"><header class="seminar-header"><div class="chapter-label">RLDX-1 Architecture</div><h1>Action Model의 학습 원리</h1><p class="slide-lead">MSAT는 노이즈가 섞인 chunk를 입력받아, 정답으로 향하는 변화율을 flow matching으로 학습한다.</p></header><div class="seminar-body split"><div class="body-main"><h3>노이즈 후보와 정답 변화율</h3>
+<div class="equation"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msup><mi mathvariant="bold">a</mi><mi>τ</mi></msup><mo>=</mo><mi>τ</mi><mi mathvariant="bold">a</mi><mo>+</mo><mo stretchy="false">(</mo><mn>1</mn><mo>−</mo><mi>τ</mi><mo stretchy="false">)</mo><mi mathvariant="bold-italic">ϵ</mi></mrow><annotation encoding="application/x-tex">\mathbf{a}^{\tau}=\tau\mathbf{a}+(1-\tau)\boldsymbol{\epsilon}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.7144em;"></span><span class="mord"><span class="mord mathbf">a</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7144em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.1132em;">τ</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:0.6667em;vertical-align:-0.0833em;"></span><span class="mord mathnormal" style="margin-right:0.1132em;">τ</span><span class="mord mathbf">a</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.1132em;">τ</span><span class="mclose">)</span><span class="mord"><span class="mord"><span class="mord boldsymbol">ϵ</span></span></span></span></span></span></span></div>
+<p><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="bold">a</mi><mo>=</mo><msub><mi mathvariant="bold">a</mi><mrow><mi>t</mi><mo>:</mo><mi>t</mi><mo>+</mo><mi>H</mi></mrow></msub></mrow><annotation encoding="application/x-tex">\mathbf{a}=\mathbf{a}_{t:t+H}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.4444em;"></span><span class="mord mathbf">a</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:0.6528em;vertical-align:-0.2083em;"></span><span class="mord"><span class="mord mathbf">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">t</span><span class="mrel mtight">:</span><span class="mord mathnormal mtight">t</span><span class="mbin mtight">+</span><span class="mord mathnormal mtight" style="margin-right:0.0813em;">H</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2083em;"><span></span></span></span></span></span></span></span></span></span>는 정답 행동 chunk, <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="bold-italic">ϵ</mi></mrow><annotation encoding="application/x-tex">\boldsymbol{\epsilon}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.4444em;"></span><span class="mord"><span class="mord"><span class="mord boldsymbol">ϵ</span></span></span></span></span></span>는 같은 shape의 표준 정규 노이즈다. <strong>τ=0은 노이즈, τ=1은 정답</strong>이다.</p>
+<div class="equation"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mfrac><mrow><mi>d</mi><msup><mi mathvariant="bold">a</mi><mi>τ</mi></msup></mrow><mrow><mi>d</mi><mi>τ</mi></mrow></mfrac><mo>=</mo><mi mathvariant="bold">a</mi><mo>−</mo><mi mathvariant="bold-italic">ϵ</mi><mo>=</mo><msup><mi mathvariant="bold">v</mi><mo lspace="0em" rspace="0em">∗</mo></msup></mrow><annotation encoding="application/x-tex">\frac{d\mathbf{a}^{\tau}}{d\tau}=\mathbf{a}-\boldsymbol{\epsilon}=\mathbf{v}^{*}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:2.0574em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3714em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">d</span><span class="mord mathnormal" style="margin-right:0.1132em;">τ</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">d</span><span class="mord"><span class="mord mathbf">a</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6644em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.1132em;">τ</span></span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:0.6667em;vertical-align:-0.0833em;"></span><span class="mord mathbf">a</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:0.4444em;"></span><span class="mord"><span class="mord"><span class="mord boldsymbol">ϵ</span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:0.7387em;"></span><span class="mord"><span class="mord mathbf" style="margin-right:0.016em;">v</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7387em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">∗</span></span></span></span></span></span></span></span></span></span></span></span></span></div>
+<p>물리 시간 <strong>t</strong>와 denoising timestep <strong>τ</strong>를 구분한다. 같은 t에서 후보 전체를 다듬는다.</p>
+</div><div class="body-aside"><h3>예측 변화율과 학습 손실</h3>
+<div class="equation"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi mathvariant="script">L</mi><mo>=</mo><mo fence="true" stretchy="true" minsize="1.2em" maxsize="1.2em">∥</mo><msub><mi mathvariant="bold">u</mi><mi>θ</mi></msub><mo stretchy="false">(</mo><msup><mi mathvariant="bold">a</mi><mi>τ</mi></msup><mo separator="true">,</mo><mi>τ</mi><mo separator="true">,</mo><msub><mi mathvariant="bold">c</mi><mi>t</mi></msub><mo stretchy="false">)</mo><mo>−</mo><msup><mi mathvariant="bold">v</mi><mo lspace="0em" rspace="0em">∗</mo></msup><msubsup><mo fence="true" stretchy="true" minsize="1.2em" maxsize="1.2em">∥</mo><mn>2</mn><mn>2</mn></msubsup></mrow><annotation encoding="application/x-tex">\mathcal{L}=\bigl\lVert\mathbf{u}_\theta(\mathbf{a}^{\tau},\tau,\mathbf{c}_t)-\mathbf{v}^{*}\bigr\rVert_2^2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.6833em;"></span><span class="mord mathcal">L</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:1.2em;vertical-align:-0.35em;"></span><span class="mopen"><span class="delimsizing mult"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.85em;"><span style="top:-2.85em;"><span class="pstrut" style="height:3.2em;"></span><span style="width:0.556em;height:1.2em;"><svg xmlns="http://www.w3.org/2000/svg" width="0.556em" height="1.2em" viewBox="0 0 556 1200"><path d="M145 15 v585 v0 v585 c2.667,10,9.667,15,21,15
+c10,0,16.667,-5,20,-15 v-585 v0 v-585 c-2.667,-10,-9.667,-15,-21,-15
+c-10,0,-16.667,5,-20,15z M188 15 H145 v585 v0 v585 h43z
+M367 15 v585 v0 v585 c2.667,10,9.667,15,21,15
+c10,0,16.667,-5,20,-15 v-585 v0 v-585 c-2.667,-10,-9.667,-15,-21,-15
+c-10,0,-16.667,5,-20,15z M410 15 H367 v585 v0 v585 h43z"/></svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.35em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathbf">u</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.0278em;">θ</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord"><span class="mord mathbf">a</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7144em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.1132em;">τ</span></span></span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.1132em;">τ</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathbf">c</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:1.4537em;vertical-align:-0.3997em;"></span><span class="mord"><span class="mord mathbf" style="margin-right:0.016em;">v</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7387em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">∗</span></span></span></span></span></span></span></span></span><span class="mclose"><span class="mclose"><span class="delimsizing mult"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.85em;"><span style="top:-2.85em;"><span class="pstrut" style="height:3.2em;"></span><span style="width:0.556em;height:1.2em;"><svg xmlns="http://www.w3.org/2000/svg" width="0.556em" height="1.2em" viewBox="0 0 556 1200"><path d="M145 15 v585 v0 v585 c2.667,10,9.667,15,21,15
+c10,0,16.667,-5,20,-15 v-585 v0 v-585 c-2.667,-10,-9.667,-15,-21,-15
+c-10,0,-16.667,5,-20,15z M188 15 H145 v585 v0 v585 h43z
+M367 15 v585 v0 v585 c2.667,10,9.667,15,21,15
+c10,0,16.667,-5,20,-15 v-585 v0 v-585 c-2.667,-10,-9.667,-15,-21,-15
+c-10,0,-16.667,5,-20,15z M410 15 H367 v585 v0 v585 h43z"/></svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.35em;"><span></span></span></span></span></span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.054em;"><span style="top:-2.3003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span><span style="top:-3.3029em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.3997em;"><span></span></span></span></span></span></span></span></span></span></span></div>
+<p><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="bold">c</mi><mi>t</mi></msub></mrow><annotation encoding="application/x-tex">\mathbf{c}_t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.5944em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathbf">c</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>는 cognition·memory·현재 상태·센서 조건이다. L2 norm의 제곱은 <strong>좌표별 변화율 오차 제곱의 합</strong>이다.</p>
+<p><span class="label example">설명용 예시</span> 정답 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mn>3</mn><mo separator="true">,</mo><mo>−</mo><mn>1</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[3,-1]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">3</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">−</span><span class="mord">1</span><span class="mclose">]</span></span></span></span>, 노이즈 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mo>−</mo><mn>1</mn><mo separator="true">,</mo><mn>1</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[-1,1]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">−</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">1</span><span class="mclose">]</span></span></span></span>이면 target은 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mn>4</mn><mo separator="true">,</mo><mo>−</mo><mn>2</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[4,-2]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">4</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">−</span><span class="mord">2</span><span class="mclose">]</span></span></span></span>다. 예측이 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mn>3.9</mn><mo separator="true">,</mo><mo>−</mo><mn>1.8</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[3.9,-1.8]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">3.9</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">−</span><span class="mord">1.8</span><span class="mclose">]</span></span></span></span>이면 손실은 <strong>0.05</strong>다.</p>
+<p class="mini">τ·노이즈 샘플링 → 후보 구성 → 변화율 예측 → 손실·역전파. 학습 샘플마다 완전한 denoising을 반복하는 것은 아니다.</p></div></div><div class="takeaway">학습은 중간 후보에서 변화율을 맞히는 일이다. 다음은 이 모델로 실제 chunk를 생성하는 과정이다.</div><footer class="seminar-footer"><span class="source">Sec.2.2 Eq.(1) · PDF p.8; 직선 경로 미분·벡터 예시는 설명용</span><span class="slide-id">P006 · 005/25</span></footer></section>
 
 <!--
-본문 설명 동안 t:t+H 첨자는 간결하게 생략한다. 물리 신호 p는 사용 가능할 때 조건에 포함한다. Flow matching을 고전 diffusion 손실 다음에 추가하는 두 단계로 설명하지 않는다. Sec.1.1의 $\mathbf{c}_t$는 언어 지시지만 Sec.2.2는 $\mathbf{c}_t$를 전체 conditioning inputs로 다시 쓴다. 이 장은 Sec.2.2의 정의를 따른다.
+P006과 P007을 통합했다. Transformer/DiT는 구조, flow matching은 목표, Euler는 추론 갱신이며 고전 diffusion 손실과 순차 적용하는 두 단계가 아니다. S020–026/S028의 유도·수식·용어·shape 해설을 모두 유지한다. 개별 정답 쌍의 직선 target이 상수라는 것과 학습한 vector field가 모든 입력에서 상수라는 것은 다르다. 현재 조건의 센서는 사용 가능할 때 포함한다. Sec.1.1의 c_t는 지시지만 여기서는 Sec.2.2의 전체 조건 정의다. τ의 정확한 샘플링 분포·구현상 loss reduction을 임의 확정하지 않는다.
 
 S020 Diffusion·DiT·flow matching
 구조의 이름, 학습할 목표, 추론에서 샘플을 만드는 방법을 나누어 읽는다.
@@ -1114,43 +740,6 @@ $$
 학습에서 아는 직선 경로를 이용해 변화율을 가르치고, 추론에서는 그 예측을 사용한다.
 Sec.2.2의 noisy action 구성식 · PDF p.8
 숫자는 실험 action이 아닌 설명용이다. 실제 모델의 \[−1,1\] 정규화 범위와 별개인 단순 벡터다. $\mathbf{a}^{\tau}$는 action chunk 전체와 같은 shape다. 이 논문의 $\tau$ 방향은 0의 noise에서 1의 data로 간다. 다른 diffusion 문헌의 time 방향을 그대로 가져오지 않는다. 예시 노이즈의 값이 \[−1,1\]이라고 해서 실제 입력을 uniform \[−1,1\]로 샘플링한다는 뜻은 아니다.
--->
-
----
-layout: none
----
-
-<!-- slide-id: P007 | revision: v05 | status: draft -->
-
-<section class="seminar-slide" data-slide-id="P007"><header class="seminar-header"><div class="chapter-label">RLDX-1 Architecture</div><h1>Action Model의 학습 수식</h1><p class="slide-lead">선형 경로를 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>τ</mi></mrow><annotation encoding="application/x-tex">\tau</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.1132em;">τ</span></span></span></span>로 미분한 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="bold">a</mi><mo>−</mo><mi mathvariant="bold-italic">ϵ</mi></mrow><annotation encoding="application/x-tex">\mathbf{a}-\boldsymbol{\epsilon}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.6667em;vertical-align:-0.0833em;"></span><span class="mord mathbf">a</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:0.4444em;"></span><span class="mord"><span class="mord"><span class="mord boldsymbol">ϵ</span></span></span></span></span></span>가 정답이며, 무작위 중간 점에서 그 값을 회귀한다.</p></header><div class="seminar-body split"><div class="body-main"><h3>Target과 학습 손실</h3>
-<div class="equation"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mtable rowspacing="0.25em" columnalign="right left" columnspacing="0em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mfrac><mrow><mi>d</mi><mo stretchy="false">[</mo><mi>τ</mi><mi mathvariant="bold">a</mi><mo>+</mo><mo stretchy="false">(</mo><mn>1</mn><mo>−</mo><mi>τ</mi><mo stretchy="false">)</mo><mi mathvariant="bold-italic">ϵ</mi><mo stretchy="false">]</mo></mrow><mrow><mi>d</mi><mi>τ</mi></mrow></mfrac></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mi mathvariant="bold">a</mi><mo>−</mo><mi mathvariant="bold-italic">ϵ</mi><mo>=</mo><msup><mi mathvariant="bold">v</mi><mo lspace="0em" rspace="0em">∗</mo></msup></mrow></mstyle></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
-\frac{d[\tau\mathbf{a}+(1-\tau)\boldsymbol{\epsilon}]}{d\tau}
-&amp;=\mathbf{a}-\boldsymbol{\epsilon}=\mathbf{v}^{*}
-\end{aligned}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:2.113em;vertical-align:-0.8065em;"></span><span class="mord"><span class="mtable"><span class="col-align-r"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3065em;"><span style="top:-3.3065em;"><span class="pstrut" style="height:3.427em;"></span><span class="mord"><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.427em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">d</span><span class="mord mathnormal" style="margin-right:0.1132em;">τ</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">d</span><span class="mopen">[</span><span class="mord mathnormal" style="margin-right:0.1132em;">τ</span><span class="mord mathbf">a</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord mathnormal" style="margin-right:0.1132em;">τ</span><span class="mclose">)</span><span class="mord"><span class="mord"><span class="mord boldsymbol">ϵ</span></span></span><span class="mclose">]</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.8065em;"><span></span></span></span></span></span><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3065em;"><span style="top:-3.3065em;"><span class="pstrut" style="height:3.427em;"></span><span class="mord"><span class="mord"></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord mathbf">a</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord"><span class="mord"><span class="mord boldsymbol">ϵ</span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord"><span class="mord mathbf" style="margin-right:0.016em;">v</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7387em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">∗</span></span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.8065em;"><span></span></span></span></span></span></span></span></span></span></span></span></div>
-<div class="equation"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi mathvariant="script">L</mi><mo>=</mo><mo fence="true" stretchy="true" minsize="1.2em" maxsize="1.2em">∥</mo><msub><mi mathvariant="bold">u</mi><mi>θ</mi></msub><mo stretchy="false">(</mo><msubsup><mi mathvariant="bold">a</mi><mrow><mi>t</mi><mo>:</mo><mi>t</mi><mo>+</mo><mi>H</mi></mrow><mi>τ</mi></msubsup><mo separator="true">,</mo><mi>τ</mi><mo separator="true">,</mo><msub><mi mathvariant="bold">c</mi><mi>t</mi></msub><mo stretchy="false">)</mo><mo>−</mo><msup><mi mathvariant="bold">v</mi><mo lspace="0em" rspace="0em">∗</mo></msup><msubsup><mo fence="true" stretchy="true" minsize="1.2em" maxsize="1.2em">∥</mo><mn>2</mn><mn>2</mn></msubsup></mrow><annotation encoding="application/x-tex">\mathcal{L}=\bigl\lVert\mathbf{u}_\theta(\mathbf{a}_{t:t+H}^{\tau},\tau,\mathbf{c}_t)-\mathbf{v}^{*}\bigr\rVert_2^2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.6833em;"></span><span class="mord mathcal">L</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:1.2em;vertical-align:-0.35em;"></span><span class="mopen"><span class="delimsizing mult"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.85em;"><span style="top:-2.85em;"><span class="pstrut" style="height:3.2em;"></span><span style="width:0.556em;height:1.2em;"><svg xmlns="http://www.w3.org/2000/svg" width="0.556em" height="1.2em" viewBox="0 0 556 1200"><path d="M145 15 v585 v0 v585 c2.667,10,9.667,15,21,15
-c10,0,16.667,-5,20,-15 v-585 v0 v-585 c-2.667,-10,-9.667,-15,-21,-15
-c-10,0,-16.667,5,-20,15z M188 15 H145 v585 v0 v585 h43z
-M367 15 v585 v0 v585 c2.667,10,9.667,15,21,15
-c10,0,16.667,-5,20,-15 v-585 v0 v-585 c-2.667,-10,-9.667,-15,-21,-15
-c-10,0,-16.667,5,-20,15z M410 15 H367 v585 v0 v585 h43z"/></svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.35em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathbf">u</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.0278em;">θ</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord"><span class="mord mathbf">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.7144em;"><span style="top:-2.453em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">t</span><span class="mrel mtight">:</span><span class="mord mathnormal mtight">t</span><span class="mbin mtight">+</span><span class="mord mathnormal mtight" style="margin-right:0.0813em;">H</span></span></span></span><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.1132em;">τ</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.3053em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.1132em;">τ</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathbf">c</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:1.4537em;vertical-align:-0.3997em;"></span><span class="mord"><span class="mord mathbf" style="margin-right:0.016em;">v</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7387em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">∗</span></span></span></span></span></span></span></span></span><span class="mclose"><span class="mclose"><span class="delimsizing mult"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.85em;"><span style="top:-2.85em;"><span class="pstrut" style="height:3.2em;"></span><span style="width:0.556em;height:1.2em;"><svg xmlns="http://www.w3.org/2000/svg" width="0.556em" height="1.2em" viewBox="0 0 556 1200"><path d="M145 15 v585 v0 v585 c2.667,10,9.667,15,21,15
-c10,0,16.667,-5,20,-15 v-585 v0 v-585 c-2.667,-10,-9.667,-15,-21,-15
-c-10,0,-16.667,5,-20,15z M188 15 H145 v585 v0 v585 h43z
-M367 15 v585 v0 v585 c2.667,10,9.667,15,21,15
-c10,0,16.667,-5,20,-15 v-585 v0 v-585 c-2.667,-10,-9.667,-15,-21,-15
-c-10,0,-16.667,5,-20,15z M410 15 H367 v585 v0 v585 h43z"/></svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.35em;"><span></span></span></span></span></span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.054em;"><span style="top:-2.3003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span><span style="top:-3.3029em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.3997em;"><span></span></span></span></span></span></span></span></span></span></span></div>
-<p><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="bold">u</mi><mi>θ</mi></msub></mrow><annotation encoding="application/x-tex">\mathbf{u}_{\theta}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.5944em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathbf">u</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.0278em;">θ</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>는 방향과 크기를 가진 <strong>chunk 전체의 변화율</strong>을 출력한다. L2 norm의 제곱은 좌표별 예측 오차 제곱을 합한 값이다.</p>
-</div><div class="body-aside"><h3>숫자로 읽고, 학습 순서로 연결</h3>
-<p><span class="label example">2차원 설명용 예시</span></p>
-<div class="equation"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mtable rowspacing="0.25em" columnalign="right left" columnspacing="0em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mi mathvariant="bold">a</mi></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mo stretchy="false">[</mo><mn>3</mn><mo separator="true">,</mo><mo>−</mo><mn>1</mn><mo stretchy="false">]</mo><mo separator="true">,</mo><mspace width="1em"/><mi mathvariant="bold-italic">ϵ</mi><mo>=</mo><mo stretchy="false">[</mo><mo>−</mo><mn>1</mn><mo separator="true">,</mo><mn>1</mn><mo stretchy="false">]</mo></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><msup><mi mathvariant="bold">v</mi><mo lspace="0em" rspace="0em">∗</mo></msup></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mo stretchy="false">[</mo><mn>4</mn><mo separator="true">,</mo><mo>−</mo><mn>2</mn><mo stretchy="false">]</mo></mrow></mstyle></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
-\mathbf{a}&amp;=[3,-1],\quad\boldsymbol{\epsilon}=[-1,1]\\
-\mathbf{v}^{*}&amp;=[4,-2]
-\end{aligned}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:2.7em;vertical-align:-1.1em;"></span><span class="mord"><span class="mtable"><span class="col-align-r"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.6em;"><span style="top:-3.76em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathbf">a</span></span></span><span style="top:-2.26em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathbf" style="margin-right:0.016em;">v</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7387em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">∗</span></span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.1em;"><span></span></span></span></span></span><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.6em;"><span style="top:-3.76em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mopen">[</span><span class="mord">3</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">−</span><span class="mord">1</span><span class="mclose">]</span><span class="mpunct">,</span><span class="mspace" style="margin-right:1em;"></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord"><span class="mord boldsymbol">ϵ</span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mopen">[</span><span class="mord">−</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">1</span><span class="mclose">]</span></span></span><span style="top:-2.26em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mopen">[</span><span class="mord">4</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">−</span><span class="mord">2</span><span class="mclose">]</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.1em;"><span></span></span></span></span></span></span></span></span></span></span></span></div>
-<p>예측이 [3.9,−1.8]이면 오차 제곱의 합은 <strong>0.01+0.04=0.05</strong>다.</p>
-<p>학습은 <strong><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>τ</mi></mrow><annotation encoding="application/x-tex">\tau</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.1132em;">τ</span></span></span></span>·<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="bold-italic">ϵ</mi></mrow><annotation encoding="application/x-tex">\boldsymbol{\epsilon}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.4444em;"></span><span class="mord"><span class="mord"><span class="mord boldsymbol">ϵ</span></span></span></span></span></span> 샘플링 → <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi mathvariant="bold">a</mi><mi>τ</mi></msup></mrow><annotation encoding="application/x-tex">\mathbf{a}^{\tau}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.6644em;"></span><span class="mord"><span class="mord mathbf">a</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6644em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.1132em;">τ</span></span></span></span></span></span></span></span></span></span></span></span> 구성 → 변화율 예측 → 손실·역전파</strong>다. 매 샘플마다 완전한 denoising을 반복해야 하는 목표는 아니다.</p>
-</div></div><div class="takeaway">학습은 무작위 중간 점에서 변화율을 맞히는 일이다. 추론은 그 변화율로 후보를 옮긴다.</div><footer class="seminar-footer"><span class="source">Sec.2.2 Eq.(1) · PDF p.8; 미분·숫자는 설명용 풀이</span><span class="slide-id">P007 · 011/30</span></footer></section>
-
-<!--
-벡터 숫자는 실험 데이터가 아닌 설명용이며 실제 action 정규화 범위와 별개다. 개별 직선 경로의 target은 상수지만 학습된 neural vector field가 모든 후보에서 같은 상수라는 뜻은 아니다.
 
 S024 변화율의 유도
 정답과 노이즈를 고정하고 선형 경로를 $\tau$로 미분하면 $\mathbf{a}-\boldsymbol{\epsilon}$가 나온다.
@@ -1277,7 +866,7 @@ Sec.2.2 Eq.(1) 앞의 training 설명 · PDF p.8
 layout: none
 ---
 
-<!-- slide-id: P008 | revision: v05 | status: draft -->
+<!-- slide-id: P008 | revision: v07 | status: draft -->
 
 <section class="seminar-slide" data-slide-id="P008"><header class="seminar-header"><div class="chapter-label">RLDX-1 Architecture</div><h1>Action Model의 추론 수식</h1><p class="slide-lead">현재 조건을 고정해 참조하면서 미래 행동·센서 후보를 반복 갱신한다.</p></header><div class="seminar-body split"><div class="body-main"><h3>변화율 × 간격 = 이동량</h3>
 <div class="equation"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mtable rowspacing="0.25em" columnalign="right left" columnspacing="0em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mi mathvariant="normal">Δ</mi><msub><mi>τ</mi><mi>i</mi></msub></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><msub><mi>τ</mi><mrow><mi>i</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>−</mo><msub><mi>τ</mi><mi>i</mi></msub></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><msup><mi mathvariant="bold">a</mi><msub><mi>τ</mi><mrow><mi>i</mi><mo>+</mo><mn>1</mn></mrow></msub></msup></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><msup><mi mathvariant="bold">a</mi><msub><mi>τ</mi><mi>i</mi></msub></msup></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mspace width="1em"/><mo>+</mo><mi mathvariant="normal">Δ</mi><msub><mi>τ</mi><mi>i</mi></msub><msub><mi mathvariant="bold">u</mi><mi>θ</mi></msub><mo stretchy="false">(</mo><msup><mi mathvariant="bold">a</mi><msub><mi>τ</mi><mi>i</mi></msub></msup><mo separator="true">,</mo><msub><mi>τ</mi><mi>i</mi></msub><mo separator="true">,</mo><msub><mi mathvariant="bold">c</mi><mi>t</mi></msub><mo stretchy="false">)</mo></mrow></mstyle></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
@@ -1294,7 +883,7 @@ layout: none
 \text{미래 센서의 target:}&amp;\quad\mathbf{p}_{\mathrm{future}}-\boldsymbol{\epsilon}_p
 \end{aligned}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:2.7em;vertical-align:-1.1em;"></span><span class="mord"><span class="mtable"><span class="col-align-r"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.6em;"><span style="top:-3.76em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathbf">p</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7144em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.1132em;">τ</span></span></span></span></span></span></span></span></span></span></span><span style="top:-2.26em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord text"><span class="mord hangul_fallback">미래</span><span class="mord"> </span><span class="mord hangul_fallback">센서의</span><span class="mord"> target:</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.1em;"><span></span></span></span></span></span><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.6em;"><span style="top:-3.76em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord mathnormal" style="margin-right:0.1132em;">τ</span><span class="mord"><span class="mord mathbf">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathrm mtight">future</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord mathnormal" style="margin-right:0.1132em;">τ</span><span class="mclose">)</span><span class="mord"><span class="mord"><span class="mord"><span class="mord boldsymbol">ϵ</span></span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">p</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span></span></span><span style="top:-2.26em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"></span><span class="mspace" style="margin-right:1em;"></span><span class="mord"><span class="mord mathbf">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathrm mtight">future</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord"><span class="mord"><span class="mord"><span class="mord boldsymbol">ϵ</span></span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">p</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.1em;"><span></span></span></span></span></span></span></span></span></span></span></span></div>
 <p>미래 물리 신호 예측은 상호작용을 배우기 위한 <strong>보조 목표</strong>다. <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>τ</mi></mrow><annotation encoding="application/x-tex">\tau</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.1132em;">τ</span></span></span></span> 반복은 실제 로봇 시간 t의 전진이나 재관측과 다르다.</p>
-</div></div><div class="takeaway">현재 조건과 생성 후보를 분리했다. 다음은 이 입력들을 MSAT 안에서 어떻게 섞는가다.</div><footer class="seminar-footer"><span class="source">Sec.2.2 Eq.(2), Physical Sensing · PDF p.8; Sec.4.2 · PDF p.13</span><span class="slide-id">P008 · 012/30</span></footer></section>
+</div></div><div class="takeaway">변화율 × denoising 간격으로 후보를 갱신한다. 이제 조건과 후보를 MSAT의 입력 토큰으로 배치한다.</div><footer class="seminar-footer"><span class="source">Sec.2.2 Eq.(2), Physical Sensing · PDF p.8; Sec.4.2 · PDF p.13</span><span class="slide-id">P008 · 006/25</span></footer></section>
 
 <!--
 미래 물리 신호 길이 L은 mid-training에서 H+1로 둔다. 추론은 정답 미래 센서를 알지 못한다. 조건 특징의 실제 caching 구현은 단정하지 않는다. 생성 후 행동을 일부 실행하고 재관측하는 바깥 loop는 별도다.
@@ -1384,13 +973,265 @@ Sec.2.2 Functionality3: Physical Sensing · PDF p.8; Sec.4.2 · PDF p.13
 layout: none
 ---
 
-<!-- slide-id: P013 | revision: v05 | status: draft -->
+<!-- slide-id: P009 | revision: v07 | status: draft -->
+
+<section class="seminar-slide" data-slide-id="P009"><header class="seminar-header"><div class="chapter-label">RLDX-1 Architecture</div><h1>MSAT의 입력</h1><p class="slide-lead">C·A·P의 입력 묶음을 구성하고, denoising timestep과 행동의 시간 순서를 알려준다.</p></header><div class="seminar-body split"><div class="body-main"><h3>전체 입력 토큰 구성</h3>
+<div class="sequence">
+<div class="step"><strong>C:</strong> <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><msub><mi mathvariant="bold">h</mi><mi>t</mi></msub><mo separator="true">,</mo><msub><mi mathvariant="bold">m</mi><mi>t</mi></msub><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[\mathbf{h}_t,\mathbf{m}_t]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord"><span class="mord mathbf">h</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathbf">m</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">]</span></span></span></span><br>현재 cognition · memory</div>
+<div class="step"><strong>A:</strong> <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><msub><mi mathvariant="bold">e</mi><mi>τ</mi></msub><mo separator="true">,</mo><msub><mi mathvariant="bold">s</mi><mi>t</mi></msub><mo separator="true">,</mo><msubsup><mi mathvariant="bold">a</mi><mrow><mi>t</mi><mo>:</mo><mi>t</mi><mo>+</mo><mi>H</mi></mrow><mi>τ</mi></msubsup><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[\mathbf{e}_{\tau},\mathbf{s}_t,\mathbf{a}^{\tau}_{t:t+H}]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:1.0837em;vertical-align:-0.3337em;"></span><span class="mopen">[</span><span class="mord"><span class="mord mathbf">e</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.1132em;">τ</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathbf">s</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathbf">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.6644em;"><span style="top:-2.4247em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">t</span><span class="mrel mtight">:</span><span class="mord mathnormal mtight">t</span><span class="mbin mtight">+</span><span class="mord mathnormal mtight" style="margin-right:0.0813em;">H</span></span></span></span><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.1132em;">τ</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.3337em;"><span></span></span></span></span></span></span><span class="mclose">]</span></span></span></span><br>τ 토큰 · 현재 상태 · noisy action chunk</div>
+<div class="step"><strong>P:</strong> <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><msub><mi mathvariant="bold">p</mi><mi>t</mi></msub><mo separator="true">,</mo><msubsup><mi mathvariant="bold">p</mi><mrow><mi>t</mi><mo>+</mo><mn>1</mn><mo>:</mo><mi>t</mi><mo>+</mo><mi>L</mi></mrow><mi>τ</mi></msubsup><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[\mathbf{p}_t,\mathbf{p}^{\tau}_{t+1:t+L}]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:1.0837em;vertical-align:-0.3337em;"></span><span class="mopen">[</span><span class="mord"><span class="mord mathbf">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathbf">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.6644em;"><span style="top:-2.4247em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">t</span><span class="mbin mtight">+</span><span class="mord mtight">1</span><span class="mrel mtight">:</span><span class="mord mathnormal mtight">t</span><span class="mbin mtight">+</span><span class="mord mathnormal mtight">L</span></span></span></span><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.1132em;">τ</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.3337em;"><span></span></span></span></span></span></span><span class="mclose">]</span></span></span></span><br>현재 센서 · noisy 미래 센서 chunk</div>
+</div>
+<p class="mini">대괄호는 토큰 묶음을 이어 붙인 개념적 구성이다. 상태·행동·센서값은 projection을 거쳐 입력된다.</p></div><div class="body-aside"><h3>τ 토큰과 행동 위치</h3>
+<p><strong>Denoising timestep τ</strong></p>
+<div class="equation"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>τ</mi><mover><mo stretchy="true" minsize="3.0em">→</mo><mpadded width="+0.6em" lspace="0.3em"><mtext>sin/cos</mtext></mpadded></mover><mtext>embedding</mtext><mover><mo stretchy="true" minsize="3.0em">→</mo><mpadded width="+0.6em" lspace="0.3em"><mtext>MLP</mtext></mpadded></mover><msub><mi mathvariant="bold">e</mi><mi>τ</mi></msub></mrow><annotation encoding="application/x-tex">\tau\xrightarrow{\text{sin/cos}}\text{embedding}\xrightarrow{\text{MLP}}\mathbf{e}_{\tau}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:1.158em;vertical-align:-0.011em;"></span><span class="mord mathnormal" style="margin-right:0.1132em;">τ</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel x-arrow"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.147em;"><span style="top:-3.322em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight x-arrow-pad"><span class="mord mtight"><span class="mord text mtight"><span class="mord mtight">sin/cos</span></span></span></span></span><span class="svg-align" style="top:-2.689em;"><span class="pstrut" style="height:2.7em;"></span><span class="hide-tail" style="height:0.522em;min-width:1.469em;"><svg xmlns="http://www.w3.org/2000/svg" width="400em" height="0.522em" viewBox="0 0 400000 522" preserveAspectRatio="xMaxYMin slice"><path d="M0 241v40h399891c-47.3 35.3-84 78-110 128
+-16.7 32-27.7 63.7-33 95 0 1.3-.2 2.7-.5 4-.3 1.3-.5 2.3-.5 3 0 7.3 6.7 11 20
+ 11 8 0 13.2-.8 15.5-2.5 2.3-1.7 4.2-5.5 5.5-11.5 2-13.3 5.7-27 11-41 14.7-44.7
+ 39-84.5 73-119.5s73.7-60.2 119-75.5c6-2 9-5.7 9-11s-3-9-9-11c-45.3-15.3-85
+-40.5-119-75.5s-58.3-74.8-73-119.5c-4.7-14-8.3-27.3-11-40-1.3-6.7-3.2-10.8-5.5
+-12.5-2.3-1.7-7.5-2.5-15.5-2.5-14 0-21 3.7-21 11 0 2 2 10.3 6 25 20.7 83.3 67
+ 151.7 139 205zm0 0v40h399900v-40z"/></svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.011em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:1.2948em;vertical-align:-0.1944em;"></span><span class="mord text"><span class="mord">embedding</span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel x-arrow"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.1003em;"><span style="top:-3.322em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight x-arrow-pad"><span class="mord mtight"><span class="mord text mtight"><span class="mord mtight">MLP</span></span></span></span></span><span class="svg-align" style="top:-2.689em;"><span class="pstrut" style="height:2.7em;"></span><span class="hide-tail" style="height:0.522em;min-width:1.469em;"><svg xmlns="http://www.w3.org/2000/svg" width="400em" height="0.522em" viewBox="0 0 400000 522" preserveAspectRatio="xMaxYMin slice"><path d="M0 241v40h399891c-47.3 35.3-84 78-110 128
+-16.7 32-27.7 63.7-33 95 0 1.3-.2 2.7-.5 4-.3 1.3-.5 2.3-.5 3 0 7.3 6.7 11 20
+ 11 8 0 13.2-.8 15.5-2.5 2.3-1.7 4.2-5.5 5.5-11.5 2-13.3 5.7-27 11-41 14.7-44.7
+ 39-84.5 73-119.5s73.7-60.2 119-75.5c6-2 9-5.7 9-11s-3-9-9-11c-45.3-15.3-85
+-40.5-119-75.5s-58.3-74.8-73-119.5c-4.7-14-8.3-27.3-11-40-1.3-6.7-3.2-10.8-5.5
+-12.5-2.3-1.7-7.5-2.5-15.5-2.5-14 0-21 3.7-21 11 0 2 2 10.3 6 25 20.7 83.3 67
+ 151.7 139 205zm0 0v40h399900v-40z"/></svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.011em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:0.5944em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathbf">e</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.1132em;">τ</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span></div>
+<p>A 맨 앞의 <strong>한 토큰</strong>이다. Joint attention을 통해 다른 stream에도 현재 denoising timestep을 전달한다.</p>
+<p><strong>행동 순서 — RoPE</strong></p>
+<p>A stream의 Q·K에 위치별 회전을 적용해 chunk 안의 상대 시간 관계를 반영한다.</p>
+<p class="mini">물리 신호가 없으면 P stream의 attention을 mask할 수 있다.</p></div></div><div class="takeaway">τ는 denoising timestep, t:t+H는 행동 chunk의 물리 시간이다. 두 시간 정보를 구분한다.</div><footer class="seminar-footer"><span class="source">Sec.2.2 MSAT·Physical Sensing·Further Design Choices · PDF pp.8–9; Fig.3 · PDF p.6</span><span class="slide-id">P009 · 007/25</span></footer></section>
+
+<!--
+앞의 P006/P008에서 정의한 noisy chunk를 세 stream으로 배치한다. 입력은 projection 이후 토큰 묶음의 개념적 구성이며 정확한 tokenization 개수는 단정하지 않는다. e_τ는 인코딩된 timestep 토큰을 설명하기 위한 기호다. 본문의 실제 시간/denoising 구분을 다시 유도하지 않고 τ를 모델에 전달하는 방법에 집중한다. S032의 QKV 연결 해설과 S037/S038의 timestep·RoPE 수식을 보존한다. 과거 P012 링크는 이 장으로 연결한다.
+
+S031 P·C·A의 입력 구성
+모달리티를 전용 경로로 처리하되, attention으로 서로 정보를 교환한다.
+###### 초기 stream의 역할
+
+| Stream | 개념적 입력 | 내용 |
+| --- | --- | --- |
+| **C** | $[\mathbf{h}_t,\mathbf{m}_t]$ | cognition·memory |
+| **A** | $[\mathbf{s}_t,\mathbf{a}_{t:t+H}^{\tau}]$ | 현재 상태·행동 후보 |
+| **P** | $[\mathbf{p}_t,\mathbf{p}_{t+1:t+L}^{\tau}]$ | 현재 센서·미래 후보 |
+
+$\tau$는 인코딩한 한 토큰으로 A의 앞에 더한다. P는 물리 신호를 사용할 때 추가되는 경로이며, 센서가 없을 때 P attention을 mask할 수 있다.
+###### 왜 세 경로로 나누는가?
+
+cognition은 고차원 시각·언어 맥락, state는 저차원이지만 정확한 로봇 운동학 정보, 촉각·토크는 희소하지만 접촉에 중요한 정보다. 원문은 이 **의미와 데이터 규모의 이질성**을 설계 동기로 든다.
+
+이는 각 기능 모듈과 stream이 일대일이라는 뜻이 아니다. Motion과 memory는 VLM·memory module에서 만들어져 C 경로의 입력이 되고, A는 미래 행동을 생성하는 경로다.
+
+<p class="mini">초기 입력 배치는 MSAT 문단을 따른다. Physical Sensing 마지막의 C 표기 불일치는 S034에서 남긴다.</p>
+Stream은 입력별 파라미터 경로이며, 기능 모듈 이름과 동일한 분류가 아니다.
+Sec.2.2 MSAT·Physical Sensing · PDF p.8; timestep token · PDF p.9; Fig.3 · PDF p.6
+P=\[current p, noisy future p\]는 Fig.3의 Current/Noised Future 및 Physical Sensing 문단을 합친 개념적 입력이다. 본문의 개별 tokenization shape는 단정하지 않는다. C/A stream 설명은 MSAT 문단에 명시되어 있다. 괄호나 대괄호를 원소별 덧셈으로 확정하지 않는다. 센서 희소성 때문에 분리가 도움 된다는 의도와 single-stream 대비 독립 실험 근거는 구분한다.
+
+S032 Stream별 QKV
+Normalization과 QKV projection은 stream별로 따로 두고, attention 입력을 공통 공간에 모은다.
+###### 같은 연산 종류, 다른 파라미터
+
+$$
+\mathbf{C}\to\operatorname{Norm}_C\to(\mathbf{Q}_C,\mathbf{K}_C,\mathbf{V}_C)
+$$
+
+$$
+\mathbf{A}\to\operatorname{Norm}_A\to(\mathbf{Q}_A,\mathbf{K}_A,\mathbf{V}_A)
+$$
+
+$$
+\mathbf{P}\to\operatorname{Norm}_P\to(\mathbf{Q}_P,\mathbf{K}_P,\mathbf{V}_P)
+$$
+
+각 stream은 자신의 normalization과 attention input projection을 가진다. 공통 attention을 하기 전에도 모달리티에 맞게 표현을 변환할 여지가 있다.
+###### 교환을 위해 토큰 축으로 묶기
+
+$$
+\mathbf{Q}=\operatorname{concat}(\mathbf{Q}_C,\mathbf{Q}_A,\mathbf{Q}_P)
+$$
+
+K·V도 같은 순서로 이어 붙인다. Joint attention에서 각 stream의 query는 다른 stream의 key·value를 참고할 수 있다. **정보 교환**과 **전용 파라미터 유지**가 동시에 가능하다.
+
+<p class="callout">QKV를 함께 계산하는 attention 단계와, 후반에 C·A를 한 stream으로 합치는 구조 변경은 별개의 일이다.</p>
+
+<p class="mini">Q는 attention query이며 memory queue $\mathbf{Q}_{t}$와 다르다.</p>
+전용 stream은 서로 보지 않는다는 뜻이 아니라, 일부 변환 파라미터를 분리한다는 뜻이다.
+Sec.2.2 MSAT 문단 · PDF p.8
+원문은 각 stream이 자체 normalization과 attention input QKV projections를 가진다고 명시한다. QKV를 공통 token axis에 붙여 joint attention하고 출력을 분할한다. 식은 원문 연산 순서를 기호로 풀어 쓴 것이며 특정 linear weight 이름이나 정확한 norm 배치를 추가한 구현 명세가 아니다. 입력 stream hidden width와 attention head 수는 이 문단만으로 확정하지 않는다. q는 VLM cognition token, Q는 attention query, $\mathbf{Q}_t$는 memory queue이므로 구별한다.
+
+S037 Denoising timestep 토큰
+$\tau$를 한 토큰으로 인코딩해 A 앞에 붙이고 joint attention으로 다른 경로에도 알린다.
+###### 값 하나를 모델 입력 특징으로
+
+<div class="flow">
+<div class="node">$\tau\in[0,1]$</div>
+<div class="arrow">→</div>
+<div class="node">sinusoidal<br>embedding</div>
+<div class="arrow">→</div>
+<div class="node">MLP</div>
+</div>
+
+<div class="token-row"><span class="token a">$\tau$ 토큰</span><span class="token a">$\mathbf{s}_{t}$</span><span class="token a">$\mathbf{a}^{\tau}_{t:t+H}$ 토큰들</span></div>
+
+변환된 $\tau$ 표현을 A 시퀀스 맨 앞의 한 토큰으로 넣는다. 이 토큰도 다른 A token처럼 attention에 참여한다.
+###### 왜 현재 생성 단계가 필요한가?
+
+<span class="label interpretation">직관</span> 노이즈가 많은 후보와 거의 완성된 후보에서 필요한 보정이 다를 수 있다. $\tau$는 모델에 “현재 생성 경로의 어디를 다루는지”를 알려준다.
+
+저자는 joint self-attention을 통해 $\tau$ 신호가 모든 모달리티에 전달될 수 있다고 설명한다. 매 블록의 feature에 affine modulation을 적용하는 **adaLN 방식 대신 in-context token**을 쓰는 선택이다.
+
+<p class="mini">$\tau$ 토큰을 추가하는 것은 미래 행동 한 개를 추가하는 것이 아니다. 물리 시간 t와도 구별한다.</p>
+$\tau$는 별도 control knob처럼 밖에서만 쓰이는 값이 아니라, MSAT가 읽는 한 입력 토큰이다.
+Sec.2.2 Further Design Choices for MSAT · PDF p.9
+원문은 sinusoidal embedding+MLP, A sequence 앞의 single token, joint attention을 통한 모든 modality로의 전파, per-block affine modulation을 사용하지 않는 점을 명시한다. Encoding의 frequency 개수·MLP width·layer 수는 이 문단에서 확정하지 않는다. 이 토큰을 텍스트 숫자 “0.25”를 tokenizer에 입력하는 방식으로 설명하지 않는다. 어느 $\tau$에서 어떤 정보가 얼마나 전파되는지는 추가 해석이나 측정이 필요하다.
+
+S038 RoPE와 행동 순서
+행동 토큰의 위치에 따라 Q·K를 회전시켜 attention 점수에 상대 순서를 반영한다.
+###### 행동 chunk에도 순서가 있다
+
+<div class="token-row"><span class="token a">$\mathbf{a}_{t}$</span><span class="token a">$\mathbf{a}_{t+1}$</span><span class="token a">$\mathbf{a}_{t+2}$</span><span class="token a">⋯</span></div>
+
+같은 행동 값의 집합이라도 어느 시점에 놓이는지가 중요하다. RLDX-1은 **A stream에 rotary positional embeddings**를 적용해 chunk 안의 상대 시간 구조를 포착하도록 한다.
+
+배경 원전의 직관은 위치 m의 query와 위치 n의 key를 각 위치에 따른 각도로 회전시킨 뒤 서로 비교하는 것이다.
+###### 절대 회전에서 상대 위치가 나온다
+
+$$
+\widetilde{\mathbf{q}}_m=\mathbf{R}_m\mathbf{q}_m,\quad\widetilde{\mathbf{k}}_n=\mathbf{R}_n\mathbf{k}_n
+$$
+
+$$
+\begin{aligned}
+\widetilde{\mathbf{q}}_m^{\mathsf T}\widetilde{\mathbf{k}}_n
+&=\mathbf{q}_m^{\mathsf T}\mathbf{R}_{n-m}\mathbf{k}_n
+\end{aligned}
+$$
+
+<p class="eq-caption">RoPE의 원리를 간단히 표현한 배경식. 회전 차이가 n−m을 반영한다.</p>
+
+따라서 attention은 내용과 위치 관계를 함께 읽을 수 있다. RoPE는 행동 토큰을 하나씩 생성하게 만드는 causal mask가 아니며, denoising timestep $\tau$를 나타내는 토큰과도 다르다.
+행동 순서를 나타내는 위치 정보와 생성 진행도를 나타내는 $\tau$ 정보는 별개다.
+Sec.2.2 Further Design Choices · PDF p.9; 배경: RoFormer Sec.3.2 (arXiv:2104.09864)
+배경 원전 https://arxiv.org/html/2104.09864v5 의 Sec.3.2에서 회전 행렬을 이용한 QK의 상대 위치 관계를 확인했다. 식의 R은 동일 frequency 구조에서 $\mathbf{R}_m^{\mathsf T}\mathbf{R}_n=\mathbf{R}_{n-m}$인 rotation operator다. 실제 RoPE는 feature dimension 쌍마다 여러 frequency를 사용한다. 여기서는 RLDX-1의 정확한 frequency/index 배치나 P/C 적용을 추정하지 않고, A stream 적용이라는 원문 범위만 말한다.
+-->
+
+---
+layout: none
+---
+
+<!-- slide-id: P010 | revision: v07 | status: draft -->
+
+<section class="seminar-slide" data-slide-id="P010"><header class="seminar-header"><div class="chapter-label">RLDX-1 Architecture</div><h1>MSAT의 Joint Attention</h1><p class="slide-lead">각 stream의 파라미터로 입력을 변환하고, 공통 attention 뒤에는 원래 stream별로 갱신한다.</p></header><div class="seminar-body split"><div class="body-main"><h3>정규화 · projection · 정보 교환</h3>
+<div class="sequence">
+<div class="step"><strong>Stream별 RMSNorm → QKV projection</strong><br>C·A·P가 각자의 파라미터를 사용한다.</div>
+<div class="step"><strong>Q·K에도 RMSNorm</strong><br>Q·K·V를 각각 토큰 축으로 concat한다.</div>
+<div class="step"><strong>Joint self-attention → 출력 분리</strong><br>다른 stream을 읽어도 query 위치는 유지된다.</div>
+</div>
+<p class="mini">RMSNorm은 특징의 크기를 정규화한다. 정보 교환은 attention이 수행한다.</p></div><div class="body-aside"><h3>예시: C 4개 + A 3개</h3>
+<div class="token-row"><span class="token c"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mn>1</mn></msub></mrow><annotation encoding="application/x-tex">C_1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0715em;">C</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0715em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span><span class="token c"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">C_2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0715em;">C</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0715em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span><span class="token c"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mn>3</mn></msub></mrow><annotation encoding="application/x-tex">C_3</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0715em;">C</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0715em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span><span class="token c"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mn>4</mn></msub></mrow><annotation encoding="application/x-tex">C_4</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0715em;">C</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0715em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight">4</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span><span class="token a"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>A</mi><mn>1</mn></msub></mrow><annotation encoding="application/x-tex">A_1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">A</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span><span class="token a"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>A</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">A_2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">A</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span><span class="token a"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>A</mi><mn>3</mn></msub></mrow><annotation encoding="application/x-tex">A_3</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">A</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span></div>
+<p>출력 7개 → 앞 4개는 C, 뒤 3개는 A로 돌려보낸다. 실제 모델 shape가 아닌 설명용 예시다.</p>
+<div class="equation"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msup><mi mathvariant="bold">C</mi><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msup><mo>=</mo><mi mathvariant="bold">C</mi><mo>+</mo><mi mathvariant="normal">Δ</mi><mi mathvariant="bold">C</mi><mo separator="true">,</mo><mspace width="2em"/><msup><mi mathvariant="bold">A</mi><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msup><mo>=</mo><mi mathvariant="bold">A</mi><mo>+</mo><mi mathvariant="normal">Δ</mi><mi mathvariant="bold">A</mi></mrow><annotation encoding="application/x-tex">\mathbf{C}&#x27;=\mathbf{C}+\Delta\mathbf{C},\qquad
+\mathbf{A}&#x27;=\mathbf{A}+\Delta\mathbf{A}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.8019em;"></span><span class="mord"><span class="mord mathbf">C</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8019em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:0.7694em;vertical-align:-0.0833em;"></span><span class="mord mathbf">C</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:0.9963em;vertical-align:-0.1944em;"></span><span class="mord">Δ</span><span class="mord mathbf">C</span><span class="mpunct">,</span><span class="mspace" style="margin-right:2em;"></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathbf">A</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8019em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:0.7694em;vertical-align:-0.0833em;"></span><span class="mord mathbf">A</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:0.6861em;"></span><span class="mord">Δ</span><span class="mord mathbf">A</span></span></span></span></span></div>
+<p><strong>Residual update:</strong> 보정을 더해 토큰 수를 유지한다.</p>
+<p><strong>SwiGLU FFN:</strong> gate를 사용해 각 토큰 내부의 특징을 비선형으로 변환한다.</p>
+</div></div><div class="takeaway">Stream별 표현을 변환하고, attention으로 정보를 교환한 뒤 각 stream에서 보정한다.</div><footer class="seminar-footer"><span class="source">Sec.2.2 MSAT · PDF p.8; Further Design Choices · PDF p.9; 질문노트 Q1·Q6</span><span class="slide-id">P010 · 008/25</span></footer></section>
+
+<!--
+P032에서 본 Triple/Double-stream 안의 한 연산 흐름을 확대한다. 그림의 stage 수나 전체 residual·norm 위치를 재구성한 구현도는 아니다. Δ는 residual 보정의 개념 표기다. 후반 C-A concat의 위치는 P032에서 이미 설명했으며 여기서는 반복하지 않는다. Physical Sensing 마지막 noisy actions in C 표기 불일치는 S034와 마지막 미해결 장에 보존한다. RMSNorm/SwiGLU 상세 S039도 유지한다.
+
+S033 Joint attention과 출력 shape
+C 토큰 4개와 A 토큰 3개를 함께 읽어도, 출력 위치 7개는 그대로 남아 다시 나눌 수 있다.
+###### 토큰 수가 보존되는 attention
+
+<span class="label example">P를 생략한 교육용 C4 / A3</span>
+
+| 단계 | shape |
+| --- | --- |
+| C의 Q·K·V | 각 4 × d |
+| A의 Q·K·V | 각 3 × d |
+| 붙인 Q·K·V | 각 7 × d |
+| attention weights | 7 × 7 |
+| attention output | 7 × d |
+###### 출력 위치와 읽은 정보는 다르다
+
+<div class="token-row"><span class="token c">$C_1$</span><span class="token c">$C_2$</span><span class="token c">$C_3$</span><span class="token c">$C_4$</span><span class="token a">$A_1$</span><span class="token a">$A_2$</span><span class="token a">$A_3$</span></div>
+
+각 query 위치에 출력 벡터가 하나씩 생긴다. 앞 네 위치는 C로, 뒤 세 위치는 A로 돌려보낸다. C 위치의 출력도 A의 정보를 읽었을 수 있으므로 “C 출력에 C 정보만 있다”는 뜻은 아니다.
+
+**4·3·d**는 원리를 보이는 예시다. 실제 cognition은64 tokens이며, 이 표를 모델의 실제 전체 shape로 읽지 않는다.
+Attention은 여러 정보를 섞지만 query 위치를 없애지 않기 때문에 stream별 분할이 가능하다.
+Sec.2.2의 joint attention·split 설명 · PDF p.8; shape는 설명용 예시
+설명상 single head를 가정하고 Q/K/V의 feature 폭을 같은 d로 두었다. 실제 multi-head의 QK dimension과 V dimension은 다를 수 있고 head concat/projection도 있으므로 이 표가 구현 shape 명세는 아니다. 7×7은 query 7개가 key 7개를 참고하는 관계 수다. Output row는 query row에 대응한다. P stream이 있으면 그 token 수만큼 행도 추가되지만 같은 원리로 원래 길이에 따라 분할할 수 있다.
+
+S034 Residual update와 concat
+한 블록 안의 stream별 덧셈과, 후반 C·A 시퀀스 통합은 서로 다른 연산이다.
+###### 초반 블록: 나눠서 다시 더한다
+
+$$
+\text{joint attention}\to[\Delta\mathbf{C},\Delta\mathbf{A},\Delta\mathbf{P}]
+$$
+
+$$
+\begin{aligned}
+\mathbf{C}'&=\mathbf{C}+\Delta\mathbf{C}\\
+\mathbf{A}'&=\mathbf{A}+\Delta\mathbf{A}\\
+\mathbf{P}'&=\mathbf{P}+\Delta\mathbf{P}
+\end{aligned}
+$$
+
+위 식은 원문의 **stream-wise residual update**를 단순화한 개념식이다. 출력 위치를 나눈 후 각 경로의 원래 특징에 보정을 더한다. 이 단계에서는 C와 A의 stream 구분이 계속 남는다.
+###### 후반 블록: C와 A를 한 시퀀스로
+
+$$
+\mathbf{X}_{\mathrm{C-A}}=\operatorname{concat}(\mathbf{C}',\mathbf{A}')
+$$
+
+여기서는 토큰 축으로 이어 붙여 후속 단일 C-A 경로에서 처리한다. 원소별로 더해 토큰 수를 줄이는 연산이 아니다.
+
+<p class="callout"><span class="label question">본문 표기 불일치</span> MSAT 문단은 noisy actions를 <strong>A</strong>에 넣지만, Physical Sensing 마지막 문장은 “C stream”이라고 쓴다. 초기 입력은 앞의 명시적 배치를 따르되, 오타인지 별도 의도인지는 확정하지 않는다.</p>
+정보 교환 → stream별 residual → 후반 C-A 통합을 구분해야 Fig.3을 정확히 읽을 수 있다.
+Sec.2.2 MSAT 및 Physical Sensing 마지막 문장 · PDF p.8; 질문노트 Q1·Q6
+Δ 기호는 joint attention 출력을 residual에 더하는 개념적 보정량을 표시한다. 정확한 output projection·MLP 등 모든 세부를 그대로 수식화한 것은 아니다. 원문은 stream별 residual updates를 명시한다. 후반 C-A merge와 초반 QKV concatenation을 같은 “concat” 한 단어로 뭉개지 않는다. 최종 C 표기를 저자의 오타로 단정하지 않고 문서의 서술 불일치로 남긴다.
+
+S039 RMSNorm과 SwiGLU
+정규화는 특징 크기를 조절하고, FFN은 각 토큰 안의 특징을 비선형으로 변환한다.
+###### RMSNorm: 평균 제곱 크기로 나누기
+
+$$
+\operatorname{RMS}(\mathbf{x})=\sqrt{\frac{x_1^2+\cdots+x_d^2}{d}}
+$$
+
+각 토큰의 특징 벡터를 RMS 크기에 따라 정규화하고 학습 가능한 scale로 조절한다. LayerNorm과 달리 평균을 빼는 recentering을 생략하는 것이 배경 원전의 핵심이다.
+
+RLDX-1은 RMSNorm을 채택하며 **query와 key에도** 적용한다고 명시한다. 값이 모두 같아지거나 정보 교환 자체를 수행하는 연산은 아니다.
+###### SwiGLU: 두 변환을 곱하는 gate
+
+$$
+\begin{aligned}
+\mathbf{g}&=\operatorname{SiLU}(\mathbf{x}W_g)\\
+\mathbf{v}&=\mathbf{x}W_v\\
+\operatorname{FFN}(\mathbf{x})&=(\mathbf{g}\odot\mathbf{v})W_o
+\end{aligned}
+$$
+
+<p class="eq-caption">bias를 생략한 배경용 개념식. $\odot$는 원소별 곱이다.</p>
+
+한 경로의 비선형 값이 다른 경로의 특징을 조절한다. 이 FFN은 토큰마다 특징을 변환하고, attention은 토큰 사이 정보를 교환한다. 보고서는 이 구성 요소를 채택했다고 설명하지만 각각의 독립 성능 이득을 이 문단에서 측정하지 않는다.
+RMSNorm·SwiGLU·attention은 블록 안의 서로 다른 역할을 담당한다.
+Sec.2.2 Further Design Choices · PDF p.9; 배경: arXiv:1910.07467, arXiv:2002.05202
+배경 원전 https://arxiv.org/html/1910.07467v1 의 Sec.4와 https://arxiv.org/html/2002.05202v1 의 Sec.2 식(5)–(6)을 확인했다. RMS 식은 root mean square 정의이며 정규화한 값에 learned gain을 곱하며 구현에 따라 수치 안정화 항을 더한다. 출력 공식 전체 대신 RMS 정의만 표시했다. SwiGLU 식은 bias 생략 개념식이며 $\operatorname{SiLU}(x)=x\operatorname{sigmoid}(x)$인 $\operatorname{Swish}_1$ gate를 쓴다. 실제 RLDX-1 weight 이름이나 FFN width를 명세한 것은 아니다. QK에 RMSNorm을 적용한다는 사실과 구체 shape는 구별한다.
+-->
+
+---
+layout: none
+---
+
+<!-- slide-id: P013 | revision: v07 | status: draft -->
 
 <section class="seminar-slide" data-slide-id="P013"><header class="seminar-header"><div class="chapter-label">Training Data</div><h1>학습 데이터</h1><p class="slide-lead">공개·자체 데이터의 강점을 연결하고, 합성 영상에 행동 라벨을 붙여 경험을 확장한다.</p></header><div class="seminar-body figure balanced"><figure class="paper-figure"><img src="/figures/fig-04.png" alt="Figure 4 · 생성 영상에 행동을 붙이고 두 단계로 검사하는 파이프라인" loading="eager"><figcaption>Figure 4 · 생성 영상에 행동을 붙이고 두 단계로 검사하는 파이프라인</figcaption></figure><div class="body-main"><h3>세 공급원의 역할</h3>
 <p><strong>공개 데이터</strong>는 다양한 로봇의 조작 경험을,<br>
-<strong>자체 데이터</strong>는 Franka·ALLEX의 고유 제어와 토크·촉각을 제공한다. 사람의 원격 조작을 수치 행동과 센서 기록으로 연결한다.</p>
-<p><strong>합성 데이터</strong>는 수집이 어려운 장면을 늘린다. 지시·장면 변형 → 영상 생성 → IDM 행동 라벨링 → 검증의 흐름이다.</p>
-<p class="callout">Task는 목표 지시, action은 로봇을 움직이는 수치다. 영상과 행동이 맞는지 별도로 확인한다.</p></div></div><div class="takeaway">데이터를 늘리는 것과 학습 가능한 영상–행동 쌍을 만드는 것은 함께 해결해야 한다.</div><footer class="seminar-footer"><span class="source">Sec.3–3.3; Fig.4 · PDF pp.9–12</span><span class="slide-id">P013 · 013/30</span></footer></section>
+<strong>자체 데이터</strong>는 Franka·ALLEX의 행동과 토크·촉각 기록을 제공한다.</p>
+<p><strong>합성 데이터</strong>는 직접 수집하기 어려운 장면·동작의 범위를 넓힌다. 영상만으로는 수치 행동이 주어지지 않아 IDM 라벨과 검증이 필요하다.</p>
+<p class="callout">Figure 4는 합성 데이터의 지도다. 다음은 생성 변형, 그다음은 행동 라벨과 검증을 살펴본다.</p></div></div><div class="takeaway">공개 데이터는 범위, 자체 데이터는 목표 로봇·센서, 합성 데이터는 수집이 어려운 상황을 보완한다.</div><footer class="seminar-footer"><span class="source">Sec.3–3.3; Fig.4 · PDF pp.9–12</span><span class="slide-id">P013 · 009/25</span></footer></section>
 
 <!--
 구조에서 데이터로 전환한다. 상세 센서 구성·원격 조작·최대64 vision tokens 전처리는 연결된 상세 단위에서 확인한다.
@@ -1453,12 +1294,12 @@ Fig.4; Sec.3.3 · PDF pp.10–12
 layout: none
 ---
 
-<!-- slide-id: P014 | revision: v05 | status: draft -->
+<!-- slide-id: P014 | revision: v07 | status: draft -->
 
 <section class="seminar-slide" data-slide-id="P014"><header class="seminar-header"><div class="chapter-label">Training Data</div><h1>Task·Scene Augmentation</h1><p class="slide-lead">지시의 변형과 시각적 변형을 나누되, 원본 장면에서 가능한 동작을 유지하려 한다.</p></header><div class="seminar-body figure"><figure class="paper-figure"><img src="/figures/fig-05.png" alt="Figure 5 · (a) 원본 (b) 지시 변형 (c) I2I 편집 후 I2V 생성" loading="eager"><figcaption>Figure 5 · (a) 원본 (b) 지시 변형 (c) I2I 편집 후 I2V 생성</figcaption></figure><div class="body-main"><h3>무엇을 할지, 어디에서 할지</h3>
 <p><strong>Task:</strong> 행동·물체·위치·손을 재조합하거나 원본 skill을 조건으로 변형한다. 두 전략의 결과는 겹칠 수 있다.</p>
 <p><strong>Scene:</strong> 시작 장면을 I2I로 편집해 I2V로 생성하거나, V2V로 영상의 색·질감을 바꾸며 움직임을 보존하려 한다.</p>
-<p class="callout">Canny edge는 구조 보존을 유도한다. 실행 가능성을 보장하지 않으며, 구체적인 판정 규칙·prompt는 미확인이다.</p></div></div><div class="takeaway">Figure 5(c)는 I2I→I2V 예시다. V2V만의 효과를 보여주는 비교는 아니다.</div><footer class="seminar-footer"><span class="source">Sec.3.3; Fig.5 · PDF p.11; App.B.3 · PDF p.42; 질문노트 Q8</span><span class="slide-id">P014 · 014/30</span></footer></section>
+<p class="callout">Canny edge는 구조 보존을 유도한다. 실행 가능성을 보장하지 않으며, 구체적인 판정 규칙·prompt는 미확인이다.</p></div></div><div class="takeaway">Task는 지시를, Scene은 시각 조건을 바꾼다. 다음은 생성 영상에 행동을 붙이고 검사하는 단계다.</div><footer class="seminar-footer"><span class="source">Sec.3.3; Fig.5 · PDF p.11; App.B.3 · PDF p.42; 질문노트 Q8</span><span class="slide-id">P014 · 010/25</span></footer></section>
 
 <!--
 왼쪽 세 행을 원본·task 변형·scene 변형 순으로 읽는다. 다음 장에서 생성 영상의 행동 라벨과 검증으로 넘어간다.
@@ -1620,7 +1461,7 @@ Fig.5; Sec.3.3 · PDF p.11
 layout: none
 ---
 
-<!-- slide-id: P015 | revision: v05 | status: draft -->
+<!-- slide-id: P015 | revision: v07 | status: draft -->
 
 <section class="seminar-slide" data-slide-id="P015"><header class="seminar-header"><div class="chapter-label">Training Data</div><h1>합성 데이터 검증</h1><p class="slide-lead">IDM의 추정 행동을 시뮬레이터에서 재생하고, 생성 영상의 움직임과 비교한다.</p></header><div class="seminar-body split"><div class="body-main"><h3>영상에서 행동으로</h3>
 <div class="flow">
@@ -1635,7 +1476,7 @@ layout: none
 </div><div class="body-aside"><h3>움직임이 서로 맞는가?</h3>
 <p>두 clip을 frozen V-JEPA2로 인코딩하고 특징을 concat한다. 학습 가능한 query가 cross-attention으로 읽은 뒤 linear head가 일치를 판별한다.</p>
 <p>실제 clip+GT 행동 rollout은 positive, 시간·episode가 어긋난 쌍은 negative다.</p>
-<p class="callout">필터 통과는 현실의 물리적 성공 보장이 아니다. 검사기의 정량 신뢰성은 추가 검증이 필요하다.</p></div></div><div class="takeaway">영상 품질과 영상–행동 정합성은 서로 다른 검증 대상이다.</div><footer class="seminar-footer"><span class="source">Sec.3.3 · PDF pp.11–12; App.B.3 · PDF p.42; 질문노트 Q2</span><span class="slide-id">P015 · 015/30</span></footer></section>
+<p class="callout">필터 통과는 현실의 물리적 성공 보장이 아니다. 검사기의 정량 신뢰성은 추가 검증이 필요하다.</p></div></div><div class="takeaway">영상 품질과 영상–행동 정합성을 확인해 학습 쌍을 만든다. 다음은 이 데이터를 학습시키는 순서다.</div><footer class="seminar-footer"><span class="source">Sec.3.3 · PDF pp.11–12; App.B.3 · PDF p.42; 질문노트 Q2</span><span class="slide-id">P015 · 011/25</span></footer></section>
 
 <!--
 Negative의 다른 episode는 동일 task instruction을 공유한다. 모델별 설정·필터 임계값 미기재와 오탐·미탐 문제는 상세 단위에 보존한다.
@@ -1750,15 +1591,16 @@ GR-1:93-frame432×768, batch4. ALLEX:ALLEX/OpenArm/ActionNet 2:1:1, 93-frame432�
 layout: none
 ---
 
-<!-- slide-id: P016 | revision: v05 | status: draft -->
+<!-- slide-id: P016 | revision: v07 | status: draft -->
 
-<section class="seminar-slide" data-slide-id="P016"><header class="seminar-header"><div class="chapter-label">Training Procedure</div><h1>Pre-training</h1><p class="slide-lead">Pre-training의 공통 경험을 출발점으로 mid·post-training에서 적응 범위를 좁힌다.</p></header><div class="seminar-body figure balanced"><figure class="paper-figure"><img src="/figures/fig-06.png" alt="Figure 6 · 약 1.5M episode의 pool과 별도로 정한 학습 혼합 비중" loading="eager"><figcaption>Figure 6 · 약 1.5M episode의 pool과 별도로 정한 학습 혼합 비중</figcaption></figure><div class="body-main"><h3>세 단계의 역할</h3>
-<p><strong>Pre:</strong> 다양한 로봇의 조작 → <strong>Mid:</strong> 특정 로봇·기능 확장 → <strong>Post:</strong> 목표 작업 적응.</p>
-<p>Pre-training은 네 프레임을 입력해 flow matching으로 배운다. 로봇별 projection과 함께, batch의 일부 256 trajectory를 공통 projection으로 보내 새 로봇 적응의 초기값을 준비한다.</p>
-<p class="callout">Figure 6의 원은 학습 혼합 비중, 표는 episode pool 크기다. OXE와 DROID의 비중은 각 25%다.</p></div></div><div class="takeaway">공유 행동 모델과 공통 입출력 경로를 함께 학습해 embodiment 간 경험을 연결한다.</div><footer class="seminar-footer"><span class="source">Sec.4–4.1; Fig.6 · PDF pp.12–13</span><span class="slide-id">P016 · 016/30</span></footer></section>
+<section class="seminar-slide" data-slide-id="P016"><header class="seminar-header"><div class="chapter-label">Training Procedure</div><h1>Pre-training</h1><p class="slide-lead">범용 조작을 배우면서 로봇별 전용 경로와 새 로봇 적응용 공통 경로를 함께 학습한다.</p></header><div class="seminar-body figure balanced"><figure class="paper-figure"><img src="/figures/fig-06.png" alt="Figure 6 · 약 1.5M episode의 pool과 별도로 정한 학습 혼합 비중" loading="eager"><figcaption>Figure 6 · 약 1.5M episode의 pool과 별도로 정한 학습 혼합 비중</figcaption></figure><div class="body-main"><h3>세 단계 학습과 입출력 경로</h3>
+<p><strong>Pre(범용) → Mid(로봇·기능) → Post(작업)</strong> 순서로 적응한다.</p>
+<p><strong>전용 경로:</strong> 로봇별 입력 projection → 공유 MSAT → 로봇별 출력 projection.</p>
+<p><strong>공통 경로:</strong> 매 batch에서 256 trajectory를 로봇 구분 없는 encoder–decoder로 보내 새 로봇 적응의 초기값을 준비한다.</p>
+<p class="mini">Projection은 상태·행동 공간과 공통 잠재 공간을 연결한다. Fig.6의 원은 샘플링 비중, 표는 episode pool 크기다.</p></div></div><div class="takeaway">서로 다른 로봇의 데이터를 공유 본체에 연결했다. 다음은 목표 로봇의 새 기능을 학습한다.</div><footer class="seminar-footer"><span class="source">Sec.2.2 · PDF p.8; Sec.4–4.1 · Fig.6 · PDF pp.12–13</span><span class="slide-id">P016 · 012/25</span></footer></section>
 
 <!--
-학습 규모·freeze 범위·정규화·padding 설정은 상세 단위에 있다. 다음 장에서 새 기억·센서 모듈을 붙일 때의 적응으로 이어간다.
+기존 P011의 embodiment-specific projection과 S036을 이 장으로 통합했다. 로봇마다 다른 차원의 state/action을 input/output projection으로 공통 공간과 연결한다. 이를 P stream 자체와 동일시하지 않는다. Batch8192 중 무작위256 trajectory를 공통 encoder–decoder에 보내는 설정을 보존한다. Shared module은 leading dimensions에 고정 크기 zero-padding한다. 정확한 dimension 배열은 추가 가정하지 않는다. Pre-training은4프레임·flow matching을 사용하며 freeze/정규화/학습 규모의 상세는 S059에 남긴다. Fig.6 pool와 sampling을 구분한다.
 
 S056 Pre·Mid·Post-training의 역할
 먼저 범용 조작을 배우고, 로봇의 기능을 확장한 뒤, 목표 작업에 적응한다.
@@ -1834,21 +1676,61 @@ VLM backbone은 위쪽 네 층을 제외하고 고정한다. 여러 프레임 �
 영상 시간 문맥은 pre-training부터, 전용 움직임 모듈은 mid-training부터 추가된다.
 Sec.4.1 · Implementation Details · PDF p.13
 상위4층 외 frozen이라는 범위를 action model도 frozen이라는 뜻으로 확대하지 않는다. Percentile normalization의 정확한 clipping 처리 등 원문에 없는 구현 세부를 추가하지 않는다.
+
+S036 로봇별 입출력 projection
+MSAT의 공통 내부와, 로봇마다 다른 상태·행동 공간을 연결하는 얇은 층을 구별한다.
+###### 플랫폼마다 다른 숫자 공간
+
+<div class="sequence">
+<div class="step"><strong>로봇별 input projection</strong><br>해당 로봇의 state·action → 공유 latent space</div>
+<div class="step"><strong>공유 MSAT</strong><br>여러 embodiment가 같은 본체 파라미터를 학습</div>
+<div class="step"><strong>로봇별 output projection</strong><br>공유 표현 → 해당 로봇 공간의 예측 출력</div>
+</div>
+
+관절 수와 end-effector 구성이 달라도 공유 latent space를 통해 하나의 행동 모델로 연결한다.
+###### P stream과는 다른 분리 기준
+
+**로봇별 projection:** embodiment 간 입력·출력 공간의 차이를 다룬다.
+
+**P stream:** 물리 센서라는 모달리티를 별도 파라미터 경로에서 다룬다. 로봇 이름별로 C/A/P를 하나씩 정하는 구조가 아니다.
+
+Sec.4.1은 새 embodiment 적응을 위해 별도의 **embodiment-agnostic projection**도 일부 샘플로 학습한다고 설명한다. 공유 MSAT, 로봇별 연결층, 공통 연결층은 각각 다른 요소다.
+공유 본체를 유지하면서 로봇 공간을 맞추는 연결층과, 모달리티별 stream을 구분한다.
+Sec.2.2 MSAT · PDF p.8; Sec.4.1 Generalization to New Embodiments · PDF p.12
+원문은 lightweight embodiment-specific projection을 MSAT input/output에 둔다고 명시한다. Output은 모델 velocity prediction을 해당 action space로 연결하는 맥락이며 직접 위치 목표만 출력한다고 좁히지 않는다. Sec.4.1은 agnostic projection의 input을 leading dimensions에 zero-pad한다고 서술한다. 구체적인 batch의 256 trajectory 설정은 S058에서 다룬다. Franka/ALLEX의 정확한 dimension을 임의로 예시하지 않았다.
 -->
 
 ---
 layout: none
 ---
 
-<!-- slide-id: P017 | revision: v05 | status: draft -->
+<!-- slide-id: P017 | revision: v07 | status: draft -->
 
-<section class="seminar-slide" data-slide-id="P017"><header class="seminar-header"><div class="chapter-label">Training Procedure</div><h1>Mid-training</h1><p class="slide-lead">Mid-training은 ALLEX·Franka 특화와 움직임·기억·물리 센싱의 확장을 함께 수행한다.</p></header><div class="seminar-body figure"><figure class="paper-figure"><img src="/figures/fig-07.png" alt="Figure 7 · 로봇별 데이터 혼합과 새 입력의 자체 데이터 supervision" loading="eager"><figcaption>Figure 7 · 로봇별 데이터 혼합과 새 입력의 자체 데이터 supervision</figcaption></figure><div class="body-main"><h3>기능을 추가하고 정렬하기</h3>
-<p>STSS로 움직임을, cognition queue로 기억을 보강한다. 토크·Franka 촉각을 입력하고 미래 센서도 예측한다.</p>
-<p>처음 <strong>2K alignment steps</strong>는 새 파라미터만 학습하고, 이후 전체를 함께 갱신한다. 확장 입력 dropout과 physics의 near-zero 출력 초기화도 쓴다.</p>
-<p class="callout">설정별 효과는 미확인이다. Franka 비율 합101%도 임의 보정하지 않는다.</p></div></div><div class="takeaway">여러 프레임은 pre-training부터 쓰고, 전용 기능 모듈은 mid-training에서 추가한다.</div><footer class="seminar-footer"><span class="source">Sec.4.2; Fig.7 · PDF p.13; 질문노트 Q10·Q11</span><span class="slide-id">P017 · 017/30</span></footer></section>
+<section class="seminar-slide" data-slide-id="P017"><header class="seminar-header"><div class="chapter-label">Training Procedure</div><h1>Mid-training</h1><p class="slide-lead">Mid-training은 ALLEX·Franka 특화와 움직임·기억·물리 센싱의 확장을 함께 수행한다.</p></header><div class="seminar-body figure"><figure class="paper-figure"><img src="/figures/fig-07.png" alt="Figure 7 · 로봇별 데이터 혼합과 새 입력의 자체 데이터 supervision" loading="eager"><figcaption>Figure 7 · 로봇별 데이터 혼합과 새 입력의 자체 데이터 supervision</figcaption></figure><div class="body-main"><h3>기능 추가와 정렬</h3>
+<p>STSS·memory·물리 센서를 추가한다. Memory는 과거 cognition <strong>3묶음</strong>을 사용한다.</p>
+<table>
+<thead>
+<tr>
+<th>로봇</th>
+<th>저장 간격 / 과거 범위</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ALLEX</td>
+<td>40 / 120 steps</td>
+</tr>
+<tr>
+<td>Franka</td>
+<td>16 / 48 steps</td>
+</tr>
+</tbody>
+</table>
+<p>처음 <strong>2K alignment steps</strong>는 새 파라미터만, 이후에는 전체를 함께 학습한다.</p>
+<p class="mini">확장 입력 dropout·physics near-zero 초기화도 사용한다.</p></div></div><div class="takeaway">여러 프레임 입력은 pre-training부터, 전용 기능 모듈은 mid-training에서 추가한다.</div><footer class="seminar-footer"><span class="source">Sec.4.2; Fig.7 · PDF p.13; 질문노트 Q10·Q11</span><span class="slide-id">P017 · 013/25</span></footer></section>
 
 <!--
-ALLEX 실제:합성5:5와 Franka DROID:자체8:2의 역할을 그림과 연결한다. Near-zero가 masking이나 기존 출력의 완전 보존을 뜻하지 않는다는 설명은 상세 단위에 둔다.
+ALLEX 실제:합성5:5와 Franka DROID:자체8:2의 역할을 그림과 연결한다. Near-zero가 masking이나 기존 출력의 완전 보존을 뜻하지 않는다는 설명은 상세 단위에 둔다. Memory의40/120·16/48 설정은 P005의 반복 구조도 대신 여기서 명시한다. 문장 H+1과 queue식 H의 불일치·갱신/초기 부족 처리의 미명세는 P032 상세와 P030에서 다룬다. Fig.7의Franka합101 문제도 마지막 장에 모아 보존한다.
 
 S060 Mid-training: 무엇을 새로 넣는가?
 이미 쓰던 여러 프레임 위에 움직임·장기 기억·물리 센싱 기능을 추가한다.
@@ -1950,7 +1832,7 @@ Near-zero가 정확한0이나 특정분산(예$10^{-5}$)이라는 숫자를 만�
 layout: none
 ---
 
-<!-- slide-id: P018 | revision: v05 | status: draft -->
+<!-- slide-id: P018 | revision: v07 | status: draft -->
 
 <section class="seminar-slide" data-slide-id="P018"><header class="seminar-header"><div class="chapter-label">Training Procedure</div><h1>Post-training</h1><p class="slide-lead">Post-training의 기본은 작업별 모방학습이며, 실패 조건에 맞춰 시연을 추가한다.</p></header><div class="seminar-body split"><div class="body-main"><h3>Base data: 일관성과 다양성</h3>
 <p>작업을 접근·잡기·이동·놓기 같은 동작으로 나누고 시연 시나리오를 정한다.</p>
@@ -1967,7 +1849,7 @@ layout: none
 <div class="step">실패 조건 관찰 → 추가 시연 → 재학습</div>
 </div>
 <p>예를 들어 새 물체 위치에서 실패하면 시연의 공간 범위를 넓힌다.</p>
-<p class="callout">대부분 실험은 IL을 쓴다. 일부 어려운 조작에서 RECAP 기반 RL을 보완적으로 추가한다.</p></div></div><div class="takeaway">Post-training이라는 단계 이름만으로 모든 작업에 RL이 적용됐다고 해석하지 않는다.</div><footer class="seminar-footer"><span class="source">Sec.4.3 · Adaptive Data Collection/RL · PDF pp.14–15</span><span class="slide-id">P018 · 018/30</span></footer></section>
+<p class="callout">대부분 실험은 IL을 쓴다. 일부 어려운 조작에서 RECAP 기반 RL을 보완적으로 추가한다.</p></div></div><div class="takeaway">작업별 IL과 실패 조건의 추가 시연이 기본이다. 다음은 이를 보완하는 선택적 RL이다.</div><footer class="seminar-footer"><span class="source">Sec.4.3 · Adaptive Data Collection/RL · PDF pp.14–15</span><span class="slide-id">P018 · 014/25</span></footer></section>
 
 <!--
 시연 추가 수집과 다음 장의 policy rollout 수집을 구분한다. 고정·변화 축은 원문 예시이며 모든 작업에 적용되는 절대 규칙은 아니다.
@@ -2027,12 +1909,12 @@ Sec.4.3 · Adaptive Data Collection · PDF p.14
 layout: none
 ---
 
-<!-- slide-id: P019 | revision: v05 | status: draft -->
+<!-- slide-id: P019 | revision: v07 | status: draft -->
 
 <section class="seminar-slide" data-slide-id="P019"><header class="seminar-header"><div class="chapter-label">Training Procedure</div><h1>RECAP</h1><p class="slide-lead">별도 Gemma critic의 숫자 텍스트 value를 활용해 RECAP의 policy 개선을 반복한다.</p></header><div class="seminar-body figure balanced"><figure class="paper-figure"><img src="/figures/fig-08.png" alt="Figure 8 · 정규화 value가 진행·실패·회복을 따라가는 두 사례" loading="eager"><figcaption>Figure 8 · 정규화 value가 진행·실패·회복을 따라가는 두 사례</figcaption></figure><div class="body-main"><h3>평가 → 학습 → 새 경험</h3>
 <p><strong>Critic</strong>은 Gemma3-4b-it으로 value를 숫자 텍스트로 예측한다. 행동을 만드는 Qwen 기반 RLDX-1과 별도 모델이다.</p>
 <p>Critic → advantage labels → policy 학습 → rollout 수집을 반복한다. 성공 데이터로 critic을 갱신한다. 정확한 advantage label 식은 미기재다.</p>
-<p class="callout">곡선은 성공률이 아닌 진행 value다. RECAP은 40 action을 생성해 20개 실행하며, 이는 denoising 횟수와 다르다.</p></div></div><div class="takeaway">실패·회복을 읽는 critic과 행동을 만드는 policy를 분리하고, 새 데이터로 함께 개선한다.</div><footer class="seminar-footer"><span class="source">Sec.4.3; Fig.8 · PDF pp.14–15; App.C Algorithm1 · PDF p.43</span><span class="slide-id">P019 · 019/30</span></footer></section>
+<p class="callout">Figure 8은 성공률이 아닌 진행 value다. 실제 정책 개선 결과는 뒤의 RL 분석에서 확인한다.</p></div></div><div class="takeaway">실패·회복을 읽는 critic과 행동을 만드는 policy를 분리하고, 새 데이터로 함께 개선한다.</div><footer class="seminar-footer"><span class="source">Sec.4.3; Fig.8 · PDF pp.14–15; App.C Algorithm1 · PDF p.43</span><span class="slide-id">P019 · 015/25</span></footer></section>
 
 <!--
 Figure 8은 첫 성공과 재시도 성공 사례다. 모든 작업의 critic 정확도를 입증하는 실험으로 확대하지 않는다. 반복마다 전체 누적 데이터의 advantage를 다시 부여한다.
@@ -2145,15 +2027,18 @@ RTC의 구체적인 overlap/inpainting 알고리즘은 이 보고서 내 설명 
 layout: none
 ---
 
-<!-- slide-id: P020 | revision: v05 | status: draft -->
+<!-- slide-id: P020 | revision: v07 | status: draft -->
 
-<section class="seminar-slide" data-slide-id="P020"><header class="seminar-header"><div class="chapter-label">Inference Strategy</div><h1>CUDA Graph</h1><p class="slide-lead">관측이 오래되기 전에 응답하려면 계산량뿐 아니라 GPU 호출 비용도 줄여야 한다.</p></header><div class="seminar-body figure"><figure class="paper-figure"><img src="/figures/fig-09.png" alt="Figure 9 · 쪼개진 graph의 launch 비용을 줄이는 static graph capture" loading="eager"><figcaption>Figure 9 · 쪼개진 graph의 launch 비용을 줄이는 static graph capture</figcaption></figure><div class="body-main"><h3>여러 호출에서 하나의 graph로</h3>
-<p>추론 중에도 장면은 변한다. 고정 배포 설정의 RoPE 준비 값·attention mask를 미리 계산하면 graph break를 줄여 forward를 한 CUDA Graph로 포착할 수 있다.</p>
-<p>입력에 따른 Q/K·attention 계산은 계속 필요하다. 한 graph에 여러 kernel이 들어가며 denoising도 반복한다.</p>
-<p class="callout">Policy·LLM의 prefill은 입력을 함께 처리한다. 출력 토큰 순차 생성과 구분한다.</p></div></div><div class="takeaway">Graph capture는 행동의 의미보다 GPU에 연산을 제출하는 방식을 바꾼다.</div><footer class="seminar-footer"><span class="source">Sec.5–5.2; Fig.9 · PDF pp.15–16</span><span class="slide-id">P020 · 020/30</span></footer></section>
+<section class="seminar-slide" data-slide-id="P020"><header class="seminar-header"><div class="chapter-label">Inference Strategy</div><h1>추론 최적화</h1><p class="slide-lead">연산을 제출하는 호출 비용과, 연산 사이 데이터를 옮기는 비용을 서로 다른 수준에서 줄인다.</p></header><div class="seminar-body split"><div class="body-main"><h3>호출 비용 — CUDA Graph</h3>
+<figure class="optimization-figure"><img src="/figures/fig-09.png" alt="Figure 9: 분리된 graph 호출과 하나로 포착한 graph의 비교"></figure>
+<p>고정된 RoPE·mask 준비를 forward 밖으로 옮겨, <strong>한 forward를 하나의 CUDA Graph</strong>로 capture한다.</p>
+<p class="mini">실제 Q/K·attention 계산은 계속한다. 한 graph 안에도 여러 kernel이 있으며 denoising도 반복한다.</p></div><div class="body-aside"><h3>메모리 이동 — Kernel Fusion</h3>
+<figure class="optimization-figure"><img src="/figures/fig-10.png" alt="Figure 10: 분리된 연산의 global-memory 왕복과 fusion의 on-chip 재사용"></figure>
+<p>RMSNorm·RoPE·attention 등을 묶어 <strong>중간 Q/K의 저장·재읽기</strong>를 줄인다.</p>
+<p class="mini">Memory-bound는 대역폭 병목이다. 일부 경계는 custom kernel로 묶고, 나머지는 Torch Compile을 쓴다.</p></div></div><div class="takeaway">Graph는 호출 구조를, fusion은 연산 사이 데이터 이동을 바꾼다. 실제 지연 감소는 뒤에서 측정 결과로 확인한다.</div><footer class="seminar-footer"><span class="source">Sec.5 · Figs.9–10 · PDF pp.15–17; App.F · Table7 · PDF p.47</span><span class="slide-id">P020 · 016/25</span></footer></section>
 
 <!--
-Short prefill에서 chunk를 함께 갱신하되 denoising step은 반복한다. 고정 RoPE 설정 재사용과 실제 Q/K 회전·QK attention을 구별한다.
+기존 P020/P021을 통합하고 S072–081의 graph/kernel/launch, short prefill, compute/memory-bound, compile, FlashAttention, 실제8개kernel 해설을 보존한다. Attention 내부의 FlashAttention 최적화와 주변 연산까지 아우르는 fusion 경계를 구분한다. 여기서는 원리만 설명하고 p50 수치는 P027에서 한 번 읽는다. 그림은 원문이며 클릭하면 원래 크기로 확대된다. Compiler/FlashAttention의 현재 일반 동작까지 확대하지 않고 보고서 workload의 관찰로 한정한다.
 
 S072 관측부터 실행까지의 지연
 추론 중에도 장면은 움직이므로, 늦은 행동은 오래된 관측에 대한 응답이 된다.
@@ -2253,21 +2138,6 @@ RLDX-1은 짧은 시퀀스를 한 번에 처리하고, action chunk를 통째로
 동시에 처리하는 것은 chunk 안의 후보이며, denoising 반복까지 한 번으로 합친다는 뜻은 아니다.
 Sec.5.2 · Short-Prefill Workload · PDF p.16; Sec.2.2 · PDF p.8
 Text critic의 autoregressive 숫자 예측과 policy 생성을 섞지 않는다. LLM의 모든 과정이 순차라는 대비를 피한다. 정확한 GPU 병렬 실행 형태나 토큰 수는 확정하지 않고, 보고서의 상대적으로 짧은 attention workload라는 설명을 따른다.
--->
-
----
-layout: none
----
-
-<!-- slide-id: P021 | revision: v05 | status: draft -->
-
-<section class="seminar-slide" data-slide-id="P021"><header class="seminar-header"><div class="chapter-label">Inference Strategy</div><h1>Kernel Optimization</h1><p class="slide-lead">Kernel fusion은 빠른 개별 연산들을 연결하는 데이터 흐름까지 함께 최적화한다.</p></header><div class="seminar-body figure"><figure class="paper-figure"><img src="/figures/fig-10.png" alt="Figure 10 · 분리된 kernel의 global-memory 왕복과 fusion의 on-chip 재사용" loading="eager"><figcaption>Figure 10 · 분리된 kernel의 global-memory 왕복과 fusion의 on-chip 재사용</figcaption></figure><div class="body-main"><h3>계산과 이동의 두 병목</h3>
-<p>계산 병목의 matmul과 데이터 이동 병목의 RMSNorm·RoPE 등이 섞인다. <strong>Memory-bound</strong>는 대역폭 병목이며 OOM과 다르다.</p>
-<p>Compiler의 fusion 경로와 외부 FlashAttention 경계가 남긴 중간 Q/K 저장·재읽기를 줄이도록, profiling한 일부 연산을 직접 묶는다.</p>
-<p class="callout">RMSNorm → RoPE → Attention을 묶어 중간 결과를 on-chip에 둔다. 나머지는 Torch Compile을 쓴다.</p></div></div><div class="takeaway">Attention 내부 최적화와 주변 연산을 아우르는 fusion은 서로 다른 최적화 경계다.</div><footer class="seminar-footer"><span class="source">Sec.5.2; Fig.10 · PDF pp.16–17; App.F Table7 · PDF p.47</span><span class="slide-id">P021 · 021/30</span></footer></section>
-
-<!--
-원문 workload에서의 관찰로 한정한다. 실제 8개 custom kernel과 residual·norm·SwiGLU 결합은 상세 단위에 보존한다. 이제 성능 평가에서 어떤 효과가 확인됐는지 살펴본다.
 
 S077 Compute-bound와 memory-bound
 연산 처리량이 한계인 경우와 데이터를 옮기는 속도가 한계인 경우를 나눈다.
@@ -2372,7 +2242,7 @@ Table 7의 총 8개 kernel을 모두 반영했다. $h_{\mathrm{ds}}$가 더해�
 layout: none
 ---
 
-<!-- slide-id: P022 | revision: v05 | status: draft -->
+<!-- slide-id: P022 | revision: v07 | status: draft -->
 
 <section class="seminar-slide" data-slide-id="P022"><header class="seminar-header"><div class="chapter-label">Evaluation and Analysis</div><h1>Simulation Experiments</h1><p class="slide-lead">각 benchmark에 적응한 전체 시스템은 높은 성과를 냈지만 복합 조작은 여전히 어렵다.</p></header><div class="seminar-body full"><div class="body-main"><table>
 <thead>
@@ -2407,7 +2277,7 @@ layout: none
 </table>
 <p>Pre-trained 모델을 각 benchmark에 fine-tuning한다. Baseline은 π0-FAST·π0·π0.5·GR00T N1.5/N1.6이며 재현값과 논문·저장소·leaderboard 수치가 섞여 있다.</p>
 <p><span class="label interpretation">해석</span> 전체 recipe의 성과다. 특정 모듈의 독립 효과나 작은 차이의 통계적 유의성을 이 표만으로 확정할 수 없다.</p>
-</div></div><div class="takeaway">높은 순위와 낮은 절대 성공률을 함께 읽는다.</div><footer class="seminar-footer"><span class="source">Sec.6–6.1 · Table 1 · PDF pp.17–19; App.G.1 · PDF pp.48–49</span><span class="slide-id">P022 · 022/30</span></footer></section>
+</div></div><div class="takeaway">먼저 범용 조작을 평가했다. 다음은 실제 로봇의 지시 일반화와 기능별 과제로 이어진다.</div><footer class="seminar-footer"><span class="source">Sec.6–6.1 · Table 1 · PDF pp.17–19; App.G.1 · PDF pp.48–49</span><span class="slide-id">P022 · 017/25</span></footer></section>
 
 <!--
 연결 멘트: “실행 속도까지 준비한 모델이 무엇을 잘하는지 보겠습니다. 먼저 일반 조작을 보고 실제 로봇의 기능별 과제로 넘어갑니다.” 표의 최강 baseline은 열마다 다르다. LIBERO·Plus는 π0.5, GR-1과 RC365 미지 복합은 N1.5, RC365 전체는 N1.6이다. RC36532.1은18/16/16개 task 수로 가중한 평균이다. Baseline의 행동 생성 방식과 전체 수치·학습 조건은 S082–087 연결 해설에 보존한다. 서로 다른 초기화·recipe를 비교했으므로 구조 하나의 효과라고 말하지 않는다.
@@ -2521,12 +2391,12 @@ Table 1(b) · Sec.6.1 · PDF pp.18–19; Table 15 · PDF p.55
 layout: none
 ---
 
-<!-- slide-id: P023 | revision: v05 | status: draft -->
+<!-- slide-id: P023 | revision: v07 | status: draft -->
 
 <section class="seminar-slide" data-slide-id="P023"><header class="seminar-header"><div class="chapter-label">Evaluation and Analysis</div><h1>OpenArm</h1><p class="slide-lead">같은 물체 옮기기도 위치 지시·새 개체·새 배치·instance 선택으로 나눠 평가한다.</p></header><div class="seminar-body figure"><figure class="paper-figure"><img src="/figures/fig-14.png" alt="Figure 14 · OpenArm의 여섯 평가 설정" loading="eager"><figcaption>Figure 14 · OpenArm의 여섯 평가 설정</figcaption></figure><div class="body-main"><p>기본 물체 옮기기에서 지정 칸에 놓기, 새 개체·새 배치, 같은 종류 중 언어가 지정한 instance 선택까지 확장한다.</p>
 <p>RLDX-1은 선반 68.8%·식기대 70.8%, 새 개체·새 작업 각 54.2%, grounding 87.5%다. 보통 24회, 선반은 48회다.</p>
 <p>Grounding은 올바른 물체 잡기, 나머지는 지정 위치에 놓기가 성공이다. <span class="label authors">저자 해석</span> 과적합·grounding 실패라는 설명은 원인별 통제 결과가 아니다.</p>
-</div></div><div class="takeaway">미지 개체·작업에서도 우위가 있으나 기본 조작의 실패도 남는다.</div><footer class="seminar-footer"><span class="source">Sec.6.2 · Figs.13–14 · PDF pp.19–20; App.G.2 · PDF p.50</span><span class="slide-id">P023 · 023/30</span></footer></section>
+</div></div><div class="takeaway">OpenArm은 지시·대상 변화의 일반화를 봤다. 다음은 움직임·기억·접촉 기능이 필요한 과제다.</div><footer class="seminar-footer"><span class="source">Sec.6.2 · Figs.13–14 · PDF pp.19–20; App.G.2 · PDF p.50</span><span class="slide-id">P023 · 018/25</span></footer></section>
 
 <!--
 연결 멘트: “시뮬레이션에서 얻은 우위가 실제 양팔 로봇의 새로운 지시와 물체에도 이어지는지 봅니다.” Basic50.0, Shelf68.8, Dish70.8, Unseen Object54.2, Unseen Task54.2, Grounding87.5다. π0.5는 Shelf54.2, Dish58.3, Grounding83.3이므로 과제별 격차가 다르다. 학습348개 시연,30K steps/batch64다. Unseen은 downstream 시연 구성에 관한 표현이며 전체 사전 학습에서 본 적 없는 개념이라는 뜻이 아니다. 세부 배치와 실패 원인 해석은 S088–089에 보존한다.
@@ -2564,12 +2434,12 @@ Figure14 순서 Basic/Shelf/Dish/UnseenObject/UnseenTask/Grounding: π0.5 41.7/5
 layout: none
 ---
 
-<!-- slide-id: P024 | revision: v05 | status: draft -->
+<!-- slide-id: P024 | revision: v07 | status: draft -->
 
 <section class="seminar-slide" data-slide-id="P024"><header class="seminar-header"><div class="chapter-label">Evaluation and Analysis</div><h1>ALLEX</h1><p class="slide-lead">컨베이어·숨긴 상자·카드·따르기로 서로 다른 기능을 시험한다.</p></header><div class="seminar-body figure"><figure class="paper-figure"><img src="/figures/fig-16.png" alt="Figure 16 · 성공률과 progress score가 함께 표시된 결과" loading="eager"><figcaption>Figure 16 · 성공률과 progress score가 함께 표시된 결과</figcaption></figure><div class="body-main"><p><strong>움직임:</strong> 학습한 양 끝 속도 사이의 새 속도에 맞춰 상자를 잡는다. <strong>기억:</strong> 물체를 넣어 둔 상자를 과거 관찰로 고른다.</p>
 <p><strong>물리 피드백:</strong> 카드를 밀고 잡아 건네며, 플라스틱 공을 따를 때 컵 무게 변화에 맞춰 멈춘다. 실제 액체 평가가 아니다.</p>
 <p>컨베이어 87.5%·상자 91.7%는 성공률이다. 카드 97.2·따르기 70.8은 부분 완료를 포함한 진행 점수다.</p>
-<p class="mini"><strong>평균 86.8은 혼합 지표</strong>이며, 네 과제의 완전 성공률 평균이 아니다.</p></div></div><div class="takeaway">같은 0–100 눈금이라도 성공률과 진행 점수의 의미는 다르다.</div><footer class="seminar-footer"><span class="source">Sec.6.3 · Figs.15–16 · PDF pp.21–22; App.G.3 · PDF p.51</span><span class="slide-id">P024 · 024/30</span></footer></section>
+<p class="mini"><strong>평균 86.8은 혼합 지표</strong>이며, 네 과제의 완전 성공률 평균이 아니다.</p></div></div><div class="takeaway">같은 0–100 눈금이라도 성공률과 진행 점수의 의미는 다르다.</div><footer class="seminar-footer"><span class="source">Sec.6.3 · Figs.15–16 · PDF pp.21–22; App.G.3 · PDF p.51</span><span class="slide-id">P024 · 019/25</span></footer></section>
 
 <!--
 연결 멘트: “실제 로봇의 성과를 읽기 전에 각 막대가 무엇을 측정하는지 나눠야 합니다.” 각 과제24회다. Conveyor는 학습S1/S4, 평가S2/S3를 보간하며 seen100/unseen75로 총87.5다. Card는0.33/0.66/1, Pour는0.25/0.5/0.75/1의 progress score다. 평균86.8은 서로 다른 지표의 산술 평균이다. ALLEX는 head stereo와48관절의 전류 기반 torque를 사용한다. Card 평가는 안전을 위해75cm 책상에서만 시행한다. 각 과제·센서·점수 세부는 S090–092로 연결한다.
@@ -2626,12 +2496,11 @@ Figure16 순서 Conveyor/Box/Card/Pour/Avg: π0.5 29.2/33.3/55.3/38.5/39.1; N1.6
 layout: none
 ---
 
-<!-- slide-id: P025 | revision: v05 | status: draft -->
+<!-- slide-id: P025 | revision: v07 | status: draft -->
 
 <section class="seminar-slide" data-slide-id="P025"><header class="seminar-header"><div class="chapter-label">Evaluation and Analysis</div><h1>Franka</h1><p class="slide-lead">회전·Pong·컵 기억·접촉 과제로 확장했지만 정밀 조작의 성공률은 아직 낮다.</p></header><div class="seminar-body figure"><figure class="paper-figure"><img src="/figures/fig-18.png" alt="Figure 18 · Franka 기능별 성공률과 남은 어려움" loading="eager"><figcaption>Figure 18 · Franka 기능별 성공률과 남은 어려움</figcaption></figure><div class="body-main"><p>회전·Pong은 움직임, Cup·Shell은 기억, Plug·Egg는 접촉을 시험한다. Spin 97.9%·Shell 91.7%에 비해 Cup 45.8%·Plug 33.3%에는 많은 실패가 남는다.</p>
-<p>Franka는 torque·AnySkin을 쓴다. ALLEX·Franka 모두 과제 관련 모듈만 켜므로 세 기능의 동시 시너지나 각 모듈의 독립 효과는 분리되지 않는다.</p>
-<p><span class="label question">Q13</span> Spin96·Pong54회, 나머지24회다. Egg61.1%와24회 이진 성공률의 대응은 불명확하다.</p>
-</div></div><div class="takeaway">기능별 우위를 유지하되 낮은 절대 성공률·활성화 조건·분모를 함께 밝힌다.</div><footer class="seminar-footer"><span class="source">Sec.6.4 · Figs.17–18 · PDF pp.23–24; App.G.3–G.4 · PDF pp.51–52; Q13</span><span class="slide-id">P025 · 025/30</span></footer></section>
+<p>Franka는 관절 torque와 AnySkin 촉각을 사용한다. ALLEX와 Franka의 기능 평가는 <strong>각 과제에 관련된 모듈만 활성화</strong>한다.</p>
+<p class="mini">Spin96·Pong54 interactions, 나머지는24 trials다. Egg의 비율·시행 수 대응은 마지막 명세 검토에서 다룬다.</p></div></div><div class="takeaway">전체 시스템의 비교 성과를 봤다. 다음은 구성 요소를 바꾼 비교가 어느 기여를 뒷받침하는지 확인한다.</div><footer class="seminar-footer"><span class="source">Sec.6.4 · Figs.17–18 · PDF pp.23–24; App.G.3–G.4 · PDF pp.51–52; Q13</span><span class="slide-id">P025 · 020/25</span></footer></section>
 
 <!--
 연결 멘트: “같은 기능을 다른 로봇에서도 평가했습니다. 다만 통합 구조를 설계한 것과 세 기능의 동시 기여를 검증한 것은 구별하겠습니다.” Spin97.9/Pong81.5/Cup45.8/Shell91.7/Plug33.3/Egg61.1, 평균68.5다. 센서는7차원 torque와15차원 AnySkin이다. Spin96 interactions, Pong54 interactions, 나머지24 trials다. ALLEX·Franka 모두 task-relevant module만 활성화한다. Egg61.1의 분모 대응은 불명확해 성공 횟수를 역산하지 않는다. 여섯 과제의 정의·평가 조건은 S093–096에 보존한다.
@@ -2713,7 +2582,7 @@ App.G.3–G.4 · PDF pp.51–52; Sec.6.3–6.4 · PDF pp.21–24
 layout: none
 ---
 
-<!-- slide-id: P026 | revision: v05 | status: draft -->
+<!-- slide-id: P026 | revision: v07 | status: draft -->
 
 <section class="seminar-slide" data-slide-id="P026"><header class="seminar-header"><div class="chapter-label">Ablation and Analysis</div><h1>Ablation</h1><p class="slide-lead">바꾼 요소와 고정 조건을 확인하면 관측된 효과와 저자의 원인 설명을 나눌 수 있다.</p></header><div class="seminar-body full"><div class="body-main"><table>
 <thead>
@@ -2743,7 +2612,7 @@ layout: none
 </table>
 <p>층·VQA는 Kitchen의 별도 base 설정이다. 합성은 GR-1의 실제 데이터를 고정하고 pool 25·50·100%를 비교하며, 합성이 있는 조건의 실제:합성 sampling은 모두 1:1이다.</p>
 <p><span class="label interpretation">한계</span> Figure19는 마지막 prompt token의 patch attention 예시다. 인과 증명이 아니며 task/scene 증강·필터 각각의 효과도 이 비교에서 분리되지 않는다.</p>
-</div></div><div class="takeaway">관측한 비교를 넘어 메커니즘과 개별 단계의 기여를 자동으로 확정하지 않는다.</div><footer class="seminar-footer"><span class="source">Sec.6.5 · Tables 2–3 · Fig.19 · PDF pp.24–25</span><span class="slide-id">P026 · 026/30</span></footer></section>
+</div></div><div class="takeaway">관측한 비교를 넘어 메커니즘과 개별 단계의 기여를 자동으로 확정하지 않는다.</div><footer class="seminar-footer"><span class="source">Sec.6.5 · Tables 2–3 · Fig.19 · PDF pp.24–25</span><span class="slide-id">P026 · 021/25</span></footer></section>
 
 <!--
 연결 멘트: “결과가 좋았다는 관측에서 한 걸음 더 나아가 무엇을 바꿨을 때 좋아졌는지 보겠습니다. 이 세 비교는 누적 개선표가 아닙니다.” VLM 분석은 대규모 로봇 policy pre-training을 생략한 base setup이며 Qwen 전체 무작위 초기화라는 뜻이 아니다. 합성 pool0/25/50/100%는41.0/45.6/46.6/50.1이다. GR-1만 사용하고 batch1024/60K pre-training, 같은 downstream 적응을 적용한다. 합성이 있는 조건은 sampling1:1로 고정한다. Figure19는64개 cognition token 전체나 MSAT attention이 아니라 마지막 prompt token→patch의 정성 예다. 통제 기준·layer 선택·filter 한계는 S097–102에 보존한다.
@@ -2882,7 +2751,7 @@ Table 3 · Sec.6.5 · PDF p.25; Q2·Q8
 layout: none
 ---
 
-<!-- slide-id: P027 | revision: v05 | status: draft -->
+<!-- slide-id: P027 | revision: v07 | status: draft -->
 
 <section class="seminar-slide" data-slide-id="P027"><header class="seminar-header"><div class="chapter-label">Ablation and Analysis</div><h1>RL·추론 지연 분석</h1><p class="slide-lead">전구 과제의 frames·attempts와 policy p50은 서로 다른 효율 지표다.</p></header><div class="seminar-body full"><div class="body-main"><h3>전구 비틀기: BC → RECAP3</h3>
 <p>완료 frames는 1056±326→353±22, 비튼 횟수는 12.7±3.0→4.1±0.3으로 약 3배 줄었다. 성공률 표가 아니며 추가 rollout·학습도 늘어나 RL objective만의 효과는 분리되지 않는다.</p>
@@ -2906,7 +2775,7 @@ layout: none
 </tbody>
 </table>
 <p>최종 1.63배는 Eager 대비 누적값이며, 마지막 kernel 단계만은 1.12배다. RTX5090, dual-view192×256·4frames·Euler4회에서 측정한 policy p50이며 카메라→모터 전체 지연은 아니다.</p>
-</div></div><div class="takeaway">빠른 완료·빠른 policy 호출과 높은 성공률·안정적인 전체 제어는 구별한다.</div><footer class="seminar-footer"><span class="source">Sec.6.5 · Figs.20–21 · Table 4 · PDF p.26; App.C · PDF p.43</span><span class="slide-id">P027 · 027/30</span></footer></section>
+</div></div><div class="takeaway">빠른 완료·빠른 policy 호출과 높은 성공률·안정적인 전체 제어는 구별한다.</div><footer class="seminar-footer"><span class="source">Sec.6.5 · Figs.20–21 · Table 4 · PDF p.26; App.C · PDF p.43</span><span class="slide-id">P027 · 022/25</span></footer></section>
 
 <!--
 연결 멘트: “더 잘 학습해 일을 빨리 마치는 것과 계산을 빨리 실행하는 것은 다른 효율입니다. 이제 논문 전체의 기여를 정리하고, 그 의미와 검증 과제를 나누어 보겠습니다.” RL은 ALLEX 오른손으로 plastic bulb를 비트는 한 과제이고 ±는 standard deviation이다. 평가 전체 횟수·실패와 timeout의 집계는 불명확하다. 추가 rollout 데이터만 BC에 더한 같은 예산의 비교가 없어 RL objective만의 효과로 읽지 않는다. Latency는 Core Ultra7 265K/RTX5090, ALLEX, horizon40,100회 warmup 뒤300회 median이다.$\frac{71.2}{43.7}\approx1.63$,$\frac{48.9}{43.7}\approx1.12$,전체 감소38.6%다. Physics/memory 제외는67→56.9→46.2→41.6ms다. 세부와 남은 통제 비교는 S103–107에 보존한다.
@@ -3011,15 +2880,15 @@ Sec.6.5 · PDF pp.24–26; Sec.4.2 · PDF p.13; App.G.3–G.4 · PDF pp.51–52;
 layout: none
 ---
 
-<!-- slide-id: P029 | revision: v05 | status: draft -->
+<!-- slide-id: P029 | revision: v07 | status: draft -->
 
-<section class="seminar-slide" data-slide-id="P029"><header class="seminar-header"><div class="chapter-label">Conclusion</div><h1>Conclusion</h1><p class="slide-lead">RLDX-1은 기능 확장·합성 데이터·3단계 학습·추론 최적화를 결합한 VLA 시스템이다.</p></header><div class="seminar-body split"><div class="body-main"><h3>논문 전체의 기여</h3>
-<p>VLM의 영상·언어 표현에 motion·memory를 더하고, MSAT의 physics stream으로 물리 신호를 행동 생성과 연결한다.</p>
-<p>생성 영상에 IDM 행동 라벨과 선별을 적용해 데이터를 보강하고, pre/mid/post-training으로 범용 조작에서 로봇·작업 적응으로 이어간다. Graph·kernel 최적화로 실행 비용도 줄인다.</p>
-</div><div class="body-aside"><h3>실험에서 확인한 성과</h3>
-<p>시뮬레이션·OpenArm에서 높은 비교 성능을, ALLEX·Franka에서는 기능별 과제의 개선을 보고했다. RECAP은 전구 작업 완료 효율을 높였고, 추론 최적화는 policy p50을 줄였다.</p>
-<p>ALLEX 평균 86.8은 성공률·진행 점수의 혼합값이다. 복합 조작과 정밀 접촉에는 낮은 절대 성공률이 남는다.</p>
-</div></div><div class="takeaway">범용 조작과 기능별 능력을 하나의 실용 시스템으로 연결한 성과다.</div><footer class="seminar-footer"><span class="source">Sec.8 Conclusion · PDF p.28; Sec.2–6 · PDF pp.6–26</span><span class="slide-id">P029 · 028/30</span></footer></section>
+<section class="seminar-slide" data-slide-id="P029"><header class="seminar-header"><div class="chapter-label">Conclusion</div><h1>Conclusion</h1><p class="slide-lead">RLDX-1은 기능 확장·합성 데이터·3단계 학습·추론 최적화를 결합한 VLA 시스템이다.</p></header><div class="seminar-body split"><div class="body-main"><h3>저자가 제시한 기여</h3>
+<p>VLM의 범용 이해에 <strong>motion·memory·physical sensing</strong>을 명시적으로 연결했다.</p>
+<p>합성 데이터, 단계별 학습, 추론 최적화를 함께 설계해 이 기능을 실제 조작에 적용했다.</p>
+</div><div class="body-aside"><h3>실험이 뒷받침하는 범위</h3>
+<p>Benchmark별 적응 뒤 전체 시스템의 비교 성과와 기능별 과제의 개선을 보고했다.</p>
+<p>이를 모든 작업의 zero-shot 능력이나 세 기능의 동시 시너지로 확대하지 않는다. 복합 조작·정밀 접촉에는 여전히 실패가 남는다.</p>
+</div></div><div class="takeaway">논문의 기여는 기능·데이터·학습·실행을 연결한 시스템이다. 다음은 확장 방법의 적용 조건에 대한 의견이다.</div><footer class="seminar-footer"><span class="source">Sec.8 Conclusion · PDF p.28; Sec.2–6 · PDF pp.6–26</span><span class="slide-id">P029 · 023/25</span></footer></section>
 
 <!--
 연결 멘트: “여기까지의 구조·데이터·학습·실행·평가를 한 흐름으로 정리하면 이 논문의 기여가 됩니다. 이어서 이 결과에 대한 해석과 남은 한계를 구분해 말씀드리겠습니다.” 원문 Conclusion은 움직임·장기 기억·물리 센싱을 통합하고 합성 데이터, 세 단계 학습, 추론 최적화를 함께 설계한 점을 정리한다. Simulation 성과는 benchmark별 fine-tuning 이후 full recipe의 결과이고 모든 task에 zero-shot으로 투입했다는 뜻이 아니다. 기능별 평가는 task-relevant module만 활성화하므로 세 기능의 동시 시너지로 확대하지 않는다. Conclusion의 ALLEX around90 vs frontier around40은86.8대39.1/44.8의 혼합 평균에 해당한다. 완전 성공90%로 말하지 않는다. RECAP frames/attempts와 policy latency p50도 성공률이나 end-to-end latency와 구별한다. 기존 Related Work(S116)는 source\_ids 연결과 상세 N 해설에 보존한다. 그 내용은 VLA·영상 생성+IDM·기능별 연구를 통합했다는 저자의 연구 위치 설명이며 현재 SOTA나 최초성을 별도로 검증한 결과가 아니다. S117의 결론 해설도 그대로 유지한다.
@@ -3067,15 +2936,38 @@ Conclusion의 ALLEX around90 vs frontier around40은 RLDX86.8과π0.5 39.1/N1.6 
 layout: none
 ---
 
-<!-- slide-id: P028 | revision: v05 | status: draft -->
+<!-- slide-id: P028 | revision: v07 | status: draft -->
 
-<section class="seminar-slide" data-slide-id="P028"><header class="seminar-header"><div class="chapter-label">My opinions and limitation</div><h1>나의 의견</h1><p class="slide-lead">개별 점수뿐 아니라 기능을 연결한 방식과 그 이득이 성립하는 조건에 주목할 수 있다.</p></header><div class="seminar-body split"><div class="body-main"><h3>시스템 설계로서의 의미</h3>
-<p><span class="label interpretation">발표자의 해석</span> 이 연구의 강점은 새 블록 하나보다 움직임·기억·물리 신호를 데이터 생성, 단계별 학습, 실행 최적화까지 연결한 데 있다.</p>
-<p>다만 전체 시스템의 높은 성능이 각 설계 선택의 필요성을 모두 입증하지는 않는다. 구성 요소를 같은 조건에서 바꾸는 비교가 있어야 기여를 더 명확히 나눌 수 있다.</p>
-</div><div class="body-aside"><h3>확장의 이득은 조건부</h3>
-<p>BoN은 RECAP1을 돕지만 RECAP2·3를 악화시킨다. PEFT의 23.71GiB도 H200 측정이며 소비자 GPU의 실제 적응 검증은 아니다.</p>
-<p><span class="label interpretation">추가 검증</span> 같은 데이터·compute 예산에서 성공률과 전체 실행 지연을 함께 비교하면, 후보 탐색·경량 적응이 유효한 조건을 더 분명히 판단할 수 있다.</p>
-</div></div><div class="takeaway">통합의 가치를 인정하면서도 적용 조건과 비용까지 검증할 필요가 있다.</div><footer class="seminar-footer"><span class="source">발표자의 해석 · Sec.2–6 · PDF pp.6–26; App.D · Table 6 · PDF p.44; App.E · Figs.22–23 · PDF pp.45–46; App.G.5–G.6 · PDF pp.53–55</span><span class="slide-id">P028 · 029/30</span></footer></section>
+<section class="seminar-slide" data-slide-id="P028"><header class="seminar-header"><div class="chapter-label">My opinions and limitation</div><h1>나의 의견</h1><p class="slide-lead">PEFT와 후보 탐색의 부록 결과를 보면, 모델 확장의 이득은 적용 범위와 비용에 따라 달라진다.</p></header><div class="seminar-body split"><div class="body-main"><h3>경량 적응 — PEFT</h3>
+<table>
+<thead>
+<tr>
+<th>VLM top-4 / Action</th>
+<th>성공률</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Top-4 Full / Full</td>
+<td>62.67%</td>
+</tr>
+<tr>
+<td>Top-4 Full / LoRA64</td>
+<td>62.67%</td>
+</tr>
+<tr>
+<td>둘 다 LoRA64</td>
+<td>55.33%</td>
+</tr>
+</tbody>
+</table>
+<p>양쪽 LoRA64: batch1 <strong>23.71GiB</strong>(H200 측정). 소비자 GPU에서 직접 검증한 값은 아니다.</p>
+<p><span class="label interpretation">의견</span> 학습 크기·VRAM·성공률을 함께 보고 적응 범위를 선택해야 한다.</p>
+</div><div class="body-aside"><h3>후보 선택 — Best-of-N</h3>
+<p>여러 chunk를 생성해 별도 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Q</mi></mrow><annotation encoding="application/x-tex">Q</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.8778em;vertical-align:-0.1944em;"></span><span class="mord mathnormal">Q</span></span></span></span> critic이 고른다. RECAP의 Gemma text critic과는 다른 모델이다.</p>
+<p><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>=</mo><mn>8</mn><mo separator="true">,</mo><mtext>  </mtext><mi>T</mi><mo>=</mo><mn>1.5</mn></mrow><annotation encoding="application/x-tex">N=8,\;T=1.5</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.109em;">N</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:0.8778em;vertical-align:-0.1944em;"></span><span class="mord">8</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.1389em;">T</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:0.6444em;"></span><span class="mord">1.5</span></span></span></span>에서 RECAP1 attempts는 <strong>8.5→4.9</strong>지만, RECAP2·3에서는 오히려 늘었다.</p>
+<p><span class="label interpretation">의견</span> 후보를 늘리는 것보다 정책의 학습 단계와 critic의 적합성을 먼저 확인할 필요가 있다. N·온도 변경과 추가 계산 비용도 함께 비교해야 한다.</p>
+</div></div><div class="takeaway">가벼운 학습·많은 후보가 항상 이득은 아니다. 성능을 유지하는 조건과 전체 비용을 확인해야 한다.</div><footer class="seminar-footer"><span class="source">발표자의 해석 · Sec.2–6 · PDF pp.6–26; App.D · Table 6 · PDF p.44; App.E · Figs.22–23 · PDF pp.45–46; App.G.5–G.6 · PDF pp.53–55</span><span class="slide-id">P028 · 024/25</span></footer></section>
 
 <!--
 연결 멘트: “논문의 결론을 바탕으로, 이 결과를 어떻게 읽을 수 있을지 정리하겠습니다. 개인적인 실험 경험이 아니라 원문 비교에 근거한 해석입니다.” 시스템 통합과 조건부 이득을 의견으로 제시하며 저자의 실험 결과 자체와 구별한다. BoN $N=8$/$T=1.5$는 RECAP1 attempts8.5→4.9지만 RECAP2/3는+2.3/+2.2로 악화한다. Frozen RECAP1 특징 위 별도 distributional $Q$ critic이며 RECAP의 Gemma text critic과 다르다. PEFT Full FT는 VLM top-4층을 fully tune한다는 뜻이다. Full/Full62.67%,Full/LoRA64도62.67%,양쪽LoRA64는55.33%·batch1 23.71GiB이며 실제 측정은H200이다. Table9의 보고66.7→83.3과 full$\frac{9}{24}$→$\frac{14}{24}$는 상세 해설에 보존하고 count 가중합13/18 vs 보고16/20의 불일치는 마지막 장에서 검증 논점으로 모은다. Batch64→1024의 GR-1 36.8→58.7도 총 노출 예산과 분리하기 어렵다. 각 task의 낮은 절대값과 평균의 한계까지 S108–115 원형 해설에 남긴다. 다음 장에서는 의견과 별도로 문서에서 아직 확인되지 않은 명세와 집계 문제를 짚는다.
@@ -3238,7 +3130,7 @@ Kitchen은 Close Single Door와Turn On Sink100인 반면 Microwave-to-Counter26,
 layout: none
 ---
 
-<!-- slide-id: P030 | revision: v05 | status: draft -->
+<!-- slide-id: P030 | revision: v07 | status: draft -->
 
 <section class="seminar-slide" data-slide-id="P030"><header class="seminar-header"><div class="chapter-label">My opinions and limitation</div><h1>한계와 미해결 질문</h1><p class="slide-lead">원문 명세·집계의 불일치와 아직 분리하지 못한 효과를 다음 검증의 대상으로 남긴다.</p></header><div class="seminar-body full"><div class="body-main"><table>
 <thead>
@@ -3273,7 +3165,7 @@ layout: none
 </table>
 <p><span class="label question">운영·생성</span> Memory 갱신·초기화, <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>H</mi></mrow><annotation encoding="application/x-tex">H</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.0813em;">H</span></span></span></span>/<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>H</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">H+1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.7667em;vertical-align:-0.0833em;"></span><span class="mord mathnormal" style="margin-right:0.0813em;">H</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span>·C/<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi></mrow><annotation encoding="application/x-tex">A</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.6833em;"></span><span class="mord mathnormal">A</span></span></span></span> 표기, skill 목록·실행 가능성 규칙은 더 확인해야 한다.</p>
 <p><span class="label interpretation">후속 실험</span> 모듈·필터·RL의 독립 비교, 동일 데이터·compute 예산, 평가 불확실성, end-to-end p95/p99가 결론을 더 선명하게 한다.</p>
-</div></div><div class="takeaway">문서의 불확실성과 모델의 성능 한계를 구별하며 후속 근거를 확인한다.</div><footer class="seminar-footer"><span class="source">Q5–Q6·Q8·Q11–Q13; Sec.2–4 · PDF pp.7–13; App.B.3 · PDF p.42; App.G.1·G.4–G.6 · PDF pp.49,52–55</span><span class="slide-id">P030 · 030/30</span></footer></section>
+</div></div><div class="takeaway">문서의 불확실성과 모델의 성능 한계를 구별하며 후속 근거를 확인한다.</div><footer class="seminar-footer"><span class="source">Q5–Q6·Q8·Q11–Q13; Sec.2–4 · PDF pp.7–13; App.B.3 · PDF p.42; App.G.1·G.4–G.6 · PDF pp.49,52–55</span><span class="slide-id">P030 · 025/25</span></footer></section>
 
 <!--
 연결 멘트: “마지막은 앞의 의견과 구분해 원문에서 확인되지 않은 명세와 추가 검증을 정리합니다.” 마무리 멘트: “문서의 불일치는 모델 오동작의 증거가 아닙니다. 명시된 결과와 확인하지 못한 규칙을 나눠 다음 근거를 찾는 출발점으로 남깁니다.” Memory는$H+1$ 간격과$t-H$ queue식, episode 초기화·짧은 history 처리, MSAT의$A$와 Physical Sensing 요약의C가 미해결이다. Task feasibility는 skill 목록·prompt·판정 gate가 구체적이지 않다. Q11은$80+9.4+11.6=101$, Q12는 문장196/Table8 192, Q13은24회당1성공4.17%p와61.1의 대응 불명확이다. Table9 count9/8/7,14/8/2에1/0.5/0을 적용한13/18과 보고16/20도 다르다. 기존 $Q$번호를 재번호화하지 않는다. 모든 미해결 질문과 후속 실험 제안은 S118–121 원형 해설에 보존한다.

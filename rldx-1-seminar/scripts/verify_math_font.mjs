@@ -21,7 +21,7 @@ try{
   assert(fonts.some(f=>/NanumGothic/.test(f.familyName)&&f.isCustomFont&&f.glyphCount>0),'Korean glyphs must use embedded Nanum Gothic');
   const fontFaces=await page.evaluate(()=>[...document.fonts].filter(f=>f.family.includes('Nanum Gothic')).map(f=>({weight:f.weight,status:f.status})));
   assert.equal(fontFaces.length,3);assert(fontFaces.every(f=>f.status==='loaded'));
-  await page.evaluate(()=>window.deckShow(window.deckData.findIndex(s=>s.id==='P007')));
+  await page.evaluate(()=>window.deckShow(window.deckData.findIndex(s=>s.id==='P006')));
   await page.evaluate(()=>document.fonts.ready);
   assert(await page.locator('.deck-page.active .equation .katex-html').count()>0);
   assert(await page.locator('.deck-page.active .equation mfrac').count()>0,'loss page derivative must render a true fraction');

@@ -210,7 +210,7 @@ Sec.1.1, Fig.2 · PDF p.5
 <!-- slide-meta
 layout: explorer
 kind: fact
-source_ids: S008, S009, S010, S011, S012, S013, S014, S015
+source_ids: S008, S009, S010, S011, S012, S013, S014, S015, S016, S017, S018, S019, S035, S040
 -->
 
 ### 한 문장
@@ -233,7 +233,7 @@ Fig.3 · PDF p.6; Sec.2.1–2.2 · PDF pp.7–9; 추출 층 비교: Table2(a), p
 
 ### 발표 메모
 
-그림은 시각적 요약이다. Vision Encoder는27층 중9층 뒤에 motion module을 삽입한다. LLM에서는4층 뒤에 과거 관측을 압축한다. 화면은 중간층이라고 설명하며, 실제18층 선택과 비교 실험은 연결된 상세 해설에 보존한다. Memory는 과거 Qₜ와 현재 hₜ를 concat해 mₜ를 만들고, hₜ·mₜ를 concat한 토큰을 C stream에 제공한다. MSAT는 초반 stream별 residual과 후반 C-A concat을 구분하며, 한 forward의 변화율로 미래 후보를 반복 갱신한다. 메모리 상세는 P005, MSAT 상세는 P009–P012, 학습·추론 수식은 P006–P008에서 확인한다. 약30% 깊이의 동기를 모든 설정에서 최적이라는 실험 결과로 과장하지 않는다.
+그림은 시각적 요약이다. Vision Encoder는27층 중9층 뒤에 motion module을 삽입한다. LLM에서는4층 뒤에 과거 관측을 압축한다. 화면은 중간층이라고 설명하며, 실제18층 선택과 비교 실험은 연결된 상세 해설에 보존한다. Memory는 과거 Qₜ와 현재 hₜ를 concat해 mₜ를 만들고, hₜ·mₜ를 concat한 토큰을 C stream에 제공한다. MSAT는 초반 stream별 residual과 후반 C-A concat을 구분하며, 한 forward의 변화율로 미래 후보를 반복 갱신한다. Memory 구조와 stream 전환은 이 확대 설명에서 마무리한다. 다음 P006–P008에서 생성 후보·변화율을 이해한 뒤 P009–P010에서 입력과 연산을 연결한다. 로봇별 projection은 P016의 공통·전용 경로와 함께 설명한다. 약30% 깊이의 동기를 모든 설정에서 최적이라는 실험 결과로 과장하지 않는다.
 
 ### 확대 단계
 
@@ -355,7 +355,7 @@ Fig.3 · PDF p.6; Sec.2.1–2.2 · PDF pp.7–9; 추출 층 비교: Table2(a), p
 
 설명:
 
-요점: 과거 특징 3묶음은 각각 여러 cognition 벡터를 포함한다.
+요점: 저장하는 것은 원본 영상이 아니라 이전 VLM이 계산한 cognition features다.
 
 #### [15] Memory Module
 
@@ -451,7 +451,7 @@ Fig.3 · PDF p.6; Sec.2.1–2.2 · PDF pp.7–9; 추출 층 비교: Table2(a), p
 
 설명: Vision Encoder는 움직임, VLM은 행동용 표현, Memory는 긴 이력, MSAT는 조건부 미래 후보 갱신을 담당한다. 네 영역을 눌러 다시 볼 수 있다.
 
-요점: 다음 장부터 Memory·MSAT·행동 생성 원리를 더 자세히 확인한다.
+요점: 다음은 noisy action 후보를 어떻게 만들고 변화율로 갱신하는지 수식으로 연결한다.
 
 ### 화살표 설명
 
@@ -489,7 +489,7 @@ Fig.3 · PDF p.6; Sec.2.1–2.2 · PDF pp.7–9; 추출 층 비교: Table2(a), p
 
 #### [memory-1] 과거 cognition features · Qₜ
 
-설명: 이전 시점의 cognition 특징 3묶음을 저장한다.
+설명: 과거 3시점 × 64개 = 192개 특징 벡터를 저장한다.
 
 #### [memory-2] 과거와 현재를 concat
 
@@ -938,55 +938,6 @@ Sec.2.1 Motion Awareness, LLM backbone · PDF p.7
 
 원문은 과거 observations를 single context token으로 압축하고 현재 관측·지시·q와 함께 후속 블록에서 처리한다고 명시한다. 평균식은 해설용이다. 모든 camera/view별 실제 token grouping이나 구현상 packing 방식은 이 문단에서 명시되지 않는다. 4층 선택 이유는 DeepStack 활용이며, 2층 대비 성능 개선치를 이 절이 보고하는 것은 아니다. VLM 내부 context token을 이후 장의 memory features와 구별한다.
 
-## [P005] Memory Module
-
-<!-- slide-meta
-layout: split
-kind: fact
-source_ids: S016, S017, S018, S019
--->
-
-### 한 문장
-
-이전 h 세 묶음과 현재 $\mathbf{h}_t$를 memory Transformer로 읽고, 현재 표현도 함께 남긴다.
-
-### 본문
-
-#### VLM 뒤에 붙는 memory module
-
-<div class="token-row"><span class="token c">과거 h ①</span><span class="token c">과거 h ②</span><span class="token c">과거 h ③</span><span class="token c">현재 $\mathbf{h}_{t}$</span></div>
-
-$$
-\mathbf{m}_t=M_\theta([\mathbf{Q}_t,\mathbf{h}_t])
-$$
-
-causal attention으로 나중 시점이 이전 이력을 읽는다. <strong>$\mathbf{h}_{t}$와 $\mathbf{m}_{t}$ 모두</strong> action model에 전달한다. VLM 안의 context token과 다른 단계다.
-
-### 보충
-
-#### 범위는 제시, 관리 규칙은 미해결
-
-| 로봇 | 저장 간격 | 과거 범위 |
-| --- | --- | --- |
-| ALLEX | 40 steps | 120 steps |
-| Franka | 16 steps | 48 steps |
-
-문장은 **H+1** 간격, queue 식은 **H** 간격이다. 정확한 저장·교체 시점과 episode 초기화·기억 부족 처리 규칙은 확인되지 않았다.
-
-### 요점
-
-짧은 프레임 압축과 긴 이력 저장을 구별한다. 이제 이 조건으로 미래 행동을 생성한다.
-
-### 출처
-
-Sec.2.1 Long-Term Memory · PDF p.7; Sec.4.2 · PDF p.13; 질문노트 Q5
-
-### 발표 메모
-
-$n_{\mathrm{mem}}=3$은 과거 시점 묶음 수이며 각 묶음은 cognition features다. 고정 격자 예시를 실제 cache 정책으로 확정하지 않는다. 문서의 미명세를 모델 동작 결함으로 확대하지 않는다.
-
-### 상세 공부 기록
-
 #### [S016] Context·cognition·memory
 
 <!-- study-meta
@@ -1186,356 +1137,6 @@ Sec.2.1 Long-Term Memory; Sec.2.2 · PDF pp.7–8
 
 원문은 memory features $\mathbf{m}_t$와 original cognition tokens $\mathbf{h}_t$를 모두 action model에 feed한다고 명시한다. $\mathbf{m}_t$의 정확한 output selection이나 learned pooling은 제공된 식 이상으로 확정하지 않는다. 그림의 화살표 두 개는 병행 전달을 설명하며 실제 별도 network 두 개를 의미하지 않는다. 이후 flow matching 설명에서 $\mathbf{c}_t=[\mathbf{h}_t,\mathbf{m}_t,\mathbf{s}_t,\mathbf{p}_t]$의 구성 요소로 연결한다.
 
-## [P009] MSAT의 입력
-
-<!-- slide-meta
-layout: split
-kind: fact
-source_ids: S031, S032
--->
-
-### 한 문장
-
-C·A·P는 전용 normalization·projection을 갖고, QKV를 모아 정보를 교환한다.
-
-### 본문
-
-#### 초반의 입력 배치
-
-| 경로 | 입력 |
-| --- | --- |
-| C | cognition $\mathbf{h}_{t}$, memory $\mathbf{m}_{t}$ |
-| A | 현재 상태 $\mathbf{s}_{t}$, 행동 후보 $\mathbf{a}^{\tau}$ |
-| P | 현재 센서 $\mathbf{p}_{t}$, 미래 후보 $\mathbf{p}^{\tau}$ |
-
-$\tau$ 토큰은 A 앞에 놓인다. 물리 신호가 없으면 P stream의 attention을 mask할 수 있다.
-
-### 보충
-
-#### 전용 파라미터와 공통 attention
-
-<div class="sequence">
-<div class="step">각 stream의 Norm → 각자의 QKV projection</div>
-<div class="step">Q·K·V를 각각 <strong>토큰 축으로 concat</strong></div>
-<div class="step">joint self-attention으로 모달리티 간 정보 교환</div>
-</div>
-
-고차원 cognition, 저차원 state, 희소한 센서 신호를 다루는 설계다. 정보를 교환해도 stream별 변환 파라미터는 구분될 수 있다.
-
-### 요점
-
-전용 stream은 서로 보지 않는다는 뜻이 아니다. Attention 출력 위치를 따라 다시 나눈다.
-
-### 출처
-
-Sec.2.2 MSAT·Physical Sensing · PDF pp.8–9; Fig.3 · PDF p.6
-
-### 발표 메모
-
-입력은 개념적 배치이며 실제 tokenization shape까지 확정하지 않는다. Stream 분리 자체의 독립적 성능 우위는 설계 의도와 구분한다. q cognition token, Q attention query, $\mathbf{Q}_t$ memory queue를 혼동하지 않는다.
-
-### 상세 공부 기록
-
-#### [S031] P·C·A의 입력 구성
-
-<!-- study-meta
-layout: split
-kind: fact
--->
-
-##### 한 문장
-
-모달리티를 전용 경로로 처리하되, attention으로 서로 정보를 교환한다.
-
-##### 본문
-
-###### 초기 stream의 역할
-
-| Stream | 개념적 입력 | 내용 |
-| --- | --- | --- |
-| **C** | $[\mathbf{h}_t,\mathbf{m}_t]$ | cognition·memory |
-| **A** | $[\mathbf{s}_t,\mathbf{a}_{t:t+H}^{\tau}]$ | 현재 상태·행동 후보 |
-| **P** | $[\mathbf{p}_t,\mathbf{p}_{t+1:t+L}^{\tau}]$ | 현재 센서·미래 후보 |
-
-$\tau$는 인코딩한 한 토큰으로 A의 앞에 더한다. P는 물리 신호를 사용할 때 추가되는 경로이며, 센서가 없을 때 P attention을 mask할 수 있다.
-
-##### 보충
-
-###### 왜 세 경로로 나누는가?
-
-cognition은 고차원 시각·언어 맥락, state는 저차원이지만 정확한 로봇 운동학 정보, 촉각·토크는 희소하지만 접촉에 중요한 정보다. 원문은 이 **의미와 데이터 규모의 이질성**을 설계 동기로 든다.
-
-이는 각 기능 모듈과 stream이 일대일이라는 뜻이 아니다. Motion과 memory는 VLM·memory module에서 만들어져 C 경로의 입력이 되고, A는 미래 행동을 생성하는 경로다.
-
-<p class="mini">초기 입력 배치는 MSAT 문단을 따른다. Physical Sensing 마지막의 C 표기 불일치는 S034에서 남긴다.</p>
-
-##### 요점
-
-Stream은 입력별 파라미터 경로이며, 기능 모듈 이름과 동일한 분류가 아니다.
-
-##### 출처
-
-Sec.2.2 MSAT·Physical Sensing · PDF p.8; timestep token · PDF p.9; Fig.3 · PDF p.6
-
-##### 발표 메모
-
-P=\[current p, noisy future p\]는 Fig.3의 Current/Noised Future 및 Physical Sensing 문단을 합친 개념적 입력이다. 본문의 개별 tokenization shape는 단정하지 않는다. C/A stream 설명은 MSAT 문단에 명시되어 있다. 괄호나 대괄호를 원소별 덧셈으로 확정하지 않는다. 센서 희소성 때문에 분리가 도움 된다는 의도와 single-stream 대비 독립 실험 근거는 구분한다.
-
-#### [S032] Stream별 QKV
-
-<!-- study-meta
-layout: split
-kind: fact
--->
-
-##### 한 문장
-
-Normalization과 QKV projection은 stream별로 따로 두고, attention 입력을 공통 공간에 모은다.
-
-##### 본문
-
-###### 같은 연산 종류, 다른 파라미터
-
-$$
-\mathbf{C}\to\operatorname{Norm}_C\to(\mathbf{Q}_C,\mathbf{K}_C,\mathbf{V}_C)
-$$
-
-$$
-\mathbf{A}\to\operatorname{Norm}_A\to(\mathbf{Q}_A,\mathbf{K}_A,\mathbf{V}_A)
-$$
-
-$$
-\mathbf{P}\to\operatorname{Norm}_P\to(\mathbf{Q}_P,\mathbf{K}_P,\mathbf{V}_P)
-$$
-
-각 stream은 자신의 normalization과 attention input projection을 가진다. 공통 attention을 하기 전에도 모달리티에 맞게 표현을 변환할 여지가 있다.
-
-##### 보충
-
-###### 교환을 위해 토큰 축으로 묶기
-
-$$
-\mathbf{Q}=\operatorname{concat}(\mathbf{Q}_C,\mathbf{Q}_A,\mathbf{Q}_P)
-$$
-
-K·V도 같은 순서로 이어 붙인다. Joint attention에서 각 stream의 query는 다른 stream의 key·value를 참고할 수 있다. **정보 교환**과 **전용 파라미터 유지**가 동시에 가능하다.
-
-<p class="callout">QKV를 함께 계산하는 attention 단계와, 후반에 C·A를 한 stream으로 합치는 구조 변경은 별개의 일이다.</p>
-
-<p class="mini">Q는 attention query이며 memory queue $\mathbf{Q}_{t}$와 다르다.</p>
-
-##### 요점
-
-전용 stream은 서로 보지 않는다는 뜻이 아니라, 일부 변환 파라미터를 분리한다는 뜻이다.
-
-##### 출처
-
-Sec.2.2 MSAT 문단 · PDF p.8
-
-##### 발표 메모
-
-원문은 각 stream이 자체 normalization과 attention input QKV projections를 가진다고 명시한다. QKV를 공통 token axis에 붙여 joint attention하고 출력을 분할한다. 식은 원문 연산 순서를 기호로 풀어 쓴 것이며 특정 linear weight 이름이나 정확한 norm 배치를 추가한 구현 명세가 아니다. 입력 stream hidden width와 attention head 수는 이 문단만으로 확정하지 않는다. q는 VLM cognition token, Q는 attention query, $\mathbf{Q}_t$는 memory queue이므로 구별한다.
-
-## [P010] MSAT의 Joint Attention
-
-<!-- slide-meta
-layout: split
-kind: fact
-source_ids: S033, S034
--->
-
-### 한 문장
-
-Joint attention은 정보는 섞어도 query 위치 수를 유지하므로 출력을 stream별로 돌려보낼 수 있다.
-
-### 본문
-
-#### C 4개 + A 3개로 보는 원리
-
-<span class="label example">실제 모델 shape가 아닌 예시</span>
-
-<div class="token-row"><span class="token c">$C_1$</span><span class="token c">$C_2$</span><span class="token c">$C_3$</span><span class="token c">$C_4$</span><span class="token a">$A_1$</span><span class="token a">$A_2$</span><span class="token a">$A_3$</span></div>
-
-$$
-\begin{aligned}
-\mathbf{Q},\mathbf{K},\mathbf{V}&:\;7\times d\\
-\text{attention}&:\;7\times7\to\text{출력: }7\times d
-\end{aligned}
-$$
-
-앞 4개 출력은 C, 뒤 3개는 A로 나눈다. 각 출력은 다른 stream의 정보를 이미 읽었을 수 있다.
-
-### 보충
-
-#### Residual과 후반 concat은 다르다
-
-$$
-\begin{aligned}
-\mathbf{C}'&=\mathbf{C}+\Delta\mathbf{C},\quad\mathbf{A}'=\mathbf{A}+\Delta\mathbf{A}\\
-\text{후반:}\quad\text{C-A}&=\operatorname{concat}(\mathbf{C}',\mathbf{A}')
-\end{aligned}
-$$
-
-처음에는 각 stream에 보정을 더한다. **후반에는 C·A를 한 시퀀스로 통합**한다. 덧셈과 토큰 이어 붙이기를 구별해야 한다.
-
-<p class="mini"><span class="label question">표기 불일치</span> 앞 문단은 noisy action을 A에 배치하지만 마지막 물리 센싱 요약은 C라고 쓴다. 오타 여부는 미확인이다.</p>
-
-### 요점
-
-공통 attention, stream별 residual, 후반 C-A 통합은 서로 다른 단계다.
-
-### 출처
-
-Sec.2.2 MSAT 및 마지막 요약 문장 · PDF p.8; 질문노트 Q1·Q6
-
-### 발표 메모
-
-d가 같은 single-head 예시는 출력 row가 query row에 대응하는 원리를 설명한다. 실제 cognition은 64 tokens다. Δ는 residual 보정의 개념 표기이며 정확한 projection·MLP 구현을 추가한 명세가 아니다.
-
-### 상세 공부 기록
-
-#### [S033] Joint attention과 출력 shape
-
-<!-- study-meta
-layout: split
-kind: example
--->
-
-##### 한 문장
-
-C 토큰 4개와 A 토큰 3개를 함께 읽어도, 출력 위치 7개는 그대로 남아 다시 나눌 수 있다.
-
-##### 본문
-
-###### 토큰 수가 보존되는 attention
-
-<span class="label example">P를 생략한 교육용 C4 / A3</span>
-
-| 단계 | shape |
-| --- | --- |
-| C의 Q·K·V | 각 4 × d |
-| A의 Q·K·V | 각 3 × d |
-| 붙인 Q·K·V | 각 7 × d |
-| attention weights | 7 × 7 |
-| attention output | 7 × d |
-
-##### 보충
-
-###### 출력 위치와 읽은 정보는 다르다
-
-<div class="token-row"><span class="token c">$C_1$</span><span class="token c">$C_2$</span><span class="token c">$C_3$</span><span class="token c">$C_4$</span><span class="token a">$A_1$</span><span class="token a">$A_2$</span><span class="token a">$A_3$</span></div>
-
-각 query 위치에 출력 벡터가 하나씩 생긴다. 앞 네 위치는 C로, 뒤 세 위치는 A로 돌려보낸다. C 위치의 출력도 A의 정보를 읽었을 수 있으므로 “C 출력에 C 정보만 있다”는 뜻은 아니다.
-
-**4·3·d**는 원리를 보이는 예시다. 실제 cognition은64 tokens이며, 이 표를 모델의 실제 전체 shape로 읽지 않는다.
-
-##### 요점
-
-Attention은 여러 정보를 섞지만 query 위치를 없애지 않기 때문에 stream별 분할이 가능하다.
-
-##### 출처
-
-Sec.2.2의 joint attention·split 설명 · PDF p.8; shape는 설명용 예시
-
-##### 발표 메모
-
-설명상 single head를 가정하고 Q/K/V의 feature 폭을 같은 d로 두었다. 실제 multi-head의 QK dimension과 V dimension은 다를 수 있고 head concat/projection도 있으므로 이 표가 구현 shape 명세는 아니다. 7×7은 query 7개가 key 7개를 참고하는 관계 수다. Output row는 query row에 대응한다. P stream이 있으면 그 token 수만큼 행도 추가되지만 같은 원리로 원래 길이에 따라 분할할 수 있다.
-
-#### [S034] Residual update와 concat
-
-<!-- study-meta
-layout: split
-kind: fact
--->
-
-##### 한 문장
-
-한 블록 안의 stream별 덧셈과, 후반 C·A 시퀀스 통합은 서로 다른 연산이다.
-
-##### 본문
-
-###### 초반 블록: 나눠서 다시 더한다
-
-$$
-\text{joint attention}\to[\Delta\mathbf{C},\Delta\mathbf{A},\Delta\mathbf{P}]
-$$
-
-$$
-\begin{aligned}
-\mathbf{C}'&=\mathbf{C}+\Delta\mathbf{C}\\
-\mathbf{A}'&=\mathbf{A}+\Delta\mathbf{A}\\
-\mathbf{P}'&=\mathbf{P}+\Delta\mathbf{P}
-\end{aligned}
-$$
-
-위 식은 원문의 **stream-wise residual update**를 단순화한 개념식이다. 출력 위치를 나눈 후 각 경로의 원래 특징에 보정을 더한다. 이 단계에서는 C와 A의 stream 구분이 계속 남는다.
-
-##### 보충
-
-###### 후반 블록: C와 A를 한 시퀀스로
-
-$$
-\mathbf{X}_{\mathrm{C-A}}=\operatorname{concat}(\mathbf{C}',\mathbf{A}')
-$$
-
-여기서는 토큰 축으로 이어 붙여 후속 단일 C-A 경로에서 처리한다. 원소별로 더해 토큰 수를 줄이는 연산이 아니다.
-
-<p class="callout"><span class="label question">본문 표기 불일치</span> MSAT 문단은 noisy actions를 <strong>A</strong>에 넣지만, Physical Sensing 마지막 문장은 “C stream”이라고 쓴다. 초기 입력은 앞의 명시적 배치를 따르되, 오타인지 별도 의도인지는 확정하지 않는다.</p>
-
-##### 요점
-
-정보 교환 → stream별 residual → 후반 C-A 통합을 구분해야 Fig.3을 정확히 읽을 수 있다.
-
-##### 출처
-
-Sec.2.2 MSAT 및 Physical Sensing 마지막 문장 · PDF p.8; 질문노트 Q1·Q6
-
-##### 발표 메모
-
-Δ 기호는 joint attention 출력을 residual에 더하는 개념적 보정량을 표시한다. 정확한 output projection·MLP 등 모든 세부를 그대로 수식화한 것은 아니다. 원문은 stream별 residual updates를 명시한다. 후반 C-A merge와 초반 QKV concatenation을 같은 “concat” 한 단어로 뭉개지 않는다. 최종 C 표기를 저자의 오타로 단정하지 않고 문서의 서술 불일치로 남긴다.
-
-## [P011] MSAT의 Stream 구성
-
-<!-- slide-meta
-layout: figure
-kind: fact
-source_ids: S035, S036, S040
-figure: fig-03.png
-caption: Figure 3 · motion·memory·physics를 연결한 RLDX-1 구조
--->
-
-### 한 문장
-
-VLM·memory가 조건을 준비하고, 공유 action model이 미래 행동과 센서 후보를 다듬는다.
-
-### 본문
-
-#### 분리·통합과 로봇별 연결
-
-<strong>센서 있음:</strong> C/A/P → C-A/P<br><strong>센서 없음:</strong> C/A → C-A
-
-P는 물리 신호가 있을 때 독립 경로로 남아 C-A와 정보를 교환한다.
-
-로봇별 input projection → **공유 MSAT** → 로봇별 output projection으로 서로 다른 state·action 공간을 연결한다.
-
-### 보충
-
-<p class="mini">새 embodiment용 공통 projection도 일부 샘플로 학습한다. P 경로와 로봇별 연결층은 서로 다른 분리 기준이다.</p>
-
-### 요점
-
-구조는 연결됐다. 입력 모달리티의 차이와 로봇 몸체의 차이는 서로 다른 경계에서 처리한다.
-
-### 출처
-
-Fig.3 · PDF p.6; Sec.2.2 · PDF p.8; Sec.4.1 · PDF p.12
-
-### 발표 메모
-
-그림의 denoise는 chunk 전체의 반복 갱신이다. VLM 내부 프레임 압축, VLM 뒤 memory, action model 안의 stream 처리를 위치별로 짚는다. 상세 화면에서 embodiment-specific과 agnostic projection을 비교한다.
-
-### 상세 공부 기록
-
 #### [S035] Triple-stream에서 double-stream으로
 
 <!-- study-meta
@@ -1588,51 +1189,6 @@ Sec.2.2 MSAT · PDF p.8; Fig.3 · PDF p.6
 
 기본 double-then-single 구조가 physical stream을 추가하면 triple-then-double이 된다. 각 stage의 정확한 block 개수는 이 문단에서 명시하지 않으므로 임의로 절반씩이라고 그리지 않는다. P가 없는 경우 attention mask로 운영 가능하다는 설명과 별도의 완전히 다른 네트워크를 선택한다는 해석은 구별한다. stream 수 자체를 denoising 반복 횟수로 해석하지 않는다.
 
-#### [S036] 로봇별 입출력 projection
-
-<!-- study-meta
-layout: split
-kind: fact
--->
-
-##### 한 문장
-
-MSAT의 공통 내부와, 로봇마다 다른 상태·행동 공간을 연결하는 얇은 층을 구별한다.
-
-##### 본문
-
-###### 플랫폼마다 다른 숫자 공간
-
-<div class="sequence">
-<div class="step"><strong>로봇별 input projection</strong><br>해당 로봇의 state·action → 공유 latent space</div>
-<div class="step"><strong>공유 MSAT</strong><br>여러 embodiment가 같은 본체 파라미터를 학습</div>
-<div class="step"><strong>로봇별 output projection</strong><br>공유 표현 → 해당 로봇 공간의 예측 출력</div>
-</div>
-
-관절 수와 end-effector 구성이 달라도 공유 latent space를 통해 하나의 행동 모델로 연결한다.
-
-##### 보충
-
-###### P stream과는 다른 분리 기준
-
-**로봇별 projection:** embodiment 간 입력·출력 공간의 차이를 다룬다.
-
-**P stream:** 물리 센서라는 모달리티를 별도 파라미터 경로에서 다룬다. 로봇 이름별로 C/A/P를 하나씩 정하는 구조가 아니다.
-
-Sec.4.1은 새 embodiment 적응을 위해 별도의 **embodiment-agnostic projection**도 일부 샘플로 학습한다고 설명한다. 공유 MSAT, 로봇별 연결층, 공통 연결층은 각각 다른 요소다.
-
-##### 요점
-
-공유 본체를 유지하면서 로봇 공간을 맞추는 연결층과, 모달리티별 stream을 구분한다.
-
-##### 출처
-
-Sec.2.2 MSAT · PDF p.8; Sec.4.1 Generalization to New Embodiments · PDF p.12
-
-##### 발표 메모
-
-원문은 lightweight embodiment-specific projection을 MSAT input/output에 둔다고 명시한다. Output은 모델 velocity prediction을 해당 action space로 연결하는 맥락이며 직접 위치 목표만 출력한다고 좁히지 않는다. Sec.4.1은 agnostic projection의 input을 leading dimensions에 zero-pad한다고 서술한다. 구체적인 batch의 256 trajectory 설정은 S058에서 다룬다. Franka/ALLEX의 정확한 dimension을 임의로 예시하지 않았다.
-
 #### [S040] Figure 3 전체 해석
 
 <!-- study-meta
@@ -1676,260 +1232,59 @@ Fig.3, Sec.2.1–2.2 · PDF pp.6–9; 질문노트 Q1·Q5–Q7
 
 Fig.3의 Denoise 표시는 미래 행동·센서 후보의 생성과 연결한다. Action chunk의 각 미래 행동을 autoregressive하게 하나씩 출력하는 흐름으로 읽지 않는다. VLM에서 현재 조건을 얻는 과정과 MSAT denoising 반복은 개념적으로 구별되며 실제 feature caching 구현은 이 그림만으로 단정하지 않는다. Fig.3 caption의 previous actions 표현을 추가 제어 입력 명세로 확장하지 않고 본문의 $\mathbf{s}_t$, noisy actions 설명을 따른다. 현재 sensor는 observed condition, future physical prediction은 auxiliary objective라는 구분을 다시 짚는다. 각 module의 독립적인 인과 기여는 구조도 자체로 검증되지 않는다.
 
-## [P012] MSAT의 블록 구성
+## [P006] Action Model의 학습 원리
 
 <!-- slide-meta
 layout: split
 kind: fact
-source_ids: S037, S038, S039
+source_ids: S020, S021, S022, S023, S024, S025, S026, S028
 -->
 
 ### 한 문장
 
-생성 진행도와 행동 순서를 구별해 주입하고, 정규화와 비선형 특징 변환을 더한다.
+MSAT는 노이즈가 섞인 chunk를 입력받아, 정답으로 향하는 변화율을 flow matching으로 학습한다.
 
 ### 본문
 
-#### τ와 행동 위치는 다른 정보
+#### 노이즈 후보와 정답 변화율
 
-<div class="sequence">
-<div class="step"><strong>$\tau$:</strong> sinusoidal embedding → MLP → A 앞의 한 토큰</div>
-<div class="step"><strong>행동 순서:</strong> A stream에 RoPE 적용</div>
-</div>
+$$
+\mathbf{a}^{\tau}=\tau\mathbf{a}+(1-\tau)\boldsymbol{\epsilon}
+$$
 
-$\tau$ 토큰은 joint attention으로 현재 denoising timestep을 전달한다. RoPE는 위치별 Q·K 회전을 통해 상대 시간 관계를 반영한다. 둘 다 행동을 한 개씩 생성하도록 강제하는 규칙은 아니다.
+$\mathbf{a}=\mathbf{a}_{t:t+H}$는 정답 행동 chunk, $\boldsymbol{\epsilon}$는 같은 shape의 표준 정규 노이즈다. **τ=0은 노이즈, τ=1은 정답**이다.
+
+$$
+\frac{d\mathbf{a}^{\tau}}{d\tau}=\mathbf{a}-\boldsymbol{\epsilon}=\mathbf{v}^{*}
+$$
+
+물리 시간 **t**와 denoising timestep **τ**를 구분한다. 같은 t에서 후보 전체를 다듬는다.
 
 ### 보충
 
-#### 정규화와 특징 변환
+#### 예측 변화율과 학습 손실
 
-**RMSNorm:** 특징의 크기를 정규화한다. Query·key에도 적용한다.
+$$
+\mathcal{L}=\bigl\lVert\mathbf{u}_\theta(\mathbf{a}^{\tau},\tau,\mathbf{c}_t)-\mathbf{v}^{*}\bigr\rVert_2^2
+$$
 
-**SwiGLU:** 비선형 gate로 토큰 내부의 특징을 변환한다.
+$\mathbf{c}_t$는 cognition·memory·현재 상태·센서 조건이다. L2 norm의 제곱은 **좌표별 변화율 오차 제곱의 합**이다.
 
-Attention은 토큰 간 정보를 교환하고, FFN은 각 토큰의 특징을 바꾼다. 상세 수식은 N 해설에 보존한다.
+<span class="label example">설명용 예시</span> 정답 $[3,-1]$, 노이즈 $[-1,1]$이면 target은 $[4,-2]$다. 예측이 $[3.9,-1.8]$이면 손실은 **0.05**다.
+
+<p class="mini">τ·노이즈 샘플링 → 후보 구성 → 변화율 예측 → 손실·역전파. 학습 샘플마다 완전한 denoising을 반복하는 것은 아니다.</p>
 
 ### 요점
 
-무엇을 생성할지와 어떻게 처리할지 이해했다. 다음은 이 구조를 채운 데이터와 학습이다.
+학습은 중간 후보에서 변화율을 맞히는 일이다. 다음은 이 모델로 실제 chunk를 생성하는 과정이다.
 
 ### 출처
 
-Sec.2.2 Further Design Choices · PDF p.9; 배경: arXiv:2104.09864, 1910.07467, 2002.05202
+Sec.2.2 Eq.(1) · PDF p.8; 직선 경로 미분·벡터 예시는 설명용
 
 ### 발표 메모
 
-RMS와 bias를 생략한 SwiGLU FFN 식은 배경 해설용이다. $\tau$는 adaLN 대신 in-context token으로 넣는다. 이 구성 각각의 독립 성능 이득은 해당 문단에서 측정하지 않는다.
-
-### 상세 공부 기록
-
-#### [S037] Denoising timestep 토큰
-
-<!-- study-meta
-layout: split
-kind: fact
--->
-
-##### 한 문장
-
-$\tau$를 한 토큰으로 인코딩해 A 앞에 붙이고 joint attention으로 다른 경로에도 알린다.
-
-##### 본문
-
-###### 값 하나를 모델 입력 특징으로
-
-<div class="flow">
-<div class="node">$\tau\in[0,1]$</div>
-<div class="arrow">→</div>
-<div class="node">sinusoidal<br>embedding</div>
-<div class="arrow">→</div>
-<div class="node">MLP</div>
-</div>
-
-<div class="token-row"><span class="token a">$\tau$ 토큰</span><span class="token a">$\mathbf{s}_{t}$</span><span class="token a">$\mathbf{a}^{\tau}_{t:t+H}$ 토큰들</span></div>
-
-변환된 $\tau$ 표현을 A 시퀀스 맨 앞의 한 토큰으로 넣는다. 이 토큰도 다른 A token처럼 attention에 참여한다.
-
-##### 보충
-
-###### 왜 현재 생성 단계가 필요한가?
-
-<span class="label interpretation">직관</span> 노이즈가 많은 후보와 거의 완성된 후보에서 필요한 보정이 다를 수 있다. $\tau$는 모델에 “현재 생성 경로의 어디를 다루는지”를 알려준다.
-
-저자는 joint self-attention을 통해 $\tau$ 신호가 모든 모달리티에 전달될 수 있다고 설명한다. 매 블록의 feature에 affine modulation을 적용하는 **adaLN 방식 대신 in-context token**을 쓰는 선택이다.
-
-<p class="mini">$\tau$ 토큰을 추가하는 것은 미래 행동 한 개를 추가하는 것이 아니다. 물리 시간 t와도 구별한다.</p>
-
-##### 요점
-
-$\tau$는 별도 control knob처럼 밖에서만 쓰이는 값이 아니라, MSAT가 읽는 한 입력 토큰이다.
-
-##### 출처
-
-Sec.2.2 Further Design Choices for MSAT · PDF p.9
-
-##### 발표 메모
-
-원문은 sinusoidal embedding+MLP, A sequence 앞의 single token, joint attention을 통한 모든 modality로의 전파, per-block affine modulation을 사용하지 않는 점을 명시한다. Encoding의 frequency 개수·MLP width·layer 수는 이 문단에서 확정하지 않는다. 이 토큰을 텍스트 숫자 “0.25”를 tokenizer에 입력하는 방식으로 설명하지 않는다. 어느 $\tau$에서 어떤 정보가 얼마나 전파되는지는 추가 해석이나 측정이 필요하다.
-
-#### [S038] RoPE와 행동 순서
-
-<!-- study-meta
-layout: split
-kind: fact
--->
-
-##### 한 문장
-
-행동 토큰의 위치에 따라 Q·K를 회전시켜 attention 점수에 상대 순서를 반영한다.
-
-##### 본문
-
-###### 행동 chunk에도 순서가 있다
-
-<div class="token-row"><span class="token a">$\mathbf{a}_{t}$</span><span class="token a">$\mathbf{a}_{t+1}$</span><span class="token a">$\mathbf{a}_{t+2}$</span><span class="token a">⋯</span></div>
-
-같은 행동 값의 집합이라도 어느 시점에 놓이는지가 중요하다. RLDX-1은 **A stream에 rotary positional embeddings**를 적용해 chunk 안의 상대 시간 구조를 포착하도록 한다.
-
-배경 원전의 직관은 위치 m의 query와 위치 n의 key를 각 위치에 따른 각도로 회전시킨 뒤 서로 비교하는 것이다.
-
-##### 보충
-
-###### 절대 회전에서 상대 위치가 나온다
-
-$$
-\widetilde{\mathbf{q}}_m=\mathbf{R}_m\mathbf{q}_m,\quad\widetilde{\mathbf{k}}_n=\mathbf{R}_n\mathbf{k}_n
-$$
-
-$$
-\begin{aligned}
-\widetilde{\mathbf{q}}_m^{\mathsf T}\widetilde{\mathbf{k}}_n
-&=\mathbf{q}_m^{\mathsf T}\mathbf{R}_{n-m}\mathbf{k}_n
-\end{aligned}
-$$
-
-<p class="eq-caption">RoPE의 원리를 간단히 표현한 배경식. 회전 차이가 n−m을 반영한다.</p>
-
-따라서 attention은 내용과 위치 관계를 함께 읽을 수 있다. RoPE는 행동 토큰을 하나씩 생성하게 만드는 causal mask가 아니며, denoising timestep $\tau$를 나타내는 토큰과도 다르다.
-
-##### 요점
-
-행동 순서를 나타내는 위치 정보와 생성 진행도를 나타내는 $\tau$ 정보는 별개다.
-
-##### 출처
-
-Sec.2.2 Further Design Choices · PDF p.9; 배경: RoFormer Sec.3.2 (arXiv:2104.09864)
-
-##### 발표 메모
-
-배경 원전 https://arxiv.org/html/2104.09864v5 의 Sec.3.2에서 회전 행렬을 이용한 QK의 상대 위치 관계를 확인했다. 식의 R은 동일 frequency 구조에서 $\mathbf{R}_m^{\mathsf T}\mathbf{R}_n=\mathbf{R}_{n-m}$인 rotation operator다. 실제 RoPE는 feature dimension 쌍마다 여러 frequency를 사용한다. 여기서는 RLDX-1의 정확한 frequency/index 배치나 P/C 적용을 추정하지 않고, A stream 적용이라는 원문 범위만 말한다.
-
-#### [S039] RMSNorm과 SwiGLU
-
-<!-- study-meta
-layout: split
-kind: fact
--->
-
-##### 한 문장
-
-정규화는 특징 크기를 조절하고, FFN은 각 토큰 안의 특징을 비선형으로 변환한다.
-
-##### 본문
-
-###### RMSNorm: 평균 제곱 크기로 나누기
-
-$$
-\operatorname{RMS}(\mathbf{x})=\sqrt{\frac{x_1^2+\cdots+x_d^2}{d}}
-$$
-
-각 토큰의 특징 벡터를 RMS 크기에 따라 정규화하고 학습 가능한 scale로 조절한다. LayerNorm과 달리 평균을 빼는 recentering을 생략하는 것이 배경 원전의 핵심이다.
-
-RLDX-1은 RMSNorm을 채택하며 **query와 key에도** 적용한다고 명시한다. 값이 모두 같아지거나 정보 교환 자체를 수행하는 연산은 아니다.
-
-##### 보충
-
-###### SwiGLU: 두 변환을 곱하는 gate
-
-$$
-\begin{aligned}
-\mathbf{g}&=\operatorname{SiLU}(\mathbf{x}W_g)\\
-\mathbf{v}&=\mathbf{x}W_v\\
-\operatorname{FFN}(\mathbf{x})&=(\mathbf{g}\odot\mathbf{v})W_o
-\end{aligned}
-$$
-
-<p class="eq-caption">bias를 생략한 배경용 개념식. $\odot$는 원소별 곱이다.</p>
-
-한 경로의 비선형 값이 다른 경로의 특징을 조절한다. 이 FFN은 토큰마다 특징을 변환하고, attention은 토큰 사이 정보를 교환한다. 보고서는 이 구성 요소를 채택했다고 설명하지만 각각의 독립 성능 이득을 이 문단에서 측정하지 않는다.
-
-##### 요점
-
-RMSNorm·SwiGLU·attention은 블록 안의 서로 다른 역할을 담당한다.
-
-##### 출처
-
-Sec.2.2 Further Design Choices · PDF p.9; 배경: arXiv:1910.07467, arXiv:2002.05202
-
-##### 발표 메모
-
-배경 원전 https://arxiv.org/html/1910.07467v1 의 Sec.4와 https://arxiv.org/html/2002.05202v1 의 Sec.2 식(5)–(6)을 확인했다. RMS 식은 root mean square 정의이며 정규화한 값에 learned gain을 곱하며 구현에 따라 수치 안정화 항을 더한다. 출력 공식 전체 대신 RMS 정의만 표시했다. SwiGLU 식은 bias 생략 개념식이며 $\operatorname{SiLU}(x)=x\operatorname{sigmoid}(x)$인 $\operatorname{Swish}_1$ gate를 쓴다. 실제 RLDX-1 weight 이름이나 FFN width를 명세한 것은 아니다. QK에 RMSNorm을 적용한다는 사실과 구체 shape는 구별한다.
-
-## [P006] Action Model의 행동 생성 원리
-
-<!-- slide-meta
-layout: split
-kind: fact
-source_ids: S020, S021, S022, S023
--->
-
-### 한 문장
-
-Transformer가 조건부 변화율을 학습하고, 노이즈 후보를 정답 행동 쪽으로 이동시킨다.
-
-### 본문
-
-#### 이름보다 역할로 구분하기
-
-| 역할 | 이 논문의 선택 |
-| --- | --- |
-| 신경망 구조 | Transformer 기반 MSAT / DiT |
-| 학습 목표 | flow matching의 velocity 회귀 |
-| 추론 생성 | Euler 방법의 반복 갱신 |
-
-**t**는 실제 로봇 시점, <strong>$\tau$</strong>는 생성 중인 후보를 다듬는 denoising timestep이다.
-
-### 보충
-
-#### 현재 조건 아래 미래 후보를 만든다
-
-$$
-\begin{aligned}
-\mathbf{c}_t&=[\mathbf{h}_t,\mathbf{m}_t,\mathbf{s}_t,\mathbf{p}_t]\\
-\mathbf{a}^{\tau}&=\tau\mathbf{a}+(1-\tau)\boldsymbol{\epsilon}
-\end{aligned}
-$$
-
-h·m은 cognition·memory, s·p는 현재 상태·센서다. <strong>$\mathbf{a}=\mathbf{a}_{t:t+H}$</strong>는 정답 행동 H+1개, $\boldsymbol{\epsilon}$는 같은 shape의 표준 정규 노이즈다.
-
-$$
-\begin{aligned}
-\tau=0&:\;\text{노이즈 }\boldsymbol{\epsilon}\\
-\tau=1&:\;\text{정답 행동 }\mathbf{a}
-\end{aligned}
-$$
-
-### 요점
-
-학습에서는 정답으로 경로를 만들 수 있다. 모델이 배울 것은 그 경로의 변화율이다.
-
-### 출처
-
-Sec.2.2 · PDF p.8; 배경: DiT arXiv:2212.09748, Flow Matching arXiv:2210.02747
-
-### 발표 메모
-
-본문 설명 동안 t:t+H 첨자는 간결하게 생략한다. 물리 신호 p는 사용 가능할 때 조건에 포함한다. Flow matching을 고전 diffusion 손실 다음에 추가하는 두 단계로 설명하지 않는다. Sec.1.1의 $\mathbf{c}_t$는 언어 지시지만 Sec.2.2는 $\mathbf{c}_t$를 전체 conditioning inputs로 다시 쓴다. 이 장은 Sec.2.2의 정의를 따른다.
+P006과 P007을 통합했다. Transformer/DiT는 구조, flow matching은 목표, Euler는 추론 갱신이며 고전 diffusion 손실과 순차 적용하는 두 단계가 아니다. S020–026/S028의 유도·수식·용어·shape 해설을 모두 유지한다. 개별 정답 쌍의 직선 target이 상수라는 것과 학습한 vector field가 모든 입력에서 상수라는 것은 다르다. 현재 조건의 센서는 사용 가능할 때 포함한다. Sec.1.1의 c_t는 지시지만 여기서는 Sec.2.2의 전체 조건 정의다. τ의 정확한 샘플링 분포·구현상 loss reduction을 임의 확정하지 않는다.
 
 ### 상세 공부 기록
 
@@ -2128,66 +1483,6 @@ Sec.2.2의 noisy action 구성식 · PDF p.8
 ##### 발표 메모
 
 숫자는 실험 action이 아닌 설명용이다. 실제 모델의 \[−1,1\] 정규화 범위와 별개인 단순 벡터다. $\mathbf{a}^{\tau}$는 action chunk 전체와 같은 shape다. 이 논문의 $\tau$ 방향은 0의 noise에서 1의 data로 간다. 다른 diffusion 문헌의 time 방향을 그대로 가져오지 않는다. 예시 노이즈의 값이 \[−1,1\]이라고 해서 실제 입력을 uniform \[−1,1\]로 샘플링한다는 뜻은 아니다.
-
-## [P007] Action Model의 학습 수식
-
-<!-- slide-meta
-layout: split
-kind: fact
-source_ids: S024, S025, S026, S028
--->
-
-### 한 문장
-
-선형 경로를 $\tau$로 미분한 $\mathbf{a}-\boldsymbol{\epsilon}$가 정답이며, 무작위 중간 점에서 그 값을 회귀한다.
-
-### 본문
-
-#### Target과 학습 손실
-
-$$
-\begin{aligned}
-\frac{d[\tau\mathbf{a}+(1-\tau)\boldsymbol{\epsilon}]}{d\tau}
-&=\mathbf{a}-\boldsymbol{\epsilon}=\mathbf{v}^{*}
-\end{aligned}
-$$
-
-$$
-\mathcal{L}=\bigl\lVert\mathbf{u}_\theta(\mathbf{a}_{t:t+H}^{\tau},\tau,\mathbf{c}_t)-\mathbf{v}^{*}\bigr\rVert_2^2
-$$
-
-$\mathbf{u}_{\theta}$는 방향과 크기를 가진 **chunk 전체의 변화율**을 출력한다. L2 norm의 제곱은 좌표별 예측 오차 제곱을 합한 값이다.
-
-### 보충
-
-#### 숫자로 읽고, 학습 순서로 연결
-
-<span class="label example">2차원 설명용 예시</span>
-
-$$
-\begin{aligned}
-\mathbf{a}&=[3,-1],\quad\boldsymbol{\epsilon}=[-1,1]\\
-\mathbf{v}^{*}&=[4,-2]
-\end{aligned}
-$$
-
-예측이 \[3.9,−1.8\]이면 오차 제곱의 합은 **0.01+0.04=0.05**다.
-
-학습은 <strong>$\tau$·$\boldsymbol{\epsilon}$ 샘플링 → $\mathbf{a}^{\tau}$ 구성 → 변화율 예측 → 손실·역전파</strong>다. 매 샘플마다 완전한 denoising을 반복해야 하는 목표는 아니다.
-
-### 요점
-
-학습은 무작위 중간 점에서 변화율을 맞히는 일이다. 추론은 그 변화율로 후보를 옮긴다.
-
-### 출처
-
-Sec.2.2 Eq.(1) · PDF p.8; 미분·숫자는 설명용 풀이
-
-### 발표 메모
-
-벡터 숫자는 실험 데이터가 아닌 설명용이며 실제 action 정규화 범위와 별개다. 개별 직선 경로의 target은 상수지만 학습된 neural vector field가 모든 후보에서 같은 상수라는 뜻은 아니다.
-
-### 상세 공부 기록
 
 #### [S024] 변화율의 유도
 
@@ -2446,7 +1741,7 @@ $$
 
 ### 요점
 
-현재 조건과 생성 후보를 분리했다. 다음은 이 입력들을 MSAT 안에서 어떻게 섞는가다.
+변화율 × denoising 간격으로 후보를 갱신한다. 이제 조건과 후보를 MSAT의 입력 토큰으로 배치한다.
 
 ### 출처
 
@@ -2606,3 +1901,466 @@ Sec.2.2 Functionality3: Physical Sensing · PDF p.8; Sec.4.2 · PDF p.13
 ##### 발표 메모
 
 학습은 미래 센서의 정답을 데이터에서 얻는다. 추론에서 초기 future candidate는 noise이고 정답 미래 sensor를 알지 못한다. Sec.4.2는 L=H+1로 설정한다. Action과 physics loss의 정확한 합산 가중치나 센서 좌표별 normalization은 이 문단만으로 확정하지 않는다. Auxiliary objective 단독의 성능 효과는 전체 시스템 비교와 분리해서 보아야 한다. 마지막 문장의 noisy action “C stream” 표기는 S031의 명시적 입력 배치와 불일치하므로 S034에서 다룬다.
+
+## [P009] MSAT의 입력
+
+<!-- slide-meta
+layout: split
+kind: fact
+source_ids: S031, S032, S037, S038
+-->
+
+### 한 문장
+
+C·A·P의 입력 묶음을 구성하고, denoising timestep과 행동의 시간 순서를 알려준다.
+
+### 본문
+
+#### 전체 입력 토큰 구성
+
+<div class="sequence">
+<div class="step"><strong>C:</strong> $[\mathbf{h}_t,\mathbf{m}_t]$<br>현재 cognition · memory</div>
+<div class="step"><strong>A:</strong> $[\mathbf{e}_{\tau},\mathbf{s}_t,\mathbf{a}^{\tau}_{t:t+H}]$<br>τ 토큰 · 현재 상태 · noisy action chunk</div>
+<div class="step"><strong>P:</strong> $[\mathbf{p}_t,\mathbf{p}^{\tau}_{t+1:t+L}]$<br>현재 센서 · noisy 미래 센서 chunk</div>
+</div>
+
+<p class="mini">대괄호는 토큰 묶음을 이어 붙인 개념적 구성이다. 상태·행동·센서값은 projection을 거쳐 입력된다.</p>
+
+### 보충
+
+#### τ 토큰과 행동 위치
+
+**Denoising timestep τ**
+
+$$
+\tau\xrightarrow{\text{sin/cos}}\text{embedding}\xrightarrow{\text{MLP}}\mathbf{e}_{\tau}
+$$
+
+A 맨 앞의 **한 토큰**이다. Joint attention을 통해 다른 stream에도 현재 denoising timestep을 전달한다.
+
+**행동 순서 — RoPE**
+
+A stream의 Q·K에 위치별 회전을 적용해 chunk 안의 상대 시간 관계를 반영한다.
+
+<p class="mini">물리 신호가 없으면 P stream의 attention을 mask할 수 있다.</p>
+
+### 요점
+
+τ는 denoising timestep, t:t+H는 행동 chunk의 물리 시간이다. 두 시간 정보를 구분한다.
+
+### 출처
+
+Sec.2.2 MSAT·Physical Sensing·Further Design Choices · PDF pp.8–9; Fig.3 · PDF p.6
+
+### 발표 메모
+
+앞의 P006/P008에서 정의한 noisy chunk를 세 stream으로 배치한다. 입력은 projection 이후 토큰 묶음의 개념적 구성이며 정확한 tokenization 개수는 단정하지 않는다. e_τ는 인코딩된 timestep 토큰을 설명하기 위한 기호다. 본문의 실제 시간/denoising 구분을 다시 유도하지 않고 τ를 모델에 전달하는 방법에 집중한다. S032의 QKV 연결 해설과 S037/S038의 timestep·RoPE 수식을 보존한다. 과거 P012 링크는 이 장으로 연결한다.
+
+### 상세 공부 기록
+
+#### [S031] P·C·A의 입력 구성
+
+<!-- study-meta
+layout: split
+kind: fact
+-->
+
+##### 한 문장
+
+모달리티를 전용 경로로 처리하되, attention으로 서로 정보를 교환한다.
+
+##### 본문
+
+###### 초기 stream의 역할
+
+| Stream | 개념적 입력 | 내용 |
+| --- | --- | --- |
+| **C** | $[\mathbf{h}_t,\mathbf{m}_t]$ | cognition·memory |
+| **A** | $[\mathbf{s}_t,\mathbf{a}_{t:t+H}^{\tau}]$ | 현재 상태·행동 후보 |
+| **P** | $[\mathbf{p}_t,\mathbf{p}_{t+1:t+L}^{\tau}]$ | 현재 센서·미래 후보 |
+
+$\tau$는 인코딩한 한 토큰으로 A의 앞에 더한다. P는 물리 신호를 사용할 때 추가되는 경로이며, 센서가 없을 때 P attention을 mask할 수 있다.
+
+##### 보충
+
+###### 왜 세 경로로 나누는가?
+
+cognition은 고차원 시각·언어 맥락, state는 저차원이지만 정확한 로봇 운동학 정보, 촉각·토크는 희소하지만 접촉에 중요한 정보다. 원문은 이 **의미와 데이터 규모의 이질성**을 설계 동기로 든다.
+
+이는 각 기능 모듈과 stream이 일대일이라는 뜻이 아니다. Motion과 memory는 VLM·memory module에서 만들어져 C 경로의 입력이 되고, A는 미래 행동을 생성하는 경로다.
+
+<p class="mini">초기 입력 배치는 MSAT 문단을 따른다. Physical Sensing 마지막의 C 표기 불일치는 S034에서 남긴다.</p>
+
+##### 요점
+
+Stream은 입력별 파라미터 경로이며, 기능 모듈 이름과 동일한 분류가 아니다.
+
+##### 출처
+
+Sec.2.2 MSAT·Physical Sensing · PDF p.8; timestep token · PDF p.9; Fig.3 · PDF p.6
+
+##### 발표 메모
+
+P=\[current p, noisy future p\]는 Fig.3의 Current/Noised Future 및 Physical Sensing 문단을 합친 개념적 입력이다. 본문의 개별 tokenization shape는 단정하지 않는다. C/A stream 설명은 MSAT 문단에 명시되어 있다. 괄호나 대괄호를 원소별 덧셈으로 확정하지 않는다. 센서 희소성 때문에 분리가 도움 된다는 의도와 single-stream 대비 독립 실험 근거는 구분한다.
+
+#### [S032] Stream별 QKV
+
+<!-- study-meta
+layout: split
+kind: fact
+-->
+
+##### 한 문장
+
+Normalization과 QKV projection은 stream별로 따로 두고, attention 입력을 공통 공간에 모은다.
+
+##### 본문
+
+###### 같은 연산 종류, 다른 파라미터
+
+$$
+\mathbf{C}\to\operatorname{Norm}_C\to(\mathbf{Q}_C,\mathbf{K}_C,\mathbf{V}_C)
+$$
+
+$$
+\mathbf{A}\to\operatorname{Norm}_A\to(\mathbf{Q}_A,\mathbf{K}_A,\mathbf{V}_A)
+$$
+
+$$
+\mathbf{P}\to\operatorname{Norm}_P\to(\mathbf{Q}_P,\mathbf{K}_P,\mathbf{V}_P)
+$$
+
+각 stream은 자신의 normalization과 attention input projection을 가진다. 공통 attention을 하기 전에도 모달리티에 맞게 표현을 변환할 여지가 있다.
+
+##### 보충
+
+###### 교환을 위해 토큰 축으로 묶기
+
+$$
+\mathbf{Q}=\operatorname{concat}(\mathbf{Q}_C,\mathbf{Q}_A,\mathbf{Q}_P)
+$$
+
+K·V도 같은 순서로 이어 붙인다. Joint attention에서 각 stream의 query는 다른 stream의 key·value를 참고할 수 있다. **정보 교환**과 **전용 파라미터 유지**가 동시에 가능하다.
+
+<p class="callout">QKV를 함께 계산하는 attention 단계와, 후반에 C·A를 한 stream으로 합치는 구조 변경은 별개의 일이다.</p>
+
+<p class="mini">Q는 attention query이며 memory queue $\mathbf{Q}_{t}$와 다르다.</p>
+
+##### 요점
+
+전용 stream은 서로 보지 않는다는 뜻이 아니라, 일부 변환 파라미터를 분리한다는 뜻이다.
+
+##### 출처
+
+Sec.2.2 MSAT 문단 · PDF p.8
+
+##### 발표 메모
+
+원문은 각 stream이 자체 normalization과 attention input QKV projections를 가진다고 명시한다. QKV를 공통 token axis에 붙여 joint attention하고 출력을 분할한다. 식은 원문 연산 순서를 기호로 풀어 쓴 것이며 특정 linear weight 이름이나 정확한 norm 배치를 추가한 구현 명세가 아니다. 입력 stream hidden width와 attention head 수는 이 문단만으로 확정하지 않는다. q는 VLM cognition token, Q는 attention query, $\mathbf{Q}_t$는 memory queue이므로 구별한다.
+
+#### [S037] Denoising timestep 토큰
+
+<!-- study-meta
+layout: split
+kind: fact
+-->
+
+##### 한 문장
+
+$\tau$를 한 토큰으로 인코딩해 A 앞에 붙이고 joint attention으로 다른 경로에도 알린다.
+
+##### 본문
+
+###### 값 하나를 모델 입력 특징으로
+
+<div class="flow">
+<div class="node">$\tau\in[0,1]$</div>
+<div class="arrow">→</div>
+<div class="node">sinusoidal<br>embedding</div>
+<div class="arrow">→</div>
+<div class="node">MLP</div>
+</div>
+
+<div class="token-row"><span class="token a">$\tau$ 토큰</span><span class="token a">$\mathbf{s}_{t}$</span><span class="token a">$\mathbf{a}^{\tau}_{t:t+H}$ 토큰들</span></div>
+
+변환된 $\tau$ 표현을 A 시퀀스 맨 앞의 한 토큰으로 넣는다. 이 토큰도 다른 A token처럼 attention에 참여한다.
+
+##### 보충
+
+###### 왜 현재 생성 단계가 필요한가?
+
+<span class="label interpretation">직관</span> 노이즈가 많은 후보와 거의 완성된 후보에서 필요한 보정이 다를 수 있다. $\tau$는 모델에 “현재 생성 경로의 어디를 다루는지”를 알려준다.
+
+저자는 joint self-attention을 통해 $\tau$ 신호가 모든 모달리티에 전달될 수 있다고 설명한다. 매 블록의 feature에 affine modulation을 적용하는 **adaLN 방식 대신 in-context token**을 쓰는 선택이다.
+
+<p class="mini">$\tau$ 토큰을 추가하는 것은 미래 행동 한 개를 추가하는 것이 아니다. 물리 시간 t와도 구별한다.</p>
+
+##### 요점
+
+$\tau$는 별도 control knob처럼 밖에서만 쓰이는 값이 아니라, MSAT가 읽는 한 입력 토큰이다.
+
+##### 출처
+
+Sec.2.2 Further Design Choices for MSAT · PDF p.9
+
+##### 발표 메모
+
+원문은 sinusoidal embedding+MLP, A sequence 앞의 single token, joint attention을 통한 모든 modality로의 전파, per-block affine modulation을 사용하지 않는 점을 명시한다. Encoding의 frequency 개수·MLP width·layer 수는 이 문단에서 확정하지 않는다. 이 토큰을 텍스트 숫자 “0.25”를 tokenizer에 입력하는 방식으로 설명하지 않는다. 어느 $\tau$에서 어떤 정보가 얼마나 전파되는지는 추가 해석이나 측정이 필요하다.
+
+#### [S038] RoPE와 행동 순서
+
+<!-- study-meta
+layout: split
+kind: fact
+-->
+
+##### 한 문장
+
+행동 토큰의 위치에 따라 Q·K를 회전시켜 attention 점수에 상대 순서를 반영한다.
+
+##### 본문
+
+###### 행동 chunk에도 순서가 있다
+
+<div class="token-row"><span class="token a">$\mathbf{a}_{t}$</span><span class="token a">$\mathbf{a}_{t+1}$</span><span class="token a">$\mathbf{a}_{t+2}$</span><span class="token a">⋯</span></div>
+
+같은 행동 값의 집합이라도 어느 시점에 놓이는지가 중요하다. RLDX-1은 **A stream에 rotary positional embeddings**를 적용해 chunk 안의 상대 시간 구조를 포착하도록 한다.
+
+배경 원전의 직관은 위치 m의 query와 위치 n의 key를 각 위치에 따른 각도로 회전시킨 뒤 서로 비교하는 것이다.
+
+##### 보충
+
+###### 절대 회전에서 상대 위치가 나온다
+
+$$
+\widetilde{\mathbf{q}}_m=\mathbf{R}_m\mathbf{q}_m,\quad\widetilde{\mathbf{k}}_n=\mathbf{R}_n\mathbf{k}_n
+$$
+
+$$
+\begin{aligned}
+\widetilde{\mathbf{q}}_m^{\mathsf T}\widetilde{\mathbf{k}}_n
+&=\mathbf{q}_m^{\mathsf T}\mathbf{R}_{n-m}\mathbf{k}_n
+\end{aligned}
+$$
+
+<p class="eq-caption">RoPE의 원리를 간단히 표현한 배경식. 회전 차이가 n−m을 반영한다.</p>
+
+따라서 attention은 내용과 위치 관계를 함께 읽을 수 있다. RoPE는 행동 토큰을 하나씩 생성하게 만드는 causal mask가 아니며, denoising timestep $\tau$를 나타내는 토큰과도 다르다.
+
+##### 요점
+
+행동 순서를 나타내는 위치 정보와 생성 진행도를 나타내는 $\tau$ 정보는 별개다.
+
+##### 출처
+
+Sec.2.2 Further Design Choices · PDF p.9; 배경: RoFormer Sec.3.2 (arXiv:2104.09864)
+
+##### 발표 메모
+
+배경 원전 https://arxiv.org/html/2104.09864v5 의 Sec.3.2에서 회전 행렬을 이용한 QK의 상대 위치 관계를 확인했다. 식의 R은 동일 frequency 구조에서 $\mathbf{R}_m^{\mathsf T}\mathbf{R}_n=\mathbf{R}_{n-m}$인 rotation operator다. 실제 RoPE는 feature dimension 쌍마다 여러 frequency를 사용한다. 여기서는 RLDX-1의 정확한 frequency/index 배치나 P/C 적용을 추정하지 않고, A stream 적용이라는 원문 범위만 말한다.
+
+## [P010] MSAT의 Joint Attention
+
+<!-- slide-meta
+layout: split
+kind: fact
+source_ids: S033, S034, S039
+-->
+
+### 한 문장
+
+각 stream의 파라미터로 입력을 변환하고, 공통 attention 뒤에는 원래 stream별로 갱신한다.
+
+### 본문
+
+#### 정규화 · projection · 정보 교환
+
+<div class="sequence">
+<div class="step"><strong>Stream별 RMSNorm → QKV projection</strong><br>C·A·P가 각자의 파라미터를 사용한다.</div>
+<div class="step"><strong>Q·K에도 RMSNorm</strong><br>Q·K·V를 각각 토큰 축으로 concat한다.</div>
+<div class="step"><strong>Joint self-attention → 출력 분리</strong><br>다른 stream을 읽어도 query 위치는 유지된다.</div>
+</div>
+
+<p class="mini">RMSNorm은 특징의 크기를 정규화한다. 정보 교환은 attention이 수행한다.</p>
+
+### 보충
+
+#### 예시: C 4개 + A 3개
+
+<div class="token-row"><span class="token c">$C_1$</span><span class="token c">$C_2$</span><span class="token c">$C_3$</span><span class="token c">$C_4$</span><span class="token a">$A_1$</span><span class="token a">$A_2$</span><span class="token a">$A_3$</span></div>
+
+출력 7개 → 앞 4개는 C, 뒤 3개는 A로 돌려보낸다. 실제 모델 shape가 아닌 설명용 예시다.
+
+$$
+\mathbf{C}'=\mathbf{C}+\Delta\mathbf{C},\qquad
+\mathbf{A}'=\mathbf{A}+\Delta\mathbf{A}
+$$
+
+**Residual update:** 보정을 더해 토큰 수를 유지한다.
+
+**SwiGLU FFN:** gate를 사용해 각 토큰 내부의 특징을 비선형으로 변환한다.
+
+### 요점
+
+Stream별 표현을 변환하고, attention으로 정보를 교환한 뒤 각 stream에서 보정한다.
+
+### 출처
+
+Sec.2.2 MSAT · PDF p.8; Further Design Choices · PDF p.9; 질문노트 Q1·Q6
+
+### 발표 메모
+
+P032에서 본 Triple/Double-stream 안의 한 연산 흐름을 확대한다. 그림의 stage 수나 전체 residual·norm 위치를 재구성한 구현도는 아니다. Δ는 residual 보정의 개념 표기다. 후반 C-A concat의 위치는 P032에서 이미 설명했으며 여기서는 반복하지 않는다. Physical Sensing 마지막 noisy actions in C 표기 불일치는 S034와 마지막 미해결 장에 보존한다. RMSNorm/SwiGLU 상세 S039도 유지한다.
+
+### 상세 공부 기록
+
+#### [S033] Joint attention과 출력 shape
+
+<!-- study-meta
+layout: split
+kind: example
+-->
+
+##### 한 문장
+
+C 토큰 4개와 A 토큰 3개를 함께 읽어도, 출력 위치 7개는 그대로 남아 다시 나눌 수 있다.
+
+##### 본문
+
+###### 토큰 수가 보존되는 attention
+
+<span class="label example">P를 생략한 교육용 C4 / A3</span>
+
+| 단계 | shape |
+| --- | --- |
+| C의 Q·K·V | 각 4 × d |
+| A의 Q·K·V | 각 3 × d |
+| 붙인 Q·K·V | 각 7 × d |
+| attention weights | 7 × 7 |
+| attention output | 7 × d |
+
+##### 보충
+
+###### 출력 위치와 읽은 정보는 다르다
+
+<div class="token-row"><span class="token c">$C_1$</span><span class="token c">$C_2$</span><span class="token c">$C_3$</span><span class="token c">$C_4$</span><span class="token a">$A_1$</span><span class="token a">$A_2$</span><span class="token a">$A_3$</span></div>
+
+각 query 위치에 출력 벡터가 하나씩 생긴다. 앞 네 위치는 C로, 뒤 세 위치는 A로 돌려보낸다. C 위치의 출력도 A의 정보를 읽었을 수 있으므로 “C 출력에 C 정보만 있다”는 뜻은 아니다.
+
+**4·3·d**는 원리를 보이는 예시다. 실제 cognition은64 tokens이며, 이 표를 모델의 실제 전체 shape로 읽지 않는다.
+
+##### 요점
+
+Attention은 여러 정보를 섞지만 query 위치를 없애지 않기 때문에 stream별 분할이 가능하다.
+
+##### 출처
+
+Sec.2.2의 joint attention·split 설명 · PDF p.8; shape는 설명용 예시
+
+##### 발표 메모
+
+설명상 single head를 가정하고 Q/K/V의 feature 폭을 같은 d로 두었다. 실제 multi-head의 QK dimension과 V dimension은 다를 수 있고 head concat/projection도 있으므로 이 표가 구현 shape 명세는 아니다. 7×7은 query 7개가 key 7개를 참고하는 관계 수다. Output row는 query row에 대응한다. P stream이 있으면 그 token 수만큼 행도 추가되지만 같은 원리로 원래 길이에 따라 분할할 수 있다.
+
+#### [S034] Residual update와 concat
+
+<!-- study-meta
+layout: split
+kind: fact
+-->
+
+##### 한 문장
+
+한 블록 안의 stream별 덧셈과, 후반 C·A 시퀀스 통합은 서로 다른 연산이다.
+
+##### 본문
+
+###### 초반 블록: 나눠서 다시 더한다
+
+$$
+\text{joint attention}\to[\Delta\mathbf{C},\Delta\mathbf{A},\Delta\mathbf{P}]
+$$
+
+$$
+\begin{aligned}
+\mathbf{C}'&=\mathbf{C}+\Delta\mathbf{C}\\
+\mathbf{A}'&=\mathbf{A}+\Delta\mathbf{A}\\
+\mathbf{P}'&=\mathbf{P}+\Delta\mathbf{P}
+\end{aligned}
+$$
+
+위 식은 원문의 **stream-wise residual update**를 단순화한 개념식이다. 출력 위치를 나눈 후 각 경로의 원래 특징에 보정을 더한다. 이 단계에서는 C와 A의 stream 구분이 계속 남는다.
+
+##### 보충
+
+###### 후반 블록: C와 A를 한 시퀀스로
+
+$$
+\mathbf{X}_{\mathrm{C-A}}=\operatorname{concat}(\mathbf{C}',\mathbf{A}')
+$$
+
+여기서는 토큰 축으로 이어 붙여 후속 단일 C-A 경로에서 처리한다. 원소별로 더해 토큰 수를 줄이는 연산이 아니다.
+
+<p class="callout"><span class="label question">본문 표기 불일치</span> MSAT 문단은 noisy actions를 <strong>A</strong>에 넣지만, Physical Sensing 마지막 문장은 “C stream”이라고 쓴다. 초기 입력은 앞의 명시적 배치를 따르되, 오타인지 별도 의도인지는 확정하지 않는다.</p>
+
+##### 요점
+
+정보 교환 → stream별 residual → 후반 C-A 통합을 구분해야 Fig.3을 정확히 읽을 수 있다.
+
+##### 출처
+
+Sec.2.2 MSAT 및 Physical Sensing 마지막 문장 · PDF p.8; 질문노트 Q1·Q6
+
+##### 발표 메모
+
+Δ 기호는 joint attention 출력을 residual에 더하는 개념적 보정량을 표시한다. 정확한 output projection·MLP 등 모든 세부를 그대로 수식화한 것은 아니다. 원문은 stream별 residual updates를 명시한다. 후반 C-A merge와 초반 QKV concatenation을 같은 “concat” 한 단어로 뭉개지 않는다. 최종 C 표기를 저자의 오타로 단정하지 않고 문서의 서술 불일치로 남긴다.
+
+#### [S039] RMSNorm과 SwiGLU
+
+<!-- study-meta
+layout: split
+kind: fact
+-->
+
+##### 한 문장
+
+정규화는 특징 크기를 조절하고, FFN은 각 토큰 안의 특징을 비선형으로 변환한다.
+
+##### 본문
+
+###### RMSNorm: 평균 제곱 크기로 나누기
+
+$$
+\operatorname{RMS}(\mathbf{x})=\sqrt{\frac{x_1^2+\cdots+x_d^2}{d}}
+$$
+
+각 토큰의 특징 벡터를 RMS 크기에 따라 정규화하고 학습 가능한 scale로 조절한다. LayerNorm과 달리 평균을 빼는 recentering을 생략하는 것이 배경 원전의 핵심이다.
+
+RLDX-1은 RMSNorm을 채택하며 **query와 key에도** 적용한다고 명시한다. 값이 모두 같아지거나 정보 교환 자체를 수행하는 연산은 아니다.
+
+##### 보충
+
+###### SwiGLU: 두 변환을 곱하는 gate
+
+$$
+\begin{aligned}
+\mathbf{g}&=\operatorname{SiLU}(\mathbf{x}W_g)\\
+\mathbf{v}&=\mathbf{x}W_v\\
+\operatorname{FFN}(\mathbf{x})&=(\mathbf{g}\odot\mathbf{v})W_o
+\end{aligned}
+$$
+
+<p class="eq-caption">bias를 생략한 배경용 개념식. $\odot$는 원소별 곱이다.</p>
+
+한 경로의 비선형 값이 다른 경로의 특징을 조절한다. 이 FFN은 토큰마다 특징을 변환하고, attention은 토큰 사이 정보를 교환한다. 보고서는 이 구성 요소를 채택했다고 설명하지만 각각의 독립 성능 이득을 이 문단에서 측정하지 않는다.
+
+##### 요점
+
+RMSNorm·SwiGLU·attention은 블록 안의 서로 다른 역할을 담당한다.
+
+##### 출처
+
+Sec.2.2 Further Design Choices · PDF p.9; 배경: arXiv:1910.07467, arXiv:2002.05202
+
+##### 발표 메모
+
+배경 원전 https://arxiv.org/html/1910.07467v1 의 Sec.4와 https://arxiv.org/html/2002.05202v1 의 Sec.2 식(5)–(6)을 확인했다. RMS 식은 root mean square 정의이며 정규화한 값에 learned gain을 곱하며 구현에 따라 수치 안정화 항을 더한다. 출력 공식 전체 대신 RMS 정의만 표시했다. SwiGLU 식은 bias 생략 개념식이며 $\operatorname{SiLU}(x)=x\operatorname{sigmoid}(x)$인 $\operatorname{Swish}_1$ gate를 쓴다. 실제 RLDX-1 weight 이름이나 FFN width를 명세한 것은 아니다. QK에 RMSNorm을 적용한다는 사실과 구체 shape는 구별한다.

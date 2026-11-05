@@ -1,3 +1,45 @@
+# v07 전체 중복 통합·25장 검증 — 2026-11-05
+
+| 실제 실행 | 확인 결과 |
+| --- | --- |
+| python3 scripts/verify_sources.py | 9개 MD·본문24장+표지1장·121개 상세 매핑·UTF-8·LaTeX·27상태/18화살표 |
+| 통합 전후 단위 SHA-256 대조 | 모든121개 상세 단위 제목·내용 동일; 이동으로만 재배치 |
+| node scripts/verify_deck.mjs | 실제25장 PNG, 넘침0·이미지 실패0·브라우저 오류0·외부요청0; G/N·검색·확대 |
+| node scripts/verify_architecture.mjs | 27상태·4모듈·18화살표·경계·역순·버튼·animation/reduced-motion |
+| node scripts/verify_navigation.mjs | PPT 조작·역방향 경계·통합된5개 과거 링크와 이동된 상세 해설 접근 |
+| node scripts/verify_math_font.mjs | 실제 Nanum Gothic 글리프, KaTeX 분수/norm, 전체 상세 수식 너비 |
+| pnpm build 및 pnpm build --base /rldx-1-seminar/ | 최종 기본/base 빌드 종료0; qa/full-deck/build-v07.log·base-build-v07.log |
+| python3 scripts/package_pages.py 및 node scripts/verify_pages.mjs | 최종 게시용HTML/ZIP 갱신·실제 저장소 하위경로 표시·설명·오류0/외부요청0 |
+| presentation.html/index.html 바이트 비교 | 동일 |
+
+## 직접 검토
+
+원문 PDF7–9·12–13·15–17·28, 중앙 질문노트 및9개MD의 관련 설명을 대조했다. 별도 검토자는 중요한 내용 유실/왜곡이나 흐름 문제를 발견하지 않았으며 P028의 N/T 구분 표기 오타1건을 수정했다. 동일한 결과를 중복해 설명하는 장은 통합하고 원리/검증·기여/의견/미해결 역할을 구분했다.
+
+실제25장 화면의 전체 지도와 P006(학습 수식), P016/P017(학습 경로·기억 설정), P020(두 원문 그림), P028(조건부 이득)을 직접 확인했다. 최초 P017/P028 넘침은 문구를 정리해 해결했으며 글꼴 크기는 줄이지 않았다. 모든 원형 상세 해설은 이전 MD 스냅샷과 내용이 같다.
+
+- 실제PNG: review/previews/deck-v07/ 및 architecture-v07/.
+- 전체지도: review/previews/deck-v07/overview-v07.png.
+- 보존지문/MD: review/versions/before-dedup-v07/.
+- v07은 로컬 검토본이다. 이번 commit/push는 하지 않았다. 브라우저/빌드 검증은 논문 학습·로봇 실험 재현이 아니다.
+
+---
+
+# v06 MSAT 중복 통합 검증 — 2026-11-05
+
+- 원문 PDF p.9: τ의 sinusoidal embedding+MLP·A sequence 앞 단일 토큰, A stream RoPE, RMSNorm(Q·K 포함), SwiGLU 채택을 직접 확인했다.
+- verify_sources.py: 9개 MD, 본문28장+표지1장, S002–S122의121개 단위 각각 한 번,27상태·18화살표 통과.
+- verify_deck.mjs: 실제29장 PNG, 본문 넘침0·이미지 실패0·브라우저 오류0·외부 요청0; G/N·그림 확대·검색 통과.
+- verify_navigation.mjs: PPT 조작·정역순 경계·전체화면 유지, #P012→P009 연결 및 S037/S038/S039 이동 해설 접근 통과.
+- verify_math_font.mjs: 실제 Nanum Gothic 글리프·KaTeX·이동된 해설을 포함한 전체 수식 너비 통과.
+- verify_architecture.mjs: 기존27상태·4모듈·18화살표·경계·정역순 통과.
+- pnpm build, pnpm build --base /rldx-1-seminar/: 종료0. qa/full-deck/build-v06.log·base-build-v06.log.
+- package_pages.py 및 verify_pages.mjs: 게시용3파일 ZIP 갱신; /research_seminars/rldx-1-seminar/ 경로·본문·해설·외부 요청0 확인.
+- 직접 화면 검토: review/previews/deck-v06/P009-v06.png·P010-v06.png. 입력3묶음·τ·RoPE와 normalization/attention/residual/FFN 역할을 각각 한 번 설명한다. 글꼴 크기를 줄이지 않았다.
+- v06은 로컬 검토본이다. commit/push하지 않았으며 결과물 개별 승인은 아직 없다.
+
+---
+
 # Figure 3 네 모듈 v05 검증 — 2026-11-05
 
 실제 기본30개 화면과 P032내부27상태·18화살표를 검증했다.121개 상세 단위는 유지했다. 이전 검증 기록은 review/versions/before-figure3-v05/에 보존한다.

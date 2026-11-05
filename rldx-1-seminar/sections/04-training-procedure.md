@@ -7,38 +7,40 @@
 <!-- slide-meta
 layout: figure balanced
 kind: fact
-source_ids: S056, S057, S058, S059
+source_ids: S056, S057, S058, S059, S036
 figure: fig-06.png
 caption: Figure 6 · 약 1.5M episode의 pool과 별도로 정한 학습 혼합 비중
 -->
 
 ### 한 문장
 
-Pre-training의 공통 경험을 출발점으로 mid·post-training에서 적응 범위를 좁힌다.
+범용 조작을 배우면서 로봇별 전용 경로와 새 로봇 적응용 공통 경로를 함께 학습한다.
 
 ### 본문
 
-#### 세 단계의 역할
+#### 세 단계 학습과 입출력 경로
 
-**Pre:** 다양한 로봇의 조작 → **Mid:** 특정 로봇·기능 확장 → **Post:** 목표 작업 적응.
+**Pre(범용) → Mid(로봇·기능) → Post(작업)** 순서로 적응한다.
 
-Pre-training은 네 프레임을 입력해 flow matching으로 배운다. 로봇별 projection과 함께, batch의 일부 256 trajectory를 공통 projection으로 보내 새 로봇 적응의 초기값을 준비한다.
+**전용 경로:** 로봇별 입력 projection → 공유 MSAT → 로봇별 출력 projection.
+
+**공통 경로:** 매 batch에서 256 trajectory를 로봇 구분 없는 encoder–decoder로 보내 새 로봇 적응의 초기값을 준비한다.
 
 ### 보충
 
-<p class="callout">Figure 6의 원은 학습 혼합 비중, 표는 episode pool 크기다. OXE와 DROID의 비중은 각 25%다.</p>
+<p class="mini">Projection은 상태·행동 공간과 공통 잠재 공간을 연결한다. Fig.6의 원은 샘플링 비중, 표는 episode pool 크기다.</p>
 
 ### 요점
 
-공유 행동 모델과 공통 입출력 경로를 함께 학습해 embodiment 간 경험을 연결한다.
+서로 다른 로봇의 데이터를 공유 본체에 연결했다. 다음은 목표 로봇의 새 기능을 학습한다.
 
 ### 출처
 
-Sec.4–4.1; Fig.6 · PDF pp.12–13
+Sec.2.2 · PDF p.8; Sec.4–4.1 · Fig.6 · PDF pp.12–13
 
 ### 발표 메모
 
-학습 규모·freeze 범위·정규화·padding 설정은 상세 단위에 있다. 다음 장에서 새 기억·센서 모듈을 붙일 때의 적응으로 이어간다.
+기존 P011의 embodiment-specific projection과 S036을 이 장으로 통합했다. 로봇마다 다른 차원의 state/action을 input/output projection으로 공통 공간과 연결한다. 이를 P stream 자체와 동일시하지 않는다. Batch8192 중 무작위256 trajectory를 공통 encoder–decoder에 보내는 설정을 보존한다. Shared module은 leading dimensions에 고정 크기 zero-padding한다. 정확한 dimension 배열은 추가 가정하지 않는다. Pre-training은4프레임·flow matching을 사용하며 freeze/정규화/학습 규모의 상세는 S059에 남긴다. Fig.6 pool와 sampling을 구분한다.
 
 ### 상세 공부 기록
 
@@ -211,6 +213,51 @@ Sec.4.1 · Implementation Details · PDF p.13
 
 상위4층 외 frozen이라는 범위를 action model도 frozen이라는 뜻으로 확대하지 않는다. Percentile normalization의 정확한 clipping 처리 등 원문에 없는 구현 세부를 추가하지 않는다.
 
+#### [S036] 로봇별 입출력 projection
+
+<!-- study-meta
+layout: split
+kind: fact
+-->
+
+##### 한 문장
+
+MSAT의 공통 내부와, 로봇마다 다른 상태·행동 공간을 연결하는 얇은 층을 구별한다.
+
+##### 본문
+
+###### 플랫폼마다 다른 숫자 공간
+
+<div class="sequence">
+<div class="step"><strong>로봇별 input projection</strong><br>해당 로봇의 state·action → 공유 latent space</div>
+<div class="step"><strong>공유 MSAT</strong><br>여러 embodiment가 같은 본체 파라미터를 학습</div>
+<div class="step"><strong>로봇별 output projection</strong><br>공유 표현 → 해당 로봇 공간의 예측 출력</div>
+</div>
+
+관절 수와 end-effector 구성이 달라도 공유 latent space를 통해 하나의 행동 모델로 연결한다.
+
+##### 보충
+
+###### P stream과는 다른 분리 기준
+
+**로봇별 projection:** embodiment 간 입력·출력 공간의 차이를 다룬다.
+
+**P stream:** 물리 센서라는 모달리티를 별도 파라미터 경로에서 다룬다. 로봇 이름별로 C/A/P를 하나씩 정하는 구조가 아니다.
+
+Sec.4.1은 새 embodiment 적응을 위해 별도의 **embodiment-agnostic projection**도 일부 샘플로 학습한다고 설명한다. 공유 MSAT, 로봇별 연결층, 공통 연결층은 각각 다른 요소다.
+
+##### 요점
+
+공유 본체를 유지하면서 로봇 공간을 맞추는 연결층과, 모달리티별 stream을 구분한다.
+
+##### 출처
+
+Sec.2.2 MSAT · PDF p.8; Sec.4.1 Generalization to New Embodiments · PDF p.12
+
+##### 발표 메모
+
+원문은 lightweight embodiment-specific projection을 MSAT input/output에 둔다고 명시한다. Output은 모델 velocity prediction을 해당 action space로 연결하는 맥락이며 직접 위치 목표만 출력한다고 좁히지 않는다. Sec.4.1은 agnostic projection의 input을 leading dimensions에 zero-pad한다고 서술한다. 구체적인 batch의 256 trajectory 설정은 S058에서 다룬다. Franka/ALLEX의 정확한 dimension을 임의로 예시하지 않았다.
+
 ## [P017] Mid-training
 
 <!-- slide-meta
@@ -227,19 +274,24 @@ Mid-training은 ALLEX·Franka 특화와 움직임·기억·물리 센싱의 확�
 
 ### 본문
 
-#### 기능을 추가하고 정렬하기
+#### 기능 추가와 정렬
 
-STSS로 움직임을, cognition queue로 기억을 보강한다. 토크·Franka 촉각을 입력하고 미래 센서도 예측한다.
+STSS·memory·물리 센서를 추가한다. Memory는 과거 cognition **3묶음**을 사용한다.
 
-처음 **2K alignment steps**는 새 파라미터만 학습하고, 이후 전체를 함께 갱신한다. 확장 입력 dropout과 physics의 near-zero 출력 초기화도 쓴다.
+| 로봇 | 저장 간격 / 과거 범위 |
+| --- | --- |
+| ALLEX | 40 / 120 steps |
+| Franka | 16 / 48 steps |
+
+처음 **2K alignment steps**는 새 파라미터만, 이후에는 전체를 함께 학습한다.
 
 ### 보충
 
-<p class="callout">설정별 효과는 미확인이다. Franka 비율 합101%도 임의 보정하지 않는다.</p>
+<p class="mini">확장 입력 dropout·physics near-zero 초기화도 사용한다.</p>
 
 ### 요점
 
-여러 프레임은 pre-training부터 쓰고, 전용 기능 모듈은 mid-training에서 추가한다.
+여러 프레임 입력은 pre-training부터, 전용 기능 모듈은 mid-training에서 추가한다.
 
 ### 출처
 
@@ -247,7 +299,7 @@ Sec.4.2; Fig.7 · PDF p.13; 질문노트 Q10·Q11
 
 ### 발표 메모
 
-ALLEX 실제:합성5:5와 Franka DROID:자체8:2의 역할을 그림과 연결한다. Near-zero가 masking이나 기존 출력의 완전 보존을 뜻하지 않는다는 설명은 상세 단위에 둔다.
+ALLEX 실제:합성5:5와 Franka DROID:자체8:2의 역할을 그림과 연결한다. Near-zero가 masking이나 기존 출력의 완전 보존을 뜻하지 않는다는 설명은 상세 단위에 둔다. Memory의40/120·16/48 설정은 P005의 반복 구조도 대신 여기서 명시한다. 문장 H+1과 queue식 H의 불일치·갱신/초기 부족 처리의 미명세는 P032 상세와 P030에서 다룬다. Fig.7의Franka합101 문제도 마지막 장에 모아 보존한다.
 
 ### 상세 공부 기록
 
@@ -505,7 +557,7 @@ Post-training의 기본은 작업별 모방학습이며, 실패 조건에 맞춰
 
 ### 요점
 
-Post-training이라는 단계 이름만으로 모든 작업에 RL이 적용됐다고 해석하지 않는다.
+작업별 IL과 실패 조건의 추가 시연이 기본이다. 다음은 이를 보완하는 선택적 RL이다.
 
 ### 출처
 
@@ -637,7 +689,7 @@ Critic → advantage labels → policy 학습 → rollout 수집을 반복한다
 
 ### 보충
 
-<p class="callout">곡선은 성공률이 아닌 진행 value다. RECAP은 40 action을 생성해 20개 실행하며, 이는 denoising 횟수와 다르다.</p>
+<p class="callout">Figure 8은 성공률이 아닌 진행 value다. 실제 정책 개선 결과는 뒤의 RL 분석에서 확인한다.</p>
 
 ### 요점
 

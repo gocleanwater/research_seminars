@@ -36,7 +36,7 @@ try{
   await page.locator('#stage').click({position:{x:50,y:30}});
   assert.equal(await page.locator('.architecture-explorer').getAttribute('data-state'),'1');
   for(let i=1;i<tourLength;i++)await page.keyboard.press('ArrowRight');
-  assert.equal(await active(),'P005');
+  assert.equal(await active(),'P006');
   await page.keyboard.press('ArrowLeft');assert.equal(await active(),'P032');
   assert.equal(await page.locator('.architecture-explorer').getAttribute('data-state'),String(tourLength-1));
   for(let i=tourLength-2;i>=0;i--){await page.keyboard.press('ArrowLeft');assert.equal(await page.locator('.architecture-explorer').getAttribute('data-state'),String(i));}
@@ -55,7 +55,26 @@ try{
   await page.waitForFunction(()=>!!document.fullscreenElement);
   await page.keyboard.press('Escape');
   await page.waitForFunction(()=>!document.fullscreenElement);
+  // The merged P012 link resolves to inputs; moved study notes remain searchable.
+  await page.goto(pathToFileURL(path.resolve('presentation.html')).href+'#P012');
+  assert.equal(await active(),'P009');
+  await page.keyboard.press('n');
+  assert.match(await page.locator('#notes-text').innerText(),/상세 해설 S037/);
+  assert.match(await page.locator('#notes-text').innerText(),/상세 해설 S038/);
+  await page.keyboard.press('Escape');await page.keyboard.press('ArrowRight');
+  assert.equal(await active(),'P010');await page.keyboard.press('n');
+  assert.match(await page.locator('#notes-text').innerText(),/상세 해설 S039/);
+  await page.keyboard.press('Escape');
+  assert.equal(await page.locator('.deck-page[data-id="P012"]').count(),0);
+  for (const [oldId,newId,unit] of [['P005','P032','S016'],['P007','P006','S024'],['P011','P016','S036'],['P021','P020','S077']]) {
+    await page.goto(pathToFileURL(path.resolve('presentation.html')).href+'#'+oldId);
+    assert.equal(await active(),newId);
+    if(oldId==='P005') assert.equal(await page.locator('.architecture-explorer').getAttribute('data-scene'),'memory');
+    await page.keyboard.press('n');assert((await page.locator('#notes-text').innerText()).includes('상세 해설 '+unit));
+    await page.keyboard.press('Escape');
+    assert.equal(await page.locator(`.deck-page[data-id="${oldId}"]`).count(),0);
+  }
   assert.deepEqual(errors,[]);
-  fs.writeFileSync('qa/full-deck/navigation-report.json',JSON.stringify({arrows:true,enterBackspace:true,spaceShiftSpace:true,upDownPageKeys:true,homeEnd:true,canvasClick:true,imageZoom:true,buttonFocus:true,tourReverseBoundary:true,dialogsAndModifiers:true,fullscreenEscape:true,errors},null,2));
+  fs.writeFileSync('qa/full-deck/navigation-report.json',JSON.stringify({arrows:true,enterBackspace:true,spaceShiftSpace:true,upDownPageKeys:true,homeEnd:true,canvasClick:true,imageZoom:true,buttonFocus:true,tourReverseBoundary:true,dialogsAndModifiers:true,fullscreenEscape:true,mergedP012Link:true,allMergedLinks:true,movedStudyNotes:true,errors},null,2));
   console.log('PASS: presentation keys/clicks, native buttons, dialogs, and reverse animation boundary.');
 }finally{await browser.close();}

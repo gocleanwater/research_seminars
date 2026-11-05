@@ -2,43 +2,49 @@
 
 원문의 설명·실험 결과, 저자의 해석, 우리의 해석·설명용 예시, 미해결 질문을 구분한다. 저자의 설계 의도나 주장과 실험으로 확인된 결과를 동일시하지 않으며, 미확인 사항과 문서의 표기 불일치는 근거와 함께 남긴다.
 
-## [P020] CUDA Graph
+## [P020] 추론 최적화
 
 <!-- slide-meta
-layout: figure
+layout: split
 kind: fact
-source_ids: S072, S073, S074, S075, S076
-figure: fig-09.png
-caption: Figure 9 · 쪼개진 graph의 launch 비용을 줄이는 static graph capture
+source_ids: S072, S073, S074, S075, S076, S077, S078, S079, S080, S081
 -->
 
 ### 한 문장
 
-관측이 오래되기 전에 응답하려면 계산량뿐 아니라 GPU 호출 비용도 줄여야 한다.
+연산을 제출하는 호출 비용과, 연산 사이 데이터를 옮기는 비용을 서로 다른 수준에서 줄인다.
 
 ### 본문
 
-#### 여러 호출에서 하나의 graph로
+#### 호출 비용 — CUDA Graph
 
-추론 중에도 장면은 변한다. 고정 배포 설정의 RoPE 준비 값·attention mask를 미리 계산하면 graph break를 줄여 forward를 한 CUDA Graph로 포착할 수 있다.
+<figure class="optimization-figure"><img src="/figures/fig-09.png" alt="Figure 9: 분리된 graph 호출과 하나로 포착한 graph의 비교"></figure>
 
-입력에 따른 Q/K·attention 계산은 계속 필요하다. 한 graph에 여러 kernel이 들어가며 denoising도 반복한다.
+고정된 RoPE·mask 준비를 forward 밖으로 옮겨, **한 forward를 하나의 CUDA Graph**로 capture한다.
+
+<p class="mini">실제 Q/K·attention 계산은 계속한다. 한 graph 안에도 여러 kernel이 있으며 denoising도 반복한다.</p>
 
 ### 보충
 
-<p class="callout">Policy·LLM의 prefill은 입력을 함께 처리한다. 출력 토큰 순차 생성과 구분한다.</p>
+#### 메모리 이동 — Kernel Fusion
+
+<figure class="optimization-figure"><img src="/figures/fig-10.png" alt="Figure 10: 분리된 연산의 global-memory 왕복과 fusion의 on-chip 재사용"></figure>
+
+RMSNorm·RoPE·attention 등을 묶어 **중간 Q/K의 저장·재읽기**를 줄인다.
+
+<p class="mini">Memory-bound는 대역폭 병목이다. 일부 경계는 custom kernel로 묶고, 나머지는 Torch Compile을 쓴다.</p>
 
 ### 요점
 
-Graph capture는 행동의 의미보다 GPU에 연산을 제출하는 방식을 바꾼다.
+Graph는 호출 구조를, fusion은 연산 사이 데이터 이동을 바꾼다. 실제 지연 감소는 뒤에서 측정 결과로 확인한다.
 
 ### 출처
 
-Sec.5–5.2; Fig.9 · PDF pp.15–16
+Sec.5 · Figs.9–10 · PDF pp.15–17; App.F · Table7 · PDF p.47
 
 ### 발표 메모
 
-Short prefill에서 chunk를 함께 갱신하되 denoising step은 반복한다. 고정 RoPE 설정 재사용과 실제 Q/K 회전·QK attention을 구별한다.
+기존 P020/P021을 통합하고 S072–081의 graph/kernel/launch, short prefill, compute/memory-bound, compile, FlashAttention, 실제8개kernel 해설을 보존한다. Attention 내부의 FlashAttention 최적화와 주변 연산까지 아우르는 fusion 경계를 구분한다. 여기서는 원리만 설명하고 p50 수치는 P027에서 한 번 읽는다. 그림은 원문이며 클릭하면 원래 크기로 확대된다. Compiler/FlashAttention의 현재 일반 동작까지 확대하지 않고 보고서 workload의 관찰로 한정한다.
 
 ### 상세 공부 기록
 
@@ -257,46 +263,6 @@ Sec.5.2 · Short-Prefill Workload · PDF p.16; Sec.2.2 · PDF p.8
 ##### 발표 메모
 
 Text critic의 autoregressive 숫자 예측과 policy 생성을 섞지 않는다. LLM의 모든 과정이 순차라는 대비를 피한다. 정확한 GPU 병렬 실행 형태나 토큰 수는 확정하지 않고, 보고서의 상대적으로 짧은 attention workload라는 설명을 따른다.
-
-## [P021] Kernel Optimization
-
-<!-- slide-meta
-layout: figure
-kind: fact
-source_ids: S077, S078, S079, S080, S081
-figure: fig-10.png
-caption: Figure 10 · 분리된 kernel의 global-memory 왕복과 fusion의 on-chip 재사용
--->
-
-### 한 문장
-
-Kernel fusion은 빠른 개별 연산들을 연결하는 데이터 흐름까지 함께 최적화한다.
-
-### 본문
-
-#### 계산과 이동의 두 병목
-
-계산 병목의 matmul과 데이터 이동 병목의 RMSNorm·RoPE 등이 섞인다. **Memory-bound**는 대역폭 병목이며 OOM과 다르다.
-
-Compiler의 fusion 경로와 외부 FlashAttention 경계가 남긴 중간 Q/K 저장·재읽기를 줄이도록, profiling한 일부 연산을 직접 묶는다.
-
-### 보충
-
-<p class="callout">RMSNorm → RoPE → Attention을 묶어 중간 결과를 on-chip에 둔다. 나머지는 Torch Compile을 쓴다.</p>
-
-### 요점
-
-Attention 내부 최적화와 주변 연산을 아우르는 fusion은 서로 다른 최적화 경계다.
-
-### 출처
-
-Sec.5.2; Fig.10 · PDF pp.16–17; App.F Table7 · PDF p.47
-
-### 발표 메모
-
-원문 workload에서의 관찰로 한정한다. 실제 8개 custom kernel과 residual·norm·SwiGLU 결합은 상세 단위에 보존한다. 이제 성능 평가에서 어떤 효과가 확인됐는지 살펴본다.
-
-### 상세 공부 기록
 
 #### [S077] Compute-bound와 memory-bound
 

@@ -1,6 +1,6 @@
 # 전체 목차
 
-상태: **페이지 수 제한 없음 / 9개 섹션 MD 편집 원본 / P032 v05 피드백 반영·검증 진행 중 / 결과물 미승인**
+상태: **페이지 수 제한 없음 / 9개 섹션 MD 편집 원본 / v07 전체 중복 통합·25장 구성 / 결과물 미승인**
 업데이트: 2026-11-05
 
 관련 설명을 자연스럽게 연결하되 화살표·단계 설명을 위해 필요한 화면 수를 제한하지 않는다. 본문과 상세 공부 기록은 아홉 `sections/*.md`에서 편집한다. 전체 제작·수정 허가는 개별 장의 결과물 승인과 구분한다.
@@ -12,16 +12,30 @@ Fig.1을 사용하는 표지 뒤에 아래 섹션을 따른다. 섹션명은 영
 | 편집 원본 | 섹션 | 현재 MD에 배치된 ID |
 | --- | --- | --- |
 | [01-problems.md](sections/01-problems.md) | Problems | P002 |
-| [02-rldx-1-architecture.md](sections/02-rldx-1-architecture.md) | RLDX-1 Architecture | P031, P032, P005, P009, P010, P011, P012, P006, P007, P008 |
+| [02-rldx-1-architecture.md](sections/02-rldx-1-architecture.md) | RLDX-1 Architecture | P031, P032, P006, P008, P009, P010 |
 | [03-training-data.md](sections/03-training-data.md) | Training Data | P013, P014, P015 |
 | [04-training-procedure.md](sections/04-training-procedure.md) | Training Procedure | P016, P017, P018, P019 |
-| [05-inference-strategy.md](sections/05-inference-strategy.md) | Inference Strategy | P020, P021 |
+| [05-inference-strategy.md](sections/05-inference-strategy.md) | Inference Strategy | P020 |
 | [06-evaluation-and-analysis.md](sections/06-evaluation-and-analysis.md) | Evaluation and Analysis | P022, P023, P024, P025 |
 | [07-ablation-and-analysis.md](sections/07-ablation-and-analysis.md) | Ablation and Analysis | P026, P027 |
 | [08-conclusion.md](sections/08-conclusion.md) | Conclusion | P029 |
 | [09-my-opinions-and-limitation.md](sections/09-my-opinions-and-limitation.md) | My opinions and limitation | P028, P030 |
 
 Architecture는 Fig.2로 입출력 overview를 보여준 뒤 Fig.3의 전체 구조를 설명한다. Fig.3은 전체 그림을 보여준 뒤 Vision Encoder·VLM·Memory Module·MSAT 네 모듈에 클릭·방향키 기반 확대/복귀와 순차 화살표 설명을 적용한다. 단계 버튼과 좌우 방향키로 전진·후진하며 기존 PPT 조작을 유지한다. Flow matching·학습·추론 수식은 별도 장에서 다룬다. 장 ID와 화면 순서는 분리하고, 새 설명을 추가할 때 기존 ID의 의미를 바꾸지 않는다.
+
+## v07 통합·흐름
+
+- Architecture: Fig.2 → Fig.3 네 모듈 → 후보·학습 변화율(P006) → 추론 갱신(P008) → 입력 토큰(P009) → 내부 연산(P010).
+- Data: 공급원(P013) → 생성 변형(P014) → 라벨·검증(P015). Training: 공통/전용 projection과 Pre(P016) → Mid(P017) → IL Post(P018) → 선택적 RECAP(P019).
+- Inference: Graph·Kernel의 서로 다른 비용을 한 장(P020)에서 비교한다. Evaluation·Ablation에서는 실제 성과와 지표를 읽는다.
+- Conclusion → PEFT/BoN 조건에 대한 의견 → 미해결 명세·후속 검증으로 마친다.
+- 이전 P005/P007/P011/P021은 통합되었고 P012의 v06 통합을 유지한다. 기본25장·27개Fig.3상태·121개 상세 단위다. 통합표는 review/DEDUPLICATION.md.
+
+이하 v06 및 v05 기록은 당시 결정의 이력이며 현재 장 배치는 위 표를 따른다.
+
+## v06 MSAT 통합
+
+입력 P009 → joint attention·블록 연산 P010 → 후반 stream 구성 P011로 구성한다. P012의 τ·RoPE는 P009, RMSNorm·SwiGLU는 P010에 통합한다. 상세 S037·S038·S039는 각각 해당 장에 보존한다. 기본29장으로 정리하며 장수 축소 자체를 목표로 하지 않는다.
 
 ## P032 v05 반영 계획 — 진행 중
 

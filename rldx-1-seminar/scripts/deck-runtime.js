@@ -205,11 +205,21 @@ document.querySelector('#stage').addEventListener('click', event => {
   if (target?.closest('button,a,input,textarea,select,[contenteditable="true"],figure,img,canvas,svg,.architecture-explorer')) return;
   advance();
 });
-addEventListener('hashchange', () => { const i = DECK.findIndex(s => s.id === location.hash.slice(1)); if (i >= 0) show(i, false); });
+// Preserve links to explanations that were merged during the slide review.
+const MERGED_SLIDES = {P005:'P032', P007:'P006', P011:'P016', P012:'P009', P021:'P020'};
+function showFromHash() {
+  const requested = location.hash.slice(1);
+  const id = MERGED_SLIDES[requested] || requested;
+  const index = DECK.findIndex(s => s.id === id);
+  if (index < 0) return false;
+  show(index);
+  if (requested === 'P005') renderTour(ARCH_TOUR.focus.memory);
+  return true;
+}
+addEventListener('hashchange', showFromHash);
 addEventListener('resize', fit);
 addEventListener('beforeprint', () => pages.forEach((_, i) => hydrate(i)));
 window.deckShow = show;
 window.deckData = DECK;
 fit();
-const initial = DECK.findIndex(s => s.id === location.hash.slice(1));
-show(initial >= 0 ? initial : 0);
+if (!showFromHash()) show(0);
