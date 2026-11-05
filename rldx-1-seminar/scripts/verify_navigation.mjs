@@ -103,7 +103,7 @@ try{
   assert.match(await page.locator('#notes-text').innerText(),/상세 해설 S039/);
   await page.keyboard.press('Escape');
   assert.equal(await page.locator('.deck-page[data-id="P012"]').count(),0);
-  for (const [oldId,newId,unit] of [['P005','P032','S016'],['P007','P006','S024'],['P011','P016','S036'],['P021','P020','S077']]) {
+  for (const [oldId,newId,unit] of [['P005','P032','S016'],['P007','P006','S024'],['P011','P036','S036'],['P021','P038','S077']]) {
     await page.goto(pathToFileURL(path.resolve('presentation.html')).href+'#'+oldId);
     assert.equal(await active(),newId);
     if(oldId==='P005') assert.equal(await page.locator('.architecture-explorer').getAttribute('data-scene'),'memory');
@@ -116,6 +116,9 @@ try{
   for(const id of ['P010','P006','P008','P013']){await page.keyboard.press('ArrowRight');assert.equal(await active(),id);}
   // Public and in-house data come between the overview and synthetic augmentation.
   for(const id of ['P033','P034','P014']){await page.keyboard.press('ArrowRight');assert.equal(await active(),id);}
+  // Purpose first, then each training stage; graph and fused-kernel explanations stay separate.
+  await show('P035');
+  for(const id of ['P016','P036','P017','P018','P019','P037','P020','P038','P039','P022']){await page.keyboard.press('ArrowRight');assert.equal(await active(),id);}
   assert.deepEqual(errors,[]);
   fs.writeFileSync('qa/full-deck/navigation-report.json',JSON.stringify({pageJump:true,pageJumpResetsTour:true,pageJumpValidation:true,pageJumpEscape:true,arrows:true,enterBackspace:true,spaceShiftSpace:true,upDownPageKeys:true,homeEnd:true,canvasClick:true,imageZoom:true,buttonFocus:true,tourReverseBoundary:true,dialogsAndModifiers:true,fullscreenEscape:true,mergedP012Link:true,allMergedLinks:true,movedStudyNotes:true,errors},null,2));
   console.log('PASS: presentation keys/clicks, native buttons, dialogs, and reverse animation boundary.');

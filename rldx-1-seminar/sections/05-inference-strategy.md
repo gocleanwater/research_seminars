@@ -2,49 +2,49 @@
 
 원문의 설명·실험 결과, 저자의 해석, 우리의 해석·설명용 예시, 미해결 질문을 구분한다. 저자의 설계 의도나 주장과 실험으로 확인된 결과를 동일시하지 않으며, 미확인 사항과 문서의 표기 불일치는 근거와 함께 남긴다.
 
-## [P020] 추론 최적화
+## [P020] CUDA Graph
 
 <!-- slide-meta
-layout: split
+layout: figure balanced
 kind: fact
-source_ids: S072, S073, S074, S075, S076, S077, S078, S079, S080, S081
+source_ids: S072, S073, S074, S075
+figure: fig-09.png
+caption: Figure 9 · 위: 여러 graph launch / 아래: 한 CUDA Graph launch
 -->
 
 ### 한 문장
 
-연산을 제출하는 호출 비용과, 연산 사이 데이터를 옮기는 비용을 서로 다른 수준에서 줄인다.
+고정된 배포 설정의 RoPE·mask 준비값을 미리 계산해, 반복할 forward를 하나의 그래프로 캡처한다.
 
 ### 본문
 
-#### 호출 비용 — CUDA Graph
+#### 왜 설정값이 필요한가?
 
-<figure class="optimization-figure"><img src="/figures/fig-09.png" alt="Figure 9: 분리된 graph 호출과 하나로 포착한 graph의 비교"></figure>
+토큰 수·위치 배치·서로 볼 수 있는 범위에 따라 **RoPE 위치값과 attention mask의 구조**가 정해진다.
 
-고정된 RoPE·mask 준비를 forward 밖으로 옮겨, **한 forward를 하나의 CUDA Graph**로 capture한다.
+#### 배포 후 고정된 설정이라면?
 
-<p class="mini">실제 Q/K·attention 계산은 계속한다. 한 graph 안에도 여러 kernel이 있으며 denoising도 반복한다.</p>
+같은 설정으로 반복 추론하므로 필요한 준비값도 같다. **사전에 계산해 재사용**할 수 있다.
+
+#### 그래서 Figure 9는?
+
+설정 의존 준비 계산을 forward 밖으로 옮긴다. 쪼개졌던 forward 전체를 **하나의 CUDA Graph**로 캡처해 한 번에 실행한다.
 
 ### 보충
 
-#### 메모리 이동 — Kernel Fusion
 
-<figure class="optimization-figure"><img src="/figures/fig-10.png" alt="Figure 10: 분리된 연산의 global-memory 왕복과 fusion의 on-chip 재사용"></figure>
-
-RMSNorm·RoPE·attention 등을 묶어 **중간 Q/K의 저장·재읽기**를 줄인다.
-
-<p class="mini">Memory-bound는 대역폭 병목이다. 일부 경계는 custom kernel로 묶고, 나머지는 Torch Compile을 쓴다.</p>
 
 ### 요점
 
-Graph는 호출 구조를, fusion은 연산 사이 데이터 이동을 바꾼다. 실제 지연 감소는 뒤에서 측정 결과로 확인한다.
+설정이 고정된 준비값을 재사용해 graph break를 줄이고, 반복적인 launch 비용을 줄인다.
 
 ### 출처
 
-Sec.5 · Figs.9–10 · PDF pp.15–17; App.F · Table7 · PDF p.47
+Sec.5.1 · Fig.9 · PDF pp.15–16; 공부 기록 S074–S075
 
 ### 발표 메모
 
-기존 P020/P021을 통합하고 S072–081의 graph/kernel/launch, short prefill, compute/memory-bound, compile, FlashAttention, 실제8개kernel 해설을 보존한다. Attention 내부의 FlashAttention 최적화와 주변 연산까지 아우르는 fusion 경계를 구분한다. 여기서는 원리만 설명하고 p50 수치는 P027에서 한 번 읽는다. 그림은 원문이며 클릭하면 원래 크기로 확대된다. Compiler/FlashAttention의 현재 일반 동작까지 확대하지 않고 보고서 workload의 관찰로 한정한다.
+사용자 정정에 따라 왜 고정할 수 있는지부터 설명한다. 토큰 수·위치·허용 관계는 configuration 의존성을 이해하기 위한 구체적 풀이이며 모든 모델의 모든 배포에서 항상 동일하다는 뜻은 아니다. 이 보고서에서는 고정 배포 설정의 일부 RoPE·mask 준비가 Torch Compile에서 완전히 정리되지 않아 graph가 분할된다고 서술한다. 사전 준비값과 관측에 따라 바뀌는 hidden states·Q/K·attention 결과는 다르다. CUDA Graph 하나에 여러 kernel이 들어갈 수 있으며 한 graph로 캡처한다는 것을 전체 denoising 반복을 한 arithmetic 연산으로 바꾼 것으로 설명하지 않는다.
 
 ### 상세 공부 기록
 
@@ -221,6 +221,52 @@ Fig.9; Sec.5.1 · PDF pp.15–16
 
 원문의 한 forward pass를 single CUDA Graph로 capture하고 추론 step마다 한 번 호출한다는 서술을 유지한다. 이 그림만으로 denoising loop 전체의 포착 범위를 확대 해석하지 않는다. Kernel 내부 메모리 이동 최적화는 다음 절의 별도 과제다. 그림의 빈 간격은 수치 계산량보다 실행 제출 과정의 비효율에 초점을 둔다.
 
+## [P038] Kernel Fusion
+
+<!-- slide-meta
+layout: figure balanced
+kind: fact
+source_ids: S076, S077, S078, S079, S081
+figure: fig-10.png
+caption: Figure 10 · (a) 중간 결과를 저장·재읽기 / (b) fused kernel 안에서 계산
+-->
+
+### 한 문장
+
+RMSNorm·RoPE·Attention을 하나의 fused GPU kernel 안에서 이어 계산해 중간 메모리 왕복을 줄인다.
+
+### 본문
+
+#### (a) 따로 계산하면
+
+RMSNorm 계산 → 결과를 **global memory에 저장** → 다음 kernel이 읽기 → RoPE 계산 → 다시 저장·읽기 → Attention.
+
+#### (b) 하나의 fused kernel이면
+
+필요한 입력을 읽고, **중간 결과를 on-chip에서 이어 사용**하며 끝까지 계산한 뒤 최종 출력을 저장한다.
+
+#### 직관
+
+중간 답을 매번 메모리에 적었다가 다시 꺼내는 대신, **한 계산 흐름 안에서 계속 사용하는 방식**이다.
+
+### 보충
+
+
+
+### 요점
+
+한 fused kernel 실행 안에서 연산을 이어 수행한다. 핵심은 중간 결과의 저장·재읽기를 줄이는 것이다.
+
+### 출처
+
+Sec.5.2 · Fig.10 · PDF pp.16–17; App.F Table7 · PDF p.47
+
+### 발표 메모
+
+사용자가 지적한 공부 당시의 저장·재읽기와 합성함수 직관을 복원했다. 수학적 함수가 같다는 것과 물리적 실행 경로가 달라진다는 것을 다음 수식 장에서 비교한다. Figure10은 fusion 대상 block의 입력 load/최종 store를 말하며 전체 모델의 모든 메모리를 한 번만 읽는다는 뜻은 아니다. 중간값은 없어지는 것이 아니라 on-chip에서 재사용한다. 보고서는 compute ordering과 on-chip reuse도 함께 설계하며 실제 custom kernel 목록은 S081에 보존한다. Kernel fusion과 CUDA Graph capture를 같은 의미로 쓰지 않는다.
+
+### 상세 공부 기록
+
 #### [S076] Short prefill과 autoregressive 생성
 
 <!-- study-meta
@@ -396,45 +442,6 @@ Sec.5.2 · Fixed Fusion Path · PDF p.16; Fig.10 · PDF p.16
 
 FlashAttention 내부의 tiling이나 IO complexity 등 추가 주장은 이 장에서 다루지 않고 RLDX-1 보고서 설명에 한정한다. 최신 compiler나 FlashAttention API의 일반 동작을 설명하는 장이 아니다.
 
-#### [S080] Kernel fusion: 중간 메모리 왕복 줄이기
-
-<!-- study-meta
-layout: figure
-kind: fact
-figure: fig-10.png
-caption: Figure 10 · 연산 분리의 global-memory 왕복과 fusion의 on-chip 재사용
--->
-
-##### 한 문장
-
-정규화·위치 적용·attention을 묶으면 중간 Q/K를 global memory에 반복 저장하지 않아도 된다.
-
-##### 본문
-
-###### Figure 10의 데이터 흐름
-
-**(a) 별도 kernel:** RMSNorm 결과 저장 → 재읽기 → RoPE 결과 저장 → 재읽기 → attention.
-
-**(b) fused kernel:** 필요한 입력을 읽고 중간 tensor를 on-chip에 유지하며 계산한 뒤 최종 출력을 저장한다.
-
-핵심은 같은 수학 연산 사이의 불필요한 메모리 왕복을 줄이는 것이다.
-
-##### 보충
-
-<p class="mini">그림은 fusion 대상 block의 개념도다. 모델 전체의 모든 tensor를 한 번만 읽는다는 뜻은 아니다.</p>
-
-##### 요점
-
-Kernel fusion은 계산의 연결 순서와 중간 결과의 저장 위치를 함께 최적화한다.
-
-##### 출처
-
-Fig.10; Sec.5.2 · PDF pp.16–17
-
-##### 발표 메모
-
-원문은 on-chip reuse와 compute ordering도 함께 설계한다고 설명한다. 입력 한 번·출력 한 번이라는 그림은 fusion 대상 block 기준이다. Cache·메모리 트래픽의 정확한 계측값을 새로 주장하지 않는다. RMSNorm·RoPE·attention 결합은 Table 7의 fused\_llm\_attention에 연결한다.
-
 #### [S081] 실제 custom kernel 목록
 
 <!-- study-meta
@@ -478,3 +485,97 @@ Sec.5.2 · PDF pp.16–17; App.F Table7 · PDF p.47
 ##### 발표 메모
 
 Table 7의 총 8개 kernel을 모두 반영했다. $h_{\mathrm{ds}}$가 더해지는 add3는 별도의 세 번째 입력으로만 설명하고 그 의미를 추가 확정하지 않는다. grouped\_swiglu는 $y_1=\operatorname{SwiGLU}(z_1)$, $y_2=\operatorname{SwiGLU}(z_2)$를 함께 처리한다. fused\_mlp\_swiglu의 표는 SwiGLU를 수동 kernel로 실행함을 나타낸다. 개별 kernel의 속도 배수는 이 표에 없다.
+
+## [P039] Kernel Fusion의 계산
+
+<!-- slide-meta
+layout: split
+kind: fact
+source_ids: S080
+-->
+
+### 한 문장
+
+N=RMSNorm, R=RoPE로 두면, 같은 계산을 중간 결과 저장 방식에 따라 다르게 실행할 수 있다.
+
+### 본문
+
+#### 별도 kernel로 단계마다 계산
+
+$$
+\begin{aligned}
+\mathbf q_N&=N(\mathbf q),\quad \mathbf k_N=N(\mathbf k)\\
+\mathbf q_R&=R(\mathbf q_N),\quad \mathbf k_R=R(\mathbf k_N)\\
+\mathbf o&=\operatorname{Attn}(\mathbf q_R,\mathbf k_R,\mathbf v)
+\end{aligned}
+$$
+
+**첫 줄 계산 → 저장·재읽기 → 둘째 줄 계산 → 저장·재읽기 → 셋째 줄 계산**
+
+수학 문제의 중간 답을 매번 적어두고 다음 단계에서 다시 꺼내 쓰는 것과 같다.
+
+### 보충
+
+#### 한 fused kernel에서 합성함수처럼
+
+$$
+\mathbf o=\operatorname{Attn}
+\bigl(R(N(\mathbf q)),R(N(\mathbf k)),\mathbf v\bigr)
+$$
+
+입력을 읽은 뒤 **정규화 → 위치 회전 → Attention**을 한 kernel 안에서 이어 계산한다.
+
+<p class="callout">중간 답을 global memory에 따로 내보내지 않고, kernel 안에서 이어 사용한 뒤 최종 답을 저장한다.</p>
+
+### 요점
+
+계산할 수학적 값은 같고, 중간값을 global memory에 저장·다시 읽는 실행 방식이 달라진다.
+
+### 출처
+
+Fig.10 · PDF p.16; N·R 약자와 합성함수 비교는 공부 내용을 풀어쓴 설명
+
+### 발표 메모
+
+N(x)=RMSNorm(x), R(x)=RoPE(x)이며 q/k에 각각 적용한다. 이 수식은 Fig10의 의미를 읽기 위한 비교이고, 수식을 중첩해 적기만 하면 compiler가 자동으로 fused kernel을 보장한다는 뜻은 아니다. 실제로는 보고서가 설계한 custom kernel이 on-chip reuse와 compute ordering으로 같은 계산을 수행한다. RoPE의 위치 인자는 간결함을 위해 생략했다.
+
+### 상세 공부 기록
+
+#### [S080] Kernel fusion: 중간 메모리 왕복 줄이기
+
+<!-- study-meta
+layout: figure
+kind: fact
+figure: fig-10.png
+caption: Figure 10 · 연산 분리의 global-memory 왕복과 fusion의 on-chip 재사용
+-->
+
+##### 한 문장
+
+정규화·위치 적용·attention을 묶으면 중간 Q/K를 global memory에 반복 저장하지 않아도 된다.
+
+##### 본문
+
+###### Figure 10의 데이터 흐름
+
+**(a) 별도 kernel:** RMSNorm 결과 저장 → 재읽기 → RoPE 결과 저장 → 재읽기 → attention.
+
+**(b) fused kernel:** 필요한 입력을 읽고 중간 tensor를 on-chip에 유지하며 계산한 뒤 최종 출력을 저장한다.
+
+핵심은 같은 수학 연산 사이의 불필요한 메모리 왕복을 줄이는 것이다.
+
+##### 보충
+
+<p class="mini">그림은 fusion 대상 block의 개념도다. 모델 전체의 모든 tensor를 한 번만 읽는다는 뜻은 아니다.</p>
+
+##### 요점
+
+Kernel fusion은 계산의 연결 순서와 중간 결과의 저장 위치를 함께 최적화한다.
+
+##### 출처
+
+Fig.10; Sec.5.2 · PDF pp.16–17
+
+##### 발표 메모
+
+원문은 on-chip reuse와 compute ordering도 함께 설계한다고 설명한다. 입력 한 번·출력 한 번이라는 그림은 fusion 대상 block 기준이다. Cache·메모리 트래픽의 정확한 계측값을 새로 주장하지 않는다. RMSNorm·RoPE·attention 결합은 Table 7의 fused\_llm\_attention에 연결한다.

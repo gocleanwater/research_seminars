@@ -229,7 +229,7 @@ document.querySelector('#stage').addEventListener('click', event => {
   advance();
 });
 // Preserve links to explanations that were merged during the slide review.
-const MERGED_SLIDES = {P005:'P032', P007:'P006', P011:'P016', P012:'P009', P021:'P020'};
+const MERGED_SLIDES = {P005:'P032', P007:'P006', P011:'P036', P012:'P009', P021:'P038'};
 function showFromHash() {
   const requested = location.hash.slice(1);
   const id = MERGED_SLIDES[requested] || requested;

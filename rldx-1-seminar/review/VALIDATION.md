@@ -209,3 +209,19 @@ MD의 ‘조작 경험을,’ 직후에 명시적 br를 넣었다. Chrome의 표
 - 보존 검증: 121개 상세 단위의 제목·내용은 태그 버전과 바이트 단위로 동일하다(바깥 공백 제외). S042만 P034로 옮겼으며, 나머지도 각각 정확히 한 번 연결된다. 전체27장, Fig.3은 기존27상태·18화살표다.
 - 실제 검증: verify_sources.py; verify_deck.mjs(27장 PNG, 넘침/이미지실패/오류/외부요청0); verify_architecture.mjs; verify_navigation.mjs(새 순서와 추가 장 사이의 이동 포함); verify_math_font.mjs; 기본/base빌드; verify_slidev.mjs(27장 오류0); package_pages.py; verify_pages.mjs. 최종 소스 EOF 공백 정리 전후 HTML SHA256이 동일하다. git diff --check 및 세HTML동일성 확인.
 - PNG: review/previews/deck-v11/P013-v11.png, P033-v11.png, P034-v11.png. 세 장을 직접 확인했다. 변경 요청과 개별 결과물 승인은 구분하며 사용자 검토 전이다. 최신 지시에 따라 main과 보존 태그를 push한다. Pages 반영 완료는 별도 확인하지 않았다.
+
+## 2026-11-06 / v12 / 학습 목적·Fig.6/8·Graph/Fusion 설명 복원
+
+- 사용자 피드백6건: 단계별 학습 목적과 IL/RL의 적용 맥락을 먼저 설명하고, Pre의 Fig.6 분포·episode 수, Mid의 필요성, RECAP 절차·Fig.8을 보강할 것. 추론은 공부했던 고정 설정의 사전 준비와 합성함수/중간 메모리 왕복 직관으로 설명할 것.
+- 확인한 근거: 기존 학습/추론 MD(S056–081, S036), 중앙 질문노트 Q3·Q10·Q11, 원문 PDF pp.12–16·43. 앞선 채팅의5절 설명 기록도 대조했다. 원문 사실과 역할 비유·함수 약자는 각 장의 출처/메모에서 구분한다.
+- P035 학습 단계: Pre=범용 기본기, Mid=목표 로봇 특화+새 기능, Post=작업별 IL 및 필요한 고난도 작업의 RL 보완. 원문에 없는 자동 전환 상태·성공률 임계값은 만들지 않는다.
+- P016: Fig.6의8개 데이터별episode와sampling비중을 옮겼다. OXE870K/25%, DROID92K/25%, Galaxea114K/10%, AgiBotG239K/10%, AgiBotH36K/5%, ActionNet30K/10%, Everyday9K/5%, Synthetic150K/10%. Pool약1.5M과sampling100%를 구분한다.
+- P036: 기존 projection·공통256trajectories 설명을 보존하는 별도 장이다. P017은 왜 로봇/센서 적응이 필요한지와 세 기능·혼합 비율·2K alignment 순서를 설명한다. Memory간격/범위·dropout/near-zero 상세는 기존 S060–064에 남긴다.
+- P018: 작업별IL→배치→실패 조건의 추가 시연이 기본이며 고차원 제어·정밀 접촉과 시연 수집 부담 때문에 선택적 RECAP을 보완한다. ALLEX 전구 RL 사례는 Sec.6.5에 연결한다.
+- P019: policy/critic의 별도 역할, value→advantage labels, rollout 누적·성공 subset critic 학습·전체 relabel·policy 갱신을 설명한다. P037은 Fig.8의축/색/(a)첫성공/(b)실패·재시도·회복을 해석한다. value를 성공률로 바꾸거나 미기재 advantage 식을 추가하지 않는다.
+- P020: 토큰/위치/허용관계 같은 설정 의존성→고정 배포의 반복 준비값→사전 계산/재사용→분할 해소/한CUDA Graph 캡처의 인과 설명을 복원했다. 이 준비와 입력마다 바뀌는 Q/K 계산은 상세 해설에서 구분한다.
+- P038/P039: Fig.10의 별도kernel 저장·재읽기와 한fused kernel의on-chip연속계산을 비교한다. N=RMSNorm,R=RoPE로 단계식과 Attn(R(N(q)),R(N(k)),v) 합성함수식을 나란히 설명한다. 하나의kernel이 하나의단순산술식이나 모델전체의1회메모리접근이라는 뜻으로 확대하지 않는다.
+- 보존: 기본32장으로5장 추가. 상세121개 내용은 변경 전 태그 rldx-v11-before-training-inference-20261106(eba946c)와 동일하다(바깥 공백 제외). 소유 장만 재배치했다. P011→P036, P021→P038로 기존 링크의 의미와 검색/N 해설을 유지했다.
+- 검증: verify_sources.py; verify_deck.mjs(32PNG, 넘침/이미지실패/오류/외부요청0); verify_architecture.mjs(27상태); verify_navigation.mjs(새학습/추론순서·기존/퇴역링크·페이지입력); verify_math_font.mjs(실제Arial/한글fallback·모든해설수식); 기본/base빌드; verify_slidev.mjs(32장); package_pages.py; verify_pages.mjs. 세HTML동일성·git diff --check 확인.
+- PNG: review/previews/deck-v12/P035-v12.png, P016-v12.png, P036-v12.png, P017-v12.png, P018-v12.png, P019-v12.png, P037-v12.png, P020-v12.png, P038-v12.png, P039-v12.png를 직접 확인했다. 최초 배치의 넘침은 문장/배치를 고쳐 해결했고 글꼴 크기를 줄이지 않았다.
+- 사용자 결과물 검토 전이다. 최신 자동게시 지시에 따라 변경과보존태그를commit·push한다. 실제Pages배포완료는 별도 확인하지 않았다.

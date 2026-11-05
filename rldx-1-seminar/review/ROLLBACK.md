@@ -1,5 +1,15 @@
 # v11 변경 전 버전과 복구
 
+## v12 변경 전 버전
+
+- 태그: `rldx-v11-before-training-inference-20261106`
+- 커밋: `eba946c` — MSAT 먼저·공개/자체 데이터 보강,27장
+- 이후 v12: 학습 단계 개요·입출력 경로·Fig.8 설명·kernel 원리·합성함수 비교를 분리해32장
+
+이전 버전은 `git switch -c codex/review-rldx-v11 rldx-v11-before-training-inference-20261106`으로 별도 브랜치에서 확인하고 `git switch main`으로 돌아온다. 공개 복구는 아래와 같이 변경 커밋을 검토한 뒤 revert·검증·push한다.
+
+## v11 변경 전 버전
+
 2026-11-06 사용자 요청에 따라 순서·데이터 설명을 바꾸기 전 상태를 보존했다.
 
 - Git 태그: `rldx-v10-before-order-data-20261106`

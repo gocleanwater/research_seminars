@@ -2,45 +2,42 @@
 
 원문의 설명·실험 결과, 저자의 해석, 우리의 해석·설명용 예시, 미해결 질문을 구분한다. 저자의 설계 의도나 주장과 실험으로 확인된 결과를 동일시하지 않으며, 미확인 사항과 문서의 표기 불일치는 근거와 함께 남긴다.
 
-## [P016] Pre-training
+## [P035] 학습 단계
 
 <!-- slide-meta
-layout: figure balanced
+layout: full
 kind: fact
-source_ids: S056, S057, S058, S059, S036
-figure: fig-06.png
-caption: Figure 6 · 약 1.5M episode의 pool과 별도로 정한 학습 혼합 비중
+source_ids: S056
 -->
 
 ### 한 문장
 
-범용 조작을 배우면서 로봇별 전용 경로와 새 로봇 적응용 공통 경로를 함께 학습한다.
+조작의 기본기 → 목표 로봇·기능 적응 → 실제 작업 적응의 순서로 학습 목적을 구체화한다.
 
 ### 본문
 
-#### 세 단계 학습과 입출력 경로
-
-**Pre(범용) → Mid(로봇·기능) → Post(작업)** 순서로 적응한다.
-
-**전용 경로:** 로봇별 입력 projection → 공유 MSAT → 로봇별 출력 projection.
-
-**공통 경로:** 매 batch에서 256 trajectory를 로봇 구분 없는 encoder–decoder로 보내 새 로봇 적응의 초기값을 준비한다.
+<div class="flow">
+<div class="node"><h3>Pre-training</h3><strong>“여러 로봇으로 기본기”</strong><p>다양한 몸체·장면·작업에서 범용 조작 정책을 배운다.</p></div>
+<div class="node"><h3>Mid-training</h3><strong>“이 로봇의 몸과 감각”</strong><p>ALLEX·Franka에 특화하고 움직임·기억·센서 기능을 더한다.</p></div>
+<div class="node"><h3>Post-training</h3><strong>“이 작업을 실제로”</strong><p>작업별 시연으로 IL을 수행하고 필요한 고난도 작업에 RL을 보완한다.</p></div>
+</div>
+<p class="callout"><strong>Post의 흐름:</strong> 시연 → IL 정책 → 실행·실패 관찰 → 추가 시연·재학습.<br>정밀한 접촉·고차원 제어로 시연 수집이 어려운 작업에는 RECAP 기반 RL을 추가한다.</p>
 
 ### 보충
 
-<p class="mini">Projection은 상태·행동 공간과 공통 잠재 공간을 연결한다. Fig.6의 원은 샘플링 비중, 표는 episode pool 크기다.</p>
+
 
 ### 요점
 
-서로 다른 로봇의 데이터를 공유 본체에 연결했다. 다음은 목표 로봇의 새 기능을 학습한다.
+세 단계는 학습 목적의 구분이다. Post-training의 기본은 IL이고, RL은 선택적인 보완이다.
 
 ### 출처
 
-Sec.2.2 · PDF p.8; Sec.4–4.1 · Fig.6 · PDF pp.12–13
+Sec.4–4.3 · PDF pp.12–15
 
 ### 발표 메모
 
-기존 P011의 embodiment-specific projection과 S036을 이 장으로 통합했다. 로봇마다 다른 차원의 state/action을 input/output projection으로 공통 공간과 연결한다. 이를 P stream 자체와 동일시하지 않는다. Batch8192 중 무작위256 trajectory를 공통 encoder–decoder에 보내는 설정을 보존한다. Shared module은 leading dimensions에 고정 크기 zero-padding한다. 정확한 dimension 배열은 추가 가정하지 않는다. Pre-training은4프레임·flow matching을 사용하며 freeze/정규화/학습 규모의 상세는 S059에 남긴다. Fig.6 pool와 sampling을 구분한다.
+따옴표는 함께 공부한 역할을 직관적으로 풀어쓴 설명이다. 모든 benchmark가 동일한 모든 단계와 RL을 필수로 거친다는 뜻은 아니다. 원문은 대부분 실험에 작업별 IL을 채택하고, 어려운 dexterous manipulation에 RL refinement를 보완한다고 설명한다. IL 성능이 특정 수치 아래면 RL로 전환한다는 임계값이나 자동 전환 규칙은 기재하지 않는다.
 
 ### 상세 공부 기록
 
@@ -87,6 +84,57 @@ Sec.4.1–4.3 · PDF pp.12–15
 
 세 단계의 역할 지도이며 모든 benchmark가 동일하게 모든 단계·모듈·RL을 사용한다는 뜻은 아니다. 사전학습 모델의 benchmark fine-tuning과 mid-trained real-world 기능 평가 조건은 평가 파트에서 구분한다.
 
+## [P016] Pre-training
+
+<!-- slide-meta
+layout: split
+kind: fact
+source_ids: S057, S059
+-->
+
+### 한 문장
+
+다양한 로봇의 조작 경험에서, 새 로봇·작업 적응의 출발점이 될 범용 정책을 학습한다.
+
+### 본문
+
+#### Figure 6 읽기
+
+<figure class="optimization-figure"><img src="/figures/fig-06.png" alt="Figure 6: Pre-training sampling 비중과 데이터별 episode pool"></figure>
+
+**원 그래프 = 학습 샘플링 비중**<br>
+**표의 episode 수 = 준비된 데이터 pool**
+
+OXE 870K와 DROID 92K는 보유량이 다르지만,<br>
+학습에서는 <strong>둘 다 25%</strong>씩 뽑는다.
+
+### 보충
+
+<table class="chunk-symbols" aria-label="Figure 6 학습 데이터별 episode 수와 sampling 비중"><thead><tr><th>데이터</th><th>Episode</th><th>비중</th></tr></thead><tbody>
+<tr><td>OXE</td><td>870K</td><td>25%</td></tr>
+<tr><td>DROID</td><td>92K</td><td>25%</td></tr>
+<tr><td>Galaxea</td><td>114K</td><td>10%</td></tr>
+<tr><td>AgiBot (G)</td><td>239K</td><td>10%</td></tr>
+<tr><td>AgiBot (H)</td><td>36K</td><td>5%</td></tr>
+<tr><td>ActionNet</td><td>30K</td><td>10%</td></tr>
+<tr><td>Everyday</td><td>9K</td><td>5%</td></tr>
+<tr><td>합성 GR-1</td><td>150K</td><td>10%</td></tr>
+</tbody></table>
+
+### 요점
+
+약 1.5M episode의 pool을 정해진 비중으로 sampling한다. 보유량과 학습 비중은 다르다.
+
+### 출처
+
+Sec.4.1 · Fig.6 · PDF pp.12–13; G=gripper, H=hand, K=1,000 episodes
+
+### 발표 메모
+
+Fig.6의 색상·범례·표를 원문과 직접 대조했다. OXE25/DROID25/Galaxea10/AgiBotG10/AgiBotH5/ActionNet10/Everyday5/Synthetic10이며 합계100%다. 표에 적힌 pool 크기는870/92/114/239/36/30/9/150K이고 합계1,540K로 그림의 약1.5M과 대응한다. Section3의 원시 데이터셋 규모와 Figure6의 실제 corpus 규모를 섞지 않는다. 합성 GR-1 150K는 휴머노이드 데이터 부족을 보완하기 위해 포함한다. 공통·로봇별 projection은 다음 P036으로 옮겼고 세부 학습 설정은 S059에 보존한다.
+
+### 상세 공부 기록
+
 #### [S057] Pre-training 데이터 혼합
 
 <!-- study-meta
@@ -123,6 +171,100 @@ Fig.6; Sec.4.1 · PDF pp.12–13
 ##### 발표 메모
 
 Figure 6 표: OXE 870K, DROID 92K, Galaxea 114K, AgiBot(G) 239K, AgiBot(H) 36K, ActionNet 30K, Humanoid Everyday 9K, Synthetic 150K, 전체 약 1.5M. 실제 그림 범례를 대조한 학습 혼합 비중: OXE 25%, DROID 25%, Galaxea 10%, AgiBot(G) 10%, AgiBot(H) 5%, ActionNet 10%, Humanoid Everyday 5%, Synthetic 10%. 본문 소개의 원시 데이터 규모와 실제 corpus 수를 구분한다. 비중을 episode 수의 비율로 덮어쓰지 않는다.
+
+#### [S059] Pre-training 설정을 읽는 법
+
+<!-- study-meta
+layout: split
+kind: fact
+-->
+
+##### 한 문장
+
+시간 문맥·정규화·학습 가능한 범위·학습 규모를 서로 다른 설정으로 읽는다.
+
+##### 본문
+
+###### 입력과 정규화
+
+<div class="token-row"><span class="token c">$t-6$</span><span class="token c">$t-4$</span><span class="token c">$t-2$</span><span class="token c">$t$</span></div>
+
+현재 기준 네 프레임을 사용한다. State와 action은 데이터셋별 **1st·99th percentile**을 이용해 $[-1,1]$로 정규화한다.
+
+VLM backbone은 위쪽 네 층을 제외하고 고정한다. 여러 프레임 입력은 이 단계부터 존재한다.
+
+##### 보충
+
+###### 학습 규모
+
+- 100K steps · global batch 8,192
+- AdamW · 학습률 $10^{-4}$
+- 처음 5% linear warmup 후 일정 학습률
+- 64 × NVIDIA H200 · 약 195시간
+
+<p class="mini">논문의 학습 보고값이며, 이 발표에서 재현한 결과가 아니다. 프레임 offset은 timestep 단위이며 초 단위로 임의 환산하지 않는다.</p>
+
+##### 요점
+
+영상 시간 문맥은 pre-training부터, 전용 움직임 모듈은 mid-training부터 추가된다.
+
+##### 출처
+
+Sec.4.1 · Implementation Details · PDF p.13
+
+##### 발표 메모
+
+상위4층 외 frozen이라는 범위를 action model도 frozen이라는 뜻으로 확대하지 않는다. Percentile normalization의 정확한 clipping 처리 등 원문에 없는 구현 세부를 추가하지 않는다.
+
+## [P036] 로봇별 입출력 경로
+
+<!-- slide-meta
+layout: split
+kind: fact
+source_ids: S058, S036
+-->
+
+### 한 문장
+
+로봇마다 다른 상태·행동 차원을 공통 MSAT에 연결하면서, 새 로봇 적응의 초기값도 준비한다.
+
+### 본문
+
+#### 로봇별 전용 경로
+
+<div class="sequence">
+<div class="step">로봇별 state·action 형식</div>
+<div class="step">전용 input projection → 공유 MSAT</div>
+<div class="step">전용 output projection → 로봇의 행동</div>
+</div>
+
+**직관:** 로봇마다 다른 입출력 규격을 공통 특징 공간에 맞추는 변환기다.
+
+### 보충
+
+#### 새 로봇을 위한 공통 경로
+
+로봇 구분 없이 쓰는 **embodiment-agnostic encoder–decoder**도 함께 학습한다.
+
+매 batch에서 무작위 **256 trajectories**를 이 공통 경로로 보낸다.
+
+입력의 일부 차원을 고정 크기로 zero-padding한다.
+
+<p class="callout">여러 몸체를 경험한 공통 변환기를 새 로봇 fine-tuning의 출발점으로 사용한다.</p>
+
+### 요점
+
+Projection은 서로 다른 로봇과 공유 모델을 연결한다. P stream에만 붙는 센서 모듈이 아니다.
+
+### 출처
+
+Sec.2.2 · PDF p.8; Sec.4.1 · PDF pp.12–13
+
+### 발표 메모
+
+기존 P016의 입출력 경로 설명을 별도 장으로 보존했다. 원문은 매 batch에서256 trajectories를 공통 encoder-decoder로 보낸다고 하며 전체 corpus가256개라는 뜻이 아니다. 전용 경로를 공통 경로로 대체하거나 동일 sample의 이중 학습 순서를 임의로 추가하지 않는다. Shared module의 정확한 padding 축 배열은 명시된 leading dimensions를 넘어 확정하지 않는다.
+
+### 상세 공부 기록
 
 #### [S058] 공통 projection과 256개 trajectory
 
@@ -168,50 +310,6 @@ Sec.4.1 · PDF pp.12–13
 ##### 발표 메모
 
 원문 문구는 randomly sample256 trajectories for each batch and route them through shared encoder-decoder. Batch8192와 trajectory256의 단위를 그대로 유지하며 전체 corpus256개로 해석하지 않는다. Shared module이 zero-padding에 사용하는 정확한 차원 배치는 이 문단만으로 추가 확정하지 않는다.
-
-#### [S059] Pre-training 설정을 읽는 법
-
-<!-- study-meta
-layout: split
-kind: fact
--->
-
-##### 한 문장
-
-시간 문맥·정규화·학습 가능한 범위·학습 규모를 서로 다른 설정으로 읽는다.
-
-##### 본문
-
-###### 입력과 정규화
-
-<div class="token-row"><span class="token c">$t-6$</span><span class="token c">$t-4$</span><span class="token c">$t-2$</span><span class="token c">$t$</span></div>
-
-현재 기준 네 프레임을 사용한다. State와 action은 데이터셋별 **1st·99th percentile**을 이용해 $[-1,1]$로 정규화한다.
-
-VLM backbone은 위쪽 네 층을 제외하고 고정한다. 여러 프레임 입력은 이 단계부터 존재한다.
-
-##### 보충
-
-###### 학습 규모
-
-- 100K steps · global batch 8,192
-- AdamW · 학습률 $10^{-4}$
-- 처음 5% linear warmup 후 일정 학습률
-- 64 × NVIDIA H200 · 약 195시간
-
-<p class="mini">논문의 학습 보고값이며, 이 발표에서 재현한 결과가 아니다. 프레임 offset은 timestep 단위이며 초 단위로 임의 환산하지 않는다.</p>
-
-##### 요점
-
-영상 시간 문맥은 pre-training부터, 전용 움직임 모듈은 mid-training부터 추가된다.
-
-##### 출처
-
-Sec.4.1 · Implementation Details · PDF p.13
-
-##### 발표 메모
-
-상위4층 외 frozen이라는 범위를 action model도 frozen이라는 뜻으로 확대하지 않는다. Percentile normalization의 정확한 clipping 처리 등 원문에 없는 구현 세부를 추가하지 않는다.
 
 #### [S036] 로봇별 입출력 projection
 
@@ -261,45 +359,47 @@ Sec.2.2 MSAT · PDF p.8; Sec.4.1 Generalization to New Embodiments · PDF p.12
 ## [P017] Mid-training
 
 <!-- slide-meta
-layout: figure
+layout: figure balanced
 kind: fact
 source_ids: S060, S061, S062, S063, S064
 figure: fig-07.png
-caption: Figure 7 · 로봇별 데이터 혼합과 새 입력의 자체 데이터 supervision
+caption: Figure 7 · 목표 로봇별 혼합: ALLEX 실제·합성, Franka DROID·자체
 -->
 
 ### 한 문장
 
-Mid-training은 ALLEX·Franka 특화와 움직임·기억·물리 센싱의 확장을 함께 수행한다.
+범용 정책을 ALLEX·Franka의 전문가로 적응시키고, 움직임·장기 기억·물리 센싱 기능을 통합한다.
 
 ### 본문
 
-#### 기능 추가와 정렬
+#### 왜 추가 학습이 필요한가?
 
-STSS·memory·물리 센서를 추가한다. Memory는 과거 cognition **3묶음**을 사용한다.
+범용 정책을 **목표 로봇·센서에 맞춘다.**
 
-| 로봇 | 저장 간격 / 과거 범위 |
-| --- | --- |
-| ALLEX | 40 / 120 steps |
-| Franka | 16 / 48 steps |
+- **Motion:** vision encoder에 STSS 추가
+- **Memory:** 과거 cognition 3묶음 활용
+- **Physics:** ALLEX 토크 / Franka 토크·촉각
 
-처음 **2K alignment steps**는 새 파라미터만, 이후에는 전체를 함께 학습한다.
+**학습 혼합:** ALLEX 실제:합성 **5:5**,<br>
+Franka DROID:자체 **8:2**.
+
+<p class="callout"><strong>첫 2K:</strong> 기존 고정, 새 파라미터만 학습<br><strong>이후:</strong> 전체 파라미터 함께 학습</p>
 
 ### 보충
 
-<p class="mini">확장 입력 dropout·physics near-zero 초기화도 사용한다.</p>
+
 
 ### 요점
 
-여러 프레임 입력은 pre-training부터, 전용 기능 모듈은 mid-training에서 추가한다.
+자체 데이터는 새 기능을 가르치고, 큰 데이터 공급원은 기존의 폭넓은 조작 경험을 유지한다.
 
 ### 출처
 
-Sec.4.2; Fig.7 · PDF p.13; 질문노트 Q10·Q11
+Sec.4.2 · Fig.7 · PDF p.13; 질문노트 Q10·Q11
 
 ### 발표 메모
 
-ALLEX 실제:합성5:5와 Franka DROID:자체8:2의 역할을 그림과 연결한다. Near-zero가 masking이나 기존 출력의 완전 보존을 뜻하지 않는다는 설명은 상세 단위에 둔다. Memory의40/120·16/48 설정은 P005의 반복 구조도 대신 여기서 명시한다. 문장 H+1과 queue식 H의 불일치·갱신/초기 부족 처리의 미명세는 P032 상세와 P030에서 다룬다. Fig.7의Franka합101 문제도 마지막 장에 모아 보존한다.
+Mid-training의 두 명시적 목적은 embodiment specialization과 functionality expansion이다. 여러 프레임 입력은 pre-training부터 사용하며 STSS 모듈은 mid-training에서 추가한다. 자체 데이터만이 새 memory·torque·Franka tactile 입력의 supervision을 제공한다. ALLEX는 합성72K와5:5, Franka는 DROID92K와자체8:2다. Figure7의Franka합101 문제는 S061과 미해결 장에 보존한다. Memory40/120·16/48, dropout0.3, physics near-zero 초기화의 설정과 해석은 S060–064에 보존한다. 2K warmup은 mid-training 시작에 prepend하며 매 batch마다 반복하지 않는다. 새 모듈을 기존 표현에 먼저 적응시킨다는 직관과 독립 ablation 근거는 구분한다.
 
 ### 상세 공부 기록
 
@@ -525,47 +625,43 @@ source_ids: S065, S066
 
 ### 한 문장
 
-Post-training의 기본은 작업별 모방학습이며, 실패 조건에 맞춰 시연을 추가한다.
+실제 목표 작업에는 시연 기반 IL을 먼저 적용하고, 어려운 정밀 조작에는 RL로 추가 개선한다.
 
 ### 본문
 
-#### Base data: 일관성과 다양성
+#### 기본: 작업별 IL
 
-작업을 접근·잡기·이동·놓기 같은 동작으로 나누고 시연 시나리오를 정한다.
+<strong>“이 작업에서 어떻게 움직이는지”</strong>를 시연으로 가르친다. 논문의 대부분 실험이 이 방식이다.
 
-<div class="compare">
-<div><strong>고정할 축</strong>
-<p>잡는 자세·경로·순서</p></div>
-<div><strong>변화시킬 축</strong>
-<p>물체 위치·자세·초기 상태</p></div>
+<div class="sequence">
+<div class="step">작업별 시연 수집 → IL 정책 학습</div>
+<div class="step">실제 실행 → 실패 조건 확인</div>
+<div class="step">부족한 조건의 시연 추가 → 재학습</div>
 </div>
 
-일관된 state–action 구조 안에 필요한 변화를 담아 제한된 시연을 수집한다.
+예: 새 물체 위치에서 실패하면 시연의 공간 범위를 넓힌다.
 
 ### 보충
 
-#### Refinement: 실패를 다음 수집으로
+#### 보완: 언제 RL을 쓰는가?
 
-<div class="sequence">
-<div class="step">시연으로 학습 → 실제 작업에 배치</div>
-<div class="step">실패 조건 관찰 → 추가 시연 → 재학습</div>
-</div>
+휴머노이드의 **높은 자유도·큰 행동 공간**, 복잡한 물체의 **정밀 접촉**은 좋은 시연을 충분히 모으기 어렵다.
 
-예를 들어 새 물체 위치에서 실패하면 시연의 공간 범위를 넓힌다.
+이런 까다로운 dexterous manipulation에서 시연 기반 학습을 넘어 개선하기 위해 **RECAP 기반 RL refinement**를 추가한다.
 
-<p class="callout">대부분 실험은 IL을 쓴다. 일부 어려운 조작에서 RECAP 기반 RL을 보완적으로 추가한다.</p>
+<p class="callout"><strong>예: ALLEX 전구 돌리기.</strong><br>IL로 기본 동작을 익힌 뒤, 실행 경험과 critic 평가로 추가 개선한다.</p>
 
 ### 요점
 
-작업별 IL과 실패 조건의 추가 시연이 기본이다. 다음은 이를 보완하는 선택적 RL이다.
+IL이 기본이며 실패 조건의 추가 시연을 반복한다. RL은 고난도 작업에 선택적으로 더한다.
 
 ### 출처
 
-Sec.4.3 · Adaptive Data Collection/RL · PDF pp.14–15
+Sec.4.3 · PDF pp.14–15; ALLEX 전구 RL 사례: Sec.6.5 · PDF pp.25–26
 
 ### 발표 메모
 
-시연 추가 수집과 다음 장의 policy rollout 수집을 구분한다. 고정·변화 축은 원문 예시이며 모든 작업에 적용되는 절대 규칙은 아니다.
+Base 수집의 고정/변화 축과 refinement 프로토콜은 S065–066에 보존한다. RL을 모든 Post-training의 필수 단계로 설명하지 않는다. 어떤 특정 상태나 성공률 임계치가 RL 전환을 자동 결정한다고 만들지 않는다. 원문이 제공하는 선택 이유는 고차원 행동 공간·정밀 접촉·고품질 시연 수집의 어려움이다. 추가 teleoperation 시연을 모으는 IL refinement와 policy rollout을 모으는 RECAP을 구별한다.
 
 ### 상세 공부 기록
 
@@ -668,40 +764,51 @@ Sec.4.3 · Adaptive Data Collection · PDF p.14
 ## [P019] RECAP
 
 <!-- slide-meta
-layout: figure balanced
+layout: split
 kind: fact
-source_ids: S067, S068, S069, S070, S071
-figure: fig-08.png
-caption: Figure 8 · 정규화 value가 진행·실패·회복을 따라가는 두 사례
+source_ids: S067, S068, S070, S071
 -->
 
 ### 한 문장
 
-별도 Gemma critic의 숫자 텍스트 value를 활용해 RECAP의 policy 개선을 반복한다.
+행동을 만드는 policy와 진행을 평가하는 critic을 분리하고, 새 실행 경험으로 반복 개선한다.
 
 ### 본문
 
-#### 평가 → 학습 → 새 경험
+#### 두 모델의 역할
 
-**Critic**은 Gemma3-4b-it으로 value를 숫자 텍스트로 예측한다. 행동을 만드는 Qwen 기반 RLDX-1과 별도 모델이다.
+**Policy — RLDX-1**<br>
+관측·지시를 보고 다음 행동을 생성한다.
 
-Critic → advantage labels → policy 학습 → rollout 수집을 반복한다. 성공 데이터로 critic을 갱신한다. 정확한 advantage label 식은 미기재다.
+**Critic — 별도 Gemma3-4b-it**<br>
+“현재 작업이 얼마나 진행됐는가?”를 **숫자 텍스트 value**로 예측한다.
+
+이 평가에서 **advantage labels**를 만들어 policy 학습에 사용한다.
+
+<p class="mini">Advantage는 행동이 기대보다 얼마나 유리했는지에 대한 직관이다. 보고서의 정확한 label 식은 미기재다.</p>
 
 ### 보충
 
-<p class="callout">Figure 8은 성공률이 아닌 진행 value다. 실제 정책 개선 결과는 뒤의 RL 분석에서 확인한다.</p>
+#### 먼저 학습하고, 경험을 추가한다
+
+<div class="sequence">
+<div class="step"><strong>시연으로 critic 학습</strong><br>value → advantage labels → policy 학습</div>
+<div class="step"><strong>현재 policy로 실제 rollout 수집</strong><br>새 경험을 기존 데이터에 합친다.</div>
+<div class="step"><strong>성공 trajectory로 critic 갱신</strong><br>전체 데이터의 labels를 다시 생성한다.</div>
+<div class="step"><strong>새 labels로 policy 재학습</strong></div>
+</div>
 
 ### 요점
 
-실패·회복을 읽는 critic과 행동을 만드는 policy를 분리하고, 새 데이터로 함께 개선한다.
+Critic이 행동을 직접 내리는 것이 아니라, critic이 만든 학습 신호로 policy를 개선한다.
 
 ### 출처
 
-Sec.4.3; Fig.8 · PDF pp.14–15; App.C Algorithm1 · PDF p.43
+Sec.4.3 · PDF pp.14–15; App.C Algorithm 1 · PDF p.43
 
 ### 발표 메모
 
-Figure 8은 첫 성공과 재시도 성공 사례다. 모든 작업의 critic 정확도를 입증하는 실험으로 확대하지 않는다. 반복마다 전체 누적 데이터의 advantage를 다시 부여한다.
+Algorithm1 초기: Train V on D_l, A←V(D_l), Train π with A. 반복: D_l∪rollout, 누적 중 성공 subset으로 critic 갱신, 전체 advantage 재부여, policy 갱신. Critic은 RLDX-1의 Qwen VLM을 공유하는 모델이 아니며 Gemma3-4b-it 별도 backbone을 사용한다. AppendixC critic은 성공시연만으로1epoch, LoRA r128을 사용한다. Policy40개 생성·앞20개 실행·재호출 설정은 S071에 보존한다. 일반 RL의 Q−V 등을 이 보고서의 실제 label 구현 식으로 추가하지 않는다. 다음 Fig8은 critic의 value가 실제 진행·실패·회복을 읽는지 보는 예시다.
 
 ### 상세 공부 기록
 
@@ -792,45 +899,6 @@ Sec.4.3 · PDF pp.14–15; App.C Algorithm1 · PDF p.43; 질문노트 Q3
 ##### 발표 메모
 
 일반 RL의 $Q-V$ 식이나 RECAP 원전의 세부식을 이 보고서가 명시한 것처럼 넣지 않는다. 이 장은 직관을 위한 개념 구분이다. Algorithm 1의 $A\leftarrow V(D_l)$는 label 생성 과정을 요약하지만, 현재 PDF 안에서 정확한 수식은 제공하지 않는다.
-
-#### [S069] 숫자 텍스트 critic과 Figure 8
-
-<!-- study-meta
-layout: figure
-kind: fact
-figure: fig-08.png
-caption: Figure 8 · 큐브 pick-and-place의 정규화 value: 첫 성공과 실패 후 회복
--->
-
-##### 한 문장
-
-기존 LM의 숫자 토큰을 활용한 값 예측이, 예시 trajectory의 실패와 회복을 더 잘 따라간다.
-
-##### 본문
-
-###### 그래프에서 읽을 것
-
-**(a) 첫 시도 성공:** text prediction critic의 값이 진행에 따라 더 단조롭게 증가한다.
-
-**(b) 재시도 후 성공:** 실패 때 하락하고 회복할 때 상승하는 변화를 더 잘 반영한다.
-
-비교 대상은 새 예측 head를 쓰는 distributional critic이다.
-
-##### 보충
-
-<p class="callout">그림은 정규화 value다. 실제 출력은 정규화 전 정수 텍스트이며, 성공률이 아니다.</p>
-
-##### 요점
-
-예시 곡선은 progress 추정의 정성적 근거이며 모든 작업에서의 우월성을 보장하지 않는다.
-
-##### 출처
-
-Fig.8 · PDF p.14; Sec.4.3 · PDF p.15; App.C · PDF p.43
-
-##### 발표 메모
-
-원문은 native number tokens와 text interface 재사용으로 기존 지식을 활용하고 적은 데이터에 적응할 수 있다고 주장한다. Figure 8 두 사례만으로 전반적인 calibration이나 정확도를 정량 확정하지 않는다. Distributional critic의 수학적 분포 설계는 이 그림 설명만으로 추가하지 않는다. x축은 로봇 timestep이며 denoising $\tau$가 아니다.
 
 #### [S070] RECAP: 수집·재평가·정책 갱신
 
@@ -924,3 +992,89 @@ App.C · Policy Training/Inference · PDF p.43; Sec.2.2 · PDF p.8
 ##### 발표 메모
 
 RTC의 구체적인 overlap/inpainting 알고리즘은 이 보고서 내 설명 밖이므로 추가하지 않는다. ALLEX mid-training 40, Franka mid-training 16, ALLEX IDM20 등과 조건을 구분한다. Memory queue가 실행20개마다 갱신되는지는 미해결이며 여기서 추론하지 않는다.
+
+## [P037] Critic과 Figure 8
+
+<!-- slide-meta
+layout: figure balanced
+kind: fact
+source_ids: S069
+figure: fig-08.png
+caption: Figure 8 · 초록: text prediction critic / 파랑: distributional critic
+-->
+
+### 한 문장
+
+큐브 pick-and-place의 진행·실패·회복이 critic의 값 변화에 반영되는지 비교한다.
+
+### 본문
+
+#### 축과 색의 의미
+
+**가로축:** 로봇 timestep<br>
+**세로축:** 정규화한 value
+
+#### (a) 첫 시도에 성공
+
+초록 곡선은 작업이 진행됨에 따라 비교적 꾸준히 증가한다.
+
+#### (b) 실패 후 재시도에 성공
+
+실패 때 내려가고, 재시도·회복 때 다시 올라가는 변화를 초록 곡선이 더 잘 반영한다.
+
+### 보충
+
+<p class="mini">저자의 예시 해석이다. 숫자 텍스트로 출력한 값을 정규화한 그림이며 성공률 곡선이 아니다.</p>
+
+### 요점
+
+좋은 critic은 최종 성공뿐 아니라 중간의 진행·실패·회복도 평가해야 한다는 예시다.
+
+### 출처
+
+Fig.8 · PDF p.14; Sec.4.3 · PDF p.15; App.C · PDF p.43
+
+### 발표 메모
+
+Text critic은 새 예측 head를 처음부터 맞추는 대신 기존 VLM의 숫자 토큰·텍스트 예측 인터페이스를 활용한다. 비교 대상 distributional critic은 값 분포를 예측하는 별도 head 방식이며 구체적인 bin 설계를 본문에 없는 값으로 추가하지 않는다. 그림의 두 trajectory 사례는 저자의 progress 추정 해석을 보여주며 정량적 critic 정확도·정책 성공률을 직접 측정한 결과는 아니다. x축은 물리적 작업 timestep이며 denoising τ가 아니다.
+
+### 상세 공부 기록
+
+#### [S069] 숫자 텍스트 critic과 Figure 8
+
+<!-- study-meta
+layout: figure
+kind: fact
+figure: fig-08.png
+caption: Figure 8 · 큐브 pick-and-place의 정규화 value: 첫 성공과 실패 후 회복
+-->
+
+##### 한 문장
+
+기존 LM의 숫자 토큰을 활용한 값 예측이, 예시 trajectory의 실패와 회복을 더 잘 따라간다.
+
+##### 본문
+
+###### 그래프에서 읽을 것
+
+**(a) 첫 시도 성공:** text prediction critic의 값이 진행에 따라 더 단조롭게 증가한다.
+
+**(b) 재시도 후 성공:** 실패 때 하락하고 회복할 때 상승하는 변화를 더 잘 반영한다.
+
+비교 대상은 새 예측 head를 쓰는 distributional critic이다.
+
+##### 보충
+
+<p class="callout">그림은 정규화 value다. 실제 출력은 정규화 전 정수 텍스트이며, 성공률이 아니다.</p>
+
+##### 요점
+
+예시 곡선은 progress 추정의 정성적 근거이며 모든 작업에서의 우월성을 보장하지 않는다.
+
+##### 출처
+
+Fig.8 · PDF p.14; Sec.4.3 · PDF p.15; App.C · PDF p.43
+
+##### 발표 메모
+
+원문은 native number tokens와 text interface 재사용으로 기존 지식을 활용하고 적은 데이터에 적응할 수 있다고 주장한다. Figure 8 두 사례만으로 전반적인 calibration이나 정확도를 정량 확정하지 않는다. Distributional critic의 수학적 분포 설계는 이 그림 설명만으로 추가하지 않는다. x축은 로봇 timestep이며 denoising $\tau$가 아니다.
