@@ -1,15 +1,15 @@
 # 슬라이드 제작 진행 상황
 
-- 업데이트: 2026-11-05 / v07
-- 현재 단계: P008 미래 센서 수식의 중앙 정렬 수정 / 자동 게시.
+- 업데이트: 2026-11-05 / v08
+- 현재 단계: 자간0 적용·전체25장/27개확대단계 검토 완료 / 자동 게시.
 - 구성: 기본25장(표지+본문24장), P032 내부27상태·18화살표.
 - 원본: 9개 섹션 MD. S002–S122의121개 상세 단위는 각각 한 번 연결되며 통합 전과 내용이 같다.
 - 통합: P005→P032, P007→P006, P011→P032/P016, P021→P020. P012→P009/P010의 기존 통합도 유지한다.
 - 흐름: Fig.3→학습 원리→추론 갱신→MSAT 입력→내부 연산→데이터→학습→실행 최적화→평가/분석→결론→의견/미해결.
 - 원리와 검증은 분리 유지. Conclusion의 기여 반복을 줄이고 의견은 PEFT/BoN의 적용 조건에 집중한다.
 - 원본 기록 보존: review/versions/before-dedup-v07/; 통합 근거와 계획: review/DEDUPLICATION.md.
-- 게시 정책: 수정·검증 후 추가 확인 없이 commit·push한다. 현재 P006 후속 수정도 게시 대상이다.
-- 승인: 수정·축소 요청과 결과물 개별 승인을 구분한다. v07은 검토 전이다.
+- 게시 정책: 수정·검증 후 추가 확인 없이 commit·push한다. 현재 v08 자간 수정도 게시 대상이다.
+- 승인: 수정·축소 요청과 결과물 개별 승인을 구분한다. v08은 검토 전이다.
 
 ## 검증
 
@@ -23,33 +23,33 @@
 
 | 순서 | ID | 제목 | 버전 | 상태 | PNG |
 | --- | --- | --- | --- | --- | --- |
-| 1 | S001 | RLDX-1 Technical Report | v07 | 검토 전 | review/previews/deck-v07/S001-v07.png |
-| 2 | P002 | 기존 VLA의 문제 | v07 | 검토 전 | review/previews/deck-v07/P002-v07.png |
-| 3 | P031 | RLDX-1 Overview | v07 | 검토 전 | review/previews/deck-v07/P031-v07.png |
-| 4 | P032 | RLDX-1 Architecture | v07 | 검토 전 | review/previews/deck-v07/P032-v07.png |
-| 5 | P006 | Action Model의 학습 원리 | v07 | 검토 전 | review/previews/deck-v07/P006-v07.png |
-| 6 | P008 | Action Model의 추론 수식 | v07 | 검토 전 | review/previews/deck-v07/P008-v07.png |
-| 7 | P009 | MSAT의 입력 | v07 | 검토 전 | review/previews/deck-v07/P009-v07.png |
-| 8 | P010 | MSAT의 Joint Attention | v07 | 검토 전 | review/previews/deck-v07/P010-v07.png |
-| 9 | P013 | 학습 데이터 | v07 | 검토 전 | review/previews/deck-v07/P013-v07.png |
-| 10 | P014 | Task·Scene Augmentation | v07 | 검토 전 | review/previews/deck-v07/P014-v07.png |
-| 11 | P015 | 합성 데이터 검증 | v07 | 검토 전 | review/previews/deck-v07/P015-v07.png |
-| 12 | P016 | Pre-training | v07 | 검토 전 | review/previews/deck-v07/P016-v07.png |
-| 13 | P017 | Mid-training | v07 | 검토 전 | review/previews/deck-v07/P017-v07.png |
-| 14 | P018 | Post-training | v07 | 검토 전 | review/previews/deck-v07/P018-v07.png |
-| 15 | P019 | RECAP | v07 | 검토 전 | review/previews/deck-v07/P019-v07.png |
-| 16 | P020 | 추론 최적화 | v07 | 검토 전 | review/previews/deck-v07/P020-v07.png |
-| 17 | P022 | Simulation Experiments | v07 | 검토 전 | review/previews/deck-v07/P022-v07.png |
-| 18 | P023 | OpenArm | v07 | 검토 전 | review/previews/deck-v07/P023-v07.png |
-| 19 | P024 | ALLEX | v07 | 검토 전 | review/previews/deck-v07/P024-v07.png |
-| 20 | P025 | Franka | v07 | 검토 전 | review/previews/deck-v07/P025-v07.png |
-| 21 | P026 | Ablation | v07 | 검토 전 | review/previews/deck-v07/P026-v07.png |
-| 22 | P027 | RL·추론 지연 분석 | v07 | 검토 전 | review/previews/deck-v07/P027-v07.png |
-| 23 | P029 | Conclusion | v07 | 검토 전 | review/previews/deck-v07/P029-v07.png |
-| 24 | P028 | 나의 의견 | v07 | 검토 전 | review/previews/deck-v07/P028-v07.png |
-| 25 | P030 | 한계와 미해결 질문 | v07 | 검토 전 | review/previews/deck-v07/P030-v07.png |
+| 1 | S001 | RLDX-1 Technical Report | v08 | 검토 전 | review/previews/deck-v08/S001-v08.png |
+| 2 | P002 | 기존 VLA의 문제 | v08 | 검토 전 | review/previews/deck-v08/P002-v08.png |
+| 3 | P031 | RLDX-1 Overview | v08 | 검토 전 | review/previews/deck-v08/P031-v08.png |
+| 4 | P032 | RLDX-1 Architecture | v08 | 검토 전 | review/previews/deck-v08/P032-v08.png |
+| 5 | P006 | Action Model의 학습 원리 | v08 | 검토 전 | review/previews/deck-v08/P006-v08.png |
+| 6 | P008 | Action Model의 추론 수식 | v08 | 검토 전 | review/previews/deck-v08/P008-v08.png |
+| 7 | P009 | MSAT의 입력 | v08 | 검토 전 | review/previews/deck-v08/P009-v08.png |
+| 8 | P010 | MSAT의 Joint Attention | v08 | 검토 전 | review/previews/deck-v08/P010-v08.png |
+| 9 | P013 | 학습 데이터 | v08 | 검토 전 | review/previews/deck-v08/P013-v08.png |
+| 10 | P014 | Task·Scene Augmentation | v08 | 검토 전 | review/previews/deck-v08/P014-v08.png |
+| 11 | P015 | 합성 데이터 검증 | v08 | 검토 전 | review/previews/deck-v08/P015-v08.png |
+| 12 | P016 | Pre-training | v08 | 검토 전 | review/previews/deck-v08/P016-v08.png |
+| 13 | P017 | Mid-training | v08 | 검토 전 | review/previews/deck-v08/P017-v08.png |
+| 14 | P018 | Post-training | v08 | 검토 전 | review/previews/deck-v08/P018-v08.png |
+| 15 | P019 | RECAP | v08 | 검토 전 | review/previews/deck-v08/P019-v08.png |
+| 16 | P020 | 추론 최적화 | v08 | 검토 전 | review/previews/deck-v08/P020-v08.png |
+| 17 | P022 | Simulation Experiments | v08 | 검토 전 | review/previews/deck-v08/P022-v08.png |
+| 18 | P023 | OpenArm | v08 | 검토 전 | review/previews/deck-v08/P023-v08.png |
+| 19 | P024 | ALLEX | v08 | 검토 전 | review/previews/deck-v08/P024-v08.png |
+| 20 | P025 | Franka | v08 | 검토 전 | review/previews/deck-v08/P025-v08.png |
+| 21 | P026 | Ablation | v08 | 검토 전 | review/previews/deck-v08/P026-v08.png |
+| 22 | P027 | RL·추론 지연 분석 | v08 | 검토 전 | review/previews/deck-v08/P027-v08.png |
+| 23 | P029 | Conclusion | v08 | 검토 전 | review/previews/deck-v08/P029-v08.png |
+| 24 | P028 | 나의 의견 | v08 | 검토 전 | review/previews/deck-v08/P028-v08.png |
+| 25 | P030 | 한계와 미해결 질문 | v08 | 검토 전 | review/previews/deck-v08/P030-v08.png |
 
-Fig.3의 실제 상태 PNG는 review/previews/architecture-v07/step-00.png–step-26.png다. 세 토큰은08, VLM은11, Memory는17, MSAT입력은22, 처리·출력은25에서 볼 수 있다.
+Fig.3의 실제 상태 PNG는 review/previews/architecture-v08/step-00.png–step-26.png다. 세 토큰은08, VLM은11, Memory는17, MSAT입력은22, 처리·출력은25에서 볼 수 있다.
 
 ## 재개
 
@@ -130,3 +130,11 @@ AGENTS.md → PROJECT.md → 이 파일 → FEEDBACK.md → sections/README.md �
 - 수정: 해당 블록만 gathered로 바꿔 각 줄을 독립적으로 중앙 정렬했다. 수식 내용·글꼴 크기·직전 왼쪽 설명 표는 유지했다.
 - 검증: 실제25장PNG 넘침/이미지/브라우저오류/외부요청0,소스·KaTeX생성·기본/base빌드 통과. 실제P008 PNG에서 양쪽 여백 확인. 세HTML동일성 확인 후 자동commit/push.
 - PNG: review/previews/deck-v07/P008-sensor-alignment-v07.png.
+
+## 2026-11-05 / 전체 / 자간0·타이포그래피 v08
+
+- 사용자 요청: “자간을 0으로 두고 깨진 데 있나 봐줘. 그리고 있으면 이쁘게 수정해줘”.
+- 반영: deck.css 3곳·style.css 8곳의 명시적 letter-spacing을0으로 바꿨다. 나눔고딕·글자 크기·내용·페이지 수는 유지했다.
+- 실제25장 PNG·27개Fig.3확대 상태에서 넘침·겹침·이미지 실패·브라우저 오류는0이었다. 제목 모두 한 줄이며 제목 텍스트가 영역 안에 들어가고 표지도 그림/바닥글과 겹치지 않는다. 추가 문구 삭제나 배치 변경은 필요하지 않았다.
+- 소스·수식·실제Nanum글리프·상세 수식 너비·기본/base빌드·Slidev25장·로컬Pages경로를 검증했다. CSS0을 브라우저가normal로 직렬화하는 경우도 실제추가자간0으로 확인했다.
+- PNG: review/previews/deck-v08/overview-v08.png, review/previews/typography-v08/title-spacing-before-after.png. 최신 지시에 따라 commit/push한다.

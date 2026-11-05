@@ -1,3 +1,19 @@
+# v08 자간0·전체 화면 검증 — 2026-11-05
+
+- verify_sources.py:9개MD·121개단위·25장·27상태/18화살표 통과.
+- verify_deck.mjs:25장PNG,넘침/이미지실패/브라우저오류/외부요청0. G/N·검색·그림확대 유지.
+- verify_architecture.mjs:27상태·4모듈·18화살표·정역순·주석 경계/겹침·축소동작 통과.
+- verify_math_font.mjs:Nanum Gothic 실제글리프·KaTeX분수/norm·상세 수식 너비 통과.
+- 별도DOM검사:25개제목 모두 한 줄·텍스트 경계 내 포함, 제목/소제목 추가자간0, 표지·그림·바닥글 간 여유 확인. qa/full-deck/typography-v08-report.json.
+- pnpm build와 pnpm build --base /rldx-1-seminar/:종료0. build-v08.log·base-build-v08.log.
+- verify_slidev.mjs:base URL의25장 제목·크기·이미지·오류0 확인.
+- package_pages.py·verify_pages.mjs:최종HTML/ZIP,실제저장소하위경로·그림·해설·오류0 확인.
+- 실제25장전체지도·표지·P006/P008/P010및제목전후비교를 직접 확인했다. 깨진 배치가 없어 문구·글꼴 크기·수식·그림 크기를 추가 변경하지 않았다.
+
+PNG:review/previews/deck-v08/overview-v08.png 및 typography-v08/title-spacing-before-after.png. 25장과121개 상세를 유지한다. 실제게시완료는 push 결과와 구분한다.
+
+---
+
 # v07 전체 중복 통합·25장 검증 — 2026-11-05
 
 | 실제 실행 | 확인 결과 |

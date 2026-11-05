@@ -9,15 +9,15 @@
 .seminar-slide *, .cover-slide * { box-sizing: border-box; }
 .seminar-slide h1, .seminar-slide h2, .seminar-slide h3, .seminar-slide p, .seminar-slide figure { margin: 0; }
 .seminar-slide .seminar-header { position: absolute; left: 64px; right: 64px; top: 30px; }
-.seminar-slide .chapter-label { color: #167e7a; font-size: 15px; line-height: 23px; letter-spacing: .06em; font-weight: 700; }
-.seminar-slide h1 { font-size: 41px; line-height: 1.25; letter-spacing: -.035em; font-weight: 750; margin-top: 9px; max-width: 1080px; }
+.seminar-slide .chapter-label { color: #167e7a; font-size: 15px; line-height: 23px; letter-spacing: 0; font-weight: 700; }
+.seminar-slide h1 { font-size: 41px; line-height: 1.25; letter-spacing: 0; font-weight: 750; margin-top: 9px; max-width: 1080px; }
 .seminar-slide .slide-lead { font-size: 23px; line-height: 1.5; color: #506574; margin-top: 13px; max-width: 1130px; }
 .seminar-slide .seminar-body { position: absolute; left: 64px; right: 64px; top: 178px; height: 420px; min-height: 0; }
 .seminar-slide .seminar-body.split { display: grid; grid-template-columns: 1fr 1fr; gap: 42px; }
 .seminar-slide .seminar-body.figure { display: grid; grid-template-columns: 1.22fr 1fr; gap: 32px; }
 .seminar-slide .seminar-body.widefigure { display: grid; grid-template-rows: minmax(0, 1fr) auto; gap: 16px; }
 .seminar-slide .body-main, .seminar-slide .body-aside { min-width: 0; min-height: 0; }
-.seminar-slide h3 { font-size: 25px; line-height: 1.35; font-weight: 700; color: #173e53; margin: 0 0 8px; letter-spacing: -.025em; }
+.seminar-slide h3 { font-size: 25px; line-height: 1.35; font-weight: 700; color: #173e53; margin: 0 0 8px; letter-spacing: 0; }
 .seminar-slide p { margin: 0 0 10px; }
 .seminar-slide p:last-child { margin-bottom: 0; }
 .seminar-slide p + h3, .seminar-slide .equation + h3 { margin-top: 15px; }

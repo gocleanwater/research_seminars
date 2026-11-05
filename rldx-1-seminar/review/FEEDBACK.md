@@ -236,3 +236,11 @@
 - 수정: 해당 블록만 gathered로 바꿔 각 줄을 독립적으로 중앙 정렬했다. 수식 내용·글꼴 크기·직전 왼쪽 설명 표는 유지했다.
 - 검증: 실제25장PNG 넘침/이미지/브라우저오류/외부요청0,소스·KaTeX생성·기본/base빌드 통과. 실제P008 PNG에서 양쪽 여백 확인. 세HTML동일성 확인 후 자동commit/push.
 - PNG: review/previews/deck-v07/P008-sensor-alignment-v07.png.
+
+## 2026-11-05 / 전체 / 자간0·타이포그래피 v08
+
+- 사용자 요청: “자간을 0으로 두고 깨진 데 있나 봐줘. 그리고 있으면 이쁘게 수정해줘”.
+- 반영: deck.css 3곳·style.css 8곳의 명시적 letter-spacing을0으로 바꿨다. 나눔고딕·글자 크기·내용·페이지 수는 유지했다.
+- 실제25장 PNG·27개Fig.3확대 상태에서 넘침·겹침·이미지 실패·브라우저 오류는0이었다. 제목 모두 한 줄이며 제목 텍스트가 영역 안에 들어가고 표지도 그림/바닥글과 겹치지 않는다. 추가 문구 삭제나 배치 변경은 필요하지 않았다.
+- 소스·수식·실제Nanum글리프·상세 수식 너비·기본/base빌드·Slidev25장·로컬Pages경로를 검증했다. CSS0을 브라우저가normal로 직렬화하는 경우도 실제추가자간0으로 확인했다.
+- PNG: review/previews/deck-v08/overview-v08.png, review/previews/typography-v08/title-spacing-before-after.png. 최신 지시에 따라 commit/push한다.
