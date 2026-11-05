@@ -1725,9 +1725,14 @@ $$
 \end{aligned}
 $$
 
-<span class="label example">한 좌표 예시</span> 후보 0, 변화율 4, $\Delta\tau=0.25$라면 다음 후보는 **0+0.25×4=1**이다.
+<table class="chunk-symbols" aria-label="Euler 갱신식의 각 항"><tbody>
+<tr><th scope="row">$\mathbf a^{\tau_i}$</th><td>현재 denoising timestep의 action chunk</td></tr>
+<tr><th scope="row">$\mathbf u_\theta(\cdots)$</th><td>모델이 예측한 chunk 전체의 변화율</td></tr>
+<tr><th scope="row">$\Delta\tau_i\mathbf u_\theta(\cdots)$</th><td><strong>이번 갱신량 = 간격 × 변화율</strong></td></tr>
+<tr><th scope="row">$\mathbf a^{\tau_{i+1}}$</th><td>갱신 후 다음 timestep의 action chunk</td></tr>
+</tbody></table>
 
-노이즈에서 시작해 **변화율 예측 → 후보 갱신**을 $\tau=1$까지 반복한다. 한 forward가 chunk 전체를 다룬다.
+이 갱신을 $\tau=1$까지 반복한다.
 
 ### 보충
 
@@ -1754,7 +1759,7 @@ Sec.2.2 Eq.(2), Physical Sensing · PDF p.8; Sec.4.2 · PDF p.13
 
 ### 발표 메모
 
-미래 물리 신호 길이 L은 mid-training에서 H+1로 둔다. 추론은 정답 미래 센서를 알지 못한다. 조건 특징의 실제 caching 구현은 단정하지 않는다. 생성 후 행동을 일부 실행하고 재관측하는 바깥 loop는 별도다.
+미래 물리 신호 길이 L은 mid-training에서 H+1로 둔다. 추론은 정답 미래 센서를 알지 못한다. 조건 특징의 실제 caching 구현은 단정하지 않는다. 생성 후 행동을 일부 실행하고 재관측하는 바깥 loop는 별도다. 최신 사용자 요청에 따라 본문의 한 좌표 숫자 예시를 제거하고 Euler식의 현재 chunk·예측 변화율·간격을 곱한 갱신량·다음 chunk를 기호 표로 설명한다. 이전 설명용 예시(현재0, 변화율4, 간격0.25 → 다음1)는 N 해설에만 보존한다. 한 forward가 chunk 전체를 다룬다는 설명은 S029에도 유지한다.
 
 ### 상세 공부 기록
 
