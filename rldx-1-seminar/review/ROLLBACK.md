@@ -1,4 +1,12 @@
-# v11 변경 전 버전과 복구
+# 버전 보존과 복구
+
+## v13 변경 전 버전
+
+- 태그: `rldx-v12-before-evaluation-context-20261106`
+- 커밋: `757822d` — 학습·추론 설명 복원,32장
+- 이후 v13: Fig.11·12·13·15·17을 본문에 배치하고 benchmark/로봇/과제 맥락을 추가해37장
+
+이전 버전 확인: `git switch -c codex/review-rldx-v12 rldx-v12-before-evaluation-context-20261106`. 최신 복귀: `git switch main`. 공개 복구는 아래 revert 절차를 따른다.
 
 ## v12 변경 전 버전
 

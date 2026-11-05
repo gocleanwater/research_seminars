@@ -1,4 +1,4 @@
-# 슬라이드 색인 — v12
+# 슬라이드 색인 — v13
 
 MD 원본 → HTML. 전체 도식 확대 단계는 P032 안에서 방향키로 이동한다. 개별 결과물은 사용자 검토 전이다.
 
@@ -27,12 +27,17 @@ MD 원본 → HTML. 전체 도식 확대 단계는 P032 안에서 방향키로 �
 | 21 | P020 | Inference Strategy | CUDA Graph | sections/05-inference-strategy.md | S072, S073, S074, S075 |
 | 22 | P038 | Inference Strategy | Kernel Fusion | sections/05-inference-strategy.md | S076, S077, S078, S079, S081 |
 | 23 | P039 | Inference Strategy | Kernel Fusion의 계산 | sections/05-inference-strategy.md | S080 |
-| 24 | P022 | Evaluation and Analysis | Simulation Experiments | sections/06-evaluation-and-analysis.md | S082, S083, S084, S085, S086, S087 |
-| 25 | P023 | Evaluation and Analysis | OpenArm | sections/06-evaluation-and-analysis.md | S088, S089 |
-| 26 | P024 | Evaluation and Analysis | ALLEX | sections/06-evaluation-and-analysis.md | S090, S091, S092 |
-| 27 | P025 | Evaluation and Analysis | Franka | sections/06-evaluation-and-analysis.md | S093, S094, S095, S096 |
-| 28 | P026 | Ablation and Analysis | Ablation | sections/07-ablation-and-analysis.md | S097, S098, S099, S100, S101, S102 |
-| 29 | P027 | Ablation and Analysis | RL·추론 지연 분석 | sections/07-ablation-and-analysis.md | S103, S104, S105, S106, S107 |
-| 30 | P029 | Conclusion | Conclusion | sections/08-conclusion.md | S116, S117 |
-| 31 | P028 | My opinions and limitation | 나의 의견 | sections/09-my-opinions-and-limitation.md | S108, S109, S110, S111, S112, S113, S114, S115 |
-| 32 | P030 | My opinions and limitation | 한계와 미해결 질문 | sections/09-my-opinions-and-limitation.md | S118, S119, S120, S121 |
+| 24 | P040 | Evaluation and Analysis | 시뮬레이션 벤치마크 | sections/06-evaluation-and-analysis.md | S082 |
+| 25 | P022 | Evaluation and Analysis | Simulation 결과 | sections/06-evaluation-and-analysis.md | S083, S084, S085, S086, S087 |
+| 26 | P041 | Evaluation and Analysis | 실제 로봇 | sections/06-evaluation-and-analysis.md |  |
+| 27 | P042 | Evaluation and Analysis | OpenArm 과제 | sections/06-evaluation-and-analysis.md | S088 |
+| 28 | P023 | Evaluation and Analysis | OpenArm 결과 | sections/06-evaluation-and-analysis.md | S089 |
+| 29 | P043 | Evaluation and Analysis | ALLEX 과제 | sections/06-evaluation-and-analysis.md | S090, S091 |
+| 30 | P024 | Evaluation and Analysis | ALLEX 결과 | sections/06-evaluation-and-analysis.md | S092 |
+| 31 | P044 | Evaluation and Analysis | Franka 과제 | sections/06-evaluation-and-analysis.md | S093, S094 |
+| 32 | P025 | Evaluation and Analysis | Franka 결과 | sections/06-evaluation-and-analysis.md | S095, S096 |
+| 33 | P026 | Ablation and Analysis | Ablation | sections/07-ablation-and-analysis.md | S097, S098, S099, S100, S101, S102 |
+| 34 | P027 | Ablation and Analysis | RL·추론 지연 분석 | sections/07-ablation-and-analysis.md | S103, S104, S105, S106, S107 |
+| 35 | P029 | Conclusion | Conclusion | sections/08-conclusion.md | S116, S117 |
+| 36 | P028 | My opinions and limitation | 나의 의견 | sections/09-my-opinions-and-limitation.md | S108, S109, S110, S111, S112, S113, S114, S115 |
+| 37 | P030 | My opinions and limitation | 한계와 미해결 질문 | sections/09-my-opinions-and-limitation.md | S118, S119, S120, S121 |

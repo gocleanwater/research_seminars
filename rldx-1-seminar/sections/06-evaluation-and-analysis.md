@@ -2,44 +2,43 @@
 
 원문의 설명·실험 결과, 저자의 해석, 우리의 해석·설명용 예시, 미해결 질문을 구분한다. 저자의 설계 의도나 주장과 실험으로 확인된 결과를 동일시하지 않으며, 미확인 사항과 문서의 표기 불일치는 근거와 함께 남긴다.
 
-## [P022] Simulation Experiments
+## [P040] 시뮬레이션 벤치마크
 
 <!-- slide-meta
-layout: full
+layout: figure balanced
 kind: fact
-source_ids: S082, S083, S084, S085, S086, S087
+source_ids: S082
+figure: fig-11.png
+caption: Figure 11 · 평가 환경: 단일 팔·양팔 휴머노이드·주방 조작
 -->
 
 ### 한 문장
 
-각 benchmark에 적응한 전체 시스템은 높은 성과를 냈지만 복합 조작은 여전히 어렵다.
+Benchmark는 정해진 환경과 과제들로 정책을 비교하는 평가 세트다. 조작 능력의 서로 다른 면을 확인한다.
 
 ### 본문
 
-| 평가 (%) | 최강 baseline | RLDX-1 |
-| --- | --- | --- |
-| LIBERO 평균 | 96.9 | 97.8 |
-| LIBERO-Plus | 86.5 | 86.7 |
-| GR-1 Tabletop | 48.0 | 58.7 |
-| RC365 전체 / 미지 복합 | 26.9 / 4.4 | 32.1 / 5.6 |
-
-Pre-trained 모델을 각 benchmark에 fine-tuning한다. Baseline은 π0-FAST·π0·π0.5·GR00T N1.5/N1.6이며 재현값과 논문·저장소·leaderboard 수치가 섞여 있다.
-
-<span class="label interpretation">해석</span> 전체 recipe의 성과다. 특정 모듈의 독립 효과나 작은 차이의 통계적 유의성을 이 표만으로 확정할 수 없다.
+<p><strong>LIBERO / LIBERO-Plus</strong><br>탁자 조작 / 조건 변화 대응</p>
+<p><strong>SIMPLER — Google Robot·WidowX</strong><br>실제 영상에 맞춘 로봇 시뮬레이션</p>
+<p><strong>RoboCasa Kitchen</strong><br>이동형 단일 팔의 주방 조작</p>
+<p><strong>GR-1 Tabletop</strong><br>양팔 휴머노이드의 탁자 조작</p>
+<p><strong>RoboCasa365 (RC365)</strong><br>단일 기술·배운/새로운 복합 절차</p>
 
 ### 보충
 
+
+
 ### 요점
 
-먼저 범용 조작을 평가했다. 다음은 실제 로봇의 지시 일반화와 기능별 과제로 이어진다.
+기본 조작, 환경 변화 대응, 긴 복합 절차를 서로 다른 벤치마크로 평가한다.
 
 ### 출처
 
-Sec.6–6.1 · Table 1 · PDF pp.17–19; App.G.1 · PDF pp.48–49
+Sec.6.1 · Fig.11 · PDF pp.17–19; App.G.1 · PDF p.48
 
 ### 발표 메모
 
-연결 멘트: “실행 속도까지 준비한 모델이 무엇을 잘하는지 보겠습니다. 먼저 일반 조작을 보고 실제 로봇의 기능별 과제로 넘어갑니다.” 표의 최강 baseline은 열마다 다르다. LIBERO·Plus는 π0.5, GR-1과 RC365 미지 복합은 N1.5, RC365 전체는 N1.6이다. RC36532.1은18/16/16개 task 수로 가중한 평균이다. Baseline의 행동 생성 방식과 전체 수치·학습 조건은 S082–087 연결 해설에 보존한다. 서로 다른 초기화·recipe를 비교했으므로 구조 하나의 효과라고 말하지 않는다.
+Figure11을 N 해설뿐 아니라 발표 본문에 배치했다. LIBERO는 Franka 단일 팔 tabletop40tasks, Plus는 object layout/camera/robot initial state/language/light/background/sensor noise의7축 perturbations다. SIMPLER는 Google Robot·WidowX의 실영상 조건을 시뮬레이션에 대응시키는 평가이며 Google-VM은 Visual Matching, Google-VA는 Variant Aggregation이다. RoboCasa Kitchen은 mobile PandaOmron의24주방tasks, GR-1 Tabletop은GR-1 humanoid24tasks다. RoboCasa365는 human pre-training300-task dataset에서fine-tuning한 뒤50-task benchmark의Atomic-Seen/Composite-Seen/Composite-Unseen을 평가한다. 다음 결과는 각benchmark에fine-tuning한 값이지, 하나의zero-shot정책을 모든환경에 그대로쓴 결과가 아니다.
 
 ### 상세 공부 기록
 
@@ -79,6 +78,60 @@ Sec.6 · Fig.11 · PDF p.17
 ##### 발표 메모
 
 Figure 11(a)는 LIBERO/LIBERO-Plus와 SIMPLER, (b)는 RoboCasa Kitchen, GR-1 Tabletop, RoboCasa365를 보여준다. 이 논문의 평가는 하나의 zero-shot 범용 모델을 그대로 모든 환경에 투입한 결과가 아니다. 6.1/6.2는 pre-trained 모델의 downstream fine-tuning, 6.3/6.4는 mid-trained 모델의 task별 fine-tuning이다. 6.5에서도 각 실험의 데이터와 초기화가 달라 직접 수치 연결에 주의한다.
+
+## [P022] Simulation 결과
+
+<!-- slide-meta
+layout: split
+kind: fact
+source_ids: S083, S084, S085, S086, S087
+-->
+
+### 한 문장
+
+사전학습한 모델을 각 벤치마크의 학습 데이터로 fine-tuning한 뒤 성공률을 비교한다.
+
+### 본문
+
+#### Table 1의 주요 결과
+
+| 성공률 (%) | 최강 baseline | RLDX-1 |
+| --- | --- | --- |
+| LIBERO 평균 | 96.9 | 97.8 |
+| LIBERO-Plus | 86.5 | 86.7 |
+| GR-1 Tabletop | 48.0 | 58.7 |
+| RC365 전체 | 26.9 | 32.1 |
+| RC365 미지 복합 | 4.4 | 5.6 |
+
+<p class="mini">비교 모델: π0-FAST·π0·π0.5·GR00T N1.5/N1.6. 최강 baseline은 열마다 다르다.</p>
+
+### 보충
+
+#### LIBERO 평균의 의미
+
+**40개 조작 과제의 평균 성공률**이다. 과제는 다음 4개 묶음으로 나뉜다.
+
+- **Spatial:** 공간 관계
+- **Object:** 대상 물체
+- **Goal:** 수행 목표
+- **Long:** 여러 동작을 잇는 긴 절차
+
+Table 1의 **Short**는 앞의 세 묶음 평균,<br>
+**Avg**는 Long까지 포함한 전체 평균이다.
+
+### 요점
+
+LIBERO 97.8%는 그 안의 과제 전반을 요약한 값이다. 새 복합 절차의 성공률 5.6%에는 큰 어려움이 남는다.
+
+### 출처
+
+Table 1 · PDF p.18; App.G.1 · PDF p.48; RC365 세부 집계: Table15 · PDF p.55
+
+### 발표 메모
+
+원문의LIBERO는4sub-benchmark40tasks이며각task50회평가한다. Short는Spatial/Goal/Object suites평균, Avg는Long을포함한전체를요약한다. 표시된RLDX Short98.6/Long95.3에서(3*98.6+95.3)/4=97.775로Avg97.8에대응한다. Short/Long두숫자의단순평균으로해석하지않는다. 표는각열의최고baseline이며LIBERO/Plus는π0.5, GR-1/RC365미지복합은N1.5, RC365전체는N1.6이다. Baseline출처·설정·반복/불확실성·RC365task수가중평균과batch불일치는기존S083–087에보존한다. 전시스템recipe의비교와개별모듈의독립효과를구분하되그방법론설명을기초과제정의보다앞세우지않는다.
+
+### 상세 공부 기록
 
 #### [S083] Baseline의 행동 생성 방식
 
@@ -281,41 +334,94 @@ Table 1(b) · Sec.6.1 · PDF pp.18–19; Table 15 · PDF p.55
 
 원문 전 값(열:Kitchen,GR1,Atomic,CompS,CompU,Avg). FAST:63.6/미보고/51.7/8.0/1.8/21.7; π0:62.5/13.6/34.6/6.1/1.1/14.8; π0.5:62.1/15.4/39.6/7.1/1.2/16.9; N1.5:65.7/48.0/43.0/9.6/4.4/20.0; N1.6:66.2/47.6/61.1/12.6/2.6/26.9; RLDX:70.6/58.7/67.3/19.0/5.6/32.1. 원문은 N1.6 대비 5.6 vs 2.6을 강조하지만 Comp-U 열의 최강 baseline은 N1.5 4.4다. RC365 전체 32.1은 Atomic 18개, Composite seen16개/unseen16개 작업수로 가중한 평균과 부합하며 세 split 단순 평균이 아니다. RLDX가 pre-training에 simulation data를 쓰지 않았다는 저자 설명도 downstream simulation fine-tuning을 하지 않았다는 뜻은 아니다.
 
-## [P023] OpenArm
+## [P041] 실제 로봇
 
 <!-- slide-meta
-layout: figure
+layout: widefigure
 kind: fact
-source_ids: S088, S089
-figure: fig-14.png
-caption: Figure 14 · OpenArm의 여섯 평가 설정
+source_ids:
+figure: fig-12.png
+caption: Figure 12 · (a) OpenArm 28DoF · (b) ALLEX 48DoF · (c) Franka 7DoF
 -->
 
 ### 한 문장
 
-같은 물체 옮기기도 위치 지시·새 개체·새 배치·instance 선택으로 나눠 평가한다.
+양팔·손가락을 쓰는 휴머노이드 두 종류와 단일 팔·그리퍼 로봇으로 실제 조작을 평가한다.
 
 ### 본문
 
-기본 물체 옮기기에서 지정 칸에 놓기, 새 개체·새 배치, 같은 종류 중 언어가 지정한 instance 선택까지 확장한다.
-
-RLDX-1은 선반 68.8%·식기대 70.8%, 새 개체·새 작업 각 54.2%, grounding 87.5%다. 보통 24회, 선반은 48회다.
-
-Grounding은 올바른 물체 잡기, 나머지는 지정 위치에 놓기가 성공이다. <span class="label authors">저자 해석</span> 과적합·grounding 실패라는 설명은 원인별 통제 결과가 아니다.
+<div class="robot-glossary">
+<p><strong>OpenArm — 양팔 휴머노이드</strong><br>Inspire 손·머리 stereo 카메라<br>지시·대상 변화의 일반화 평가</p>
+<p><strong>ALLEX — 상반신 휴머노이드</strong><br>양팔·15DoF 손·허리·목<br>관절 토크 피드백 활용</p>
+<p><strong>Franka — 단일 팔·그리퍼</strong><br>Franka Research 3(FR3)<br>관절 토크·AnySkin 촉각</p>
+</div>
 
 ### 보충
 
+
+
 ### 요점
 
-OpenArm은 지시·대상 변화의 일반화를 봤다. 다음은 움직임·기억·접촉 기능이 필요한 과제다.
+OpenArm은 다양한 지시·물체, ALLEX·Franka는 움직임·기억·접촉이 필요한 과제를 중심으로 평가한다.
 
 ### 출처
 
-Sec.6.2 · Figs.13–14 · PDF pp.19–20; App.G.2 · PDF p.50
+Fig.12 · PDF p.19; Sec.6.2–6.4 · PDF pp.19–24; App.G.2–G.4 · PDF pp.50–52
 
 ### 발표 메모
 
-연결 멘트: “시뮬레이션에서 얻은 우위가 실제 양팔 로봇의 새로운 지시와 물체에도 이어지는지 봅니다.” Basic50.0, Shelf68.8, Dish70.8, Unseen Object54.2, Unseen Task54.2, Grounding87.5다. π0.5는 Shelf54.2, Dish58.3, Grounding83.3이므로 과제별 격차가 다르다. 학습348개 시연,30K steps/batch64다. Unseen은 downstream 시연 구성에 관한 표현이며 전체 사전 학습에서 본 적 없는 개념이라는 뜻이 아니다. 세부 배치와 실패 원인 해석은 S088–089에 보존한다.
+DoF는독립적으로움직일수있는자유도다. OpenArm은7DoF팔2개,6DoF Inspire RH56F1손2개,2DoF목으로총28이며 ZED2i stereo views를쓴다. ALLEX는7DoF팔2개,15DoF손2개,2DoF허리와목으로총48이다. ALLEX는motor current에서torque를추정한다. Franka는7DoF Research3팔과Robotiq2F-85그리퍼를쓰며7차원관절torque와15차원AnySkin을사용한다. Fig12(c)그림내Arm6DoF/Gripper1DoF표기는원문그대로두고,팔사양의근거는G.4의7DoF를따른다. OpenArm은pre-trained모델, ALLEX/Franka는mid-trained모델을초기화해각작업에적응한다.
+
+### 상세 공부 기록
+
+
+
+## [P042] OpenArm 과제
+
+<!-- slide-meta
+layout: figure balanced
+kind: fact
+source_ids: S088
+figure: fig-13.png
+caption: Figure 13 · OpenArm의 6개 평가 설정; PnP=Pick-and-Place(집어 옮기기)
+-->
+
+### 한 문장
+
+기본 집어 옮기기에 위치 지시·새 개체·새 놓기 설정·정확한 대상 선택을 더해 평가한다.
+
+### 본문
+
+#### 기본 조작 — Basic PnP
+
+세 물체 중 **인형을 골라 오른쪽 상자에 놓기**.
+
+#### 위치 지시 — Directional PnP
+
+**Shelf:** 병·과자 → 선반 4칸 중 지시한 칸<br>
+**Dish Rack:** 컵 → 식기대 좌·중·우의 지시 칸
+
+#### 새 조건과 대상 선택
+
+**Unseen Object:** 학습 시연에 없던 새 병·컵<br>
+**Unseen Task:** 물체·놓기 조합 변경<br>
+**Object Grounding:** 같은 종류 중 지정 개체 고르기
+
+### 보충
+
+
+
+### 요점
+
+‘무엇을 잡을지’와 ‘어디에 놓을지’를 구분해 보면 여섯 과제의 차이가 보인다.
+
+### 출처
+
+Sec.6.2 · PDF p.19; Fig.13 · PDF p.20; App.G.2 · PDF p.50
+
+### 발표 메모
+
+Basic은doll→오른쪽box이며같은종류3개중선택하는grounding과다르다. Shelf는4칸(TL/TR/BL/BR),DishRack은3칸(L/C/R)이다. Unseen Object는Directional task에새bottle/cup instance를사용한다. Unseen Task는Basic의doll대신bottle/cup을놓고새target receptacle을사용하는구성이다. Bottle/cup이라는범주자체가전체학습에서처음나왔다는뜻이아니다. Grounding은같은category3개중언어로지시한instance를찾아잡는다. 사용자가요청한Fig13을본문에두고추상적category나‘해석’보다과제의실제동작을먼저설명한다.
 
 ### 상세 공부 기록
 
@@ -356,6 +462,55 @@ Sec.6.2 · Figs.13–14 · PDF pp.19–20; App.G.2 · PDF p.50
 
 Figure 13의 좌상단 Basic, 상단 가운데 Shelf, 상단 오른쪽 Dish Rack, 하단 Unseen Object/Unseen Task/Grounding을 순서대로 짚는다. Basic에서도 물체와 목표 위치가 반대편이면 양손 협응이 필요하다. 학습은 Bottle-to-Shelf96, Snack-to-Shelf96, Cup-to-DishRack108, Doll-to-Box48로 총348 demonstrations. Unseen은 이 downstream demonstration 설정에 대한 표현이며 인터넷 또는 전체 사전 학습에서 한 번도 본 적 없는 개념이라는 뜻이 아니다.
 
+## [P023] OpenArm 결과
+
+<!-- slide-meta
+layout: figure balanced
+kind: fact
+source_ids: S089
+figure: fig-14.png
+caption: Figure 14 · 앞 장의 여섯 설정에 대한 성공률 비교
+-->
+
+### 한 문장
+
+위치 지시와 새로운 대상·놓기 설정에서도 지시한 조작을 수행하는지 본다.
+
+### 본문
+
+#### 성공은 무엇인가?
+
+**Basic·Directional·Unseen 과제:**<br>
+지시한 물체를 잡고 **지시한 위치에 놓기**.
+
+**Object Grounding:**<br>
+같은 종류의 세 물체 중 지시가 가리키는 **한 개체를 올바르게 잡기**.
+
+#### RLDX-1의 성공률
+
+기본 **50.0%**, 선반 **68.8%**, 식기대 **70.8%**.<br>
+새 개체·새 작업 각 **54.2%**, Grounding **87.5%**.
+
+<p class="mini">대부분 24회. 선반은 물체 2종류에 각각 24회로, 총 48회 평가한다.</p>
+
+### 보충
+
+
+
+### 요점
+
+Grounding은 올바른 대상 잡기까지, 나머지는 지정 위치에 놓기까지가 성공 기준이다.
+
+### 출처
+
+Sec.6.2 · Figs.13–14 · PDF pp.19–20; App.G.2 · PDF p.50
+
+### 발표 메모
+
+사용자가이해하기어렵다고지적한과적합/grounding원인통제문장을본문에서뺐다. 실제성공판정과과제별수치로직접설명하고,저자의baseline실패원인해석은S089에보존한다. 학습348개시연/30Ksteps/batch64와Unseen의downstream조건은기존상세에있다. Fine-grained grounding=언어가실제장면의어느대상을가리키는지연결하는능력이다. 단순히87.5가다른과제보다높다는것을놓기까지더잘한다는뜻으로읽지않는다.
+
+### 상세 공부 기록
+
 #### [S089] OpenArm 평가와 Figure 14
 
 <!-- study-meta
@@ -393,43 +548,47 @@ Fig.14 · Sec.6.2 · PDF p.20; App.G.2 · PDF p.50
 
 Figure14 순서 Basic/Shelf/Dish/UnseenObject/UnseenTask/Grounding: π0.5 41.7/54.2/58.3/37.5/45.8/83.3; N1.6 37.5/47.9/50.0/45.8/50.0/33.3; RLDX50.0/68.8/70.8/54.2/54.2/87.5. Shelf와 Dish는 π0.5 대비 각+14.6,+12.5%p(표시값 차이). Grounding의 π0.5는83.3으로 이미 높고, RLDX 우위는+4.2%p다. N1.6의33.3을 저자는 random-equivalent로 설명한다. 모든 baseline과 RLDX는30K step,batch64,공식 구현 기준; 같은 batch·step은 전체 사전학습 데이터와 모델 크기까지 통제했다는 뜻은 아니다.
 
-## [P024] ALLEX
+## [P043] ALLEX 과제
 
 <!-- slide-meta
-layout: figure
+layout: figure balanced
 kind: fact
-source_ids: S090, S091, S092
-figure: fig-16.png
-caption: Figure 16 · 성공률과 progress score가 함께 표시된 결과
+source_ids: S090, S091
+figure: fig-15.png
+caption: Figure 15 · ALLEX의 움직임·기억·물리 피드백 과제
 -->
 
 ### 한 문장
 
-컨베이어·숨긴 상자·카드·따르기로 서로 다른 기능을 시험한다.
+48DoF 양팔 휴머노이드로, 한 장면만 봐서는 해결하기 어려운 기능별 과제를 수행한다.
 
 ### 본문
 
-<strong>움직임:</strong> 학습한 양 끝 속도 사이의 새 속도에 맞춰 상자를 잡는다. <strong>기억:</strong> 물체를 넣어 둔 상자를 과거 관찰로 고른다.
+<p><strong>Conveyor Pick-and-Place — 움직임</strong><br>움직이는 상자를 속도에 맞춰 잡아 옮긴다.</p>
 
-**물리 피드백:** 카드를 밀고 잡아 건네며, 플라스틱 공을 따를 때 컵 무게 변화에 맞춰 멈춘다. 실제 액체 평가가 아니다.
+<p><strong>Object-in-Box Selection — 기억</strong><br>물체를 숨긴 상자를 기억해 고른다.</p>
 
-컨베이어 87.5%·상자 91.7%는 성공률이다. 카드 97.2·따르기 70.8은 부분 완료를 포함한 진행 점수다.
+<p><strong>Card Slide-and-Pick — 접촉</strong><br>카드를 탁자 끝으로 밀고 집어 사람에게 건넨다.</p>
 
-<p class="mini"><strong>평균 86.8은 혼합 지표</strong>이며, 네 과제의 완전 성공률 평균이 아니다.</p>
+<p><strong>Pot-to-Cup Pouring — 무게 감지</strong><br>공을 따르다 컵이 목표 무게에 도달하면 멈춘다.</p>
+
+<p class="mini">따르기에는 실제 액체 대신 작은 플라스틱 공을 쓴다.</p>
 
 ### 보충
 
+
+
 ### 요점
 
-같은 0–100 눈금이라도 성공률과 진행 점수의 의미는 다르다.
+움직임은 시간 변화, 기억은 가려진 과거 정보, 물리 센싱은 접촉·무게 판단을 평가한다.
 
 ### 출처
 
-Sec.6.3 · Figs.15–16 · PDF pp.21–22; App.G.3 · PDF p.51
+Sec.6.3 · Fig.15 · PDF pp.21–22; App.G.3 · PDF p.51
 
 ### 발표 메모
 
-연결 멘트: “실제 로봇의 성과를 읽기 전에 각 막대가 무엇을 측정하는지 나눠야 합니다.” 각 과제24회다. Conveyor는 학습S1/S4, 평가S2/S3를 보간하며 seen100/unseen75로 총87.5다. Card는0.33/0.66/1, Pour는0.25/0.5/0.75/1의 progress score다. 평균86.8은 서로 다른 지표의 산술 평균이다. ALLEX는 head stereo와48관절의 전류 기반 torque를 사용한다. Card 평가는 안전을 위해75cm 책상에서만 시행한다. 각 과제·센서·점수 세부는 S090–092로 연결한다.
+Conveyor는학습S1/S4와그사이새속도S2/S3를평가한다. Object-in-Box는사람이상자3개중하나에물체를넣고원위치로돌려놓은후선택한다. Card는높이가조금다른책상에서적절한접촉을조절하는동작이며평가는안전상75cm책상만사용한다. Pouring은한손pot/다른손cup을쥐고motor-current기반관절torque로cup무게변화를추정한다. 목표무게후pot을되돌리고cup을앞으로내미는전체절차와평가기준은다음결과/S091에서읽는다. 각과제는관련module만활성화한다.
 
 ### 상세 공부 기록
 
@@ -511,6 +670,54 @@ Sec.6.3 · Fig.15 · PDF pp.21–22; App.G.3 · PDF p.51
 
 Card72 demonstrations,Pour62 demonstrations. ALLEX torque는 모터 전류에서 추정한48DoF 값이며 Franka의 직접 관절 torque 및 AnySkin 촉각과 구분한다. Pour의 점수는 grasp both, pouring, return pot, bring cup forward의4단계다. 저자는 시각 변화가 작아 하중을 알기 어렵다고 설명한다. 이 과제가 torque의 필요성을 유도하도록 설계됐다는 점과 동일 모델에서 torque만 제거한 엄밀한 인과 ablation 유무는 별개다.
 
+## [P024] ALLEX 결과
+
+<!-- slide-meta
+layout: figure balanced
+kind: fact
+source_ids: S092
+figure: fig-16.png
+caption: Figure 16 · 성공률 두 과제와 부분 진행 점수 두 과제
+-->
+
+### 한 문장
+
+같은 0–100 막대여도 ‘완전 성공한 비율’과 ‘얼마나 진행했는지’는 다른 의미다.
+
+### 본문
+
+<p><strong>움직임:</strong> 속도에 맞춰 상자를 잡는다.<br>
+<strong>기억:</strong> 물체를 숨긴 상자를 고른다.</p>
+
+<table class="chunk-symbols" aria-label="ALLEX 과제별 지표와 RLDX-1 결과"><thead><tr><th>과제</th><th>지표</th><th>RLDX-1</th></tr></thead><tbody>
+<tr><td>Conveyor</td><td>성공률</td><td>87.5%</td></tr>
+<tr><td>Object-in-Box</td><td>성공률</td><td>91.7%</td></tr>
+<tr><td>Card</td><td>진행 점수</td><td>97.2</td></tr>
+<tr><td>Pouring</td><td>진행 점수</td><td>70.8</td></tr>
+</tbody></table>
+
+**카드:** 밀기 → 집기 → 건네기의 부분 완료도 센다.<br>
+**따르기:** 잡기 → 따르기 → pot 복귀 → cup 내밀기.
+
+
+### 보충
+
+
+
+### 요점
+
+평균 86.8은 성공률·진행 점수의 혼합 평균이다. 카드·따르기는 부분 완료도 포함한다.
+
+### 출처
+
+Sec.6.3 · Figs.15–16 · PDF pp.21–22; App.G.3 · PDF p.51
+
+### 발표 메모
+
+사용자가지정한‘잡는다.’와‘기억’사이에명시적br을넣었다. Conveyor/Object-in-Box는success rate,Card는0.33/0.66/1,Pouring은0.25/0.5/0.75/1의progress score다. 원문그래프y축은SuccessRate지만본문protocol에맞춰두종류를구분했다. 86.8은(87.5+91.7+97.2+70.8)/4를반올림한혼합평균이다. 시행수와Franka/ALLEX관련모듈설정등은기존상세/앞장에보존한다.
+
+### 상세 공부 기록
+
 #### [S092] Figure 16과 부분 점수
 
 <!-- study-meta
@@ -549,41 +756,53 @@ Fig.16 · Evaluation Protocol · PDF p.22; App.G.3 · PDF p.51
 
 Figure16 순서 Conveyor/Box/Card/Pour/Avg: π0.5 29.2/33.3/55.3/38.5/39.1; N1.6 50.0/29.2/62.3/37.5/44.8; RLDX87.5/91.7/97.2/70.8/86.8. RLDX average=$\frac{87.5+91.7+97.2+70.8}{4}=86.8$. Card와Pour 수치는 정규화한 progress score×100이다. 본문은 두 baseline이 Pour 전체 단계를 완료한 trial이 없다고 설명하지만 부분점수는38.5,37.5다. 완전 성공률을 직접 복원할 수는 없다. Conveyor에서는 seen100%,unseen75%로 평균87.5. 평균이 동일 단위처럼 보이는 축 표기 자체도 발표에서 보완한다.
 
-## [P025] Franka
+## [P044] Franka 과제
 
 <!-- slide-meta
-layout: figure
+layout: figure balanced
 kind: fact
-source_ids: S093, S094, S095, S096
-figure: fig-18.png
-caption: Figure 18 · Franka 기능별 성공률과 남은 어려움
+source_ids: S093, S094
+figure: fig-17.png
+caption: Figure 17 · Franka의 여섯 기능 평가 과제
 -->
 
 ### 한 문장
 
-회전·Pong·컵 기억·접촉 과제로 확장했지만 정밀 조작의 성공률은 아직 낮다.
+단일 팔과 AnySkin 촉각·관절 토크로 움직임·과거 기억·접촉 조작을 평가한다.
 
 ### 본문
 
-회전·Pong은 움직임, Cup·Shell은 기억, Plug·Egg는 접촉을 시험한다. Spin 97.9%·Shell 91.7%에 비해 Cup 45.8%·Plug 33.3%에는 많은 실패가 남는다.
+#### 움직임
 
-Franka는 관절 torque와 AnySkin 촉각을 사용한다. ALLEX와 Franka의 기능 평가는 **각 과제에 관련된 모듈만 활성화**한다.
+**Spin Tracking:** 시계/반시계 회전 판단<br>
+**Pong Game:** 공이 닿을 벽의 색 영역 예측
 
-<p class="mini">Spin96·Pong54 interactions, 나머지는24 trials다. Egg의 비율·시행 수 대응은 마지막 명세 검토에서 다룬다.</p>
+#### 기억
+
+**Cup Swapping:** 머신의 컵을 치우고,<br>
+원래 받침에 있던 다른 컵으로 교체<br>
+**Shell Game:** 물체를 숨긴 컵 고르기
+
+#### 접촉
+
+**Plug Insertion:** 가려진 소켓에 플러그 삽입<br>
+**Egg PnP:** 깨뜨리지 않고 달걀을 그릇에 옮기기
 
 ### 보충
 
+
+
 ### 요점
 
-전체 시스템의 비교 성과를 봤다. 다음은 구성 요소를 바꾼 비교가 어느 기여를 뒷받침하는지 확인한다.
+두 과제씩 움직임·기억·접촉을 시험한다. 그림의 동작과 다음 장의 막대를 연결해 읽는다.
 
 ### 출처
 
-Sec.6.4 · Figs.17–18 · PDF pp.23–24; App.G.3–G.4 · PDF pp.51–52; Q13
+Sec.6.4 · Fig.17 · PDF p.23; App.G.4 · PDF p.52
 
 ### 발표 메모
 
-연결 멘트: “같은 기능을 다른 로봇에서도 평가했습니다. 다만 통합 구조를 설계한 것과 세 기능의 동시 기여를 검증한 것은 구별하겠습니다.” Spin97.9/Pong81.5/Cup45.8/Shell91.7/Plug33.3/Egg61.1, 평균68.5다. 센서는7차원 torque와15차원 AnySkin이다. Spin96 interactions, Pong54 interactions, 나머지24 trials다. ALLEX·Franka 모두 task-relevant module만 활성화한다. Egg61.1의 분모 대응은 불명확해 성공 횟수를 역산하지 않는다. 여섯 과제의 정의·평가 조건은 S093–096에 보존한다.
+Spin은초기위치를바꿔단순위치단서가아닌회전방향을판단한다. Pong은ball이벽에도달하기전에색에대응하는컵을가리킨다. CupSwapping은커피머신의컵을빈coaster로옮긴뒤원래다른coaster에있던컵을머신으로옮기는절차다. Shell은초기에cube를보여준후cup으로가려현재관측만으로는고를수없다. Plug는카메라에서socket이가려져torque/force단서로맞춘다. Egg는깨지않게힘을조절해bowl로옮긴다. 소켓외관·시연·평가protocol의세부는기존S093/094에그대로남긴다.
 
 ### 상세 공부 기록
 
@@ -666,6 +885,56 @@ Sec.6.4 · Fig.17 · PDF p.23; App.G.4 · PDF p.52
 ##### 발표 메모
 
 Cup60 demonstrations(2 initial positions),Shell60(각cup20),Plug100,Egg60. Cup/Shell/Plug/Egg는G.4 기준 각24 trials. AnySkin15차원은왼쪽 gripper의5 sensing units×3축 force다. 오른쪽도 같은 입력을 쓴다고 덧붙이지 않는다. Cup의 완전 성공, Shell의 선택 성공, Plug의 삽입 성공, Egg의 비파손 pick-and-place를 각각 사용한다.
+
+## [P025] Franka 결과
+
+<!-- slide-meta
+layout: figure balanced
+kind: fact
+source_ids: S095, S096
+figure: fig-18.png
+caption: Figure 18 · 앞 장의 여섯 과제에 대한 성공률
+-->
+
+### 한 문장
+
+움직임·기억에서 큰 개선을 보이지만, 컵 교체와 플러그 삽입에는 여전히 많은 실패가 남는다.
+
+### 본문
+
+#### 움직임
+
+**Spin 97.9% · Pong 81.5%**
+
+#### 기억
+
+**컵 교체 45.8% · 숨긴 컵 91.7%**
+
+#### 접촉
+
+**플러그 33.3% · 달걀 61.1%**
+
+평균은 <strong>68.5%</strong>다. 회전·숨긴 컵 선택보다 순차 컵 교체·플러그 삽입이 어렵게 남았다.
+
+<p class="mini">ALLEX·Franka는 각 과제에서 해당 기능의 모듈만 활성화해 평가한다.</p>
+
+### 보충
+
+
+
+### 요점
+
+어떤 과제가 나아졌고 어디에 실패가 남는지 읽는다. 다음은 구성 요소를 바꾼 분석이다.
+
+### 출처
+
+Sec.6.4 · Figs.17–18 · PDF pp.23–24; App.G.4 · PDF p.52; Q13
+
+### 발표 메모
+
+기존수치Spin97.9/Pong81.5/Cup45.8/Shell91.7/Plug33.3/Egg61.1과평균68.5를유지한다. Spin96/Pong54interactions,나머지24trials의차이및Egg61.1과시행수대응불명확(Q13)은S095/096과마지막미해결장에보존한다. ALLEX와Franka모두task-relevant module만활성화하며세기능동시상승효과의통제실험으로확대하지않는다. 로봇하드웨어는P041,동작사진은P044에먼저제시했다.
+
+### 상세 공부 기록
 
 #### [S095] Figure 18의 개선과 한계
 

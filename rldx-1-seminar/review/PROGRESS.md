@@ -1,21 +1,21 @@
 # 슬라이드 제작 진행 상황
 
-- 업데이트: 2026-11-06 / v12
-- 현재 단계: 학습 단계 목적·Fig.6/8·고정 설정 Graph·Kernel Fusion 설명 복원 / 자동 게시.
-- 구성: 기본32장(표지+본문31장), P032 내부27상태·18화살표.
+- 업데이트: 2026-11-06 / v13
+- 현재 단계: 평가 과제·로봇 소개·Fig.11/12/13/15/17 본문 배치 / 자동 게시.
+- 구성: 기본37장(표지+본문36장), P032 내부27상태·18화살표.
 - 원본: 9개 섹션 MD. S002–S122의121개 상세 단위는 각각 한 번 연결되며 통합 전과 내용이 같다.
 - 통합: P005→P032, P007→P006, P011→P032/P036, P021→P038. P012→P009/P010의 기존 통합도 유지한다.
 - 흐름: Fig.3→MSAT 입력→내부 연산→학습 원리→추론 갱신→데이터 종류→공개→자체→합성→학습→실행 최적화→평가/분석→결론→의견/미해결.
 - 원리와 검증은 분리 유지. Conclusion의 기여 반복을 줄이고 의견은 PEFT/BoN의 적용 조건에 집중한다.
 - 원본 기록 보존: review/versions/before-dedup-v07/; 통합 근거와 계획: review/DEDUPLICATION.md.
 - 게시 정책: 수정·검증 후 추가 확인 없이 commit·push한다. 변경 전 v10은 Git 태그로 보존하며 review/ROLLBACK.md에서 확인·복구 방법을 설명한다.
-- 승인: 수정·축소 요청과 결과물 개별 승인을 구분한다. v12은 검토 전이다.
+- 승인: 수정·축소 요청과 결과물 개별 승인을 구분한다. v13은 검토 전이다.
 
 ## 검증
 
-- 원문 PDF pp.12–16·43, 중앙 질문노트와 기존 학습/추론 MD를 대조했다. 원문에 없는 RL 전환 임계값이나 advantage label 식을 추가하지 않는다.
+- 원문 PDF pp.17–24·48–52와 기존 평가 MD를 대조했다. Benchmarks/로봇/과제 정의와 실제 성공 판정을 먼저 설명한다.
 - 121개 상세 단위의 제목·내용은 수정 전 지문과 동일하며 각각 정확히 한 번 연결된다.
-- 실제32장 PNG: 넘침0·이미지 오류0·브라우저 오류0·외부 HTTP요청0. 전체 지도와 통합 학습/추론/학습절차/의견 장을 직접 확인했다.
+- 실제37장 PNG: 넘침0·이미지 오류0·브라우저 오류0·외부 HTTP요청0. 전체 지도와 통합 학습/추론/학습절차/의견 장을 직접 확인했다.
 - 27상태·4모듈·18화살표, PPT키·역순,5개퇴역링크,이동된해설,KaTeX·Arial·한글 대체 글꼴 검증 통과.
 - 기본/base 빌드·게시패키지·로컬Pages경로 검증 통과. 실행 명령·한계는 review/VALIDATION.md에 기록한다.
 
@@ -23,40 +23,45 @@
 
 | 순서 | ID | 제목 | 버전 | 상태 | PNG |
 | --- | --- | --- | --- | --- | --- |
-| 1 | S001 | RLDX-1 Technical Report | v12 | 검토 전 | review/previews/deck-v12/S001-v12.png |
-| 2 | P002 | 기존 VLA의 문제 | v12 | 검토 전 | review/previews/deck-v12/P002-v12.png |
-| 3 | P031 | RLDX-1 Overview | v12 | 검토 전 | review/previews/deck-v12/P031-v12.png |
-| 4 | P032 | RLDX-1 Architecture | v12 | 검토 전 | review/previews/deck-v12/P032-v12.png |
-| 5 | P009 | MSAT의 입력 | v12 | 검토 전 | review/previews/deck-v12/P009-v12.png |
-| 6 | P010 | MSAT의 Joint Attention | v12 | 검토 전 | review/previews/deck-v12/P010-v12.png |
-| 7 | P006 | Action Model의 학습 원리 | v12 | 검토 전 | review/previews/deck-v12/P006-v12.png |
-| 8 | P008 | Action Model의 추론 수식 | v12 | 검토 전 | review/previews/deck-v12/P008-v12.png |
-| 9 | P013 | 학습 데이터 | v12 | 검토 전 | review/previews/deck-v12/P013-v12.png |
-| 10 | P033 | 공개 실제 데이터 | v12 | 검토 전 | review/previews/deck-v12/P033-v12.png |
-| 11 | P034 | 자체 실제 데이터 | v12 | 검토 전 | review/previews/deck-v12/P034-v12.png |
-| 12 | P014 | Task·Scene Augmentation | v12 | 검토 전 | review/previews/deck-v12/P014-v12.png |
-| 13 | P015 | 합성 데이터 검증 | v12 | 검토 전 | review/previews/deck-v12/P015-v12.png |
-| 14 | P035 | 학습 단계 | v12 | 검토 전 | review/previews/deck-v12/P035-v12.png |
-| 15 | P016 | Pre-training | v12 | 검토 전 | review/previews/deck-v12/P016-v12.png |
-| 16 | P036 | 로봇별 입출력 경로 | v12 | 검토 전 | review/previews/deck-v12/P036-v12.png |
-| 17 | P017 | Mid-training | v12 | 검토 전 | review/previews/deck-v12/P017-v12.png |
-| 18 | P018 | Post-training | v12 | 검토 전 | review/previews/deck-v12/P018-v12.png |
-| 19 | P019 | RECAP | v12 | 검토 전 | review/previews/deck-v12/P019-v12.png |
-| 20 | P037 | Critic과 Figure 8 | v12 | 검토 전 | review/previews/deck-v12/P037-v12.png |
-| 21 | P020 | CUDA Graph | v12 | 검토 전 | review/previews/deck-v12/P020-v12.png |
-| 22 | P038 | Kernel Fusion | v12 | 검토 전 | review/previews/deck-v12/P038-v12.png |
-| 23 | P039 | Kernel Fusion의 계산 | v12 | 검토 전 | review/previews/deck-v12/P039-v12.png |
-| 24 | P022 | Simulation Experiments | v12 | 검토 전 | review/previews/deck-v12/P022-v12.png |
-| 25 | P023 | OpenArm | v12 | 검토 전 | review/previews/deck-v12/P023-v12.png |
-| 26 | P024 | ALLEX | v12 | 검토 전 | review/previews/deck-v12/P024-v12.png |
-| 27 | P025 | Franka | v12 | 검토 전 | review/previews/deck-v12/P025-v12.png |
-| 28 | P026 | Ablation | v12 | 검토 전 | review/previews/deck-v12/P026-v12.png |
-| 29 | P027 | RL·추론 지연 분석 | v12 | 검토 전 | review/previews/deck-v12/P027-v12.png |
-| 30 | P029 | Conclusion | v12 | 검토 전 | review/previews/deck-v12/P029-v12.png |
-| 31 | P028 | 나의 의견 | v12 | 검토 전 | review/previews/deck-v12/P028-v12.png |
-| 32 | P030 | 한계와 미해결 질문 | v12 | 검토 전 | review/previews/deck-v12/P030-v12.png |
+| 1 | S001 | RLDX-1 Technical Report | v13 | 검토 전 | review/previews/deck-v13/S001-v13.png |
+| 2 | P002 | 기존 VLA의 문제 | v13 | 검토 전 | review/previews/deck-v13/P002-v13.png |
+| 3 | P031 | RLDX-1 Overview | v13 | 검토 전 | review/previews/deck-v13/P031-v13.png |
+| 4 | P032 | RLDX-1 Architecture | v13 | 검토 전 | review/previews/deck-v13/P032-v13.png |
+| 5 | P009 | MSAT의 입력 | v13 | 검토 전 | review/previews/deck-v13/P009-v13.png |
+| 6 | P010 | MSAT의 Joint Attention | v13 | 검토 전 | review/previews/deck-v13/P010-v13.png |
+| 7 | P006 | Action Model의 학습 원리 | v13 | 검토 전 | review/previews/deck-v13/P006-v13.png |
+| 8 | P008 | Action Model의 추론 수식 | v13 | 검토 전 | review/previews/deck-v13/P008-v13.png |
+| 9 | P013 | 학습 데이터 | v13 | 검토 전 | review/previews/deck-v13/P013-v13.png |
+| 10 | P033 | 공개 실제 데이터 | v13 | 검토 전 | review/previews/deck-v13/P033-v13.png |
+| 11 | P034 | 자체 실제 데이터 | v13 | 검토 전 | review/previews/deck-v13/P034-v13.png |
+| 12 | P014 | Task·Scene Augmentation | v13 | 검토 전 | review/previews/deck-v13/P014-v13.png |
+| 13 | P015 | 합성 데이터 검증 | v13 | 검토 전 | review/previews/deck-v13/P015-v13.png |
+| 14 | P035 | 학습 단계 | v13 | 검토 전 | review/previews/deck-v13/P035-v13.png |
+| 15 | P016 | Pre-training | v13 | 검토 전 | review/previews/deck-v13/P016-v13.png |
+| 16 | P036 | 로봇별 입출력 경로 | v13 | 검토 전 | review/previews/deck-v13/P036-v13.png |
+| 17 | P017 | Mid-training | v13 | 검토 전 | review/previews/deck-v13/P017-v13.png |
+| 18 | P018 | Post-training | v13 | 검토 전 | review/previews/deck-v13/P018-v13.png |
+| 19 | P019 | RECAP | v13 | 검토 전 | review/previews/deck-v13/P019-v13.png |
+| 20 | P037 | Critic과 Figure 8 | v13 | 검토 전 | review/previews/deck-v13/P037-v13.png |
+| 21 | P020 | CUDA Graph | v13 | 검토 전 | review/previews/deck-v13/P020-v13.png |
+| 22 | P038 | Kernel Fusion | v13 | 검토 전 | review/previews/deck-v13/P038-v13.png |
+| 23 | P039 | Kernel Fusion의 계산 | v13 | 검토 전 | review/previews/deck-v13/P039-v13.png |
+| 24 | P040 | 시뮬레이션 벤치마크 | v13 | 검토 전 | review/previews/deck-v13/P040-v13.png |
+| 25 | P022 | Simulation 결과 | v13 | 검토 전 | review/previews/deck-v13/P022-v13.png |
+| 26 | P041 | 실제 로봇 | v13 | 검토 전 | review/previews/deck-v13/P041-v13.png |
+| 27 | P042 | OpenArm 과제 | v13 | 검토 전 | review/previews/deck-v13/P042-v13.png |
+| 28 | P023 | OpenArm 결과 | v13 | 검토 전 | review/previews/deck-v13/P023-v13.png |
+| 29 | P043 | ALLEX 과제 | v13 | 검토 전 | review/previews/deck-v13/P043-v13.png |
+| 30 | P024 | ALLEX 결과 | v13 | 검토 전 | review/previews/deck-v13/P024-v13.png |
+| 31 | P044 | Franka 과제 | v13 | 검토 전 | review/previews/deck-v13/P044-v13.png |
+| 32 | P025 | Franka 결과 | v13 | 검토 전 | review/previews/deck-v13/P025-v13.png |
+| 33 | P026 | Ablation | v13 | 검토 전 | review/previews/deck-v13/P026-v13.png |
+| 34 | P027 | RL·추론 지연 분석 | v13 | 검토 전 | review/previews/deck-v13/P027-v13.png |
+| 35 | P029 | Conclusion | v13 | 검토 전 | review/previews/deck-v13/P029-v13.png |
+| 36 | P028 | 나의 의견 | v13 | 검토 전 | review/previews/deck-v13/P028-v13.png |
+| 37 | P030 | 한계와 미해결 질문 | v13 | 검토 전 | review/previews/deck-v13/P030-v13.png |
 
-Fig.3의 실제 상태 PNG는 review/previews/architecture-v12/step-00.png–step-26.png다. 세 토큰은08, VLM은11, Memory는17, MSAT입력은22, 처리·출력은25에서 볼 수 있다.
+Fig.3의 실제 상태 PNG는 review/previews/architecture-v13/step-00.png–step-26.png다. 세 토큰은08, VLM은11, Memory는17, MSAT입력은22, 처리·출력은25에서 볼 수 있다.
 
 ## 재개
 
@@ -210,3 +215,19 @@ AGENTS.md → PROJECT.md → 이 파일 → FEEDBACK.md → sections/README.md �
 - 검증: verify_sources.py; verify_deck.mjs(32PNG, 넘침/이미지실패/오류/외부요청0); verify_architecture.mjs(27상태); verify_navigation.mjs(새학습/추론순서·기존/퇴역링크·페이지입력); verify_math_font.mjs(실제Arial/한글fallback·모든해설수식); 기본/base빌드; verify_slidev.mjs(32장); package_pages.py; verify_pages.mjs. 세HTML동일성·git diff --check 확인.
 - PNG: review/previews/deck-v12/P035-v12.png, P016-v12.png, P036-v12.png, P017-v12.png, P018-v12.png, P019-v12.png, P037-v12.png, P020-v12.png, P038-v12.png, P039-v12.png를 직접 확인했다. 최초 배치의 넘침은 문장/배치를 고쳐 해결했고 글꼴 크기를 줄이지 않았다.
 - 사용자 결과물 검토 전이다. 최신 자동게시 지시에 따라 변경과보존태그를commit·push한다. 실제Pages배포완료는 별도 확인하지 않았다.
+
+## 2026-11-06 / v13 / 벤치마크·로봇·과제 사진을 먼저 설명
+
+- 사용자 요청: 기존 실험 결과 장에서 LIBERO 평균과 Basic/Directional PnP 등 과제명 의미 및 로봇의 정체를 설명하고 Fig.11·12·13·15·17을 본문에 넣을 것. P023의 갑작스러운 ‘저자 해석’ 문장을 쉽게 풀고, P024의 ‘잡는다.’ 뒤 ‘기억’ 앞을 줄바꿈할 것.
+- 추가 지시: “페이지 수 일단은 신경쓰지말고!!” 페이지 수를 제한하지 않으며, 사진과 개념·과제 설명을 결과보다 먼저 제시하는 데 필요한 장을 둔다.
+- 근거: 원문 PDF pp.17–24와 App.G.1–G.4 pp.48–52, 기존 평가 공부 MD S082–S096 및 질문노트를 대조했다. 벤치마크를 평가 세트, 개별 동작을 과제로 구분한다.
+- 흐름: P040 Fig.11 시뮬레이션 벤치마크 → P022 결과·LIBERO 평균 → P041 Fig.12 실제 로봇 → P042 Fig.13 OpenArm 과제 → P023 결과 → P043 Fig.15 ALLEX 과제 → P024 결과 → P044 Fig.17 Franka 과제 → P025 결과. 소개 장5개를 추가했으며 현재37장이다. 이 수를 한도로 삼지 않는다.
+- LIBERO:4suite(Spatial/Object/Goal/Long),40task의 평균 성공률을 설명한다. Short는앞3suite,Avg는Long을포함한다. 결과 표의 최강baseline과RC365전체/미지복합을구분하고 기존조건·한계는N해설에유지한다.
+- 로봇: OpenArm28DoF양팔/Inspire손, ALLEX48DoF상반신/양팔·손·토크, Franka단일팔그리퍼/torque·AnySkin을Fig.12와연결했다. 원문의Franka그림내자유도표기와G.4팔사양은N메모에서구분한다.
+- OpenArm: Basic=인형→오른쪽상자, Directional=선반4칸/식기대3칸의지시위치, UnseenObject=새instance, UnseenTask=새물체·놓기조합, Grounding=같은종류중지시한instance를골라잡기로설명한다. Grounding의성공은정확한대상을잡는것,나머지는지정위치에놓는것이다. 과적합·원인통제문장을본문에서빼고기존S089에보존했다.
+- ALLEX: Fig.15의움직이는상자/숨긴상자/카드/공따르기동작을설명한뒤Fig.16결과로이어진다. P024에명시적br을넣고성공률87.5/91.7과progress97.2/70.8,혼합평균86.8의의미를구분한다.
+- Franka: Fig.17의Spin/Pong, CupSwapping/Shell, Plug/Egg를기능별로설명한다. Cup은머신의컵을치운후원래받침의다른컵으로교체하는순서다. Fig.18결과에서는어떤과제에실패가남는지읽고관련모듈만활성화한평가조건도유지한다.
+- 보존: 기존 상세121개내용은변경전태그 rldx-v12-before-evaluation-context-20261106(757822d)와동일하다(바깥공백제외). 소유장만재배치했고기존ID·퇴역링크·32장구간의탐색규칙을보존했다. Arial/한글fallback·자간0·글자크기는유지한다.
+- 실제검증: verify_sources.py; verify_deck.mjs(37PNG,넘침/이미지실패/브라우저오류/외부요청0); verify_architecture.mjs(27상태); verify_navigation.mjs(사진소개→결과순서포함); verify_math_font.mjs(실제글리프·전체해설수식); 기본/base빌드; verify_slidev.mjs(37장오류0); package_pages.py; verify_pages.mjs. 소스공백정리전후HTML SHA256동일,세HTML동일성·git diff --check확인.
+- 실제PNG: review/previews/deck-v13/P040-v13.png, P022-v13.png, P041-v13.png, P042-v13.png, P023-v13.png, P043-v13.png, P024-v13.png, P044-v13.png, P025-v13.png를직접확인했다. ALLEX의초기넘침은중복평균문장을하단요점으로옮겨해결했고글꼴크기는줄이지않았다.
+- 사용자결과물검토전이다. 최신자동게시지시에따라본문·기록·생성HTML/ZIP과변경전태그를commit·push한다. Pages실제반영완료는별도확인하지않았다.

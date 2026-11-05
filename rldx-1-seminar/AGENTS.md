@@ -128,3 +128,10 @@
 - Graph 설명은 설정 의존성 → 고정 배포에서 준비값 재사용 → 분할 해소 → 한 CUDA Graph 캡처 순서를 생략하지 않는다. Kernel fusion은 중간 결과를 global memory에 저장·재읽기하는 방식과 한 fused kernel 안에서 이어 계산하는 방식을 Fig.10 및 합성함수 수식으로 비교한다.
 - 짧은 요약을 위해 공부했던 인과 설명을 빼거나 원문에 없는 RL 전환 임계값·advantage label 식을 만들지 않는다. 원문·기존 공부 MD·사용자 교정을 대조한다.
 - 새 장 P035–P039를 추가해32장으로 구성하고 상세121개 내용은 그대로 보존한다. P011 링크는 projection의 P036, P021 링크는 kernel의 P038로 연결한다. 변경 전 태그는 rldx-v11-before-training-inference-20261106이다.
+
+## 평가 맥락·과제 사진 — 2026-11-06 / v13
+
+- 사용자는 각 benchmark/로봇/과제 이름의 의미를 결과보다 먼저 설명하고 Fig.11·12·13·15·17을 실제 본문에 넣도록 요청했다. P040–P044를 추가해 벤치마크 → 결과 → 로봇 소개 → 각 로봇 과제 사진 → 해당 결과의 순서로 설명한다. 기본37장, 상세121개는 내용 그대로 보존한다.
+- LIBERO는4suite/40task의 평균이며 Short는spatial/object/goal, Avg는Long까지 포함한다. OpenArm의 Basic/Directional/Unseen/Grounding 의미와 성공 판정을 쉽게 설명한다. 모호한 과적합·원인 통제 문장은 결과 본문에서 빼고 기존 N 해설에 둔다.
+- ALLEX의 ‘잡는다.’ 뒤에 명시적 줄바꿈을 넣고 성공률/부분 진행 점수/혼합 평균을 구별한다. Fig.12는 세 로봇 전체를 소개하며 데이터 수집 장의 (b)(c) 발췌와 역할이 다르다.
+- 변경 전 태그: rldx-v12-before-evaluation-context-20261106. 기존 장 ID와 해시 링크는 유지한다.

@@ -4,7 +4,7 @@
     "id": "S001",
     "title": "RLDX-1 Technical Report",
     "chapter": "표지",
-    "version": "v12",
+    "version": "v13",
     "status": "전체 초안 / 미승인",
     "source_ids": [
       "S001"
@@ -15,7 +15,7 @@
     "id": "P002",
     "title": "기존 VLA의 문제",
     "chapter": "Problems",
-    "version": "v12",
+    "version": "v13",
     "status": "전체 초안 / 미승인",
     "source_ids": [
       "S002",
@@ -28,7 +28,7 @@
     "id": "P031",
     "title": "RLDX-1 Overview",
     "chapter": "RLDX-1 Architecture",
-    "version": "v12",
+    "version": "v13",
     "status": "전체 초안 / 미승인",
     "source_ids": [
       "S122",
@@ -42,7 +42,7 @@
     "id": "P032",
     "title": "RLDX-1 Architecture",
     "chapter": "RLDX-1 Architecture",
-    "version": "v12",
+    "version": "v13",
     "status": "전체 초안 / 미승인",
     "source_ids": [
       "S008",
@@ -66,7 +66,7 @@
     "id": "P009",
     "title": "MSAT의 입력",
     "chapter": "RLDX-1 Architecture",
-    "version": "v12",
+    "version": "v13",
     "status": "전체 초안 / 미승인",
     "source_ids": [
       "S031",
@@ -80,7 +80,7 @@
     "id": "P010",
     "title": "MSAT의 Joint Attention",
     "chapter": "RLDX-1 Architecture",
-    "version": "v12",
+    "version": "v13",
     "status": "전체 초안 / 미승인",
     "source_ids": [
       "S033",
@@ -93,7 +93,7 @@
     "id": "P006",
     "title": "Action Model의 학습 원리",
     "chapter": "RLDX-1 Architecture",
-    "version": "v12",
+    "version": "v13",
     "status": "전체 초안 / 미승인",
     "source_ids": [
       "S020",
@@ -111,7 +111,7 @@
     "id": "P008",
     "title": "Action Model의 추론 수식",
     "chapter": "RLDX-1 Architecture",
-    "version": "v12",
+    "version": "v13",
     "status": "전체 초안 / 미승인",
     "source_ids": [
       "S027",
@@ -124,7 +124,7 @@
     "id": "P013",
     "title": "학습 데이터",
     "chapter": "Training Data",
-    "version": "v12",
+    "version": "v13",
     "status": "전체 초안 / 미승인",
     "source_ids": [
       "S041",
@@ -136,7 +136,7 @@
     "id": "P033",
     "title": "공개 실제 데이터",
     "chapter": "Training Data",
-    "version": "v12",
+    "version": "v13",
     "status": "전체 초안 / 미승인",
     "source_ids": []
   },
@@ -145,7 +145,7 @@
     "id": "P034",
     "title": "자체 실제 데이터",
     "chapter": "Training Data",
-    "version": "v12",
+    "version": "v13",
     "status": "전체 초안 / 미승인",
     "source_ids": [
       "S042"
@@ -156,7 +156,7 @@
     "id": "P014",
     "title": "Task·Scene Augmentation",
     "chapter": "Training Data",
-    "version": "v12",
+    "version": "v13",
     "status": "전체 초안 / 미승인",
     "source_ids": [
       "S044",
@@ -173,7 +173,7 @@
     "id": "P015",
     "title": "합성 데이터 검증",
     "chapter": "Training Data",
-    "version": "v12",
+    "version": "v13",
     "status": "전체 초안 / 미승인",
     "source_ids": [
       "S051",
@@ -188,7 +188,7 @@
     "id": "P035",
     "title": "학습 단계",
     "chapter": "Training Procedure",
-    "version": "v12",
+    "version": "v13",
     "status": "전체 초안 / 미승인",
     "source_ids": [
       "S056"
@@ -199,7 +199,7 @@
     "id": "P016",
     "title": "Pre-training",
     "chapter": "Training Procedure",
-    "version": "v12",
+    "version": "v13",
     "status": "전체 초안 / 미승인",
     "source_ids": [
       "S057",
@@ -211,7 +211,7 @@
     "id": "P036",
     "title": "로봇별 입출력 경로",
     "chapter": "Training Procedure",
-    "version": "v12",
+    "version": "v13",
     "status": "전체 초안 / 미승인",
     "source_ids": [
       "S058",
@@ -223,7 +223,7 @@
     "id": "P017",
     "title": "Mid-training",
     "chapter": "Training Procedure",
-    "version": "v12",
+    "version": "v13",
     "status": "전체 초안 / 미승인",
     "source_ids": [
       "S060",
@@ -238,7 +238,7 @@
     "id": "P018",
     "title": "Post-training",
     "chapter": "Training Procedure",
-    "version": "v12",
+    "version": "v13",
     "status": "전체 초안 / 미승인",
     "source_ids": [
       "S065",
@@ -250,7 +250,7 @@
     "id": "P019",
     "title": "RECAP",
     "chapter": "Training Procedure",
-    "version": "v12",
+    "version": "v13",
     "status": "전체 초안 / 미승인",
     "source_ids": [
       "S067",
@@ -264,7 +264,7 @@
     "id": "P037",
     "title": "Critic과 Figure 8",
     "chapter": "Training Procedure",
-    "version": "v12",
+    "version": "v13",
     "status": "전체 초안 / 미승인",
     "source_ids": [
       "S069"
@@ -275,7 +275,7 @@
     "id": "P020",
     "title": "CUDA Graph",
     "chapter": "Inference Strategy",
-    "version": "v12",
+    "version": "v13",
     "status": "전체 초안 / 미승인",
     "source_ids": [
       "S072",
@@ -289,7 +289,7 @@
     "id": "P038",
     "title": "Kernel Fusion",
     "chapter": "Inference Strategy",
-    "version": "v12",
+    "version": "v13",
     "status": "전체 초안 / 미승인",
     "source_ids": [
       "S076",
@@ -304,7 +304,7 @@
     "id": "P039",
     "title": "Kernel Fusion의 계산",
     "chapter": "Inference Strategy",
-    "version": "v12",
+    "version": "v13",
     "status": "전체 초안 / 미승인",
     "source_ids": [
       "S080"
@@ -312,13 +312,23 @@
   },
   {
     "order": 24,
-    "id": "P022",
-    "title": "Simulation Experiments",
+    "id": "P040",
+    "title": "시뮬레이션 벤치마크",
     "chapter": "Evaluation and Analysis",
-    "version": "v12",
+    "version": "v13",
     "status": "전체 초안 / 미승인",
     "source_ids": [
-      "S082",
+      "S082"
+    ]
+  },
+  {
+    "order": 25,
+    "id": "P022",
+    "title": "Simulation 결과",
+    "chapter": "Evaluation and Analysis",
+    "version": "v13",
+    "status": "전체 초안 / 미승인",
+    "source_ids": [
       "S083",
       "S084",
       "S085",
@@ -327,50 +337,89 @@
     ]
   },
   {
-    "order": 25,
-    "id": "P023",
-    "title": "OpenArm",
+    "order": 26,
+    "id": "P041",
+    "title": "실제 로봇",
     "chapter": "Evaluation and Analysis",
-    "version": "v12",
+    "version": "v13",
+    "status": "전체 초안 / 미승인",
+    "source_ids": []
+  },
+  {
+    "order": 27,
+    "id": "P042",
+    "title": "OpenArm 과제",
+    "chapter": "Evaluation and Analysis",
+    "version": "v13",
     "status": "전체 초안 / 미승인",
     "source_ids": [
-      "S088",
+      "S088"
+    ]
+  },
+  {
+    "order": 28,
+    "id": "P023",
+    "title": "OpenArm 결과",
+    "chapter": "Evaluation and Analysis",
+    "version": "v13",
+    "status": "전체 초안 / 미승인",
+    "source_ids": [
       "S089"
     ]
   },
   {
-    "order": 26,
-    "id": "P024",
-    "title": "ALLEX",
+    "order": 29,
+    "id": "P043",
+    "title": "ALLEX 과제",
     "chapter": "Evaluation and Analysis",
-    "version": "v12",
+    "version": "v13",
     "status": "전체 초안 / 미승인",
     "source_ids": [
       "S090",
-      "S091",
+      "S091"
+    ]
+  },
+  {
+    "order": 30,
+    "id": "P024",
+    "title": "ALLEX 결과",
+    "chapter": "Evaluation and Analysis",
+    "version": "v13",
+    "status": "전체 초안 / 미승인",
+    "source_ids": [
       "S092"
     ]
   },
   {
-    "order": 27,
-    "id": "P025",
-    "title": "Franka",
+    "order": 31,
+    "id": "P044",
+    "title": "Franka 과제",
     "chapter": "Evaluation and Analysis",
-    "version": "v12",
+    "version": "v13",
     "status": "전체 초안 / 미승인",
     "source_ids": [
       "S093",
-      "S094",
+      "S094"
+    ]
+  },
+  {
+    "order": 32,
+    "id": "P025",
+    "title": "Franka 결과",
+    "chapter": "Evaluation and Analysis",
+    "version": "v13",
+    "status": "전체 초안 / 미승인",
+    "source_ids": [
       "S095",
       "S096"
     ]
   },
   {
-    "order": 28,
+    "order": 33,
     "id": "P026",
     "title": "Ablation",
     "chapter": "Ablation and Analysis",
-    "version": "v12",
+    "version": "v13",
     "status": "전체 초안 / 미승인",
     "source_ids": [
       "S097",
@@ -382,11 +431,11 @@
     ]
   },
   {
-    "order": 29,
+    "order": 34,
     "id": "P027",
     "title": "RL·추론 지연 분석",
     "chapter": "Ablation and Analysis",
-    "version": "v12",
+    "version": "v13",
     "status": "전체 초안 / 미승인",
     "source_ids": [
       "S103",
@@ -397,11 +446,11 @@
     ]
   },
   {
-    "order": 30,
+    "order": 35,
     "id": "P029",
     "title": "Conclusion",
     "chapter": "Conclusion",
-    "version": "v12",
+    "version": "v13",
     "status": "전체 초안 / 미승인",
     "source_ids": [
       "S116",
@@ -409,11 +458,11 @@
     ]
   },
   {
-    "order": 31,
+    "order": 36,
     "id": "P028",
     "title": "나의 의견",
     "chapter": "My opinions and limitation",
-    "version": "v12",
+    "version": "v13",
     "status": "전체 초안 / 미승인",
     "source_ids": [
       "S108",
@@ -427,11 +476,11 @@
     ]
   },
   {
-    "order": 32,
+    "order": 37,
     "id": "P030",
     "title": "한계와 미해결 질문",
     "chapter": "My opinions and limitation",
-    "version": "v12",
+    "version": "v13",
     "status": "전체 초안 / 미승인",
     "source_ids": [
       "S118",
