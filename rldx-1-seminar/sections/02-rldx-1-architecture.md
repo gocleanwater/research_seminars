@@ -1242,49 +1242,54 @@ source_ids: S020, S021, S022, S023, S024, S025, S026, S028
 
 ### 한 문장
 
-MSAT는 노이즈가 섞인 chunk를 입력받아, 정답으로 향하는 변화율을 flow matching으로 학습한다.
+정답 action chunk에 노이즈를 섞고, 정답 변화율을 예측하도록 flow-matching 손실을 최소화한다.
 
 ### 본문
 
-#### 노이즈 후보와 정답 변화율
+#### Noisy action chunk
 
 $$
 \mathbf{a}^{\tau}=\tau\mathbf{a}+(1-\tau)\boldsymbol{\epsilon}
 $$
 
-$\mathbf{a}=\mathbf{a}_{t:t+H}$는 정답 행동 chunk, $\boldsymbol{\epsilon}$는 같은 shape의 표준 정규 노이즈다. **τ=0은 노이즈, τ=1은 정답**이다.
+| 기호 | 의미 |
+| --- | --- |
+| $\mathbf a$ | 정답 action chunk $\mathbf a_{t:t+H}$ |
+| $\boldsymbol\epsilon$ | 같은 shape의 표준 정규 노이즈 |
+| $\tau$ | Denoising timestep (0 → 1) |
 
 $$
-\frac{d\mathbf{a}^{\tau}}{d\tau}=\mathbf{a}-\boldsymbol{\epsilon}=\mathbf{v}^{*}
+\frac{d\mathbf a^\tau}{d\tau}=\mathbf a-\boldsymbol\epsilon=\mathbf v^*
 $$
-
-물리 시간 **t**와 denoising timestep **τ**를 구분한다. 같은 t에서 후보 전체를 다듬는다.
 
 ### 보충
 
-#### 예측 변화율과 학습 손실
+#### Flow-matching loss
 
 $$
-\mathcal{L}=\bigl\lVert\mathbf{u}_\theta(\mathbf{a}^{\tau},\tau,\mathbf{c}_t)-\mathbf{v}^{*}\bigr\rVert_2^2
+\mathcal L=\bigl\lVert\underbrace{\textcolor{#167e7a}{\mathbf u_\theta}}_{\text{MSAT}}(\mathbf a^\tau,\tau,\mathbf c_t)-\mathbf v^*\bigr\rVert_2^2
 $$
 
-$\mathbf{c}_t$는 cognition·memory·현재 상태·센서 조건이다. L2 norm의 제곱은 **좌표별 변화율 오차 제곱의 합**이다.
+<p class="callout"><strong>$\mathbf u_\theta$: 학습 가능한 신경망(MSAT)</strong><br>
+논문에서는 <strong>neural vector field</strong>로 부른다.<br>
+$\theta$는 학습되는 신경망의 가중치다.</p>
 
-<span class="label example">설명용 예시</span> 정답 $[3,-1]$, 노이즈 $[-1,1]$이면 target은 $[4,-2]$다. 예측이 $[3.9,-1.8]$이면 손실은 **0.05**다.
+<strong>함수의 출력:</strong> chunk 전체의 **예측 변화율**.<br>
+어느 방향으로 얼마나 바꿀지를 나타낸다.
 
-<p class="mini">τ·노이즈 샘플링 → 후보 구성 → 변화율 예측 → 손실·역전파. 학습 샘플마다 완전한 denoising을 반복하는 것은 아니다.</p>
+<p class="mini">손실은 이 예측 변화율과 정답 $\mathbf v^*$의 오차 제곱합이다.</p>
 
 ### 요점
 
-학습은 중간 후보에서 변화율을 맞히는 일이다. 다음은 이 모델로 실제 chunk를 생성하는 과정이다.
+예측 변화율과 정답 변화율의 오차 제곱합을 줄이도록 모델 파라미터를 학습한다.
 
 ### 출처
 
-Sec.2.2 Eq.(1) · PDF p.8; 직선 경로 미분·벡터 예시는 설명용
+Sec.2.2 Eq.(1) · PDF p.8; noisy action chunk는 원문 용어, 미분·좌표별 합은 설명용 전개
 
 ### 발표 메모
 
-P006과 P007을 통합했다. Transformer/DiT는 구조, flow matching은 목표, Euler는 추론 갱신이며 고전 diffusion 손실과 순차 적용하는 두 단계가 아니다. S020–026/S028의 유도·수식·용어·shape 해설을 모두 유지한다. 개별 정답 쌍의 직선 target이 상수라는 것과 학습한 vector field가 모든 입력에서 상수라는 것은 다르다. 현재 조건의 센서는 사용 가능할 때 포함한다. Sec.1.1의 c_t는 지시지만 여기서는 Sec.2.2의 전체 조건 정의다. τ의 정확한 샘플링 분포·구현상 loss reduction을 임의 확정하지 않는다.
+P006과 P007을 통합했다. Transformer/DiT는 구조, flow matching은 목표, Euler는 추론 갱신이며 고전 diffusion 손실과 순차 적용하는 두 단계가 아니다. S020–026/S028의 유도·수식·용어·shape 해설을 모두 유지한다. 개별 정답 쌍의 직선 target이 상수라는 것과 학습한 vector field가 모든 입력에서 상수라는 것은 다르다. 현재 조건의 센서는 사용 가능할 때 포함한다. Sec.1.1의 c_t는 지시지만 여기서는 Sec.2.2의 전체 조건 정의다. τ의 정확한 샘플링 분포·구현상 loss reduction을 임의 확정하지 않는다. P006 Browser Comment1–4 후속: 본문에서 t/τ 재설명과 c_t 정의·숫자 예시를 빼고 기호 표와 손실 항 해석으로 바꿨다. 원문은 noisy action chunk라고 명시한다. 좌표 j는 action chunk의 시간·행동 차원 전체를 펼쳐 읽기 위한 설명용 인덱스이며 추가 평균/reduction 구현을 확정하지 않는다. 기존 숫자 예시와 시간/조건 설명은 S021/S022/S023/S026 해설에 그대로 보존한다. 최신 annotation 요청: u_θ 자체는 파라미터 θ를 학습하는 neural vector field이며 구현은 MSAT다. u_θ(a^τ,τ,c_t)는 그 함수를 평가해 얻은 예측 변화율이다. 둘을 구분해 u_θ에 직접 underbrace를 연결하고 같은 색의 모델 주석으로 설명한다. 좌표별 손실 전개는 상세 해설에 유지한다.
 
 ### 상세 공부 기록
 

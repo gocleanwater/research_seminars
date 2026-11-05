@@ -20,7 +20,7 @@
 - 디자인 참고: Gravity PDF·kahadra/10.30 중심, 사용자의 U-Net 발표는 보조. `review/REFERENCE_REVIEW.md` 참고
 - 수식·글꼴: Markdown LaTeX → KaTeX, 나눔고딕 3종 내장. 글꼴 설치·CDN 연결 없이 표시
 - Canva: 작업 취소. 로컬 Markdown·HTML을 수정
-- 공개: 현재 사이트 https://gocleanwater.github.io/research_seminars/rldx-1-seminar/ (research_seminars, 복수형 경로). 사용자가 직접 게시하며 이 작업에서 GitHub 저장소 생성·push·Pages 배포 수행하지 않음. 사용자가 직접 게시할 때의 안내는 `deployment/GITHUB_PAGES.md`
+- 공개: https://gocleanwater.github.io/research_seminars/rldx-1-seminar/ (복수형 research_seminars). 최신 사용자 지시에 따라 수정·검증 후 추가 확인 없이 commit하고 origin/main에 push한다. Pages 배포 완료는 확인한 경우에만 보고한다.
 - 승인: 전체 제작·수정 요청과 개별 장 승인 구분. 과거 목차 승인 이외의 승인을 추정하지 않음
 - 원문: `../../research_wiki/papers/RLWRLD-RLDX-1 Technical Report.pdf`
 - 공부 기록: `../../research_wiki/RLDX-1_질문노트.md`
@@ -36,7 +36,7 @@
 - P005/P007/P011/P012/P021 ID는 재사용하지 않는다. 과거 링크는 해당 통합 위치로 연결하며 P005는 Fig.3 Memory 확대로 열린다.
 - Conclusion은 저자 기여·검증 범위, 나의 의견은 PEFT/BoN 조건, 마지막 장은 미명세·후속 검증에 집중한다.
 - 수식·예시·조건·미해결 질문을 포함한121개 상세 단위는 통합 전과 내용이 같다. 이전9개 MD와 지문은 review/versions/before-dedup-v07/에 보존한다.
-- v07은 로컬 검토본이며 이번 변경의 commit/push는 하지 않았다.
+- v07은 게시되었으며 이후 수정은 최신 지시에 따라 검증 후 자동 commit/push한다.
 
 ## v06 MSAT 설명 통합
 

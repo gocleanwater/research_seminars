@@ -40,7 +40,7 @@
 - 공부 기록, 원문, 슬라이드 소스, 피드백, 승인 기록은 자동 삭제하지 않는다.
 - 재생성 가능한 `dist/`, `node_modules/`, `review/previews/`를 지식 원본으로 사용하지 않는다. 자동 정리 스케줄은 없다.
 - 현재 작업은 로컬 HTML 개선과 Markdown 원본 정리다. Canva 작업은 취소됐으며 새 Canva 생성·편집을 진행하지 않는다.
-- 현재 공개 주소는 https://gocleanwater.github.io/research_seminars/rldx-1-seminar/ 이다. 사용자가 직접 게시하며 이 작업에서 GitHub 저장소 생성·push·Pages 배포는 수행하지 않는다. 기존 게시 준비 안내와 패키지 도구가 있어도 공개 실행 허가로 해석하지 않는다. 사용자가 직접 게시하려는 결정을 보존한다.
+- 현재 공개 주소는 https://gocleanwater.github.io/research_seminars/rldx-1-seminar/ 이다. 최신 사용자 지시에 따라 이 프로젝트는 수정·검증 후 별도 확인 없이 커밋하고 origin/main에 push한다. GitHub Pages 반영 완료 여부는 실제로 확인한 경우에만 완료로 보고한다.
 - 공개 빌드의 `--without-notes`는 웹 결과물에서만 노트를 뺀다. 공개 Git 저장소에 커밋된 소스의 메모까지 숨기지 않는다.
 - 현재 요청이 구조 준비라면 논문 내용이나 가상의 피드백·승인 내역을 채우지 않는다.
 
@@ -97,3 +97,10 @@
 ## v07 게시 승인 — 2026-11-05
 
 - 사용자가25장 통합본에 대해 “push해”라고 명시했다. 현재 누적된 v06/v07 수정·보존 기록·게시 산출물의 커밋과 origin/main push를 승인했다.
+
+## 자동 커밋·push — 최신 사용자 지시 / 2026-11-05
+
+- 사용자 원문: “그냥 수정하자마자 push 바로바로 해줘”.
+- 이 프로젝트의 수정 요청에는 검증을 마친 관련 소스·기록·생성 HTML/index·게시 산출물의 commit 및 origin/main push가 포함된다. 매번 게시 확인을 다시 요청하지 않는다.
+- 현재 남아 있는 P006 noisy action chunk·기호 표·u_θ 직접 annotation 수정도 이번 지시로 게시한다.
+- 이전의 로컬 전용·개별 push 승인 기록은 당시 이력이며, 이후 작업에는 이 최신 지시를 적용한다.
