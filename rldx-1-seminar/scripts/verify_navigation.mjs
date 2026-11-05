@@ -103,7 +103,7 @@ try{
   assert.match(await page.locator('#notes-text').innerText(),/상세 해설 S039/);
   await page.keyboard.press('Escape');
   assert.equal(await page.locator('.deck-page[data-id="P012"]').count(),0);
-  for (const [oldId,newId,unit] of [['P005','P032','S016'],['P007','P006','S024'],['P011','P036','S036'],['P021','P038','S077'],['P048','P032','S011'],['P049','P032','S012'],['P050','P032','S013'],['P052','P032','S009'],['P053','P032','S010'],['P054','P032','S014'],['P055','P032','S015'],['P056','P032','S017'],['P057','P032','S019'],['P058','P032','S018']]) {
+  for (const [oldId,newId,unit] of [['P005','P032','S016'],['P007','P006','S024'],['P011','P036','S036'],['P021','P038','S077'],['P048','P032','S011'],['P049','P032','S012'],['P050','P032','S013'],['P052','P032','S009'],['P053','P032','S010'],['P054','P032','S014'],['P055','P032','S015'],['P056','P032','S017'],['P057','P032','S019'],['P058','P032','S018'],['P074','P015','S051'],['P045','P015','S052'],['P046','P015','S053']]) {
     await page.goto(pathToFileURL(path.resolve('presentation.html')).href+'#'+oldId);
     assert.equal(await active(),newId);
     if(['P052','P053','P054','P055'].includes(oldId)) assert.equal(await page.locator('.architecture-explorer').getAttribute('data-scene'),'vlm');
@@ -137,7 +137,11 @@ try{
   // Public and in-house data come between the overview and synthetic augmentation.
   for(const id of ['P033','P034','P072','P014']){await page.keyboard.press('ArrowRight');assert.equal(await active(),id);}
   // Generated video, simulator rollout, feature comparison, then classifier training.
-  for(const id of ['P074','P045','P015','P046','P047','P035']){await page.keyboard.press('ArrowRight');assert.equal(await active(),id);}
+  for(const id of ['P015','P047','P035']){await page.keyboard.press('ArrowRight');assert.equal(await active(),id);}
+  await show('P015'); await page.keyboard.press('n');
+  const validationNotes=await page.locator('#notes-text .study-intro').innerText();
+  for(const term of ['영상 품질 검사','IDM','Rollout','Gemini','16프레임','8프레임','V-JEPA2','cross-attention'])assert(validationNotes.includes(term),term);
+  await page.keyboard.press('Escape');
   // Purpose first, then each training stage; graph and fused-kernel explanations stay separate.
   await show('P035');
   for(const id of ['P016','P036','P017','P018','P019','P037','P075','P076','P077','P020','P038','P039','P078','P040']){await page.keyboard.press('ArrowRight');assert.equal(await active(),id);}

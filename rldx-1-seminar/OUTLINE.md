@@ -1,6 +1,6 @@
 # 전체 목차
 
-상태: **페이지 수 제한 없음 / 9개 섹션 MD 편집 원본 / v21 영상 생성 모델 통합·75장 구성 / 결과물 미승인**
+상태: **페이지 수 제한 없음 / 9개 섹션 MD 편집 원본 / v22 합성 데이터 검증 대본 통합·72장 구성 / 결과물 미승인**
 업데이트: 2026-11-06
 
 관련 설명을 자연스럽게 연결하되 화살표·단계 설명을 위해 필요한 화면 수를 제한하지 않는다. 본문과 상세 공부 기록은 아홉 `sections/*.md`에서 편집한다. 전체 제작·수정 허가는 개별 장의 결과물 승인과 구분한다.
@@ -13,6 +13,8 @@ v20에서는 직전80장 버전의6–8쪽(P056–P058)을4쪽 Memory 확대 대
 
 ## 현재 발표 흐름
 
+IDM(P074)·영상 품질(P045)·움직임 일치(P046)는 합성 데이터 검증(P015)의 대본으로 통합했다. P015의 rollout 비교 그림을 보며 설명하고, 다음 P047에서 판정기의 학습 쌍을 설명한다.
+
 기존14·15쪽은 P072 한 장으로 합쳤다. 화면은 시연으로 영상 생성 모델을 학습해 합성 데이터에 사용하는 핵심만 보여 주고, 구체적인 학습 설정은 설명(N)에 둔다. 기존 P073 링크는 P072로 연결한다.
 
 Fig.1을 사용하는 표지 뒤에 아래 섹션을 따른다. 섹션명은 영어로 정확히 표시하고, 장 제목은 짧은 명사형을 사용한다. 상단 우측 분류 표지는 제거하되 내용과 출처에서 원문·해석·예시·미해결을 구분한다.
@@ -21,7 +23,7 @@ Fig.1을 사용하는 표지 뒤에 아래 섹션을 따른다. 섹션명은 영
 | --- | --- | --- |
 | [01-problems.md](sections/01-problems.md) | Problems | P002 |
 | [02-rldx-1-architecture.md](sections/02-rldx-1-architecture.md) | RLDX-1 Architecture | P031, P032, P051, P009, P010, P006, P008, P071 |
-| [03-training-data.md](sections/03-training-data.md) | Training Data | P013, P033, P034, P072, P014, P074, P045, P015, P046, P047 |
+| [03-training-data.md](sections/03-training-data.md) | Training Data | P013, P033, P034, P072, P014, P015, P047 |
 | [04-training-procedure.md](sections/04-training-procedure.md) | Training Procedure | P035, P016, P036, P017, P018, P019, P037, P075–P077 |
 | [05-inference-strategy.md](sections/05-inference-strategy.md) | Inference Strategy | P020, P038, P039, P078 |
 | [06-evaluation-and-analysis.md](sections/06-evaluation-and-analysis.md) | Evaluation and Analysis | P040, P079–P080, P022, P091–P094, P041, P082, P042, P081, P023, P043, P024, P044, P025 |

@@ -1,101 +1,98 @@
 # 슬라이드 제작 진행 상황
 
-- 업데이트: 2026-11-06 / v21
-- 현재 단계: 영상 생성 모델14·15쪽을 한 페이지로 통합하고 상세 설정은 설명으로 이동 / 자동 게시.
+- 업데이트: 2026-11-06 / v22
+- 현재 단계: IDM·품질·움직임 검사를 합성 데이터 검증 대본에 통합 / 자동 게시.
 - 후속 수정: 모바일 하단 메뉴의1행/2행 반응형·44px 터치 영역·실제 메뉴 높이에 따른 슬라이드 fit을 적용했다. 검증은 VALIDATION.md의 모바일 항목에 기록한다.
-- 구성: 기본75장(표지+본문74장), P032 내부27상태·18화살표 유지.
+- 구성: 기본72장(표지+본문71장), P032 내부27상태·18화살표 유지.
 - 원본: 9개 섹션 MD. S002–S122의121개 상세 단위는 각각 한 번 연결되며 통합 전과 내용이 같다.
 - 통합: P056·P057·P058→P032 Memory 발표 대본; P059 비교 요약 제외; P052·P053·P054·P055→P032 VLM 발표 대본; P048·P049·P050→P032 Vision 발표 대본; P005→P032, P007→P006, P011→P032/P036, P021→P038. P012→P009/P010의 기존 통합도 유지한다.
 - 흐름: Fig.3→Vision·Motion·VLM/VQA·cognition·시간 압축·Memory→MSAT 입력→내부 연산→학습 원리→추론 갱신→데이터→학습→실행 최적화→평가/분석→결론→의견/미해결.
 - 원리와 검증은 분리 유지. Conclusion의 기여 반복을 줄이고 의견은 PEFT/BoN의 적용 조건에 집중한다.
 - 원본 기록 보존: review/versions/before-dedup-v07/; 통합 근거와 계획: review/DEDUPLICATION.md.
 - 게시 정책: 수정·검증 후 추가 확인 없이 commit·push한다. 변경 전 상태는 Git 태그로 보존하며 review/ROLLBACK.md에서 확인·복구 방법을 설명한다.
-- 승인: 수정 요청과 결과물 개별 승인을 구분한다. v21은 검토 전이다.
+- 승인: 수정 요청과 결과물 개별 승인을 구분한다. v22는 검토 전이다.
 
 ## 검증
 
-- v21은75장·상세121개·Fig.3의27상태/18화살표를 유지한다. 본문의 모델명과 학습 설정은 설명으로 옮겼다.
-- 75장 화면·설명 내용·P073 링크·P034→P072→P014 흐름·기본/base 빌드·게시 패키지 검증 통과. P072 본문과 설명 표 PNG를 직접 확인했다. 상세 결과는 review/VALIDATION.md의 v21 항목에 기록한다.
+- v22는72장·상세121개·Fig.3의27상태/18화살표를 유지한다. 기존 세 장의 내용은 P015 대본과 상세 해설에 둔다.
+- 72장 화면·대본·이동된 기록·기존 링크·검색·순서·수식/글꼴·기본/base 빌드·게시 산출물 검증 통과. 본문과 대본 PNG를 직접 확인했다. 상세 결과는 review/VALIDATION.md의 v22 항목에 기록한다.
 
 ## 기본 화면
 
 | 순서 | ID | 제목 | 버전 | 상태 | PNG |
 | --- | --- | --- | --- | --- | --- |
-| 1 | S001 | RLDX-1 Technical Report | v21 | 검토 전 | review/previews/deck-v21/S001-v21.png |
-| 2 | P002 | 기존 VLA의 문제 | v21 | 검토 전 | review/previews/deck-v21/P002-v21.png |
-| 3 | P031 | RLDX-1 Overview | v21 | 검토 전 | review/previews/deck-v21/P031-v21.png |
-| 4 | P032 | RLDX-1 Architecture | v21 | 검토 전 | review/previews/deck-v21/P032-v21.png |
-| 5 | P051 | VLM과 로봇 VQA | v21 | 검토 전 | review/previews/deck-v21/P051-v21.png |
-| 6 | P009 | MSAT의 입력 | v21 | 검토 전 | review/previews/deck-v21/P009-v21.png |
-| 7 | P010 | MSAT의 Joint Attention | v21 | 검토 전 | review/previews/deck-v21/P010-v21.png |
-| 8 | P006 | Action Model의 학습 원리 | v21 | 검토 전 | review/previews/deck-v21/P006-v21.png |
-| 9 | P008 | Action Model의 추론 수식 | v21 | 검토 전 | review/previews/deck-v21/P008-v21.png |
-| 10 | P071 | Action Chunk의 실행 | v21 | 검토 전 | review/previews/deck-v21/P071-v21.png |
-| 11 | P013 | 학습 데이터 | v21 | 검토 전 | review/previews/deck-v21/P013-v21.png |
-| 12 | P033 | 공개 실제 데이터 | v21 | 검토 전 | review/previews/deck-v21/P033-v21.png |
-| 13 | P034 | 자체 실제 데이터 | v21 | 검토 전 | review/previews/deck-v21/P034-v21.png |
-| 14 | P072 | 로봇 영상 생성 모델 | v21 | 검토 전 | review/previews/deck-v21/P072-v21.png |
-| 15 | P014 | Task·Scene Augmentation | v21 | 검토 전 | review/previews/deck-v21/P014-v21.png |
-| 16 | P074 | IDM과 행동 라벨 | v21 | 검토 전 | review/previews/deck-v21/P074-v21.png |
-| 17 | P045 | 영상 품질 검사 | v21 | 검토 전 | review/previews/deck-v21/P045-v21.png |
-| 18 | P015 | 합성 데이터 검증 | v21 | 검토 전 | review/previews/deck-v21/P015-v21.png |
-| 19 | P046 | 움직임 일치 검사 | v21 | 검토 전 | review/previews/deck-v21/P046-v21.png |
-| 20 | P047 | 일치 검사기의 학습 | v21 | 검토 전 | review/previews/deck-v21/P047-v21.png |
-| 21 | P035 | 학습 단계 | v21 | 검토 전 | review/previews/deck-v21/P035-v21.png |
-| 22 | P016 | Pre-training | v21 | 검토 전 | review/previews/deck-v21/P016-v21.png |
-| 23 | P036 | 로봇별 입출력 경로 | v21 | 검토 전 | review/previews/deck-v21/P036-v21.png |
-| 24 | P017 | Mid-training | v21 | 검토 전 | review/previews/deck-v21/P017-v21.png |
-| 25 | P018 | Post-training | v21 | 검토 전 | review/previews/deck-v21/P018-v21.png |
-| 26 | P019 | RECAP | v21 | 검토 전 | review/previews/deck-v21/P019-v21.png |
-| 27 | P037 | Critic과 Figure 8 | v21 | 검토 전 | review/previews/deck-v21/P037-v21.png |
-| 28 | P075 | PEFT와 LoRA | v21 | 검토 전 | review/previews/deck-v21/P075-v21.png |
-| 29 | P076 | PEFT의 성능 비교 | v21 | 검토 전 | review/previews/deck-v21/P076-v21.png |
-| 30 | P077 | PEFT의 학습 비용 | v21 | 검토 전 | review/previews/deck-v21/P077-v21.png |
-| 31 | P020 | CUDA Graph | v21 | 검토 전 | review/previews/deck-v21/P020-v21.png |
-| 32 | P038 | Kernel Fusion | v21 | 검토 전 | review/previews/deck-v21/P038-v21.png |
-| 33 | P039 | Kernel Fusion의 계산 | v21 | 검토 전 | review/previews/deck-v21/P039-v21.png |
-| 34 | P078 | 실제 Fused Kernels | v21 | 검토 전 | review/previews/deck-v21/P078-v21.png |
-| 35 | P040 | 시뮬레이션 벤치마크 | v21 | 검토 전 | review/previews/deck-v21/P040-v21.png |
-| 36 | P079 | 시뮬레이션의 실행 설정 | v21 | 검토 전 | review/previews/deck-v21/P079-v21.png |
-| 37 | P080 | Baseline 결과의 출처 | v21 | 검토 전 | review/previews/deck-v21/P080-v21.png |
-| 38 | P022 | Simulation 결과 | v21 | 검토 전 | review/previews/deck-v21/P022-v21.png |
-| 39 | P091 | 환경 변화별 성능 | v21 | 검토 전 | review/previews/deck-v21/P091-v21.png |
-| 40 | P092 | SIMPLER의 과제별 결과 | v21 | 검토 전 | review/previews/deck-v21/P092-v21.png |
-| 41 | P093 | Kitchen·GR-1의 과제별 편차 | v21 | 검토 전 | review/previews/deck-v21/P093-v21.png |
-| 42 | P094 | 복합 작업의 남은 어려움 | v21 | 검토 전 | review/previews/deck-v21/P094-v21.png |
-| 43 | P041 | 실제 로봇 | v21 | 검토 전 | review/previews/deck-v21/P041-v21.png |
-| 44 | P082 | 실제 로봇의 실험 조건 | v21 | 검토 전 | review/previews/deck-v21/P082-v21.png |
-| 45 | P042 | OpenArm 과제 | v21 | 검토 전 | review/previews/deck-v21/P042-v21.png |
-| 46 | P081 | OpenArm의 시연과 평가 | v21 | 검토 전 | review/previews/deck-v21/P081-v21.png |
-| 47 | P023 | OpenArm 결과 | v21 | 검토 전 | review/previews/deck-v21/P023-v21.png |
-| 48 | P043 | ALLEX 과제 | v21 | 검토 전 | review/previews/deck-v21/P043-v21.png |
-| 49 | P024 | ALLEX 결과 | v21 | 검토 전 | review/previews/deck-v21/P024-v21.png |
-| 50 | P044 | Franka 과제 | v21 | 검토 전 | review/previews/deck-v21/P044-v21.png |
-| 51 | P025 | Franka 결과 | v21 | 검토 전 | review/previews/deck-v21/P025-v21.png |
-| 52 | P026 | Ablation and Analysis | v21 | 검토 전 | review/previews/deck-v21/P026-v21.png |
-| 53 | P060 | VLM의 특징 추출 층 | v21 | 검토 전 | review/previews/deck-v21/P060-v21.png |
-| 54 | P061 | 로봇 VQA의 효과 | v21 | 검토 전 | review/previews/deck-v21/P061-v21.png |
-| 55 | P062 | VQA 전후의 Attention | v21 | 검토 전 | review/previews/deck-v21/P062-v21.png |
-| 56 | P063 | 합성 데이터 규모 실험 | v21 | 검토 전 | review/previews/deck-v21/P063-v21.png |
-| 57 | P064 | 합성 데이터의 성능 효과 | v21 | 검토 전 | review/previews/deck-v21/P064-v21.png |
-| 58 | P083 | 합성 데이터의 실제 로봇 검증 | v21 | 검토 전 | review/previews/deck-v21/P083-v21.png |
-| 59 | P084 | 합성 데이터의 실제 결과 | v21 | 검토 전 | review/previews/deck-v21/P084-v21.png |
-| 60 | P090 | Batch Size의 효과 | v21 | 검토 전 | review/previews/deck-v21/P090-v21.png |
-| 61 | P065 | RL 평가 작업 | v21 | 검토 전 | review/previews/deck-v21/P065-v21.png |
-| 62 | P070 | RECAP 결과의 지표 | v21 | 검토 전 | review/previews/deck-v21/P070-v21.png |
-| 63 | P066 | RECAP 반복 결과 | v21 | 검토 전 | review/previews/deck-v21/P066-v21.png |
-| 64 | P067 | RECAP 개선의 의미 | v21 | 검토 전 | review/previews/deck-v21/P067-v21.png |
-| 65 | P085 | Best-of-N | v21 | 검토 전 | review/previews/deck-v21/P085-v21.png |
-| 66 | P086 | BoN의 Temperature | v21 | 검토 전 | review/previews/deck-v21/P086-v21.png |
-| 67 | P087 | BoN의 Offline 분석 | v21 | 검토 전 | review/previews/deck-v21/P087-v21.png |
-| 68 | P088 | BoN의 실제 로봇 결과 | v21 | 검토 전 | review/previews/deck-v21/P088-v21.png |
-| 69 | P089 | BoN이 돕는 조건 | v21 | 검토 전 | review/previews/deck-v21/P089-v21.png |
-| 70 | P027 | 추론 지연 측정 | v21 | 검토 전 | review/previews/deck-v21/P027-v21.png |
-| 71 | P068 | 추론 최적화의 단계별 효과 | v21 | 검토 전 | review/previews/deck-v21/P068-v21.png |
-| 72 | P069 | 추론 최적화의 해석 | v21 | 검토 전 | review/previews/deck-v21/P069-v21.png |
-| 73 | P029 | Conclusion | v21 | 검토 전 | review/previews/deck-v21/P029-v21.png |
-| 74 | P028 | 나의 의견 | v21 | 검토 전 | review/previews/deck-v21/P028-v21.png |
-| 75 | P030 | 한계와 미해결 질문 | v21 | 검토 전 | review/previews/deck-v21/P030-v21.png |
+| 1 | S001 | RLDX-1 Technical Report | v22 | 검토 전 | review/previews/deck-v22/S001-v22.png |
+| 2 | P002 | 기존 VLA의 문제 | v22 | 검토 전 | review/previews/deck-v22/P002-v22.png |
+| 3 | P031 | RLDX-1 Overview | v22 | 검토 전 | review/previews/deck-v22/P031-v22.png |
+| 4 | P032 | RLDX-1 Architecture | v22 | 검토 전 | review/previews/deck-v22/P032-v22.png |
+| 5 | P051 | VLM과 로봇 VQA | v22 | 검토 전 | review/previews/deck-v22/P051-v22.png |
+| 6 | P009 | MSAT의 입력 | v22 | 검토 전 | review/previews/deck-v22/P009-v22.png |
+| 7 | P010 | MSAT의 Joint Attention | v22 | 검토 전 | review/previews/deck-v22/P010-v22.png |
+| 8 | P006 | Action Model의 학습 원리 | v22 | 검토 전 | review/previews/deck-v22/P006-v22.png |
+| 9 | P008 | Action Model의 추론 수식 | v22 | 검토 전 | review/previews/deck-v22/P008-v22.png |
+| 10 | P071 | Action Chunk의 실행 | v22 | 검토 전 | review/previews/deck-v22/P071-v22.png |
+| 11 | P013 | 학습 데이터 | v22 | 검토 전 | review/previews/deck-v22/P013-v22.png |
+| 12 | P033 | 공개 실제 데이터 | v22 | 검토 전 | review/previews/deck-v22/P033-v22.png |
+| 13 | P034 | 자체 실제 데이터 | v22 | 검토 전 | review/previews/deck-v22/P034-v22.png |
+| 14 | P072 | 로봇 영상 생성 모델 | v22 | 검토 전 | review/previews/deck-v22/P072-v22.png |
+| 15 | P014 | Task·Scene Augmentation | v22 | 검토 전 | review/previews/deck-v22/P014-v22.png |
+| 16 | P015 | 합성 데이터 검증 | v22 | 검토 전 | review/previews/deck-v22/P015-v22.png |
+| 17 | P047 | 일치 검사기의 학습 | v22 | 검토 전 | review/previews/deck-v22/P047-v22.png |
+| 18 | P035 | 학습 단계 | v22 | 검토 전 | review/previews/deck-v22/P035-v22.png |
+| 19 | P016 | Pre-training | v22 | 검토 전 | review/previews/deck-v22/P016-v22.png |
+| 20 | P036 | 로봇별 입출력 경로 | v22 | 검토 전 | review/previews/deck-v22/P036-v22.png |
+| 21 | P017 | Mid-training | v22 | 검토 전 | review/previews/deck-v22/P017-v22.png |
+| 22 | P018 | Post-training | v22 | 검토 전 | review/previews/deck-v22/P018-v22.png |
+| 23 | P019 | RECAP | v22 | 검토 전 | review/previews/deck-v22/P019-v22.png |
+| 24 | P037 | Critic과 Figure 8 | v22 | 검토 전 | review/previews/deck-v22/P037-v22.png |
+| 25 | P075 | PEFT와 LoRA | v22 | 검토 전 | review/previews/deck-v22/P075-v22.png |
+| 26 | P076 | PEFT의 성능 비교 | v22 | 검토 전 | review/previews/deck-v22/P076-v22.png |
+| 27 | P077 | PEFT의 학습 비용 | v22 | 검토 전 | review/previews/deck-v22/P077-v22.png |
+| 28 | P020 | CUDA Graph | v22 | 검토 전 | review/previews/deck-v22/P020-v22.png |
+| 29 | P038 | Kernel Fusion | v22 | 검토 전 | review/previews/deck-v22/P038-v22.png |
+| 30 | P039 | Kernel Fusion의 계산 | v22 | 검토 전 | review/previews/deck-v22/P039-v22.png |
+| 31 | P078 | 실제 Fused Kernels | v22 | 검토 전 | review/previews/deck-v22/P078-v22.png |
+| 32 | P040 | 시뮬레이션 벤치마크 | v22 | 검토 전 | review/previews/deck-v22/P040-v22.png |
+| 33 | P079 | 시뮬레이션의 실행 설정 | v22 | 검토 전 | review/previews/deck-v22/P079-v22.png |
+| 34 | P080 | Baseline 결과의 출처 | v22 | 검토 전 | review/previews/deck-v22/P080-v22.png |
+| 35 | P022 | Simulation 결과 | v22 | 검토 전 | review/previews/deck-v22/P022-v22.png |
+| 36 | P091 | 환경 변화별 성능 | v22 | 검토 전 | review/previews/deck-v22/P091-v22.png |
+| 37 | P092 | SIMPLER의 과제별 결과 | v22 | 검토 전 | review/previews/deck-v22/P092-v22.png |
+| 38 | P093 | Kitchen·GR-1의 과제별 편차 | v22 | 검토 전 | review/previews/deck-v22/P093-v22.png |
+| 39 | P094 | 복합 작업의 남은 어려움 | v22 | 검토 전 | review/previews/deck-v22/P094-v22.png |
+| 40 | P041 | 실제 로봇 | v22 | 검토 전 | review/previews/deck-v22/P041-v22.png |
+| 41 | P082 | 실제 로봇의 실험 조건 | v22 | 검토 전 | review/previews/deck-v22/P082-v22.png |
+| 42 | P042 | OpenArm 과제 | v22 | 검토 전 | review/previews/deck-v22/P042-v22.png |
+| 43 | P081 | OpenArm의 시연과 평가 | v22 | 검토 전 | review/previews/deck-v22/P081-v22.png |
+| 44 | P023 | OpenArm 결과 | v22 | 검토 전 | review/previews/deck-v22/P023-v22.png |
+| 45 | P043 | ALLEX 과제 | v22 | 검토 전 | review/previews/deck-v22/P043-v22.png |
+| 46 | P024 | ALLEX 결과 | v22 | 검토 전 | review/previews/deck-v22/P024-v22.png |
+| 47 | P044 | Franka 과제 | v22 | 검토 전 | review/previews/deck-v22/P044-v22.png |
+| 48 | P025 | Franka 결과 | v22 | 검토 전 | review/previews/deck-v22/P025-v22.png |
+| 49 | P026 | Ablation and Analysis | v22 | 검토 전 | review/previews/deck-v22/P026-v22.png |
+| 50 | P060 | VLM의 특징 추출 층 | v22 | 검토 전 | review/previews/deck-v22/P060-v22.png |
+| 51 | P061 | 로봇 VQA의 효과 | v22 | 검토 전 | review/previews/deck-v22/P061-v22.png |
+| 52 | P062 | VQA 전후의 Attention | v22 | 검토 전 | review/previews/deck-v22/P062-v22.png |
+| 53 | P063 | 합성 데이터 규모 실험 | v22 | 검토 전 | review/previews/deck-v22/P063-v22.png |
+| 54 | P064 | 합성 데이터의 성능 효과 | v22 | 검토 전 | review/previews/deck-v22/P064-v22.png |
+| 55 | P083 | 합성 데이터의 실제 로봇 검증 | v22 | 검토 전 | review/previews/deck-v22/P083-v22.png |
+| 56 | P084 | 합성 데이터의 실제 결과 | v22 | 검토 전 | review/previews/deck-v22/P084-v22.png |
+| 57 | P090 | Batch Size의 효과 | v22 | 검토 전 | review/previews/deck-v22/P090-v22.png |
+| 58 | P065 | RL 평가 작업 | v22 | 검토 전 | review/previews/deck-v22/P065-v22.png |
+| 59 | P070 | RECAP 결과의 지표 | v22 | 검토 전 | review/previews/deck-v22/P070-v22.png |
+| 60 | P066 | RECAP 반복 결과 | v22 | 검토 전 | review/previews/deck-v22/P066-v22.png |
+| 61 | P067 | RECAP 개선의 의미 | v22 | 검토 전 | review/previews/deck-v22/P067-v22.png |
+| 62 | P085 | Best-of-N | v22 | 검토 전 | review/previews/deck-v22/P085-v22.png |
+| 63 | P086 | BoN의 Temperature | v22 | 검토 전 | review/previews/deck-v22/P086-v22.png |
+| 64 | P087 | BoN의 Offline 분석 | v22 | 검토 전 | review/previews/deck-v22/P087-v22.png |
+| 65 | P088 | BoN의 실제 로봇 결과 | v22 | 검토 전 | review/previews/deck-v22/P088-v22.png |
+| 66 | P089 | BoN이 돕는 조건 | v22 | 검토 전 | review/previews/deck-v22/P089-v22.png |
+| 67 | P027 | 추론 지연 측정 | v22 | 검토 전 | review/previews/deck-v22/P027-v22.png |
+| 68 | P068 | 추론 최적화의 단계별 효과 | v22 | 검토 전 | review/previews/deck-v22/P068-v22.png |
+| 69 | P069 | 추론 최적화의 해석 | v22 | 검토 전 | review/previews/deck-v22/P069-v22.png |
+| 70 | P029 | Conclusion | v22 | 검토 전 | review/previews/deck-v22/P029-v22.png |
+| 71 | P028 | 나의 의견 | v22 | 검토 전 | review/previews/deck-v22/P028-v22.png |
+| 72 | P030 | 한계와 미해결 질문 | v22 | 검토 전 | review/previews/deck-v22/P030-v22.png |
 
 Fig.3의 실제 상태 PNG는 review/previews/architecture-v13/step-00.png–step-26.png다. 세 토큰은08, VLM은11, Memory는17, MSAT입력은22, 처리·출력은25에서 볼 수 있다.
 

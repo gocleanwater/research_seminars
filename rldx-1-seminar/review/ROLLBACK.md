@@ -1,5 +1,10 @@
 # 버전 보존과 복구
 
+## v22 변경 전: 합성 데이터 검증 대본 통합
+
+- 태그: `rldx-v21-before-synthetic-validation-notes-20261106` (`74b77bf`).
+- 75장 버전의 P074/P045/P046을 P015 대본으로 통합한72장이다. 기존 ID는 재사용하지 않고 복원은 새 commit으로 한다. main reset/force-push는 하지 않는다.
+
 ## v21 변경 전: 영상 생성 모델 두 장 통합
 
 - 태그: `rldx-v20-before-video-model-merge-20261106` (`c80d812`).

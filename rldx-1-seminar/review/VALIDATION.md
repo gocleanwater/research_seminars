@@ -1,5 +1,13 @@
 # v09 페이지 번호 입력 검증 — 2026-11-06
 
+## 2026-11-06 / v22 / 합성 데이터 검증의 발표 대본 통합
+
+- 번호 확인:14·15쪽 통합 전 c80d812의 manifest에서17=P074,18=P045,19=P015,20=P046을 확인했다. 사용자가 명시한 ‘합성 데이터 검증’ 제목과 이 대응에 따라 P074/P045/P046을 P015 대본으로 통합했다. P047 판정기 학습 장은 유지한다.
+- 대본: 영상 품질의 두 축/Gemini16·8프레임, IDM 구조·학습/수치 행동, simulator rollout의 의미, frozen V-JEPA2 특징/concat/query cross-attention/linear head의 일치 판정과 선별 순서로 설명한다. P015 본문은 기존 rollout 비교 그림을 유지한다.
+- 보존: S051/S052/S053을 P015에 연결했다. HEAD(74b77bf)와 전체121개 상세 기록 제목·본문을 비교해 바깥 공백 외 동일함을 확인했다. 변경 전 태그는 `rldx-v21-before-synthetic-validation-notes-20261106`이다. 전체72장·27상태/18화살표 유지.
+- 검증: `build_deck.py`, `verify_sources.py`, `verify_deck.mjs`, `verify_navigation.mjs`, `verify_math_font.mjs` 통과.72장 넘침·이미지 실패·브라우저 오류·외부 요청0. 세 기존 링크와 S053 검색은 P015로 연결되며, N 대본 내용과 전체 수식 너비를 확인했다.
+- 실제 PNG: P015 본문, 영상 품질 대본, 특징 비교 대본을 직접 확인했다. 새16쪽은 P015이고 다음은 판정기 학습이다. 기본/base `pnpm build`, 게시 패키지 생성과 `verify_pages.mjs` 통과. HTML3종 동일성·`git diff --check` 확인 후 자동 commit/push한다. 실제 Pages 반영과 사용자 결과물 승인은 별도 확인 전이다.
+
 ## 2026-11-06 / v21 / 영상 생성 모델14·15쪽 한 장 통합
 
 - P072 한 장에 시연 영상→영상 생성 모델 추가 학습→합성 영상 제작을 배치했다. P073 본문을 제외하고 기존 두 장의 기반 모델·데이터·2:1:1·LoRA/Full FT·steps/batch·93프레임·caption·시간 샘플링은 P072 설명(N)에 보존했다.

@@ -10,7 +10,7 @@
 | --- | --- | ---: | ---: |
 | [01-problems.md](01-problems.md) | Problems | 1 | 3 |
 | [02-rldx-1-architecture.md](02-rldx-1-architecture.md) | RLDX-1 Architecture | 8 | 37 |
-| [03-training-data.md](03-training-data.md) | Training Data | 10 | 15 |
+| [03-training-data.md](03-training-data.md) | Training Data | 7 | 15 |
 | [04-training-procedure.md](04-training-procedure.md) | Training Procedure | 10 | 17 |
 | [05-inference-strategy.md](05-inference-strategy.md) | Inference Strategy | 4 | 10 |
 | [06-evaluation-and-analysis.md](06-evaluation-and-analysis.md) | Evaluation and Analysis | 17 | 17 |
@@ -18,7 +18,11 @@
 | [08-conclusion.md](08-conclusion.md) | Conclusion | 1 | 2 |
 | [09-my-opinions-and-limitation.md](09-my-opinions-and-limitation.md) | My opinions and limitation | 2 | 4 |
 
-표지 S001을 제외한 본문74장과 상세 공부 기록121개를 포함한다(v21). source_ids 기준으로 S002–S122가 각각 정확히 한 번 연결된다. 장 ID는 위치가 바뀌어도 유지하고, 퇴역한 P003·P004·P005·P007·P011·P012·P021·P048·P049·P050·P052·P053·P054·P055·P056·P057·P058·P059·P073의 ID를 다른 의미로 재사용하지 않는다.
+표지 S001을 제외한 본문71장과 상세 공부 기록121개를 포함한다(v22). source_ids 기준으로 S002–S122가 각각 정확히 한 번 연결된다. 장 ID는 위치가 바뀌어도 유지한다.
+
+퇴역한 P003·P004·P005·P007·P011·P012·P021·P045·P046·P048·P049·P050·P052·P053·P054·P055·P056·P057·P058·P059·P073·P074의 ID를 다른 의미로 재사용하지 않는다.
+
+P015의 발표 메모에 IDM·영상 품질·움직임 일치 검사를 통합한다. S051/S052/S053도 P015에 연결하며 기존 내용을 보존한다. P047의 실제 시연/정답 행동을 이용한 판정기 학습 설명은 별도 본문이다.
 
 P072의 발표 메모에는 기존 P072/P073의 영상 생성 모델 이름·데이터·학습 설정 전체를 보존한다. 본문은 시연→모델 학습→합성 영상의 핵심 흐름 한 장이다.
 
