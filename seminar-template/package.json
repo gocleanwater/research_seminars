@@ -1,0 +1,21 @@
+{
+  "name": "paper-seminar-template",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "slidev --host 127.0.0.1",
+    "build": "slidev build --without-notes",
+    "preview": "vite preview --host 127.0.0.1",
+    "capture": "slidev export --format png --output review/previews --with-clicks"
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "devDependencies": {
+    "@slidev/cli": "53.0.0",
+    "@slidev/theme-default": "0.25.0",
+    "playwright-chromium": "1.64.1",
+    "vue": "3.5.44"
+  },
+  "packageManager": "pnpm@11.25.0"
+}

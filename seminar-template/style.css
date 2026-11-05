@@ -1,0 +1,32 @@
+:root {
+  --seminar-bg: #f7f7f2;
+  --seminar-ink: #172c3c;
+  --seminar-muted: #596a73;
+  --seminar-accent: #2656cb;
+  --seminar-line: #d6dedf;
+}
+
+.slidev-layout {
+  background: var(--seminar-bg);
+  color: var(--seminar-ink);
+  font-family: Arial, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+  padding: 64px 76px 72px;
+  font-size: 27px;
+  line-height: 1.6;
+}
+
+.slidev-layout h1 { font-size: 55px; line-height: 1.22; font-weight: 750; margin: 0 0 36px; letter-spacing: -0.035em; }
+.slidev-layout h2 { font-size: 34px; line-height: 1.35; font-weight: 700; margin: 0 0 22px; }
+.slidev-layout p { margin: 16px 0; }
+.slidev-layout .eyebrow { color: var(--seminar-accent); font-size: 16px; font-weight: 700; letter-spacing: 0.15em; margin-bottom: 28px; }
+.slidev-layout .lead { font-size: 30px; color: var(--seminar-muted); }
+.slidev-layout .source-note { position: absolute; bottom: 26px; left: 76px; right: 76px; font-size: 16px; color: var(--seminar-muted); line-height: 1.4; }
+.slidev-layout .seminar-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+.slidev-layout .panel { border: 1px solid var(--seminar-line); border-radius: 14px; padding: 24px; }
+.slidev-layout .takeaway { border-left: 5px solid var(--seminar-accent); padding: 12px 22px; background: #e9eef9; }
+.slidev-layout .workflow-row { display: flex; align-items: center; gap: 18px; margin-top: 62px; font-size: 22px; }
+.slidev-layout .workflow-row span { padding: 16px 20px; border: 1px solid var(--seminar-line); border-radius: 12px; }
+.slidev-layout .workflow-row b { color: var(--seminar-accent); }
+.slidev-layout table { font-size: 23px; line-height: 1.45; }
+.slidev-layout th { color: var(--seminar-accent); }
+.slidev-layout img { object-fit: contain; max-height: 440px; }

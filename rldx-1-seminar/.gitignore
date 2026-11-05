@@ -1,0 +1,7 @@
+node_modules/
+dist/
+.slidev/
+.DS_Store
+qa/
+review/previews/
+*.log

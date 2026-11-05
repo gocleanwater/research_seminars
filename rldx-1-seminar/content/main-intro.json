@@ -1,0 +1,39 @@
+[
+  {
+    "id": "P002",
+    "chapter": "Problems",
+    "title": "기존 VLA의 문제",
+    "lead": "폭넓은 장면 이해만으로는 움직임·과거 사건·접촉 상태를 충분히 다루기 어렵다.",
+    "layout": "full",
+    "kind": "fact",
+    "body": "<div class=\"three-scenes\"><div><div class=\"scene-track\"><span class=\"moving-object\">컵</span><span>→</span><span class=\"moving-object faint\">컵</span></div><h3>움직이는 대상</h3><p>컨베이어의 물체는 계속 이동한다. 현재 위치뿐 아니라 여러 프레임의 변화가 필요하다.</p></div><div><div class=\"scene-memory\"><span>이전 관찰</span><b>→</b><span>가려진 위치</span></div><h3>현재 보이지 않는 사건</h3><p>숨기기 전에 본 정보를 유지하고 이후 선택에 활용해야 한다.</p></div><div><div class=\"scene-contact\"><span class=\"gripper\">손</span><b>⇄</b><span class=\"moving-object\">물체</span></div><h3>가려진 접촉</h3><p>힘·미끄러짐 같은 작은 변화는 영상만으로 파악하기 어렵다. 촉각·토크가 단서를 준다.</p></div></div>",
+    "takeaway": "RLDX-1은 VLM의 범용 이해에 motion awareness·long-term memory·physical sensing을 더한다.",
+    "source": "Sec.1 · PDF p.3 · 상황 도식은 설명용",
+    "source_ids": [
+      "S002",
+      "S003",
+      "S004"
+    ],
+    "notes": "Task·action·policy 및 VLM·VLA의 기본 구분은 상세 해설에 보존한다. 세 기능의 필요성을 보여주는 사례와 각 모듈의 독립적 인과 효과를 입증한 실험은 다르다."
+  },
+  {
+    "id": "P031",
+    "chapter": "RLDX-1 Architecture",
+    "title": "RLDX-1 Overview",
+    "lead": "관측과 지시를 표현으로 바꾸고, 로봇 상태·센서와 함께 미래 action chunk를 만든다.",
+    "layout": "figure",
+    "kind": "fact",
+    "figure": "fig-02.png",
+    "caption": "Figure 2 · RLDX-1 전체 흐름",
+    "body": "<h3>관측 → 표현 → 행동</h3><p><strong>영상·지시:</strong> VLM에서 현재 cognition features를 추출한다.</p><p><strong>과거:</strong> Memory Module이 이전 cognition 정보를 더한다.</p><p><strong>상태·센서:</strong> MSAT가 cognition·memory와 함께 처리한다.</p><p><strong>출력:</strong> 여러 미래 시점의 수치 행동을 묶은 action chunk다.</p>",
+    "takeaway": "다음은 Figure 3에서 Vision Encoder와 VLM의 내부 경로를 확대해 살펴본다.",
+    "source": "Fig.2 · Sec.1.1 · PDF p.5; Fig.1 · PDF p.1",
+    "source_ids": [
+      "S122",
+      "S005",
+      "S006",
+      "S007"
+    ],
+    "notes": "전체 시스템 Fig.1·세 로봇 플랫폼·모델 입출력 표기와 지도는 이 장의 상세 해설에 연결한다. 이어지는 Fig.3 해설에서는 전체 구조와 확대된 부위를 오가며 설명한다."
+  }
+]

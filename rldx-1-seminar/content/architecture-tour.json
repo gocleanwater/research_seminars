@@ -1,0 +1,34 @@
+{
+  "image": "fig-03.png",
+  "width": 1497,
+  "height": 870,
+  "states": [
+    {"scene":"overview","step":0,"title":"RLDX-1 Architecture","lead":"Vision Encoder와 VLM을 누르거나 오른쪽 방향키로 설명을 시작한다.","box":[0,0,1497,870],"note":"먼저 왼쪽에서 영상과 지시를 표현으로 바꾸고, 오른쪽 MSAT에서 행동을 생성한다.","takeaway":"전체 구조 → Vision Encoder → 전체 구조 → VLM 순서로 살펴본다."},
+    {"scene":"vision","step":0,"title":"Vision Encoder","lead":"영상의 시각 특징에 프레임 간 움직임 정보를 추가한다.","box":[15,40,420,480],"note":"총 27개 ViT 층 가운데 9층 뒤에 Motion Extractor를 연결한다. 다음 설명 버튼을 눌러 각 경로를 살펴본다.","takeaway":"다음 설명을 누르면 시각 특징 → STSS → residual → 후속 층 순으로 표시된다."},
+    {"scene":"vision","step":1,"title":"Vision Encoder","lead":"총 27층 중 먼저 1–9층에서 시각 특징을 추출한다.","box":[15,40,420,480],"takeaway":"Motion Extractor의 입력은 처음 9개 층을 거친 시각 특징이다."},
+    {"scene":"vision","step":2,"title":"Vision Encoder","lead":"9층 뒤에서 주변 시공간 특징의 유사성으로 움직임 정보를 구한다.","box":[15,40,420,480],"takeaway":"STSS는 이웃 특징 간 상관을 담고, STSS encoder가 움직임 특징으로 변환한다."},
+    {"scene":"vision","step":3,"title":"Vision Encoder","lead":"추출한 움직임 특징을 기존 시각 특징에 residual로 더한다.","box":[15,40,420,480],"takeaway":"기존 표현을 교체하는 대신, 같은 위치의 특징에 움직임 정보를 더해 보정한다."},
+    {"scene":"vision","step":4,"title":"Vision Encoder","lead":"10–27층은 움직임 정보가 더해진 시각 특징을 계속 처리한다.","box":[15,40,420,480],"takeaway":"다음 설명을 누르면 전체 Fig.3으로 돌아간다."},
+    {"scene":"overview","step":0,"title":"RLDX-1 Architecture","lead":"이제 VLM을 누르거나 오른쪽 방향키로 영상·언어·cognition의 흐름을 살펴본다.","box":[0,0,1497,870],"note":"시각 인코더가 만든 특징은 언어 지시와 cognition tokens에 연결된다. VLM에서 이 표현을 어떻게 모으고 압축하는지 살펴본다.","takeaway":"다음은 VLM: 입력 토큰 → 초반 4층 → 과거 압축 → cognition features."},
+    {"scene":"vlm","step":0,"title":"VLM","lead":"영상·언어·cognition tokens를 함께 처리하고, 행동에 필요한 위치의 출력을 선택한다.","box":[10,275,785,585],"note":"Qwen3-VL 8B를 로봇 VQA로 적응시킨 backbone이다. 화살표는 다음 설명부터 한 단계씩 나타난다.","takeaway":"다음 설명을 누르면 토큰 입력부터 특징 추출까지 표시된다."},
+    {"scene":"vlm","step":1,"title":"VLM","lead":"여러 프레임의 영상 토큰, 지시 토큰, 64개 cognition tokens를 이어 붙인다.","box":[10,275,785,585],"takeaway":"그림 속 색은 토큰 종류와 시간에 따른 관측을 구분한다. cognition token은 64개다."},
+    {"scene":"vlm","step":2,"title":"VLM","lead":"초반 1–4층은 여러 프레임을 함께 처리하며 시간 맥락을 모은다.","box":[10,275,785,585],"takeaway":"초기 4층의 DeepStack 시각 특징 주입을 활용한 뒤 과거 토큰을 압축한다."},
+    {"scene":"vlm","step":3,"title":"VLM","lead":"4층 뒤에서 과거 관측 hidden states만 평균 풀링해 context token 하나로 압축한다.","box":[10,275,785,585],"takeaway":"현재 관측·언어 지시·cognition tokens는 남기고 과거 관측만 압축한다."},
+    {"scene":"vlm","step":4,"title":"VLM","lead":"선택한 18층에서 cognition token 위치의 출력을 hₜ로 추출한다.","box":[10,275,785,585],"takeaway":"18층은 특징을 가져오는 위치이며, 언어 출력 head를 뜻하지 않는다."},
+    {"scene":"overview","step":0,"title":"RLDX-1 Architecture","lead":"hₜ는 Memory Module과 MSAT로 이어진다. 다음 장부터 각 모듈을 연결한다.","box":[0,0,1497,870],"note":"지금까지 Vision Encoder와 VLM의 처리 경로를 살펴봤다. 이제 과거 cognition을 유지하는 Memory Module, 이 표현과 상태·센서를 결합하는 MSAT를 살펴본다.","takeaway":"다음 장은 Memory Module이다. Vision Encoder·VLM을 눌러 다시 볼 수도 있다."}
+  ],
+  "annotations": {
+    "vision": [
+      {"title":"총 27층 · 먼저 1–9층","text":"영상의 시각 특징을 추출한다.","point":[298,295],"y":12},
+      {"title":"9층 뒤 · Motion Extractor","text":"이웃 시공간 특징의 STSS를 계산하고 움직임 특징을 만든다.","point":[165,342],"y":108},
+      {"title":"Residual addition","text":"움직임 특징을 기존 시각 특징에 더한다.","point":[235,343],"y":204},
+      {"title":"이후 10–27층","text":"움직임 정보가 포함된 시각 특징을 계속 처리한다.","point":[298,395],"y":300}
+    ],
+    "vlm": [
+      {"title":"세 종류의 입력 토큰","text":"영상 토큰 · 언어 토큰 · cognition tokens 64개","point":[746,490],"y":12},
+      {"title":"초반 1–4층","text":"여러 프레임을 읽고 시간 맥락을 현재 관측과 cognition에 모은다.","point":[775,548],"y":108},
+      {"title":"4층 뒤 · 과거 관측 압축","text":"과거 hidden states의 평균 → context 1개. 현재·지시·q는 유지한다.","point":[375,700],"y":204},
+      {"title":"선택한 18층의 q 위치","text":"64개 cognition features hₜ를 행동 모델로 전달한다.","point":[747,806],"y":300}
+    ]
+  }
+}

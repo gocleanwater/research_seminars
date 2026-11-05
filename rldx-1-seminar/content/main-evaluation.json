@@ -1,0 +1,183 @@
+[
+  {
+    "id": "P022",
+    "title": "Simulation Experiments",
+    "lead": "각 benchmark에 적응한 전체 시스템은 높은 성과를 냈지만 복합 조작은 여전히 어렵다.",
+    "layout": "full",
+    "kind": "fact",
+    "body": "<table><thead><tr><th>평가 (%)</th><th>최강 baseline</th><th>RLDX-1</th></tr></thead><tbody><tr><td>LIBERO 평균</td><td>96.9</td><td>97.8</td></tr><tr><td>LIBERO-Plus</td><td>86.5</td><td>86.7</td></tr><tr><td>GR-1 Tabletop</td><td>48.0</td><td>58.7</td></tr><tr><td>RC365 전체 / 미지 복합</td><td>26.9 / 4.4</td><td>32.1 / 5.6</td></tr></tbody></table><p>Pre-trained 모델을 각 benchmark에 fine-tuning한다. Baseline은 π0-FAST·π0·π0.5·GR00T N1.5/N1.6이며 재현값과 논문·저장소·leaderboard 수치가 섞여 있다.</p><p><span class=\"label interpretation\">해석</span> 전체 recipe의 성과다. 특정 모듈의 독립 효과나 작은 차이의 통계적 유의성을 이 표만으로 확정할 수 없다.</p>",
+    "aside": "",
+    "takeaway": "높은 순위와 낮은 절대 성공률을 함께 읽는다.",
+    "source": "Sec.6–6.1 · Table 1 · PDF pp.17–19; App.G.1 · PDF pp.48–49",
+    "notes": "연결 멘트: “실행 속도까지 준비한 모델이 무엇을 잘하는지 보겠습니다. 먼저 일반 조작을 보고 실제 로봇의 기능별 과제로 넘어갑니다.” 표의 최강 baseline은 열마다 다르다. LIBERO·Plus는 π0.5, GR-1과 RC365 미지 복합은 N1.5, RC365 전체는 N1.6이다. RC36532.1은18/16/16개 task 수로 가중한 평균이다. Baseline의 행동 생성 방식과 전체 수치·학습 조건은 S082–087 연결 해설에 보존한다. 서로 다른 초기화·recipe를 비교했으므로 구조 하나의 효과라고 말하지 않는다.",
+    "source_ids": [
+      "S082",
+      "S083",
+      "S084",
+      "S085",
+      "S086",
+      "S087"
+    ],
+    "chapter": "Evaluation and Analysis"
+  },
+  {
+    "id": "P023",
+    "title": "OpenArm",
+    "lead": "같은 물체 옮기기도 위치 지시·새 개체·새 배치·instance 선택으로 나눠 평가한다.",
+    "layout": "figure",
+    "kind": "fact",
+    "body": "<p>기본 물체 옮기기에서 지정 칸에 놓기, 새 개체·새 배치, 같은 종류 중 언어가 지정한 instance 선택까지 확장한다.</p><p>RLDX-1은 선반 68.8%·식기대 70.8%, 새 개체·새 작업 각 54.2%, grounding 87.5%다. 보통 24회, 선반은 48회다.</p><p>Grounding은 올바른 물체 잡기, 나머지는 지정 위치에 놓기가 성공이다. <span class=\"label authors\">저자 해석</span> 과적합·grounding 실패라는 설명은 원인별 통제 결과가 아니다.</p>",
+    "aside": "",
+    "takeaway": "미지 개체·작업에서도 우위가 있으나 기본 조작의 실패도 남는다.",
+    "source": "Sec.6.2 · Figs.13–14 · PDF pp.19–20; App.G.2 · PDF p.50",
+    "notes": "연결 멘트: “시뮬레이션에서 얻은 우위가 실제 양팔 로봇의 새로운 지시와 물체에도 이어지는지 봅니다.” Basic50.0, Shelf68.8, Dish70.8, Unseen Object54.2, Unseen Task54.2, Grounding87.5다. π0.5는 Shelf54.2, Dish58.3, Grounding83.3이므로 과제별 격차가 다르다. 학습348개 시연,30K steps/batch64다. Unseen은 downstream 시연 구성에 관한 표현이며 전체 사전 학습에서 본 적 없는 개념이라는 뜻이 아니다. 세부 배치와 실패 원인 해석은 S088–089에 보존한다.",
+    "source_ids": [
+      "S088",
+      "S089"
+    ],
+    "chapter": "Evaluation and Analysis",
+    "figure": "fig-14.png",
+    "caption": "Figure 14 · OpenArm의 여섯 평가 설정"
+  },
+  {
+    "id": "P024",
+    "title": "ALLEX",
+    "lead": "컨베이어·숨긴 상자·카드·따르기로 서로 다른 기능을 시험한다.",
+    "layout": "figure",
+    "kind": "fact",
+    "body": "<p><strong>움직임:</strong> 학습한 양 끝 속도 사이의 새 속도에 맞춰 상자를 잡는다. <strong>기억:</strong> 물체를 넣어 둔 상자를 과거 관찰로 고른다.</p><p><strong>물리 피드백:</strong> 카드를 밀고 잡아 건네며, 플라스틱 공을 따를 때 컵 무게 변화에 맞춰 멈춘다. 실제 액체 평가가 아니다.</p><p>컨베이어 87.5%·상자 91.7%는 성공률이다. 카드 97.2·따르기 70.8은 부분 완료를 포함한 진행 점수다.</p><div class=\"callout\"><span class=\"label interpretation\">평균 86.8은 혼합 지표</span><br>네 과제의 완전 성공률 평균으로 소개하면 안 된다.</div>",
+    "aside": "",
+    "takeaway": "같은 0–100 눈금이라도 성공률과 진행 점수의 의미는 다르다.",
+    "source": "Sec.6.3 · Figs.15–16 · PDF pp.21–22; App.G.3 · PDF p.51",
+    "notes": "연결 멘트: “실제 로봇의 성과를 읽기 전에 각 막대가 무엇을 측정하는지 나눠야 합니다.” 각 과제24회다. Conveyor는 학습S1/S4, 평가S2/S3를 보간하며 seen100/unseen75로 총87.5다. Card는0.33/0.66/1, Pour는0.25/0.5/0.75/1의 progress score다. 평균86.8은 서로 다른 지표의 산술 평균이다. ALLEX는 head stereo와48관절의 전류 기반 torque를 사용한다. Card 평가는 안전을 위해75cm 책상에서만 시행한다. 각 과제·센서·점수 세부는 S090–092로 연결한다.",
+    "source_ids": [
+      "S090",
+      "S091",
+      "S092"
+    ],
+    "chapter": "Evaluation and Analysis",
+    "figure": "fig-16.png",
+    "caption": "Figure 16 · 성공률과 progress score가 함께 표시된 결과"
+  },
+  {
+    "id": "P025",
+    "title": "Franka",
+    "lead": "회전·Pong·컵 기억·접촉 과제로 확장했지만 정밀 조작의 성공률은 아직 낮다.",
+    "layout": "figure",
+    "kind": "fact",
+    "body": "<p>회전·Pong은 움직임, Cup·Shell은 기억, Plug·Egg는 접촉을 시험한다. Spin 97.9%·Shell 91.7%에 비해 Cup 45.8%·Plug 33.3%에는 많은 실패가 남는다.</p><p>Franka는 torque·AnySkin을 쓴다. ALLEX·Franka 모두 과제 관련 모듈만 켜므로 세 기능의 동시 시너지나 각 모듈의 독립 효과는 분리되지 않는다.</p><p><span class=\"label question\">Q13</span> Spin96·Pong54회, 나머지24회다. Egg61.1%와24회 이진 성공률의 대응은 불명확하다.</p>",
+    "aside": "",
+    "takeaway": "기능별 우위를 유지하되 낮은 절대 성공률·활성화 조건·분모를 함께 밝힌다.",
+    "source": "Sec.6.4 · Figs.17–18 · PDF pp.23–24; App.G.3–G.4 · PDF pp.51–52; Q13",
+    "notes": "연결 멘트: “같은 기능을 다른 로봇에서도 평가했습니다. 다만 통합 구조를 설계한 것과 세 기능의 동시 기여를 검증한 것은 구별하겠습니다.” Spin97.9/Pong81.5/Cup45.8/Shell91.7/Plug33.3/Egg61.1, 평균68.5다. 센서는7차원 torque와15차원 AnySkin이다. Spin96 interactions, Pong54 interactions, 나머지24 trials다. ALLEX·Franka 모두 task-relevant module만 활성화한다. Egg61.1의 분모 대응은 불명확해 성공 횟수를 역산하지 않는다. 여섯 과제의 정의·평가 조건은 S093–096에 보존한다.",
+    "source_ids": [
+      "S093",
+      "S094",
+      "S095",
+      "S096"
+    ],
+    "chapter": "Evaluation and Analysis",
+    "figure": "fig-18.png",
+    "caption": "Figure 18 · Franka 기능별 성공률과 남은 어려움"
+  },
+  {
+    "id": "P026",
+    "title": "Ablation",
+    "lead": "바꾼 요소와 고정 조건을 확인하면 관측된 효과와 저자의 원인 설명을 나눌 수 있다.",
+    "layout": "full",
+    "kind": "fact",
+    "body": "<table><thead><tr><th>분석</th><th>보고 성공률 (%)</th><th>읽을 범위</th></tr></thead><tbody><tr><td>VLM 추출 층 8 / 18 / 28</td><td>51.1 / 60.9 / 56.3</td><td>세 후보 중18층 우세</td></tr><tr><td>Robot VQA 적응</td><td>57.5 → 60.9</td><td>+3.4%p</td></tr><tr><td>합성 pool 0 → 100%</td><td>41.0 → 50.1</td><td>+9.1%p</td></tr></tbody></table><p>층·VQA는 Kitchen의 별도 base 설정이다. 합성은 GR-1의 실제 데이터를 고정하고 pool 25·50·100%를 비교하며, 합성이 있는 조건의 실제:합성 sampling은 모두 1:1이다.</p><p><span class=\"label interpretation\">한계</span> Figure19는 마지막 prompt token의 patch attention 예시다. 인과 증명이 아니며 task/scene 증강·필터 각각의 효과도 이 비교에서 분리되지 않는다.</p>",
+    "aside": "",
+    "takeaway": "관측한 비교를 넘어 메커니즘과 개별 단계의 기여를 자동으로 확정하지 않는다.",
+    "source": "Sec.6.5 · Tables 2–3 · Fig.19 · PDF pp.24–25",
+    "notes": "연결 멘트: “결과가 좋았다는 관측에서 한 걸음 더 나아가 무엇을 바꿨을 때 좋아졌는지 보겠습니다. 이 세 비교는 누적 개선표가 아닙니다.” VLM 분석은 대규모 로봇 policy pre-training을 생략한 base setup이며 Qwen 전체 무작위 초기화라는 뜻이 아니다. 합성 pool0/25/50/100%는41.0/45.6/46.6/50.1이다. GR-1만 사용하고 batch1024/60K pre-training, 같은 downstream 적응을 적용한다. 합성이 있는 조건은 sampling1:1로 고정한다. Figure19는64개 cognition token 전체나 MSAT attention이 아니라 마지막 prompt token→patch의 정성 예다. 통제 기준·layer 선택·filter 한계는 S097–102에 보존한다.",
+    "source_ids": [
+      "S097",
+      "S098",
+      "S099",
+      "S100",
+      "S101",
+      "S102"
+    ],
+    "chapter": "Ablation and Analysis"
+  },
+  {
+    "id": "P027",
+    "title": "RL·추론 지연 분석",
+    "lead": "전구 과제의 frames·attempts와 policy p50은 서로 다른 효율 지표다.",
+    "layout": "full",
+    "kind": "fact",
+    "body": "<h3>전구 비틀기: BC → RECAP3</h3><p>완료 frames는 1056±326→353±22, 비튼 횟수는 12.7±3.0→4.1±0.3으로 약 3배 줄었다. 성공률 표가 아니며 추가 rollout·학습도 늘어나 RL objective만의 효과는 분리되지 않는다.</p><h3>All-modality 추론 stack의 누적 최적화</h3><table><thead><tr><th>Eager</th><th>Graph+Compile</th><th>+Static</th><th>+Kernel</th></tr></thead><tbody><tr><td>71.2ms</td><td>59.6ms</td><td>48.9ms</td><td>43.7ms</td></tr></tbody></table><p>최종 1.63배는 Eager 대비 누적값이며, 마지막 kernel 단계만은 1.12배다. RTX5090, dual-view192×256·4frames·Euler4회에서 측정한 policy p50이며 카메라→모터 전체 지연은 아니다.</p>",
+    "aside": "",
+    "takeaway": "빠른 완료·빠른 policy 호출과 높은 성공률·안정적인 전체 제어는 구별한다.",
+    "source": "Sec.6.5 · Figs.20–21 · Table 4 · PDF p.26; App.C · PDF p.43",
+    "notes": "연결 멘트: “더 잘 학습해 일을 빨리 마치는 것과 계산을 빨리 실행하는 것은 다른 효율입니다. 이제 논문 전체의 기여를 정리하고, 그 의미와 검증 과제를 나누어 보겠습니다.” RL은 ALLEX 오른손으로 plastic bulb를 비트는 한 과제이고 ±는 standard deviation이다. 평가 전체 횟수·실패와 timeout의 집계는 불명확하다. 추가 rollout 데이터만 BC에 더한 같은 예산의 비교가 없어 RL objective만의 효과로 읽지 않는다. Latency는 Core Ultra7 265K/RTX5090, ALLEX, horizon40,100회 warmup 뒤300회 median이다.71.2/43.7≈1.63,48.9/43.7≈1.12,전체 감소38.6%다. Physics/memory 제외는67→56.9→46.2→41.6ms다. 세부와 남은 통제 비교는 S103–107에 보존한다.",
+    "source_ids": [
+      "S103",
+      "S104",
+      "S105",
+      "S106",
+      "S107"
+    ],
+    "chapter": "Ablation and Analysis"
+  },
+  {
+    "id": "P028",
+    "title": "나의 의견",
+    "lead": "개별 점수뿐 아니라 기능을 연결한 방식과 그 이득이 성립하는 조건에 주목할 수 있다.",
+    "layout": "split",
+    "kind": "interpretation",
+    "body": "<h3>시스템 설계로서의 의미</h3><p><span class=\"label interpretation\">발표자의 해석</span> 이 연구의 강점은 새 블록 하나보다 움직임·기억·물리 신호를 데이터 생성, 단계별 학습, 실행 최적화까지 연결한 데 있다.</p><p>다만 전체 시스템의 높은 성능이 각 설계 선택의 필요성을 모두 입증하지는 않는다. 구성 요소를 같은 조건에서 바꾸는 비교가 있어야 기여를 더 명확히 나눌 수 있다.</p>",
+    "aside": "<h3>확장의 이득은 조건부</h3><p>BoN은 RECAP1을 돕지만 RECAP2·3를 악화시킨다. PEFT의 23.71GiB도 H200 측정이며 소비자 GPU의 실제 적응 검증은 아니다.</p><p><span class=\"label interpretation\">추가 검증</span> 같은 데이터·compute 예산에서 성공률과 전체 실행 지연을 함께 비교하면, 후보 탐색·경량 적응이 유효한 조건을 더 분명히 판단할 수 있다.</p>",
+    "takeaway": "통합의 가치를 인정하면서도 적용 조건과 비용까지 검증할 필요가 있다.",
+    "source": "발표자의 해석 · Sec.2–6 · PDF pp.6–26; App.D · Table 6 · PDF p.44; App.E · Figs.22–23 · PDF pp.45–46; App.G.5–G.6 · PDF pp.53–55",
+    "notes": "연결 멘트: “논문의 결론을 바탕으로, 이 결과를 어떻게 읽을 수 있을지 정리하겠습니다. 개인적인 실험 경험이 아니라 원문 비교에 근거한 해석입니다.” 시스템 통합과 조건부 이득을 의견으로 제시하며 저자의 실험 결과 자체와 구별한다. BoN N8/T1.5는 RECAP1 attempts8.5→4.9지만 RECAP2/3는+2.3/+2.2로 악화한다. Frozen RECAP1 특징 위 별도 distributional Q critic이며 RECAP의 Gemma text critic과 다르다. PEFT Full FT는 VLM top-4층을 fully tune한다는 뜻이다. Full/Full62.67%,Full/LoRA64도62.67%,양쪽LoRA64는55.33%·batch1 23.71GiB이며 실제 측정은H200이다. Table9의 보고66.7→83.3과 full9/24→14/24는 상세 해설에 보존하고 count 가중합13/18 vs 보고16/20의 불일치는 마지막 장에서 검증 논점으로 모은다. Batch64→1024의 GR-1 36.8→58.7도 총 노출 예산과 분리하기 어렵다. 각 task의 낮은 절대값과 평균의 한계까지 S108–115 원형 해설에 남긴다. 다음 장에서는 의견과 별도로 문서에서 아직 확인되지 않은 명세와 집계 문제를 짚는다.",
+    "source_ids": [
+      "S108",
+      "S109",
+      "S110",
+      "S111",
+      "S112",
+      "S113",
+      "S114",
+      "S115"
+    ],
+    "chapter": "My opinions and limitation"
+  },
+  {
+    "id": "P029",
+    "title": "Conclusion",
+    "lead": "RLDX-1은 기능 확장·합성 데이터·3단계 학습·추론 최적화를 결합한 VLA 시스템이다.",
+    "layout": "split",
+    "kind": "fact",
+    "body": "<h3>논문 전체의 기여</h3><p>VLM의 영상·언어 표현에 motion·memory를 더하고, MSAT의 physics stream으로 물리 신호를 행동 생성과 연결한다.</p><p>생성 영상에 IDM 행동 라벨과 선별을 적용해 데이터를 보강하고, pre/mid/post-training으로 범용 조작에서 로봇·작업 적응으로 이어간다. Graph·kernel 최적화로 실행 비용도 줄인다.</p>",
+    "aside": "<h3>실험에서 확인한 성과</h3><p>시뮬레이션·OpenArm에서 높은 비교 성능을, ALLEX·Franka에서는 기능별 과제의 개선을 보고했다. RECAP은 전구 작업 완료 효율을 높였고, 추론 최적화는 policy p50을 줄였다.</p><p>ALLEX 평균 86.8은 성공률·진행 점수의 혼합값이다. 복합 조작과 정밀 접촉에는 낮은 절대 성공률이 남는다.</p>",
+    "takeaway": "범용 조작과 기능별 능력을 하나의 실용 시스템으로 연결한 성과다.",
+    "source": "Sec.8 Conclusion · PDF p.28; Sec.2–6 · PDF pp.6–26",
+    "notes": "연결 멘트: “여기까지의 구조·데이터·학습·실행·평가를 한 흐름으로 정리하면 이 논문의 기여가 됩니다. 이어서 이 결과에 대한 해석과 남은 한계를 구분해 말씀드리겠습니다.” 원문 Conclusion은 움직임·장기 기억·물리 센싱을 통합하고 합성 데이터, 세 단계 학습, 추론 최적화를 함께 설계한 점을 정리한다. Simulation 성과는 benchmark별 fine-tuning 이후 full recipe의 결과이고 모든 task에 zero-shot으로 투입했다는 뜻이 아니다. 기능별 평가는 task-relevant module만 활성화하므로 세 기능의 동시 시너지로 확대하지 않는다. Conclusion의 ALLEX around90 vs frontier around40은86.8대39.1/44.8의 혼합 평균에 해당한다. 완전 성공90%로 말하지 않는다. RECAP frames/attempts와 policy latency p50도 성공률이나 end-to-end latency와 구별한다. 기존 Related Work(S116)는 source_ids 연결과 상세 N 해설에 보존한다. 그 내용은 VLA·영상 생성+IDM·기능별 연구를 통합했다는 저자의 연구 위치 설명이며 현재 SOTA나 최초성을 별도로 검증한 결과가 아니다. S117의 결론 해설도 그대로 유지한다.",
+    "source_ids": [
+      "S116",
+      "S117"
+    ],
+    "chapter": "Conclusion"
+  },
+  {
+    "id": "P030",
+    "title": "한계와 미해결 질문",
+    "lead": "원문 명세·집계의 불일치와 아직 분리하지 못한 효과를 다음 검증의 대상으로 남긴다.",
+    "layout": "full",
+    "kind": "question",
+    "body": "<table><thead><tr><th>위치</th><th>확인된 불일치</th><th>필요한 근거</th></tr></thead><tbody><tr><td>Q11 · Fig.7</td><td>Franka 비중 합101.0 vs 본문8:2</td><td>혼합 설정</td></tr><tr><td>Q12 · Table8</td><td>RC365 batch196 vs192</td><td>실행 설정</td></tr><tr><td>Q13 · Fig.18</td><td>Egg61.1% vs24회 설명</td><td>분모·집계법</td></tr><tr><td>추가 · Table9</td><td>Count 가중합13/18 vs 보고16/20</td><td>Count·점수 명세</td></tr></tbody></table><p><span class=\"label question\">운영·생성</span> Memory 갱신·초기화, H/H+1·C/A 표기, skill 목록·실행 가능성 규칙은 더 확인해야 한다.</p><p><span class=\"label interpretation\">후속 실험</span> 모듈·필터·RL의 독립 비교, 동일 데이터·compute 예산, 평가 불확실성, end-to-end p95/p99가 결론을 더 선명하게 한다.</p>",
+    "aside": "",
+    "takeaway": "문서의 불확실성과 모델의 성능 한계를 구별하며 후속 근거를 확인한다.",
+    "source": "Q5–Q6·Q8·Q11–Q13; Sec.2–4 · PDF pp.7–13; App.B.3 · PDF p.42; App.G.1·G.4–G.6 · PDF pp.49,52–55",
+    "notes": "연결 멘트: “마지막은 앞의 의견과 구분해 원문에서 확인되지 않은 명세와 추가 검증을 정리합니다.” 마무리 멘트: “문서의 불일치는 모델 오동작의 증거가 아닙니다. 명시된 결과와 확인하지 못한 규칙을 나눠 다음 근거를 찾는 출발점으로 남깁니다.” Memory는H+1 간격과t−H queue식, episode 초기화·짧은 history 처리, MSAT의A와 Physical Sensing 요약의C가 미해결이다. Task feasibility는 skill 목록·prompt·판정 gate가 구체적이지 않다. Q11은80+9.4+11.6=101, Q12는 문장196/Table8 192, Q13은24회당1성공4.17%p와61.1의 대응 불명확이다. Table9 count9/8/7,14/8/2에1/0.5/0을 적용한13/18과 보고16/20도 다르다. 기존 Q번호를 재번호화하지 않는다. 모든 미해결 질문과 후속 실험 제안은 S118–121 원형 해설에 보존한다.",
+    "source_ids": [
+      "S118",
+      "S119",
+      "S120",
+      "S121"
+    ],
+    "chapter": "My opinions and limitation"
+  }
+]

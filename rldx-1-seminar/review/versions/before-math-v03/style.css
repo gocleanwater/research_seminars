@@ -1,0 +1,69 @@
+@import './deck.css';
+
+:root {
+  --seminar-bg: #f7f7f2;
+  --seminar-ink: #172c3c;
+  --seminar-muted: #596a73;
+  --seminar-accent: #2656cb;
+  --seminar-line: #d6dedf;
+}
+
+.slidev-layout {
+  background: var(--seminar-bg);
+  color: var(--seminar-ink);
+  font-family: Arial, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+  padding: 64px 76px 72px;
+  font-size: 27px;
+  line-height: 1.6;
+}
+
+.slidev-layout h1 { font-size: 55px; line-height: 1.22; font-weight: 750; margin: 0 0 36px; letter-spacing: -0.035em; }
+.slidev-layout h2 { font-size: 34px; line-height: 1.35; font-weight: 700; margin: 0 0 22px; }
+.slidev-layout p { margin: 16px 0; }
+.slidev-layout .eyebrow { color: var(--seminar-accent); font-size: 16px; font-weight: 700; letter-spacing: 0.15em; margin-bottom: 28px; }
+.slidev-layout .lead { font-size: 30px; color: var(--seminar-muted); }
+.slidev-layout .source-note { position: absolute; bottom: 26px; left: 76px; right: 76px; font-size: 16px; color: var(--seminar-muted); line-height: 1.4; }
+.slidev-layout .seminar-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+.slidev-layout .panel { border: 1px solid var(--seminar-line); border-radius: 14px; padding: 24px; }
+.slidev-layout .takeaway { border-left: 5px solid var(--seminar-accent); padding: 12px 22px; background: #e9eef9; }
+.slidev-layout .workflow-row { display: flex; align-items: center; gap: 18px; margin-top: 62px; font-size: 22px; }
+.slidev-layout .workflow-row span { padding: 16px 20px; border: 1px solid var(--seminar-line); border-radius: 12px; }
+.slidev-layout .workflow-row b { color: var(--seminar-accent); }
+.slidev-layout table { font-size: 23px; line-height: 1.45; }
+.slidev-layout th { color: var(--seminar-accent); }
+.slidev-layout img { object-fit: contain; max-height: 440px; }
+
+/* S001 cover. Keep the photograph's original aspect ratio and transparency. */
+.cover-slide {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: #fbfcfd;
+  color: #142b40;
+  font-family: Arial, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+}
+.cover-slide .cover-image-field {
+  position: absolute;
+  inset: 0 0 0 auto;
+  width: 398px;
+  background: #e8f1f0;
+}
+.cover-slide .cover-copy { position: absolute; left: 76px; top: 58px; width: 750px; }
+.cover-slide p { margin: 0; }
+.cover-slide .cover-series { font-size: 16px; line-height: 24px; font-weight: 700; letter-spacing: .16em; color: #467579; }
+.cover-slide .cover-affiliation { margin-top: 69px; font-size: 21px; line-height: 30px; font-weight: 500; color: #536778; }
+.cover-slide .cover-affiliation > span { padding: 0 8px; }
+.cover-slide .cover-affiliation .cover-year { margin-left: 18px; padding-left: 24px; border-left: 1px solid #c3cfD4; font-size: 18px; }
+.cover-slide h1 { margin: 13px 0 0; font-size: 112px; line-height: 1.08; letter-spacing: -.055em; font-weight: 800; }
+.cover-slide .cover-title-sub { margin-top: 3px; font-size: 43px; line-height: 1.25; letter-spacing: -.025em; font-weight: 500; }
+.cover-slide .cover-rule { width: 62px; height: 5px; margin-top: 30px; background: #167e7a; }
+.cover-slide .cover-description { margin-top: 28px; font-size: 30px; line-height: 1.58; letter-spacing: -.035em; font-weight: 600; }
+.cover-slide .cover-capabilities { display: flex; flex-direction: row; align-items: center; gap: 22px; margin-top: 37px; color: #356c70; font-size: 18px; line-height: 27px; font-weight: 500; }
+.cover-slide .cover-capabilities span + span { padding-left: 22px; border-left: 1px solid #b9ccce; }
+.cover-slide .cover-robot { position: absolute; left: 854px; top: 165px; width: 390px; margin: 0; }
+.cover-slide .cover-robot img { display: block; width: 390px; height: auto; max-height: none; object-fit: contain; }
+.cover-slide .cover-robot figcaption { margin-top: 20px; padding-left: 44px; display: flex; flex-direction: column; gap: 3px; }
+.cover-slide .cover-robot figcaption strong { font-size: 27px; line-height: 35px; font-weight: 700; letter-spacing: .02em; }
+.cover-slide .cover-robot figcaption span { color: #526e73; font-size: 18px; line-height: 27px; }
+.cover-slide .cover-footer { position: absolute; left: 76px; right: 54px; bottom: 27px; padding-top: 18px; border-top: 1px solid #d1dcdf; display: flex; align-items: center; justify-content: space-between; color: #5c707b; font-size: 15px; line-height: 23px; }
+.cover-slide .cover-slide-id { color: #4f6f75; font-size: 15px; letter-spacing: .06em; }

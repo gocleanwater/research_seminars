@@ -1,0 +1,192 @@
+[
+  {
+    "id": "P013",
+    "title": "학습 데이터",
+    "lead": "공개·자체 데이터의 강점을 연결하고, 합성 영상에 행동 라벨을 붙여 경험을 확장한다.",
+    "layout": "figure",
+    "kind": "fact",
+    "body": "<h3>세 공급원의 역할</h3><p><strong>공개 데이터</strong>는 다양한 로봇의 조작 경험을, <strong>자체 데이터</strong>는 Franka·ALLEX의 고유 제어와 토크·촉각을 제공한다. 사람의 원격 조작을 수치 행동과 센서 기록으로 연결한다.</p><p><strong>합성 데이터</strong>는 수집이 어려운 장면을 늘린다. 지시·장면 변형 → 영상 생성 → IDM 행동 라벨링 → 검증의 흐름이다.</p>",
+    "aside": "<p class=\"callout\">Task는 목표 지시, action은 로봇을 움직이는 수치다. 영상과 행동이 맞는지 별도로 확인한다.</p>",
+    "takeaway": "데이터를 늘리는 것과 학습 가능한 영상–행동 쌍을 만드는 것은 함께 해결해야 한다.",
+    "source": "Sec.3–3.3; Fig.4 · PDF pp.9–12",
+    "notes": "구조에서 데이터로 전환한다. 상세 센서 구성·원격 조작·최대64 vision tokens 전처리는 연결된 상세 단위에서 확인한다.",
+    "source_ids": [
+      "S041",
+      "S042",
+      "S043"
+    ],
+    "chapter": "Training Data",
+    "figure": "fig-04.png",
+    "caption": "Figure 4 · 생성 영상에 행동을 붙이고 두 단계로 검사하는 파이프라인"
+  },
+  {
+    "id": "P014",
+    "title": "Task·Scene Augmentation",
+    "lead": "지시의 변형과 시각적 변형을 나누되, 원본 장면에서 가능한 동작을 유지하려 한다.",
+    "layout": "figure",
+    "kind": "fact",
+    "body": "<h3>무엇을 할지, 어디에서 할지</h3><p><strong>Task:</strong> 행동·물체·위치·손을 재조합하거나 원본 skill을 조건으로 변형한다. 두 전략의 결과는 겹칠 수 있다.</p><p><strong>Scene:</strong> 시작 장면을 I2I로 편집해 I2V로 생성하거나, V2V로 영상의 색·질감을 바꾸며 움직임을 보존하려 한다.</p>",
+    "aside": "<p class=\"callout\">Canny edge는 구조 보존을 유도한다. 실행 가능성을 보장하지 않으며, 구체적인 판정 규칙·prompt는 미확인이다.</p>",
+    "takeaway": "Figure 5(c)는 I2I→I2V 예시다. V2V만의 효과를 보여주는 비교는 아니다.",
+    "source": "Sec.3.3; Fig.5 · PDF p.11; App.B.3 · PDF p.42; 질문노트 Q8",
+    "notes": "왼쪽 세 행을 원본·task 변형·scene 변형 순으로 읽는다. 다음 장에서 생성 영상의 행동 라벨과 검증으로 넘어간다.",
+    "source_ids": [
+      "S044",
+      "S045",
+      "S046",
+      "S047",
+      "S048",
+      "S049",
+      "S050"
+    ],
+    "chapter": "Training Data",
+    "figure": "fig-05.png",
+    "caption": "Figure 5 · (a) 원본 (b) 지시 변형 (c) I2I 편집 후 I2V 생성"
+  },
+  {
+    "id": "P015",
+    "title": "합성 데이터 검증",
+    "lead": "IDM의 추정 행동을 시뮬레이터에서 재생하고, 생성 영상의 움직임과 비교한다.",
+    "layout": "split",
+    "kind": "fact",
+    "body": "<h3>영상에서 행동으로</h3><div class=\"flow\"><div class=\"node\">관측 쌍</div><div class=\"arrow\">→</div><div class=\"node\">IDM</div><div class=\"arrow\">→</div><div class=\"node\">추정 행동</div></div><p>현재·미래 프레임에서 중간 행동을 추정해 pseudo-label을 만든다. 그 행동을 simulator에서 재생하면 비교용 rollout 영상이 생긴다.</p><p>별도 품질 VLM은 지시 불일치를 re-caption하고, 동작 plausibility를 평가해 선별한다.</p>",
+    "aside": "<h3>움직임이 서로 맞는가?</h3><p>두 clip을 frozen V-JEPA2로 인코딩하고 특징을 concat한다. 학습 가능한 query가 cross-attention으로 읽은 뒤 linear head가 일치를 판별한다.</p><p>실제 clip+GT 행동 rollout은 positive, 시간·episode가 어긋난 쌍은 negative다.</p><p class=\"callout\">필터 통과는 현실의 물리적 성공 보장이 아니다. 검사기의 정량 신뢰성은 추가 검증이 필요하다.</p>",
+    "takeaway": "영상 품질과 영상–행동 정합성은 서로 다른 검증 대상이다.",
+    "source": "Sec.3.3 · PDF pp.11–12; App.B.3 · PDF p.42; 질문노트 Q2",
+    "notes": "Negative의 다른 episode는 동일 task instruction을 공유한다. 모델별 설정·필터 임계값 미기재와 오탐·미탐 문제는 상세 단위에 보존한다.",
+    "source_ids": [
+      "S051",
+      "S052",
+      "S053",
+      "S054",
+      "S055"
+    ],
+    "chapter": "Training Data"
+  },
+  {
+    "id": "P016",
+    "title": "Pre-training",
+    "lead": "Pre-training의 공통 경험을 출발점으로 mid·post-training에서 적응 범위를 좁힌다.",
+    "layout": "figure",
+    "kind": "fact",
+    "body": "<h3>세 단계의 역할</h3><p><strong>Pre:</strong> 다양한 로봇의 조작 → <strong>Mid:</strong> 특정 로봇·기능 확장 → <strong>Post:</strong> 목표 작업 적응.</p><p>Pre-training은 네 프레임을 입력해 flow matching으로 배운다. 로봇별 projection과 함께, batch의 일부 256 trajectory를 공통 projection으로 보내 새 로봇 적응의 초기값을 준비한다.</p>",
+    "aside": "<p class=\"callout\">Figure 6의 원은 학습 혼합 비중, 표는 episode pool 크기다. OXE와 DROID의 비중은 각 25%다.</p>",
+    "takeaway": "공유 행동 모델과 공통 입출력 경로를 함께 학습해 embodiment 간 경험을 연결한다.",
+    "source": "Sec.4–4.1; Fig.6 · PDF pp.12–13",
+    "notes": "학습 규모·freeze 범위·정규화·padding 설정은 상세 단위에 있다. 다음 장에서 새 기억·센서 모듈을 붙일 때의 적응으로 이어간다.",
+    "source_ids": [
+      "S056",
+      "S057",
+      "S058",
+      "S059"
+    ],
+    "chapter": "Training Procedure",
+    "figure": "fig-06.png",
+    "caption": "Figure 6 · 약 1.5M episode의 pool과 별도로 정한 학습 혼합 비중"
+  },
+  {
+    "id": "P017",
+    "title": "Mid-training",
+    "lead": "Mid-training은 ALLEX·Franka 특화와 움직임·기억·물리 센싱의 확장을 함께 수행한다.",
+    "layout": "figure",
+    "kind": "fact",
+    "body": "<h3>기능을 추가하고 정렬하기</h3><p>STSS로 움직임을, cognition queue로 기억을 보강한다. 토크·Franka 촉각을 입력하고 미래 센서도 예측한다.</p><p>처음 <strong>2K alignment steps</strong>는 새 파라미터만 학습하고, 이후 전체를 함께 갱신한다. 확장 입력 dropout과 physics의 near-zero 출력 초기화도 쓴다.</p>",
+    "aside": "<p class=\"callout\">설정별 효과는 미확인이다. Franka 비율 합101%도 임의 보정하지 않는다.</p>",
+    "takeaway": "여러 프레임은 pre-training부터 쓰고, 전용 기능 모듈은 mid-training에서 추가한다.",
+    "source": "Sec.4.2; Fig.7 · PDF p.13; 질문노트 Q10·Q11",
+    "notes": "ALLEX 실제:합성5:5와 Franka DROID:자체8:2의 역할을 그림과 연결한다. Near-zero가 masking이나 기존 출력의 완전 보존을 뜻하지 않는다는 설명은 상세 단위에 둔다.",
+    "source_ids": [
+      "S060",
+      "S061",
+      "S062",
+      "S063",
+      "S064"
+    ],
+    "chapter": "Training Procedure",
+    "figure": "fig-07.png",
+    "caption": "Figure 7 · 로봇별 데이터 혼합과 새 입력의 자체 데이터 supervision"
+  },
+  {
+    "id": "P018",
+    "title": "Post-training",
+    "lead": "Post-training의 기본은 작업별 모방학습이며, 실패 조건에 맞춰 시연을 추가한다.",
+    "layout": "split",
+    "kind": "fact",
+    "body": "<h3>Base data: 일관성과 다양성</h3><p>작업을 접근·잡기·이동·놓기 같은 동작으로 나누고 시연 시나리오를 정한다.</p><div class=\"compare\"><div><strong>고정할 축</strong><p>잡는 자세·경로·순서</p></div><div><strong>변화시킬 축</strong><p>물체 위치·자세·초기 상태</p></div></div><p>일관된 state–action 구조 안에 필요한 변화를 담아 제한된 시연을 수집한다.</p>",
+    "aside": "<h3>Refinement: 실패를 다음 수집으로</h3><div class=\"sequence\"><div class=\"step\">시연으로 학습 → 실제 작업에 배치</div><div class=\"step\">실패 조건 관찰 → 추가 시연 → 재학습</div></div><p>예를 들어 새 물체 위치에서 실패하면 시연의 공간 범위를 넓힌다.</p><p class=\"callout\">대부분 실험은 IL을 쓴다. 일부 어려운 조작에서 RECAP 기반 RL을 보완적으로 추가한다.</p>",
+    "takeaway": "Post-training이라는 단계 이름만으로 모든 작업에 RL이 적용됐다고 해석하지 않는다.",
+    "source": "Sec.4.3 · Adaptive Data Collection/RL · PDF pp.14–15",
+    "notes": "시연 추가 수집과 다음 장의 policy rollout 수집을 구분한다. 고정·변화 축은 원문 예시이며 모든 작업에 적용되는 절대 규칙은 아니다.",
+    "source_ids": [
+      "S065",
+      "S066"
+    ],
+    "chapter": "Training Procedure"
+  },
+  {
+    "id": "P019",
+    "title": "RECAP",
+    "lead": "별도 Gemma critic의 숫자 텍스트 value를 활용해 RECAP의 policy 개선을 반복한다.",
+    "layout": "figure",
+    "kind": "fact",
+    "body": "<h3>평가 → 학습 → 새 경험</h3><p><strong>Critic</strong>은 Gemma3-4b-it으로 value를 숫자 텍스트로 예측한다. 행동을 만드는 Qwen 기반 RLDX-1과 별도 모델이다.</p><p>Critic → advantage labels → policy 학습 → rollout 수집을 반복한다. 성공 데이터로 critic을 갱신한다. 정확한 advantage label 식은 미기재다.</p>",
+    "aside": "<p class=\"callout\">곡선은 성공률이 아닌 진행 value다. RECAP은 40 action을 생성해 20개 실행하며, 이는 denoising 횟수와 다르다.</p>",
+    "takeaway": "실패·회복을 읽는 critic과 행동을 만드는 policy를 분리하고, 새 데이터로 함께 개선한다.",
+    "source": "Sec.4.3; Fig.8 · PDF pp.14–15; App.C Algorithm1 · PDF p.43",
+    "notes": "Figure 8은 첫 성공과 재시도 성공 사례다. 모든 작업의 critic 정확도를 입증하는 실험으로 확대하지 않는다. 반복마다 전체 누적 데이터의 advantage를 다시 부여한다.",
+    "source_ids": [
+      "S067",
+      "S068",
+      "S069",
+      "S070",
+      "S071"
+    ],
+    "chapter": "Training Procedure",
+    "figure": "fig-08.png",
+    "caption": "Figure 8 · 정규화 value가 진행·실패·회복을 따라가는 두 사례"
+  },
+  {
+    "id": "P020",
+    "title": "CUDA Graph",
+    "lead": "관측이 오래되기 전에 응답하려면 계산량뿐 아니라 GPU 호출 비용도 줄여야 한다.",
+    "layout": "figure",
+    "kind": "fact",
+    "body": "<h3>여러 호출에서 하나의 graph로</h3><p>추론 중에도 장면은 변한다. 고정 배포 설정의 RoPE 준비 값·attention mask를 미리 계산하면 graph break를 줄여 forward를 한 CUDA Graph로 포착할 수 있다.</p><p>입력에 따른 Q/K·attention 계산은 계속 필요하다. 한 graph에 여러 kernel이 들어가며 denoising도 반복한다.</p>",
+    "aside": "<p class=\"callout\">Policy·LLM의 prefill은 입력을 함께 처리한다. 출력 토큰 순차 생성과 구분한다.</p>",
+    "takeaway": "Graph capture는 행동의 의미보다 GPU에 연산을 제출하는 방식을 바꾼다.",
+    "source": "Sec.5–5.2; Fig.9 · PDF pp.15–16",
+    "notes": "Short prefill에서 chunk를 함께 갱신하되 denoising step은 반복한다. 고정 RoPE 설정 재사용과 실제 Q/K 회전·QK attention을 구별한다.",
+    "source_ids": [
+      "S072",
+      "S073",
+      "S074",
+      "S075",
+      "S076"
+    ],
+    "chapter": "Inference Strategy",
+    "figure": "fig-09.png",
+    "caption": "Figure 9 · 쪼개진 graph의 launch 비용을 줄이는 static graph capture"
+  },
+  {
+    "id": "P021",
+    "title": "Kernel Optimization",
+    "lead": "Kernel fusion은 빠른 개별 연산들을 연결하는 데이터 흐름까지 함께 최적화한다.",
+    "layout": "figure",
+    "kind": "fact",
+    "body": "<h3>계산과 이동의 두 병목</h3><p>계산 병목의 matmul과 데이터 이동 병목의 RMSNorm·RoPE 등이 섞인다. <strong>Memory-bound</strong>는 대역폭 병목이며 OOM과 다르다.</p><p>Compiler의 fusion 경로와 외부 FlashAttention 경계가 남긴 중간 Q/K 저장·재읽기를 줄이도록, profiling한 일부 연산을 직접 묶는다.</p>",
+    "aside": "<p class=\"callout\">RMSNorm → RoPE → Attention을 묶어 중간 결과를 on-chip에 둔다. 나머지는 Torch Compile을 쓴다.</p>",
+    "takeaway": "Attention 내부 최적화와 주변 연산을 아우르는 fusion은 서로 다른 최적화 경계다.",
+    "source": "Sec.5.2; Fig.10 · PDF pp.16–17; App.F Table7 · PDF p.47",
+    "notes": "원문 workload에서의 관찰로 한정한다. 실제 8개 custom kernel과 residual·norm·SwiGLU 결합은 상세 단위에 보존한다. 이제 성능 평가에서 어떤 효과가 확인됐는지 살펴본다.",
+    "source_ids": [
+      "S077",
+      "S078",
+      "S079",
+      "S080",
+      "S081"
+    ],
+    "chapter": "Inference Strategy",
+    "figure": "fig-10.png",
+    "caption": "Figure 10 · 분리된 kernel의 global-memory 왕복과 fusion의 on-chip 재사용"
+  }
+]

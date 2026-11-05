@@ -1,0 +1,393 @@
+[
+  {
+    "file": "fig-01.png",
+    "figure": 1,
+    "pdf_page": 1,
+    "crop_points": [
+      48,
+      301,
+      550,
+      716
+    ],
+    "size": [
+      1506,
+      1245
+    ],
+    "source": "research_wiki/papers/RLWRLD-RLDX-1 Technical Report.pdf",
+    "method": "PDF page render and crop, original colors and labels"
+  },
+  {
+    "file": "fig-02.png",
+    "figure": 2,
+    "pdf_page": 5,
+    "crop_points": [
+      49,
+      66,
+      548,
+      276
+    ],
+    "size": [
+      1497,
+      630
+    ],
+    "source": "research_wiki/papers/RLWRLD-RLDX-1 Technical Report.pdf",
+    "method": "PDF page render and crop, original colors and labels"
+  },
+  {
+    "file": "fig-03.png",
+    "figure": 3,
+    "pdf_page": 6,
+    "crop_points": [
+      49,
+      66,
+      548,
+      356
+    ],
+    "size": [
+      1497,
+      870
+    ],
+    "source": "research_wiki/papers/RLWRLD-RLDX-1 Technical Report.pdf",
+    "method": "PDF page render and crop, original colors and labels"
+  },
+  {
+    "file": "fig-04.png",
+    "figure": 4,
+    "pdf_page": 10,
+    "crop_points": [
+      49,
+      66,
+      548,
+      328
+    ],
+    "size": [
+      1497,
+      786
+    ],
+    "source": "research_wiki/papers/RLWRLD-RLDX-1 Technical Report.pdf",
+    "method": "PDF page render and crop, original colors and labels"
+  },
+  {
+    "file": "fig-05.png",
+    "figure": 5,
+    "pdf_page": 11,
+    "crop_points": [
+      49,
+      66,
+      548,
+      337
+    ],
+    "size": [
+      1497,
+      813
+    ],
+    "source": "research_wiki/papers/RLWRLD-RLDX-1 Technical Report.pdf",
+    "method": "PDF page render and crop, original colors and labels"
+  },
+  {
+    "file": "fig-06.png",
+    "figure": 6,
+    "pdf_page": 12,
+    "crop_points": [
+      49,
+      66,
+      548,
+      208
+    ],
+    "size": [
+      1497,
+      426
+    ],
+    "source": "research_wiki/papers/RLWRLD-RLDX-1 Technical Report.pdf",
+    "method": "PDF page render and crop, original colors and labels"
+  },
+  {
+    "file": "fig-07.png",
+    "figure": 7,
+    "pdf_page": 13,
+    "crop_points": [
+      49,
+      66,
+      548,
+      222
+    ],
+    "size": [
+      1497,
+      468
+    ],
+    "source": "research_wiki/papers/RLWRLD-RLDX-1 Technical Report.pdf",
+    "method": "PDF page render and crop, original colors and labels"
+  },
+  {
+    "file": "fig-08.png",
+    "figure": 8,
+    "pdf_page": 14,
+    "crop_points": [
+      49,
+      66,
+      548,
+      281
+    ],
+    "size": [
+      1497,
+      645
+    ],
+    "source": "research_wiki/papers/RLWRLD-RLDX-1 Technical Report.pdf",
+    "method": "PDF page render and crop, original colors and labels"
+  },
+  {
+    "file": "fig-09.png",
+    "figure": 9,
+    "pdf_page": 15,
+    "crop_points": [
+      49,
+      66,
+      548,
+      264
+    ],
+    "size": [
+      1497,
+      594
+    ],
+    "source": "research_wiki/papers/RLWRLD-RLDX-1 Technical Report.pdf",
+    "method": "PDF page render and crop, original colors and labels"
+  },
+  {
+    "file": "fig-10.png",
+    "figure": 10,
+    "pdf_page": 16,
+    "crop_points": [
+      49,
+      66,
+      548,
+      207
+    ],
+    "size": [
+      1497,
+      423
+    ],
+    "source": "research_wiki/papers/RLWRLD-RLDX-1 Technical Report.pdf",
+    "method": "PDF page render and crop, original colors and labels"
+  },
+  {
+    "file": "fig-11.png",
+    "figure": 11,
+    "pdf_page": 17,
+    "crop_points": [
+      49,
+      66,
+      548,
+      277
+    ],
+    "size": [
+      1497,
+      633
+    ],
+    "source": "research_wiki/papers/RLWRLD-RLDX-1 Technical Report.pdf",
+    "method": "PDF page render and crop, original colors and labels"
+  },
+  {
+    "file": "fig-12.png",
+    "figure": 12,
+    "pdf_page": 19,
+    "crop_points": [
+      73,
+      84,
+      516,
+      225
+    ],
+    "size": [
+      1329,
+      423
+    ],
+    "source": "research_wiki/papers/RLWRLD-RLDX-1 Technical Report.pdf",
+    "method": "PDF page render and crop, original colors and labels"
+  },
+  {
+    "file": "fig-13.png",
+    "figure": 13,
+    "pdf_page": 20,
+    "crop_points": [
+      49,
+      66,
+      548,
+      288
+    ],
+    "size": [
+      1497,
+      666
+    ],
+    "source": "research_wiki/papers/RLWRLD-RLDX-1 Technical Report.pdf",
+    "method": "PDF page render and crop, original colors and labels"
+  },
+  {
+    "file": "fig-14.png",
+    "figure": 14,
+    "pdf_page": 20,
+    "crop_points": [
+      49,
+      335,
+      548,
+      487
+    ],
+    "size": [
+      1497,
+      456
+    ],
+    "source": "research_wiki/papers/RLWRLD-RLDX-1 Technical Report.pdf",
+    "method": "PDF page render and crop, original colors and labels"
+  },
+  {
+    "file": "fig-15.png",
+    "figure": 15,
+    "pdf_page": 21,
+    "crop_points": [
+      49,
+      66,
+      548,
+      448
+    ],
+    "size": [
+      1497,
+      1146
+    ],
+    "source": "research_wiki/papers/RLWRLD-RLDX-1 Technical Report.pdf",
+    "method": "PDF page render and crop, original colors and labels"
+  },
+  {
+    "file": "fig-16.png",
+    "figure": 16,
+    "pdf_page": 22,
+    "crop_points": [
+      49,
+      66,
+      548,
+      261
+    ],
+    "size": [
+      1497,
+      585
+    ],
+    "source": "research_wiki/papers/RLWRLD-RLDX-1 Technical Report.pdf",
+    "method": "PDF page render and crop, original colors and labels"
+  },
+  {
+    "file": "fig-17.png",
+    "figure": 17,
+    "pdf_page": 23,
+    "crop_points": [
+      49,
+      66,
+      548,
+      334
+    ],
+    "size": [
+      1497,
+      804
+    ],
+    "source": "research_wiki/papers/RLWRLD-RLDX-1 Technical Report.pdf",
+    "method": "PDF page render and crop, original colors and labels"
+  },
+  {
+    "file": "fig-18.png",
+    "figure": 18,
+    "pdf_page": 24,
+    "crop_points": [
+      49,
+      66,
+      548,
+      229
+    ],
+    "size": [
+      1497,
+      489
+    ],
+    "source": "research_wiki/papers/RLWRLD-RLDX-1 Technical Report.pdf",
+    "method": "PDF page render and crop, original colors and labels"
+  },
+  {
+    "file": "fig-19.png",
+    "figure": 19,
+    "pdf_page": 25,
+    "crop_points": [
+      143,
+      270,
+      447,
+      429
+    ],
+    "size": [
+      912,
+      477
+    ],
+    "source": "research_wiki/papers/RLWRLD-RLDX-1 Technical Report.pdf",
+    "method": "PDF page render and crop, original colors and labels"
+  },
+  {
+    "file": "fig-20.png",
+    "figure": 20,
+    "pdf_page": 26,
+    "crop_points": [
+      51,
+      104,
+      210,
+      183
+    ],
+    "size": [
+      477,
+      237
+    ],
+    "source": "research_wiki/papers/RLWRLD-RLDX-1 Technical Report.pdf",
+    "method": "PDF page render and crop, original colors and labels"
+  },
+  {
+    "file": "fig-21.png",
+    "figure": 21,
+    "pdf_page": 26,
+    "crop_points": [
+      219,
+      81,
+      548,
+      185
+    ],
+    "size": [
+      987,
+      312
+    ],
+    "source": "research_wiki/papers/RLWRLD-RLDX-1 Technical Report.pdf",
+    "method": "PDF page render and crop, original colors and labels"
+  },
+  {
+    "file": "fig-22.png",
+    "figure": 22,
+    "pdf_page": 46,
+    "crop_points": [
+      49,
+      222,
+      548,
+      332
+    ],
+    "size": [
+      1497,
+      330
+    ],
+    "source": "research_wiki/papers/RLWRLD-RLDX-1 Technical Report.pdf",
+    "method": "PDF page render and crop, original colors and labels"
+  },
+  {
+    "file": "fig-23.png",
+    "figure": 23,
+    "pdf_page": 46,
+    "crop_points": [
+      49,
+      554,
+      548,
+      674
+    ],
+    "size": [
+      1497,
+      360
+    ],
+    "source": "research_wiki/papers/RLWRLD-RLDX-1 Technical Report.pdf",
+    "method": "PDF page render and crop, original colors and labels"
+  }
+]

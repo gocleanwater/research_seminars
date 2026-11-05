@@ -1,0 +1,40 @@
+# 공개 파일·저장소 설정을 검토한 뒤 .github/workflows/pages.yml로 복사한다.
+# 이 위치에서는 실행되지 않는다. 복사 후에도 수동 실행만 허용한다.
+name: Publish slides manually
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: false
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+      - run: npm install --global pnpm@11.25.0
+      - run: pnpm install --frozen-lockfile --ignore-scripts
+      - name: Build with the project base path
+        env:
+          REPOSITORY_NAME: ${{ github.event.repository.name }}
+        run: pnpm build --base "/${REPOSITORY_NAME}/"
+      - uses: actions/configure-pages@v6
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: dist
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v5

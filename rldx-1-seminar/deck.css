@@ -1,0 +1,185 @@
+/* Shared by Slidev and the self-contained HTML. Canvas: 1280 × 720. */
+.seminar-slide {
+  position: absolute; inset: 0; width: 1280px; height: 720px;
+  overflow: hidden; background: #fbfcfd; color: #142b40;
+  font-family: 'Nanum Gothic', Arial, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+  font-size: 24px; line-height: 1.5; word-break: keep-all; overflow-wrap: anywhere;
+  -webkit-font-smoothing: antialiased;
+}
+.seminar-slide *, .cover-slide * { box-sizing: border-box; }
+.seminar-slide h1, .seminar-slide h2, .seminar-slide h3, .seminar-slide p, .seminar-slide figure { margin: 0; }
+.seminar-slide .seminar-header { position: absolute; left: 64px; right: 64px; top: 30px; }
+.seminar-slide .chapter-label { color: #167e7a; font-size: 15px; line-height: 23px; letter-spacing: .06em; font-weight: 700; }
+.seminar-slide h1 { font-size: 41px; line-height: 1.25; letter-spacing: -.035em; font-weight: 750; margin-top: 9px; max-width: 1080px; }
+.seminar-slide .slide-lead { font-size: 23px; line-height: 1.5; color: #506574; margin-top: 13px; max-width: 1130px; }
+.seminar-slide .seminar-body { position: absolute; left: 64px; right: 64px; top: 178px; height: 420px; min-height: 0; }
+.seminar-slide .seminar-body.split { display: grid; grid-template-columns: 1fr 1fr; gap: 42px; }
+.seminar-slide .seminar-body.figure { display: grid; grid-template-columns: 1.22fr 1fr; gap: 32px; }
+.seminar-slide .seminar-body.widefigure { display: grid; grid-template-rows: minmax(0, 1fr) auto; gap: 16px; }
+.seminar-slide .body-main, .seminar-slide .body-aside { min-width: 0; min-height: 0; }
+.seminar-slide h3 { font-size: 25px; line-height: 1.35; font-weight: 700; color: #173e53; margin: 0 0 8px; letter-spacing: -.025em; }
+.seminar-slide p { margin: 0 0 10px; }
+.seminar-slide p:last-child { margin-bottom: 0; }
+.seminar-slide p + h3, .seminar-slide .equation + h3 { margin-top: 15px; }
+.seminar-slide ul, .seminar-slide ol { margin: 0 0 12px; padding-left: 1.2em; }
+.seminar-slide li { margin: 0 0 8px; }
+.seminar-slide strong { font-weight: 750; color: #153f50; }
+.seminar-slide .mini, .seminar-slide .eq-caption { font-size: 19px; line-height: 1.5; color: #586b78; }
+.seminar-slide .muted { color: #617482; }
+.seminar-slide .equation { padding: 10px 15px; margin: 0 0 10px; background: #edf3f5; border-left: 3px solid #6a95a3; font-family: 'Cambria Math', 'Times New Roman', 'Apple SD Gothic Neo', serif; font-size: 29px; line-height: 1.5; overflow-wrap: anywhere; word-break: normal; }
+.seminar-slide sub, .seminar-slide sup { font-size: .66em; line-height: 0; }
+.seminar-slide .equation .eq-caption { font-family: 'Nanum Gothic', Arial, 'Apple SD Gothic Neo', sans-serif; margin-top: 8px; }
+.seminar-slide .label { display: inline-block; font-size: 15px; font-weight: 700; line-height: 23px; color: #30598e; background: #eaf0fa; padding: 1px 7px; margin-right: 5px; vertical-align: middle; }
+.seminar-slide .label.fact { color: #30598e; background: #eaf0fa; }
+.seminar-slide .label.authors { color: #7354a0; background: #f1ecf7; }
+.seminar-slide .label.interpretation { color: #17716d; background: #e5f2ef; }
+.seminar-slide .label.example { color: #766222; background: #f7f0db; }
+.seminar-slide .label.question { color: #a15a2e; background: #faeddf; }
+.seminar-slide .header-kind { position: absolute; top: 0; right: 0; }
+.seminar-slide .flow { display: flex; align-items: stretch; gap: 13px; width: 100%; margin: 2px 0 23px; }
+.seminar-slide .node { flex: 1; min-width: 0; padding: 17px 14px; border-top: 3px solid #167e7a; background: #edf4f3; font-size: 23px; line-height: 1.45; }
+.seminar-slide .node h3 { font-size: 24px; }
+.seminar-slide .node p { font-size: 22px; }
+.seminar-slide .arrow { color: #167e7a; align-self: center; font-size: 28px; flex: none; }
+.seminar-slide .sequence { display: flex; flex-direction: column; gap: 9px; margin: 0 0 13px; }
+.seminar-slide .step { padding: 10px 15px; background: #edf3f5; border-left: 3px solid #7aa4ac; }
+.seminar-slide .compare { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: 15px; }
+.seminar-slide .compare > div { border-top: 1px solid #c8d6dc; padding-top: 13px; min-width: 0; }
+.seminar-slide .callout { padding: 12px 16px; margin: 15px 0 0; background: #e9f3f1; border-left: 3px solid #167e7a; }
+.seminar-slide .token-row { display: flex; flex-wrap: wrap; gap: 7px; margin: 9px 0 14px; align-items: center; }
+.seminar-slide .token { display: inline-flex; align-items: center; justify-content: center; min-width: 43px; padding: 8px 11px; border: 1px solid #c7d3dd; background: #eef3f8; font-size: 22px; }
+.seminar-slide .token.c { background: #edf0fa; border-color: #9ca9d2; color: #465b99; }
+.seminar-slide .token.a { background: #e3f2ef; border-color: #80b9ae; color: #1b776f; }
+.seminar-slide .token.p { background: #fbf0da; border-color: #d4b779; color: #8d6927; }
+.seminar-slide .paper-figure { display: flex; flex-direction: column; min-width: 0; min-height: 0; height: 100%; justify-content: center; align-items: center; background: white; }
+.seminar-slide .paper-figure img { display: block; width: 100%; height: 100%; min-height: 0; object-fit: contain; cursor: zoom-in; }
+.seminar-slide .paper-figure figcaption { flex: none; padding-top: 9px; font-size: 17px; color: #5c707d; line-height: 1.4; text-align: center; }
+.seminar-slide .widefigure .paper-figure { max-height: 263px; }
+.seminar-slide .widefigure .body-main { font-size: 22px; }
+.seminar-slide table { width: 100%; border-collapse: collapse; font-size: 22px; line-height: 1.4; font-variant-numeric: tabular-nums; }
+.seminar-slide th { color: #174a5b; font-weight: 700; background: #e8f0f2; border-bottom: 2px solid #a1b8c1; text-align: left; }
+.seminar-slide td, .seminar-slide th { padding: 8px 11px; vertical-align: top; }
+.seminar-slide td { border-bottom: 1px solid #dce4e8; }
+.seminar-slide tr:last-child td { border-bottom-color: #b7cbd2; }
+.seminar-slide table + p { margin-top: 15px; }
+.seminar-slide .metric { font-size: 40px; font-weight: 750; color: #167e7a; line-height: 1.2; }
+.seminar-slide .bar-row { display: grid; grid-template-columns: 1.2fr 2fr auto; gap: 14px; align-items: center; margin: 15px 0; }
+.seminar-slide .bar-fill { display: block; background: #298d88; height: 25px; }
+.seminar-slide .takeaway { position: absolute; bottom: 65px; left: 64px; right: 64px; border-left: 4px solid #167e7a; background: #e8f2ef; padding: 10px 16px; color: #1b5458; font-size: 21px; line-height: 1.4; font-weight: 600; }
+.seminar-slide .seminar-footer { position: absolute; left: 64px; right: 64px; bottom: 22px; display: flex; justify-content: space-between; align-items: flex-end; gap: 18px; font-size: 14px; line-height: 1.4; color: #5c707b; }
+.seminar-slide .seminar-footer .source { max-width: 1020px; }
+.seminar-slide .seminar-footer .slide-id { font-weight: 700; white-space: nowrap; color: #4c6c74; }
+.seminar-slide .roadmap { display: grid; grid-template-columns: 1fr 1fr; gap: 28px 45px; }
+.seminar-slide .roadmap > div { border-top: 2px solid #86b6b2; padding: 13px 0; }
+.seminar-slide .roadmap b { float: left; width: 108px; font-size: 33px; color: #167e7a; }
+.seminar-slide .roadmap h3, .seminar-slide .roadmap p { margin-left: 108px; }
+.seminar-slide .roadmap p { font-size: 22px; }
+.seminar-slide .reading-key { margin-top: 20px; font-size: 18px; line-height: 1.7; }
+.seminar-slide .three-scenes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+.seminar-slide .three-scenes > div { min-width: 0; }
+.seminar-slide .three-scenes h3 { margin-top: 18px; }
+.seminar-slide .scene-track, .seminar-slide .scene-memory, .seminar-slide .scene-contact { height: 120px; background: #eaf3f2; display: flex; justify-content: center; align-items: center; gap: 9px; font-size: 20px; }
+.seminar-slide .moving-object { padding: 13px 11px; border: 3px solid #518c8a; border-radius: 2px 2px 13px 13px; color: #286c69; background: white; }
+.seminar-slide .moving-object.faint { opacity: .5; }
+.seminar-slide .scene-memory span { max-width: 86px; text-align: center; }
+.seminar-slide .gripper { border: 4px solid #395f76; border-top: 0; padding: 12px; border-radius: 0 0 14px 14px; }
+
+/* Runtime shell belongs to standalone HTML only. */
+body.deck-app { margin: 0; background: #142b40; overflow: hidden; font-family: 'Nanum Gothic', Arial, 'Apple SD Gothic Neo', sans-serif; }
+.deck-app #stage { position: fixed; width: 1280px; height: 720px; top: 50%; left: 50%; transform-origin: center; box-shadow: 0 15px 60px #0004; }
+.deck-app .deck-page { display: none; position: absolute; inset: 0; }
+.deck-app .deck-page.active { display: block; }
+.deck-app .deck-toolbar { position: fixed; z-index: 5; bottom: 9px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 11px; padding: 6px 13px; background: #f8fbfc; color: #183d50; border-radius: 5px; box-shadow: 0 3px 15px #0002; font-size: 14px; white-space: nowrap; }
+.deck-toolbar button { background: none; border: 0; color: inherit; font: inherit; padding: 4px 8px; cursor: pointer; border-radius: 3px; }
+.deck-toolbar button:hover { background: #e1eeec; }
+.deck-toolbar button:focus-visible, .deck-app a:focus-visible { outline: 3px solid #228e85; outline-offset: 3px; }
+.deck-app dialog { max-width: min(1040px, 88vw); width: 1040px; max-height: 82vh; border: 0; padding: 26px; color: #142b40; background: #fbfcfd; border-radius: 8px; }
+.deck-app dialog::backdrop { background: #0c1c2caa; }
+.deck-app dialog h2 { margin: 0 0 15px; font-size: 25px; }
+.deck-app dialog .dialog-close { float: right; border: 0; background: #e8f1f0; font-size: 20px; padding: 5px 11px; cursor: pointer; }
+.deck-app #toc-search { width: 100%; padding: 11px 14px; border: 1px solid #b7cdd1; border-radius: 4px; font-size: 18px; margin-bottom: 16px; box-sizing: border-box; }
+.deck-app #toc-list { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 18px; }
+.deck-app .toc-entry { text-decoration: none; color: #193c51; border-bottom: 1px solid #dce6e8; padding: 9px 4px; font-size: 17px; line-height: 1.5; }
+.deck-app .toc-entry small { color: #167e7a; display: block; font-size: 12px; }
+.deck-app #notes-text { white-space: pre-wrap; font-size: 20px; line-height: 1.8; }
+.deck-app #notes-text.study-notes { white-space: normal; }
+.study-notes .study-intro { color: #4d6876; border-bottom: 1px solid #cadadd; padding-bottom: 18px; }
+.study-notes .study-unit { margin: 28px 0; padding-top: 18px; border-top: 2px solid #9abbba; }
+.study-notes .study-unit h3 { font-size: 27px; line-height: 1.4; color: #173e53; margin: 0 0 16px; }
+.study-notes .study-unit h3 small { display: block; color: #167e7a; font-size: 14px; margin-bottom: 5px; }
+.study-notes .study-unit p { margin: 12px 0; }
+.study-notes .study-unit .study-lead { color: #526d7a; }
+.study-notes figure { margin: 18px 0; }
+.study-notes figure img { display: block; max-width: 100%; max-height: 430px; object-fit: contain; margin: auto; cursor: zoom-in; }
+.study-notes figcaption { font-size: 15px; color: #59727e; text-align: center; }
+.study-notes .equation { background: #edf3f5; border-left: 3px solid #7ca4ab; padding: 14px 19px; font: 26px/1.6 'Cambria Math', 'Times New Roman', serif; margin: 16px 0; }
+.study-notes table { border-collapse: collapse; width: 100%; font-size: 19px; line-height: 1.6; }
+.study-notes td, .study-notes th { border-bottom: 1px solid #cbdadd; text-align: left; padding: 9px 12px; }
+.study-notes th { background: #e8f1f0; }
+.study-notes .study-takeaway { color: #1d6363; font-weight: 700; }
+.study-notes .study-source, .study-notes .study-extra { font-size: 17px; color: #5a6f7b; }
+.study-notes .flow, .study-notes .token-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+.study-notes .node, .study-notes .step { background: #edf3f5; padding: 12px 16px; margin: 10px 0; }
+.study-notes .token { padding: 5px 9px; background: #e5f1ef; border: 1px solid #97b9b7; }
+.study-notes .label { font-size: 14px; color: #397682; background: #e8f1f0; padding: 3px 7px; }
+.deck-app #image-dialog { width: 92vw; max-width: 92vw; max-height: 92vh; padding: 12px; }
+.deck-app #image-dialog img { display: block; max-width: 100%; max-height: 84vh; margin: auto; }
+.deck-app[data-export] .deck-toolbar { display: none; }
+@media print {
+  @page { size: 13.333333in 7.5in; margin: 0; }
+  body.deck-app { background: white; overflow: visible; }
+  .deck-app #stage { position: static; transform: none !important; width: 1280px; height: auto; box-shadow: none; }
+  .deck-app .deck-page { display: block !important; position: relative; width: 1280px; height: 720px; break-after: page; }
+  .deck-toolbar, dialog { display: none !important; }
+  .seminar-slide, .cover-slide { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+}
+
+/* v02: original Figure 1 cover and Figure 3 camera walkthrough. */
+.cover-figure1 .cover-image-field { width: 552px; }
+.cover-figure1 .cover-copy { width: 630px; }
+.cover-figure1 .cover-capabilities { gap: 14px; font-size: 16px; }
+.cover-figure1 .cover-capabilities span + span { padding-left: 14px; }
+.cover-system { position: absolute; left: 752px; top: 135px; width: 474px; height: 438px; margin: 0; display: flex; flex-direction: column; justify-content: center; }
+.cover-system img { width: 100%; height: 405px; object-fit: contain; cursor: zoom-in; }
+.cover-system figcaption { padding-top: 14px; font-size: 17px; color: #41696e; text-align: center; }
+.seminar-slide .seminar-body.explorer { top: 166px; height: 434px; }
+.architecture-explorer { position: relative; width: 1152px; height: 434px; }
+.arch-viewport { position: absolute; inset: 0 auto auto 0; width: 740px; height: 390px; overflow: hidden; background: white; border: 1px solid #d5e0e4; border-radius: 3px; }
+.arch-camera { position: absolute; top: 0; left: 0; width: 1497px; height: 870px; transform-origin: 0 0; transform: translate(34.5px,0px) scale(.44827586); transition: transform 750ms cubic-bezier(.22,.68,.16,1); }
+.seminar-slide .arch-source-image { transition: clip-path 750ms cubic-bezier(.22,.68,.16,1); display: block; width: 1497px; height: 870px; max-height: none; max-width: none; }
+.arch-hotspot { position: absolute; cursor: zoom-in; background: #167e7a05; border: 3px dashed #167e7a90; border-radius: 10px; color: #0c5550; font: bold 25px 'Nanum Gothic', Arial,sans-serif; }
+.arch-hotspot:hover, .arch-hotspot:focus-visible { background: #167e7a22; outline: 4px solid #167e7a; outline-offset: 4px; }
+.arch-hotspot span { position: absolute; right: 4px; top: 6px; padding: 4px 8px; background: #f6fffbed; border-radius: 3px; }
+.arch-vision-hotspot { left: 25px; top: 232px; width: 399px; height: 220px; }
+.arch-vlm-hotspot { left: 15px; top: 515px; width: 780px; height: 272px; }
+.architecture-explorer:not([data-scene="overview"]) .arch-hotspot { visibility: hidden; }
+.arch-connectors { position: absolute; left: 0; top: 0; width: 1152px; height: 390px; overflow: visible; pointer-events: none; }
+.arch-paths path { fill: none; stroke: #ce493a; stroke-width: 2.5; marker-end: url(#arch-arrow-tip); }
+.arch-paths circle { fill: #ce493a; stroke: white; stroke-width: 1.2; }
+.arch-annotations { position: absolute; left: 780px; top: 0; width: 372px; height: 390px; }
+.arch-annotation { position: absolute; left: 0; right: 0; animation: arch-reveal 220ms ease-out; }
+.seminar-slide .arch-annotation h3 { font-size: 23px; line-height: 1.3; margin: 0 0 6px; color: #b94437; }
+.seminar-slide .arch-annotation p { font-size: 21px; line-height: 1.4; color: #375568; margin: 0; }
+.arch-intro { border-top: 3px solid #6da9a3; padding-top: 18px; }
+.seminar-slide .arch-intro h3 { font-size: 26px; margin: 0 0 18px; }
+.seminar-slide .arch-intro p { font-size: 22px; line-height: 1.65; color: #496575; }
+.seminar-slide .arch-intro small { display: block; font-size: 18px; margin-top: 25px; color: #167e7a; }
+.arch-controls { position: absolute; left: 0; right: 0; top: 397px; height: 34px; display: flex; justify-content: space-between; gap: 12px; align-items: center; }
+.arch-mode-buttons, .arch-step-buttons { display: flex; gap: 8px; align-items: center; }
+.arch-controls button { font: 17px/1.35 'Nanum Gothic', Arial,'Apple SD Gothic Neo',sans-serif; color: #215966; background: #ecf4f3; border: 1px solid #9dbebc; border-radius: 3px; padding: 5px 10px; cursor: pointer; }
+.arch-controls button:hover { background: #d4eae5; }
+.arch-controls button:focus-visible { outline: 3px solid #167e7a; outline-offset: 2px; }
+.arch-step-counter { font-size: 16px; color: #57727b; min-width: 85px; text-align: center; }
+@keyframes arch-reveal { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .arch-camera, .seminar-slide .arch-source-image { transition: none; } .arch-annotation { animation: none; } }
+
+/* v03: LaTeX math uses KaTeX; Korean text keeps Nanum Gothic. */
+.seminar-slide .katex { font-size: 1.03em; }
+.seminar-slide .equation { font-family: 'Nanum Gothic', sans-serif; }
+.seminar-slide .equation .katex, .study-notes .equation .katex { font-size: 1em; }
+.seminar-slide .equation .katex-display, .study-notes .equation .katex-display { margin: .25em 0; }
+.study-notes .katex { font-size: 1.08em; }
+.katex .hangul_fallback { font-family: 'Nanum Gothic', sans-serif; }
+
+/* Wider text columns accommodate Nanum Gothic without reducing type size. */
+.seminar-slide .seminar-body.figure.balanced { grid-template-columns: 1fr 1fr; }

@@ -1,0 +1,49 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import assert from 'node:assert/strict';
+import {pathToFileURL} from 'node:url';
+import {chromium} from 'playwright-chromium';
+const browser=await chromium.launch({headless:true,executablePath:'/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'});
+const page=await browser.newPage({viewport:{width:1280,height:720}});
+const errors=[],external=[];
+page.on('pageerror',e=>errors.push(String(e)));
+page.on('request',r=>{if(/^https?:/.test(r.url()))external.push(r.url());});
+try{
+  await page.goto(pathToFileURL(path.resolve('presentation.html')).href+'?export=1');
+  await page.evaluate(()=>document.fonts.ready);
+  const cdp=await page.context().newCDPSession(page);
+  await cdp.send('DOM.enable');await cdp.send('CSS.enable');
+  const {root}=await cdp.send('DOM.getDocument');
+  const {nodeId}=await cdp.send('DOM.querySelector',{nodeId:root.nodeId,selector:'.deck-page.active .cover-description'});
+  const {fonts}=await cdp.send('CSS.getPlatformFontsForNode',{nodeId});
+  assert(fonts.some(f=>/NanumGothic/.test(f.familyName)&&f.isCustomFont&&f.glyphCount>0),'Korean glyphs must use embedded Nanum Gothic');
+  const fontFaces=await page.evaluate(()=>[...document.fonts].filter(f=>f.family.includes('Nanum Gothic')).map(f=>({weight:f.weight,status:f.status})));
+  assert.equal(fontFaces.length,3);assert(fontFaces.every(f=>f.status==='loaded'));
+  await page.evaluate(()=>window.deckShow(window.deckData.findIndex(s=>s.id==='P007')));
+  await page.evaluate(()=>document.fonts.ready);
+  assert(await page.locator('.deck-page.active .equation .katex-html').count()>0);
+  assert(await page.locator('.deck-page.active .equation mfrac').count()>0,'loss page derivative must render a true fraction');
+  assert.equal(await page.locator('.katex-error').count(),0);
+  const annotations=await page.locator('.deck-page.active annotation').allTextContents();
+  assert(annotations.some(t=>t.includes('\\lVert')&&t.includes('\\rVert_2^2')),'loss norm and square must remain explicit LaTeX');
+  await page.locator('.deck-page.active').screenshot({path:'review/previews/deck-v03/math-loss-v03.png'});
+  await page.keyboard.press('n');
+  assert(await page.locator('#notes-text .katex').count()>0,'detail notes must typeset math');
+  await page.evaluate(()=>document.fonts.ready);
+  const noteOverflow=await page.locator('#notes-text .equation').evaluateAll(elements=>elements.filter(e=>e.scrollWidth>e.clientWidth+3).map(e=>({width:e.clientWidth,scroll:e.scrollWidth,tex:e.querySelector('annotation')?.textContent})));
+  assert.deepEqual(noteOverflow,[],'loss detail math should fit the notes dialog');
+  await page.keyboard.press('Escape');
+  const allNoteOverflows=[];
+  const pageCount=await page.evaluate(()=>window.deckData.length);
+  for(let i=1;i<pageCount;i++){
+    await page.evaluate(n=>window.deckShow(n),i);await page.keyboard.press('n');
+    await page.evaluate(()=>document.fonts.ready);
+    const overflow=await page.locator('#notes-text .equation').evaluateAll(elements=>elements.filter(e=>e.scrollWidth>e.clientWidth+3).map(e=>e.querySelector('annotation')?.textContent));
+    if(overflow.length)allNoteOverflows.push({index:i,formulas:overflow});
+    await page.keyboard.press('Escape');
+  }
+  assert.deepEqual(allNoteOverflows,[],'All detail formula blocks should fit the notes dialog');
+  assert.deepEqual(errors,[]);assert.deepEqual(external,[]);
+  fs.writeFileSync('qa/full-deck/math-font-report.json',JSON.stringify({fonts,fontFaces,katexHtml:true,mathml:true,fraction:true,lossNorm:true,detailNotes:true,notePages:pageCount-1,allNoteOverflows,errors,externalRequests:external},null,2));
+  console.log('PASS: Korean glyphs paint with embedded Nanum Gothic; LaTeX inline/display, true fraction/norm, detail notes; external requests 0.');
+}finally{await browser.close();}

@@ -1,0 +1,25 @@
+[
+  {
+    "id": "P002",
+    "chapter": "01 연구 문제와 전체 지도",
+    "title": "장면 이해에 움직임·기억·센싱을 더한다",
+    "lead": "RLDX-1은 영상과 언어를 이해하는 VLA를 실제 조작에 필요한 기능으로 확장한다.",
+    "layout": "figure",
+    "kind": "fact",
+    "figure": "fig-02.png",
+    "caption": "Figure 2 · VLM의 이해와 기능 모듈을 행동 생성으로 연결",
+    "body": "<h3>이해에서 실행까지</h3><p><strong>VLM</strong>이 장면·지시를 해석하고, <strong>VLA policy</strong>가 로봇 상태·센서와 함께 미래 행동 묶음을 만든다. Task는 언어 목표, action은 실행할 수치다.</p><h3>현재 장면만으로 부족한 상황</h3><ul><li><strong>움직임:</strong> 이동하는 물체를 잡기</li><li><strong>기억:</strong> 가려지기 전에 본 위치 선택</li><li><strong>물리 센싱:</strong> 접촉·힘을 감지하며 조작</li></ul>",
+    "takeaway": "문제 → 구조 → 데이터·학습 → 실행 최적화 → 실험과 한계의 순서로 연결한다.",
+    "source": "Sec.1–1.1 · Fig.2 · PDF pp.3–5 · 장별 상세 해설은 N",
+    "source_ids": [
+      "S122",
+      "S002",
+      "S003",
+      "S004",
+      "S005",
+      "S006",
+      "S007"
+    ],
+    "notes": "전체 목차의 후보 단위를 본문 장수와 일대일로 대응하지 않고 관련 내용으로 통합했다. 본문은 30장이며 각 장의 상세 해설에는 기존 설명 단위·원문 그림·수식 풀이·미해결 질문을 보존한다. 이 장의 보충에는 task/action/policy, VLM/VLA, 세 기능, Fig.1, 세 플랫폼, Fig.2의 입력 표기가 모두 있다."
+  }
+]
