@@ -1721,8 +1721,7 @@ source_ids: S027, S029, S030
 $$
 \begin{aligned}
 \Delta\tau_i&=\tau_{i+1}-\tau_i\\
-\mathbf{a}^{\tau_{i+1}}&=\mathbf{a}^{\tau_i}\\
-&\quad+\Delta\tau_i\mathbf{u}_\theta(\mathbf{a}^{\tau_i},\tau_i,\mathbf{c}_t)
+\mathbf{a}^{\tau_{i+1}}&=\mathbf{a}^{\tau_i}+\Delta\tau_i\mathbf{u}_\theta(\mathbf{a}^{\tau_i},\tau_i,\mathbf{c}_t)
 \end{aligned}
 $$
 
