@@ -1612,16 +1612,18 @@ layout: none
 
 <!-- slide-id: P034 | revision: v20 | status: draft -->
 
-<section class="seminar-slide" data-slide-id="P034"><header class="seminar-header"><div class="chapter-label">Training Data</div><h1>자체 실제 데이터</h1><p class="slide-lead">Franka·ALLEX를 직접 원격 조작해, 목표 로봇의 행동과 물리 센서 신호를 함께 기록한다.</p></header><div class="seminar-body figure balanced"><figure class="paper-figure"><img src="/figures/fig-12-inhouse.png" alt="Figure 12 · (b) ALLEX · (c) Franka의 카메라·물리 센서 구성" loading="eager"><figcaption>Figure 12 · (b) ALLEX · (c) Franka의 카메라·물리 센서 구성</figcaption></figure><div class="body-main"><h3>Franka — 그리퍼·접촉 정보</h3>
+<section class="seminar-slide" data-slide-id="P034"><header class="seminar-header"><div class="chapter-label">Training Data</div><h1>자체 실제 데이터</h1><p class="slide-lead">목표 로봇 특화와 물리 센싱 등 새 기능 학습을 위해, 자체 시연 데이터를 수집한다.</p></header><div class="seminar-body figure balanced"><figure class="paper-figure"><img src="/figures/fig-12-inhouse.png" alt="Figure 12 · (b) ALLEX · (c) Franka의 카메라·물리 센서 구성" loading="eager"><figcaption>Figure 12 · (b) ALLEX · (c) Franka의 카메라·물리 센서 구성</figcaption></figure><div class="body-main"><h3>Franka — 그리퍼·접촉 정보</h3>
 <p>영상·행동과 <strong>AnySkin 촉각·관절 토크</strong>를 함께 기록한다.</p>
 <p><strong>Meta Quest VR → 말단 자세 지시 → 로봇 시연</strong></p>
 <h3>ALLEX — 양팔·다섯 손가락</h3>
 <p>팔·손·머리·허리를 원격 조작한다. <strong>모터 전류에서 관절 토크를 추정</strong>한다.</p>
 <p><strong>VR·손목 트래커·장갑 → 부위별 원격 조작</strong></p>
-<p class="mini">Franka는 촉각과 토크 측정, ALLEX는 전류 기반 토크 추정을 사용한다.</p></div></div><div class="takeaway">자체 데이터는 목표 로봇의 제어 방식과 물리 피드백을 배우는 경험이다.</div><footer class="seminar-footer"><span class="source">Sec.3.2 · PDF pp.9–10; Fig.12(b)(c) · PDF p.19</span><span class="slide-id">P034 · 013/76</span></footer></section>
+<p class="mini">Mid-training에서 새 memory·torque·Franka tactile 입력의 지도 신호는 자체 데이터에서 제공한다.</p></div></div><div class="takeaway">자체 데이터는 ALLEX·Franka 특화와 물리 센싱 등 새 기능 학습을 위한 실제 경험이다.</div><footer class="seminar-footer"><span class="source">Sec.3.2 · PDF pp.9–10; Sec.4.2 · p.13; Fig.12(b)(c) · p.19</span><span class="slide-id">P034 · 013/76</span></footer></section>
 
 <!--
-Franka·ALLEX라는 사용자 지정 이름을 사용한다. Fig.12(a)는 OpenArm이며 이 장의 자체 수집 설명 대상이 아니므로 (b)(c)만 원문 색·라벨 그대로 발췌했다. 메타 Quest는 Franka의 말단 자세를 지시한다. ALLEX에서는 Meta Quest가 머리·허리, Vive Trackers가 손목, Manus Pro 장갑이 손끝 위치를 기록하며 역기구학으로 팔·손가락 관절각을 구한다. 센서의 구체적 방식과 로봇 사양은 S042에 보존한다. 몸체·물리 피드백의 보완이라는 요점은 원문의 수집 목적을 직관적으로 풀어쓴 것이며, 이 장 자체가 각 센서의 독립 성능 기여를 입증하는 실험은 아니다. 다음은 직접 수집 비용을 보완하는 합성 데이터다.
+먼저 수집 목적을 설명한다. “목표 로봇에 적응하고, 물리 센싱 등 새로운 기능을 학습시키기 위해 직접 시연 데이터를 수집했습니다. Franka에서는 영상·행동과 촉각·토크를, ALLEX에서는 영상·행동과 전류 기반 토크 추정을 함께 기록합니다.” Sec.3.2는 embodiment-specific integration과 physical modality expansion을 명시한다. Sec.4.2는 자체 데이터가 새 memory·torque·Franka tactile 입력에 대한 유일한 supervision 공급원이라고 설명한다. 이는 memory에 별도의 정답 라벨 파일이 있다는 뜻으로 확대하지 않는다.
+
+Franka·ALLEX라는 사용자 지정 이름을 사용한다. Fig.12(a)는 OpenArm이며 이 장의 자체 수집 설명 대상이 아니므로 (b)(c)만 원문 색·라벨 그대로 발췌했다. 메타 Quest는 Franka의 말단 자세를 지시한다. ALLEX에서는 Meta Quest가 머리·허리, Vive Trackers가 손목, Manus Pro 장갑이 손끝 위치를 기록하며 역기구학으로 팔·손가락 관절각을 구한다. 센서의 구체적 방식과 로봇 사양은 S042에 보존한다. 이 장 자체가 각 센서의 독립 성능 기여를 입증하는 실험은 아니다. 다음은 직접 수집 비용을 보완하는 합성 데이터다.
 
 S042 Franka·ALLEX 시연 수집
 사람의 손·손목 움직임을 로봇 관절로 바꾸면서 영상과 물리 센서를 함께 기록한다.

@@ -1,5 +1,11 @@
 # v09 페이지 번호 입력 검증 — 2026-11-06
 
+## 2026-11-06 / v20 후속 / 자체 데이터 수집 목적
+
+- P034(13쪽)의 첫 문장·요점·발표 메모를 목표 로봇 특화와 물리 센싱 등 새 기능 학습의 목적으로 수정했다. Sec.3.2와 직전 확인한 Sec.4.2의 supervision 설명에 근거하며, 출처에 p.13을 추가했다. 원래 상세 기록과 페이지 순서는 변경하지 않았다.
+- `python3 scripts/build_deck.py`, `python3 scripts/verify_sources.py`, `node scripts/verify_deck.mjs` 통과.76장·121개 기록이며 넘침·이미지 실패·브라우저 오류·외부 요청0. 실제 P034 PNG를 직접 확인했다.
+- 기본/base `pnpm build`, 게시 패키지 생성 및 `node scripts/verify_pages.mjs` 통과. HTML3종 동일성과 `git diff --check` 확인 후 자동 commit/push한다. 실제 Pages 반영과 사용자 결과물 승인은 별도 확인 전이다.
+
 ## 2026-11-06 / v20 / Memory 대본 통합과 비교 요약 제외
 
 - 범위: 직전80장 버전의6–8쪽 P056/P057/P058을4쪽 Memory 확대 대본으로 통합했다.9쪽 P059 비교 요약은 본문에서 빼고 발표 대본으로도 옮기지 않았다. 사용자도 Memory Module 쪽이라고 확인했다.
