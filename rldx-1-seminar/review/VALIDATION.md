@@ -1,5 +1,14 @@
 # v09 페이지 번호 입력 검증 — 2026-11-06
 
+## 2026-11-06 / v18 후속 / VQA의 동기·효과와 Fig.3
+
+- 근거: PDF 스킬의 읽기 절차로 원문6–7쪽 Sec.2.1과25쪽 Table2(b)의 전체 텍스트를 확인하고 원문 Fig.3 PNG를 직접 봤다. 텍스트는 제공된 pypdf로 추출했다. VQA는 embodied grounding 부족을 보완하는 학습이며 그림에는 별도 학습 블록이 없음을 확인했다.
+- 변경: P051 왼쪽은 하위 작업·공간 관계·low-level grounding의 한계와 VQA fine-tuning, 오른쪽은 세 학습 범주와 의도한 능력, 하단은 RoboCasa Kitchen57.5→60.9 조작 성공률이다. VQA 정답률이나 각 범주의 독립 효과로 확대하지 않는다. N 대본과 P032 VLM 확대 도입도 보강했다. 원문 그림은 수정하지 않았다.
+- 보존: 본문84장·상세121개·Fig.3의27상태/18화살표 유지. HEAD와121개 상세 기록 제목·본문을 추출 비교해 동일함을 확인했다.
+- 검증: `python3 scripts/build_deck.py`, `python3 scripts/verify_sources.py`, `node scripts/verify_deck.mjs`, `node scripts/verify_architecture.mjs` 통과.84장 넘침·이미지 실패·브라우저 오류·외부 요청0. 전체27개 확대 상태의 경계·애니메이션·역순 탐색 통과.
+- 시각 확인: 실제 HTML의 P051 전체 PNG와 P032 step07 PNG를 직접 확인했다. 기존 글꼴 크기를 유지했고 표·출처·요점과 그림 도입 설명이 경계 안에 들어간다.
+- 빌드/게시: 기본/base `pnpm build`, 게시 패키지 생성, `node scripts/verify_pages.mjs` 통과. HTML3종 동일성과 `git diff --check` 확인 후 자동 commit/push한다. 실제 Pages 반영과 사용자 결과물 승인은 별도 확인 전이다.
+
 ## 2026-11-06 / v18 / Vision Encoder 3장을4쪽 대본으로 통합
 
 - 요청: 기존5·6·7쪽(Vision Encoder·STSS·residual)은4쪽 Fig.3의 Vision 확대에서 설명하고 대본에 적는다.

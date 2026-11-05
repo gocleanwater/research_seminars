@@ -432,41 +432,56 @@ layout: none
 
 <!-- slide-id: P051 | revision: v18 | status: draft -->
 
-<section class="seminar-slide" data-slide-id="P051"><header class="seminar-header"><div class="chapter-label">RLDX-1 Architecture</div><h1>VLM과 로봇 VQA</h1><p class="slide-lead">Qwen3-VL 8B를 로봇 관측의 질문·답으로 fine-tuning해, 조작에 필요한 이해를 보강한다.</p></header><div class="seminar-body split"><div class="body-main"><h3>VQA — Visual Question Answering</h3>
-<p>영상 관측을 보고 질문에 답하는 학습이다. 로봇 trajectory에서 질문·답을 만들어 VLM을 적응시킨다.</p>
-<div class="sequence">
-<div class="step">범용 모델 <strong>Qwen3-VL 8B</strong></div>
-<div class="step">로봇 관련 VQA로 fine-tuning</div>
-<div class="step"><strong>RLDX-1-VLM</strong></div>
-</div>
-<p>장면을 알아보는 능력을 손·목표 물체·현재 조작 단계와 연결하려는 목적이다.</p>
-</div><div class="body-aside"><h3>로봇 VQA의 세 가지 내용</h3>
+<section class="seminar-slide" data-slide-id="P051"><header class="seminar-header"><div class="chapter-label">RLDX-1 Architecture</div><h1>VLM과 로봇 VQA</h1><p class="slide-lead">범용 VLM의 조작 grounding 부족을 세 범주의 로봇 VQA 학습으로 보완한다.</p></header><div class="seminar-body split"><div class="body-main"><h3>왜 로봇 VQA가 필요한가?</h3>
+<p>범용 VLM은 시각 추론에 강해도,<br>조작에 필요한 <strong>embodied grounding</strong>이 부족할 수 있다.</p>
+<ul>
+<li>목표 완료를 위한 <strong>하위 작업 추론</strong></li>
+<li>장면 속 물체 사이의 <strong>공간 관계 이해</strong></li>
+<li>관측과 <strong>low-level 제어 행동의 연결</strong></li>
+</ul>
+<p class="callout"><strong>해결:</strong> 로봇 관측으로 영상 질문·답변(VQA)을 만들고, Qwen3-VL 8B를 fine-tuning한다.</p></div><div class="body-aside"><h3>세 범주로 조작 이해를 보강</h3>
 <table>
 <thead>
 <tr>
-<th>원문이 제시한 범주</th>
-<th>직관적인 의미</th>
+<th>로봇 VQA가 학습하는 내용</th>
+<th>보강하려는 능력</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>손끝과 목표 물체의 공간 관계</td>
-<td>손과 물체가 어디에 있는가?</td>
+<td>손끝(end-effector)과 목표 물체의 공간 관계</td>
+<td>공간 추론</td>
 </tr>
 <tr>
-<td>목표를 위한 중간 subtask</td>
-<td>지금 어떤 단계를 해야 하는가?</td>
+<td>목표 완료를 위한 중간 subtask</td>
+<td>작업 이해</td>
 </tr>
 <tr>
-<td>현재 로봇 프레임의 low-level action</td>
-<td>이 관측에 어떤 제어 행동이 대응하는가?</td>
+<td>현재 프레임의 low-level action</td>
+<td>이해와 행동 실행의 정렬</td>
 </tr>
 </tbody>
 </table>
-<p class="mini">오른쪽 질문은 범주를 풀어 쓴 설명용 예시다. 실제 데이터셋 prompt의 인용이 아니다.</p></div></div><div class="takeaway">VQA는 VLM의 행동 관련 표현을 보강하는 학습이다. 실제 행동 chunk는 뒤의 Action Model이 생성한다.</div><footer class="seminar-footer"><span class="source">Sec.2.1 RLDX-1-VLM · PDF pp.6–7; 검증 결과는 Table2(b) · p.25</span><span class="slide-id">P051 · 005/84</span></footer></section>
+<p class="mini">Fig.3에는 VQA 학습 블록이 따로 없다.<br>그 학습 결과가 그림의 <strong>RLDX-1-VLM</strong>이다.</p></div></div><div class="takeaway">VQA 적응 후 RoboCasa Kitchen 조작 성공률 57.5% → 60.9% (Table 2b). 상세 비교는 Ablation에서 본다.</div><footer class="seminar-footer"><span class="source">Sec.2.1 RLDX-1-VLM · PDF pp.6–7; Fig.3 · p.6; Table2(b) · p.25</span><span class="slide-id">P051 · 005/84</span></footer></section>
 
 <!--
-VQA 설명은 기존 S008 상세 노트에 있었으나 발표 본문에서는 충분히 드러나지 않았다. 원문은 공간 관계·subtask·현재 프레임의 low-level action 세 범주를 명시한다. 정확한 prompt·답변 형식·데이터 크기를 만들어내지 않는다. VQA 효과의 정량 비교와 Fig.19 해석은 뒤 Ablation에 남겨 원리 설명과 실험 결과를 구분한다.
+#### 도입: 왜 범용 VLM을 그대로 쓰지 않는가?
+
+“일반적인 시각 추론을 잘하는 것과, 그 이해를 로봇의 몸·목표·제어 행동에 연결하는 것은 다릅니다. 원문은 목표 완료를 위한 하위 작업 추론, 장면 속 물체 사이의 공간 관계, low-level 제어 행동으로의 grounding이 부족할 수 있다고 지적합니다. 여기서 embodied grounding은 관측과 지시의 의미를 실제 로봇의 몸과 조작에 연결하는 것으로 이해하면 됩니다.”
+
+#### 해결: 로봇 trajectory에서 만드는 세 범주의 질문·답
+
+“그래서 저자들은 로봇 trajectory의 관측에서 VQA, Visual Question Answering 데이터를 만들고 Qwen3-VL 8B를 fine-tuning합니다. 첫째, 손끝과 목표 물체의 공간 관계를 학습해 공간 추론을 보강합니다. 둘째, 목표를 이루기 위한 중간 subtask를 학습해 작업 이해를 높입니다. 셋째, 현재 로봇 프레임에 대응하는 low-level action을 학습해 VLM의 이해가 실제 행동 실행과 잘 연결되도록 합니다. 이 학습 결과를 RLDX-1-VLM으로 사용합니다.”
+
+#### 효과의 지표와 범위
+
+“Table2(b)에서 RoboCasa Kitchen의 조작 성공률은57.5%에서60.9%로,3.4%p 높아집니다. 이것은 VQA 질문의 정답률이 아니라 downstream 로봇 조작 성공률입니다. 세 질문 범주 각각의 독립 기여를 나눠 검증한 결과로 확대하지 않고, 전체 recipe의 성능에3.4%p가 그대로 더해진다고도 해석하지 않겠습니다. 자세한 조건과 attention 시각화는 뒤 Ablation에서 보겠습니다.”
+
+#### Fig.3에는 왜 VQA가 보이지 않는가?
+
+확인한 사실: 원문 Fig.3에는 VQA 데이터·질문·답변·학습 손실이 별도 블록으로 표시되지 않고, 학습 결과인 RLDX-1-VLM이 표시된다. VQA 학습은 Sec.2.1 본문이 설명한다. 그림을 읽는 관점에서는 VQA를 VLM을 적응시키는 학습 과정으로, Fig.3을 모델의 입력·특징·행동 처리 경로로 구별하면 된다. 저자가 VQA 블록을 그리지 않은 의도를 직접 밝혔다고 주장하지 않는다.
+
+VQA 답변을 추론 때마다 별도 생성해 action decoder에 넣는 경로를 새로 만들지 않는다. 실제 행동 chunk는 Action Model이 생성한다. 정확한 VQA prompt·답변 형식·데이터 크기도 원문에 없는 값으로 채우지 않는다.
 
 S008 로봇용 VQA 적응
 장면을 설명하는 능력을 로봇의 공간 관계·하위 작업·행동과 연결한다.
