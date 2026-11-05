@@ -210,7 +210,7 @@ Sec.1.1, Fig.2 · PDF p.5
 <!-- slide-meta
 layout: explorer
 kind: fact
-source_ids: S016, S035, S040, S011, S012, S013
+source_ids: S016, S035, S040, S011, S012, S013, S009, S010, S014, S015
 -->
 
 ### 한 문장
@@ -233,7 +233,7 @@ Fig.3 · PDF p.6; Sec.2.1–2.2 · PDF pp.7–9; 추출 층 비교: Table2(a), p
 
 ### 발표 메모
 
-그림은 시각적 요약이다. Vision Encoder는27층 중9층 뒤에 motion module을 삽입한다. LLM에서는4층 뒤에 과거 관측을 압축한다. 화면은 중간층이라고 설명하며, 실제18층 선택과 비교 실험은 연결된 상세 해설에 보존한다. Memory는 과거 Qₜ와 현재 hₜ를 concat해 mₜ를 만들고, hₜ·mₜ를 concat한 토큰을 C stream에 제공한다. MSAT는 초반 stream별 residual과 후반 C-A concat을 구분하며, 한 forward의 변화율로 미래 후보를 반복 갱신한다. Vision Encoder·STSS·residual은 이 장의 확대 단계에서 아래 대본으로 설명한다. 전체 지도 뒤 P051–P059에서 로봇 VQA·cognition·시간 압축·Memory를 자세히 설명한다. 그 뒤 P009–P010의 MSAT 입력·내부 연산과 P006–P008의 학습·추론 수식으로 연결한다. 로봇별 projection은 P016의 공통·전용 경로와 함께 설명한다. 약30% 깊이의 동기를 모든 설정에서 최적이라는 실험 결과로 과장하지 않는다.
+그림은 시각적 요약이다. Vision Encoder는27층 중9층 뒤에 motion module을 삽입한다. LLM에서는4층 뒤에 과거 관측을 압축한다. 화면은 중간층이라고 설명하며, 실제18층 선택과 비교 실험은 연결된 상세 해설에 보존한다. Memory는 과거 Qₜ와 현재 hₜ를 concat해 mₜ를 만들고, hₜ·mₜ를 concat한 토큰을 C stream에 제공한다. MSAT는 초반 stream별 residual과 후반 C-A concat을 구분하며, 한 forward의 변화율로 미래 후보를 반복 갱신한다. Vision Encoder·STSS·residual은 이 장의 확대 단계에서 아래 대본으로 설명한다. Cognition tokens·중간층 출력·시간 정보·과거 압축은 아래 VLM 확대 대본에서 설명한다. 별도 본문은 P051의 로봇 VQA와 P056–P059의 Memory·표현 구별로 이어진다. 그 뒤 P009–P010의 MSAT 입력·내부 연산과 P006–P008의 학습·추론 수식으로 연결한다. 로봇별 projection은 P016의 공통·전용 경로와 함께 설명한다. 약30% 깊이의 동기를 모든 설정에서 최적이라는 실험 결과로 과장하지 않는다.
 
 
 
@@ -271,6 +271,57 @@ $$
 “움직임 정보가 더해진 특징은 나머지 10–27층에서 계속 처리합니다. 최종 출력은 영상 픽셀이 아니라 VLM이 읽을 영상 특징 토큰입니다. 여러 프레임 입력은 pre-training부터 사용하지만, 이 STSS Motion Module은 mid-training에서 추가한다는 점도 구분하겠습니다. 이제 전체 그림으로 돌아가서, 이 특징이 언어 지시와 cognition tokens에 어떻게 연결되는지 VLM을 보겠습니다.”
 
 근거: Fig.3 · PDF p.6; Sec.2.1 Motion Awareness · p.7; Sec.4.1–4.2 · p.13. 공 예시는 우리의 설명용 직관이다. 원문 식·조건과 예시를 구분한다.
+
+
+
+
+#### VLM 발표 대본 — 현재 6–9쪽 통합
+
+**첫 번째 화살표 · 세 종류의 입력과 cognition tokens**
+
+“Vision Encoder의 출력은 영상 특징 토큰입니다. 여기에 언어 지시 토큰을 붙이고, 마지막에 학습 가능한 cognition tokens 64개를 이어 붙여 VLM에 넣습니다. 원문의 입력은 다음처럼 쓸 수 있습니다.”
+
+$$
+\mathbf v_t=E_\theta(\mathbf o_{t-K:t}),\qquad
+\mathbf x=[\mathbf v_t,\boldsymbol\ell_t,\mathbf q]
+$$
+
+“$E_\theta$는 Vision Encoder이고, $\mathbf o_{t-K:t}$는 과거부터 현재까지의 관측 묶음입니다. $\boldsymbol\ell_t$는 언어 지시의 토큰 표현, $\mathbf q$는 학습 가능한 query tokens입니다. 64개는 자연어 질문 64문장도, 영상 patch 수나 미래 행동 개수도 아닙니다.”
+
+“여기서 concat은 토큰을 이어서 배치하는 일입니다. 붙이는 순간 정보가 생기는 것은 아니고, Transformer의 attention과 특징 변환을 거치며 각 위치의 표현이 갱신됩니다. Cognition 위치도 허용된 시각·언어 맥락을 참고하고, 학습을 통해 행동 예측에 유용한 표현을 모으도록 조정됩니다.”
+
+**두 번째 화살표 · 초반 1–4층과 causal 구조**
+
+“초반에는 여러 시점의 관측 토큰을 시간순으로 넣습니다. Causal attention은 어느 위치가 어느 정보를 읽을 수 있는지 제한합니다. 앞선 시점은 뒤의 정보를 미리 보지 못하고, 뒤쪽의 현재 관측과 cognition 위치는 앞선 관측을 읽으면서 시간 맥락을 모을 수 있습니다. Cognition은 언어 지시도 참고합니다.”
+
+“이때 4층은 로봇 시점이 네 번 지났다는 뜻이 아닙니다. 한 번의 VLM 계산 안에서 Transformer의 첫 네 층을 통과하는 과정입니다. 또한 이 causal 구조를 MSAT의 모든 attention mask에 그대로 적용한다고 해석하면 안 됩니다.”
+
+**세 번째 화살표 · 과거 프레임 특징의 압축**
+
+“4층 뒤에서는 과거 관측 위치의 hidden states만 평균 풀링해 context token 하나로 압축합니다. 개념적으로 다음 평균입니다.”
+
+$$
+\mathrm{context}
+=\frac{\mathbf z_1+\cdots+\mathbf z_{N_{\mathrm{past}}}}{N_{\mathrm{past}}}
+$$
+
+“$\mathbf z$는 해당 층의 과거 관측 특징 벡터입니다. 이것은 원문의 average pooling을 풀어 쓴 설명용 식이며, 영상 픽셀을 겹쳐 흐린 사진 한 장을 만드는 과정이 아닙니다. 현재 관측·언어 지시·cognition tokens는 평균에 넣지 않고 계속 유지합니다. 이후 층은 context 하나와 이 토큰들을 함께 처리하므로, 후속 attention의 계산량을 줄일 수 있습니다.”
+
+“왜 4층 뒤냐면, Qwen3-VL의 DeepStack이 여러 수준의 시각 특징을 첫 네 LLM 층에 주입하기 때문입니다. 저자는 이 과정을 압축 없이 활용하도록, 선행 방식의 2층 대신 4층 뒤에 압축한다고 설명합니다. 지금의 context는 이번 VLM 입력 안의 과거 프레임 표현이고, 뒤의 Memory Module이 저장하는 이전 시점 cognition features와는 다릅니다.”
+
+**네 번째 화살표 · 중간층의 cognition 위치 출력 hₜ**
+
+“VLM을 통과한 전체 시퀀스 중에서, 중간층의 cognition token 위치에 해당하는 출력 특징들만 $\mathbf h_t$로 가져옵니다. 입력 q 자체를 행동 모델에 바로 보내는 것이 아니라, q가 놓였던 위치에서 계산된 출력들을 선택하는 것입니다.”
+
+$$
+\mathbf h_t=F_\theta^{(\mathrm{mid})}(\mathbf x)_{\mathrm{cognition}}
+$$
+
+“이 식의 mid와 cognition 아래첨자는 원문의 출력 선택을 설명하기 위한 표기입니다. $\mathbf h_t$는 자연어 답변이나 숫자 하나가 아니라,64개 cognition 위치의 hidden vectors 묶음입니다. 다른 위치의 출력은 action decoder에 전달할 때 남기지 않지만, 내부 계산에서는 이미 cognition의 표현을 만드는 데 기여했습니다.”
+
+“마지막 LLM 층은 언어 생성에 더 특화될 수 있어 중간층을 선택합니다. 조작을 위한 시각 grounding과 의미 정보의 균형이 더 좋다는 것은 저자의 해석이고, 층 선택의 실험 근거는 뒤 Ablation에서 보겠습니다. 이것은 언어 출력 head를 바꾸는 문제가 아니라, 어느 층의 특징을 가져오는지에 관한 선택입니다. 이제 이 $\mathbf h_t$가 Memory Module과 Action Model로 이어집니다.”
+
+발표자 참고: 실제 선택은18층이며 상세 S010과 Table2(a)에 수치·조건을 보존한다. 화면과 구두 도입은 중간층으로 설명한다. 벡터 차원 d, camera/view별 token packing, 전체 mask 구현은 임의로 확정하지 않는다. 압축이나 출력 선택이 모든 정보를 완전히 보존한다고 주장하지 않는다. 출처: Sec.2.1 · PDF pp.6–7; Table2(a) · p.25. Causal 구조의 읽는 방향은 개념 설명이며 실제 전체 multimodal mask를 재현한 표가 아니다.
 
 
 ### 확대 단계
@@ -868,6 +919,203 @@ Sec.2.1 Motion Awareness의 residual 식 · PDF p.7
 
 원문 v tilde 식을 그대로 항별로 해설했다. 벡터 숫자는 실제 feature 값이나 모델 계측 결과가 아니다. Residual branch가 언제나 작은 수치를 낸다거나 정보 손실을 없앤다고 주장하지 않는다. MSAT에서도 stream별 residual update가 나오지만, 모듈 위치와 입력은 서로 다르다.
 
+#### [S009] Cognition tokens와 hₜ
+
+<!-- study-meta
+layout: split
+kind: fact
+-->
+
+##### 한 문장
+
+학습 가능한 64개 query를 뒤에 붙이고, 그 위치의 hidden states를 행동 모델로 보낸다.
+
+##### 본문
+
+###### 입력은 함께, 출력은 선택해서
+
+$$
+\mathbf{v}_t=E_\theta(\mathbf{o}_{t-K:t})
+$$
+
+<div class="token-row"><span class="token">영상 $\mathbf{v}_{t}$</span><span class="token">언어 $\boldsymbol{\ell}_{t}$</span><span class="token c">q × 64</span></div>
+
+영상 특징과 지시 토큰 뒤에 cognition tokens **q**를 이어 붙여 VLM backbone에 넣는다. q는 학습 가능한 query tokens로, 앞의 시각·언어 맥락을 참고해 행동 예측에 필요한 정보를 모은다.
+
+##### 보충
+
+###### 어느 출력을 가져오는가?
+
+$$
+\mathbf{h}_t=F_\theta\bigl([\mathbf{v}_t,\boldsymbol{\ell}_t,\mathbf{q}]\bigr)_{\mathbf{q}\text{ 위치}}
+$$
+
+선택한 Transformer 층에서 **cognition token 위치에 대응하는 출력들**을 $\mathbf{h}_{t}$로 남긴다. 나머지 위치의 출력은 action decoder 전달용으로 버린다. $\mathbf{h}_{t}$는 단일 숫자나 자연어 문장이 아니라 여러 hidden vectors로 이루어진 표현이다.
+
+<p class="callout">64는 cognition token 수다. 영상 patch token 수나 생성할 action 개수를 뜻하지 않는다.</p>
+
+##### 요점
+
+“뒤에 붙인 학습 가능한 질문 64개가 현재 장면·지시를 행동용 표현으로 읽어낸다.”
+
+##### 출처
+
+Sec.2.1 Cognition Tokens · PDF p.7
+
+##### 발표 메모
+
+수식의 아래첨자 cognition token 위치는 원문을 읽기 쉽게 선택 연산으로 풀어 쓴 표기다. 원문은 $\mathbf{x}=[\mathbf{v}_t,\boldsymbol{\ell}_t,\mathbf{q}]$를 입력하고 cognition token에 대응하는 출력 특징만 남긴다고 명시한다. q를 “무조건 정보를 모두 보존하는 압축”으로 설명하지 않는다. 이때 cognition의 hidden states를 추출하는 층은 S010에서 분리해 설명한다.
+
+#### [S010] 특징을 추출하는 층
+
+<!-- study-meta
+layout: split
+kind: fact
+-->
+
+##### 한 문장
+
+18층 hidden states를 선택하는 것과 언어 출력 head를 바꾸는 것은 다른 선택이다.
+
+##### 본문
+
+###### 층 안의 표현과 마지막 출력
+
+<div class="sequence">
+<div class="step">입력 → 초기 Transformer 층: 시각·언어 특징 처리</div>
+<div class="step"><strong>중간 18층 → cognition token 위치 특징 $\mathbf{h}_{t}$ 추출 → action model</strong></div>
+<div class="step">더 뒤의 Transformer 층 → 언어 출력 head → 텍스트 예측</div>
+</div>
+
+논문은 마지막 LLM 층 대신 중간층의 특징을 사용한다. 언어 생성에 특화된 후기 표현보다 조작에 필요한 시각 정보와 의미 정보의 균형이 낫다는 것이 저자의 설명이다.
+
+##### 보충
+
+###### 실험이 보여준 범위
+
+| 선택 층 | 성공률 |
+| --- | --- |
+| 8층 | 51.1% |
+| **18층** | **60.9%** |
+| 28층 | 56.3% |
+
+RoboCasa Kitchen의 별도 base-architecture 실험에서 세 후보 중 18층이 가장 높다. “모든 층·모든 작업에서 18층이 최적”인 결과는 아니다.
+
+<p class="mini">후기 블록과 vocabulary 출력 head는 서로 다른 요소다.</p>
+
+##### 요점
+
+특징을 어디서 꺼낼지는 실험한 설계 선택이며, 출력 head 자체를 선택하는 문제가 아니다.
+
+##### 출처
+
+Sec.2.1 · PDF p.7; Sec.6.5, Table2(a) · PDF pp.24–25
+
+##### 발표 메모
+
+원문은 action decoding에 intermediate hidden states를 사용한다고 설명하고, Sec6.5는 Layer18을 base로 사용한다. 이 ablation의 variant는 대규모 policy pre-training 없이 학습한다고 서술한다. 이미 학습된 Qwen VLM까지 완전 무작위 초기화했다는 뜻으로 읽지 않는다. 시각 grounding와 semantic abstraction의 균형은 수치 자체가 아니라 저자의 해석이다. 뒤의 S098에서 설정과 근거 강도를 다시 다룬다.
+
+#### [S014] Self-attention과 causal mask
+
+<!-- study-meta
+layout: split
+kind: fact
+-->
+
+##### 한 문장
+
+뒤쪽 위치는 허용된 앞쪽 정보를 읽어 자신의 표현을 갱신할 수 있다.
+
+##### 본문
+
+###### 정보를 읽는 기본 연산
+
+$$
+\begin{aligned}
+\operatorname{Attention}(\mathbf{Q},\mathbf{K},\mathbf{V})
+&=\operatorname{softmax}\!\left(\frac{\mathbf{Q}\mathbf{K}^{\mathsf T}}{\sqrt d}+\mathbf{M}\right)\mathbf{V}
+\end{aligned}
+$$
+
+**Q**는 무엇을 찾을지, **K**는 참고할 특징의 주소, **V**는 가져올 내용을 표현하는 학습된 벡터다. mask M은 참고할 수 없는 위치의 점수를 차단한다. 각 query 위치는 허용된 value들을 가중합해 새로운 표현을 얻는다.
+
+<p class="mini">위 식은 Transformer의 일반 배경식이다. RLDX-1 구현의 모든 attention 세부를 정의하는 식은 아니다.</p>
+
+##### 보충
+
+###### 앞→뒤 순서가 하는 일
+
+<span class="label example">세 위치로 단순화</span>
+
+| 읽는 위치 ↓ | 과거 | 현재 | q |
+| --- | --- | --- | --- |
+| 과거 | ○ | × | × |
+| 현재 | ○ | ○ | × |
+| q | ○ | ○ | ○ |
+
+초반 LLM의 causal 구조로 과거 맥락을 현재 프레임과 뒤의 cognition tokens에 모은다. 이는 action을 한 개씩 생성한다는 뜻은 아니다.
+
+##### 요점
+
+Causal mask는 정보 접근 방향을 정한다. 위치마다 표현을 계산하는 것과 순차 행동 생성은 구분한다.
+
+##### 출처
+
+Sec.2.1 · PDF p.7; 배경: Vaswani et al., Sec.3.2 (arXiv:1706.03762)
+
+##### 발표 메모
+
+일반 scaled dot-product attention과 causal masking은 원전 https://arxiv.org/html/1706.03762v7 의 Sec3.1–3.2를 참조했다. 표는 로봇 관측과 q의 시간순서를 설명하는 단순화이며, 실제 Qwen3-VL의 multimodal mask 전체를 재현한 표가 아니다. M의 허용 위치는0, 차단 위치는−∞로 두는 배경 설명이다. MSAT의 joint attention에 이 causal mask를 그대로 적용한다고 주장하지 않는다.
+
+#### [S015] 과거 프레임 압축
+
+<!-- study-meta
+layout: split
+kind: fact
+-->
+
+##### 한 문장
+
+LLM의 4층 뒤에서 과거 관측 hidden states를 한 context token으로 평균 낸다.
+
+##### 본문
+
+###### 초반에는 시간 맥락을 읽는다
+
+<div class="sequence">
+<div class="step">초기 4층: 시간순 영상 토큰 + 지시 + q를 처리</div>
+<div class="step">과거 관측 hidden states → average pooling → context 1개</div>
+<div class="step">이후 층: context + 현재 관측 + 지시 + q를 처리</div>
+</div>
+
+현재 프레임은 남기고, **과거 관측 위치의 표현**을 평균 낸 context token으로 교체한다. 원본 영상을 평균 내서 흐린 한 장을 만드는 과정이 아니다.
+
+##### 보충
+
+###### 왜 4층까지 기다리는가?
+
+Qwen3-VL의 **DeepStack**은 vision encoder의 여러 수준 특징을 초기 4개 LLM 층에 주입한다. 저자는 이 과정을 압축 없이 활용하도록 4층 뒤에 압축한다고 설명한다.
+
+$$
+\mathrm{context}=\frac{\mathbf{z}_1+\cdots+\mathbf{z}_{N_{\mathrm{past}}}}{N_{\mathrm{past}}}
+$$
+
+<p class="eq-caption">원문의 average pooling을 풀어 쓴 개념식. z는 해당 층의 과거 관측 hidden vectors다.</p>
+
+토큰 수를 줄여 이후 attention 계산을 가볍게 하면서, 초반에 모인 시간 맥락을 활용하려는 설계다.
+
+##### 요점
+
+압축 대상은 과거 관측 표현이고, 현재 관측·지시·cognition 위치는 계속 유지한다.
+
+##### 출처
+
+Sec.2.1 Motion Awareness, LLM backbone · PDF p.7
+
+##### 발표 메모
+
+원문은 과거 observations를 single context token으로 압축하고 현재 관측·지시·q와 함께 후속 블록에서 처리한다고 명시한다. 평균식은 해설용이다. 모든 camera/view별 실제 token grouping이나 구현상 packing 방식은 이 문단에서 명시되지 않는다. 4층 선택 이유는 DeepStack 활용이며, 2층 대비 성능 개선치를 이 절이 보고하는 것은 아니다. VLM 내부 context token을 이후 장의 memory features와 구별한다.
+
 ## [P051] VLM과 로봇 VQA
 
 <!-- slide-meta
@@ -980,410 +1228,6 @@ Sec.2.1 · PDF pp.6–7
 ##### 발표 메모
 
 원문은 Qwen3-VL 8B를 로봇 관련 VQA 데이터로 fine-tuning한 결과를 RLDX-1-VLM으로 사용한다고 설명한다. VQA의 답 형식·개별 prompt·정확한 dataset 규모는 이 문단에서 제시하지 않는다. 행동 출력은 뒤의 action model이 담당한다. Table2b의 57.5→60.9 비교는 뒤의 별도 ablation 장에서 다루며, 전체 recipe의 모든 효과로 일반화하지 않는다.
-
-## [P052] Cognition Tokens
-
-<!-- slide-meta
-layout: split
-kind: fact
-source_ids: S009
--->
-
-### 한 문장
-
-영상·지시 뒤에 학습 가능한 64개 토큰을 붙이고, 그 위치의 출력 특징을 행동 모델에 전달한다.
-
-### 본문
-
-#### 입력 위치와 출력 위치의 연결
-
-<div class="token-row"><span class="token c">영상 토큰</span><span class="token">언어 토큰</span><span class="token a">cognition tokens × 64</span></div>
-
-<div class="sequence">
-<div class="step">VLM의 attention으로 시각·언어 맥락 읽기</div>
-<div class="step">각 입력 위치에 대응하는 hidden vector 갱신</div>
-<div class="step"><strong>중간층의 cognition 위치 출력 → hₜ</strong></div>
-</div>
-
-### 보충
-
-#### 붙이기만 해서 정보가 생기지는 않는다
-
-Concat은 토큰을 놓는 방식이다. <strong>정보를 모으는 계산은 Transformer의 attention과 특징 변환</strong>에서 일어난다.
-
-학습 과정에서 cognition tokens와 모델이 행동 예측에 유용한 특징을 만들도록 조정된다.
-
-<p class="callout">행동 모델로 보내는 것은 q 자체가 아니라, <strong>q가 있던 위치의 출력 hₜ</strong>다.</p>
-
-### 요점
-
-hₜ는 자연어 답변이 아니라 64개 cognition token 위치에서 꺼낸 행동용 특징 벡터 묶음이다.
-
-### 출처
-
-Sec.2.1 Cognition Tokens · PDF p.7
-
-### 발표 메모
-
-q를64개의 실제 자연어 질문이라고 주장하지 않는다. query token은 학습 가능한 입력 embedding이며 VLM 계산을 거친 해당 위치 출력들을 h_t로 사용한다. 나머지 위치 출력은 action decoder 전달용으로 남기지 않지만 내부 attention에는 이미 기여했다. 정보의 완전 보존을 주장하지 않는다.
-
-### 상세 공부 기록
-
-#### [S009] Cognition tokens와 hₜ
-
-<!-- study-meta
-layout: split
-kind: fact
--->
-
-##### 한 문장
-
-학습 가능한 64개 query를 뒤에 붙이고, 그 위치의 hidden states를 행동 모델로 보낸다.
-
-##### 본문
-
-###### 입력은 함께, 출력은 선택해서
-
-$$
-\mathbf{v}_t=E_\theta(\mathbf{o}_{t-K:t})
-$$
-
-<div class="token-row"><span class="token">영상 $\mathbf{v}_{t}$</span><span class="token">언어 $\boldsymbol{\ell}_{t}$</span><span class="token c">q × 64</span></div>
-
-영상 특징과 지시 토큰 뒤에 cognition tokens **q**를 이어 붙여 VLM backbone에 넣는다. q는 학습 가능한 query tokens로, 앞의 시각·언어 맥락을 참고해 행동 예측에 필요한 정보를 모은다.
-
-##### 보충
-
-###### 어느 출력을 가져오는가?
-
-$$
-\mathbf{h}_t=F_\theta\bigl([\mathbf{v}_t,\boldsymbol{\ell}_t,\mathbf{q}]\bigr)_{\mathbf{q}\text{ 위치}}
-$$
-
-선택한 Transformer 층에서 **cognition token 위치에 대응하는 출력들**을 $\mathbf{h}_{t}$로 남긴다. 나머지 위치의 출력은 action decoder 전달용으로 버린다. $\mathbf{h}_{t}$는 단일 숫자나 자연어 문장이 아니라 여러 hidden vectors로 이루어진 표현이다.
-
-<p class="callout">64는 cognition token 수다. 영상 patch token 수나 생성할 action 개수를 뜻하지 않는다.</p>
-
-##### 요점
-
-“뒤에 붙인 학습 가능한 질문 64개가 현재 장면·지시를 행동용 표현으로 읽어낸다.”
-
-##### 출처
-
-Sec.2.1 Cognition Tokens · PDF p.7
-
-##### 발표 메모
-
-수식의 아래첨자 cognition token 위치는 원문을 읽기 쉽게 선택 연산으로 풀어 쓴 표기다. 원문은 $\mathbf{x}=[\mathbf{v}_t,\boldsymbol{\ell}_t,\mathbf{q}]$를 입력하고 cognition token에 대응하는 출력 특징만 남긴다고 명시한다. q를 “무조건 정보를 모두 보존하는 압축”으로 설명하지 않는다. 이때 cognition의 hidden states를 추출하는 층은 S010에서 분리해 설명한다.
-
-## [P053] Cognition Features의 추출
-
-<!-- slide-meta
-layout: split
-kind: fact
-source_ids: S010
--->
-
-### 한 문장
-
-영상 특징·지시·cognition tokens를 함께 처리하고, 중간층에서 cognition 위치의 특징만 선택한다.
-
-### 본문
-
-#### 인코딩 → 이어 붙이기 → 출력 선택
-
-$$
-\mathbf v_t=E_\theta(\mathbf o_{t-K:t})
-$$
-
-$$
-\mathbf x=[\mathbf v_t,\boldsymbol\ell_t,\mathbf q]
-$$
-
-$$
-\mathbf h_t=F_\theta^{(\mathrm{mid})}(\mathbf x)_{\mathrm{cognition}}
-$$
-
-<p class="mini">마지막 식은 원문의 출력 선택을 풀어 쓴 설명용 표기다.</p>
-
-### 보충
-
-| 기호 | 의미 |
-| --- | --- |
-| $E_\theta$ | Vision Encoder |
-| $\mathbf o_{t-K:t}$ | 과거부터 현재까지의 영상 관측 묶음 |
-| $\boldsymbol\ell_t$ | 언어 지시의 토큰 표현 |
-| $\mathbf q$ | 학습 가능한 cognition tokens 64개 |
-| $F_\theta^{(\mathrm{mid})}$ | VLM backbone의 중간층까지 계산 |
-
-마지막 언어 생성층 대신 <strong>중간층</strong>을 사용한다. 저자는 조작에 필요한 시각 정보와 의미 정보의 균형을 이유로 든다.
-
-### 요점
-
-같은 시퀀스를 처리해도, Action Model에는 cognition token 위치의 출력 특징만 전달한다.
-
-### 출처
-
-Sec.2.1 · PDF p.7; 층 선택 비교: Table2(a) · p.25
-
-### 발표 메모
-
-mid와 cognition 아래첨자는 설명용 선택 연산이다. 원문은 최종층 대신 중간층을 사용한다고 하고 Table2(a)는8/18/28층 중18층60.9%를 보고한다. 사용자 지시에 따라 발표 본문은 중간층으로 쓰고18층 사실은 S010 N 해설에 보존한다. language head를 선택한다는 뜻이 아니며 이 절의 h_t는64개 출력 벡터다. 각 벡터 차원 d는 여기서 임의 수치화하지 않는다.
-
-### 상세 공부 기록
-
-#### [S010] 특징을 추출하는 층
-
-<!-- study-meta
-layout: split
-kind: fact
--->
-
-##### 한 문장
-
-18층 hidden states를 선택하는 것과 언어 출력 head를 바꾸는 것은 다른 선택이다.
-
-##### 본문
-
-###### 층 안의 표현과 마지막 출력
-
-<div class="sequence">
-<div class="step">입력 → 초기 Transformer 층: 시각·언어 특징 처리</div>
-<div class="step"><strong>중간 18층 → cognition token 위치 특징 $\mathbf{h}_{t}$ 추출 → action model</strong></div>
-<div class="step">더 뒤의 Transformer 층 → 언어 출력 head → 텍스트 예측</div>
-</div>
-
-논문은 마지막 LLM 층 대신 중간층의 특징을 사용한다. 언어 생성에 특화된 후기 표현보다 조작에 필요한 시각 정보와 의미 정보의 균형이 낫다는 것이 저자의 설명이다.
-
-##### 보충
-
-###### 실험이 보여준 범위
-
-| 선택 층 | 성공률 |
-| --- | --- |
-| 8층 | 51.1% |
-| **18층** | **60.9%** |
-| 28층 | 56.3% |
-
-RoboCasa Kitchen의 별도 base-architecture 실험에서 세 후보 중 18층이 가장 높다. “모든 층·모든 작업에서 18층이 최적”인 결과는 아니다.
-
-<p class="mini">후기 블록과 vocabulary 출력 head는 서로 다른 요소다.</p>
-
-##### 요점
-
-특징을 어디서 꺼낼지는 실험한 설계 선택이며, 출력 head 자체를 선택하는 문제가 아니다.
-
-##### 출처
-
-Sec.2.1 · PDF p.7; Sec.6.5, Table2(a) · PDF pp.24–25
-
-##### 발표 메모
-
-원문은 action decoding에 intermediate hidden states를 사용한다고 설명하고, Sec6.5는 Layer18을 base로 사용한다. 이 ablation의 variant는 대규모 policy pre-training 없이 학습한다고 서술한다. 이미 학습된 Qwen VLM까지 완전 무작위 초기화했다는 뜻으로 읽지 않는다. 시각 grounding와 semantic abstraction의 균형은 수치 자체가 아니라 저자의 해석이다. 뒤의 S098에서 설정과 근거 강도를 다시 다룬다.
-
-## [P054] VLM의 시간 정보
-
-<!-- slide-meta
-layout: split
-kind: fact
-source_ids: S014
--->
-
-### 한 문장
-
-초반 LLM 층은 과거부터 현재 순서의 관측을 읽고, causal 구조로 시간 맥락을 모은다.
-
-### 본문
-
-#### Causal attention — 참고할 방향 제한
-
-나중 위치는 앞선 정보를 읽을 수 있지만, 앞선 위치는 뒤쪽 정보를 미리 읽지 못한다.
-
-| 읽는 위치 ↓ | 과거 | 현재 | cognition |
-| --- | --- | --- | --- |
-| 과거 | ○ | × | × |
-| 현재 | ○ | ○ | × |
-| cognition | ○ | ○ | ○ |
-
-<p class="mini">○ 참고 가능 · × 차단. 시간 방향을 보여 주는 단순화이며 실제 전체 mask를 재현한 표는 아니다.</p>
-
-### 보충
-
-#### 초반 1–4층에서 모으는 맥락
-
-<div class="sequence">
-<div class="step">여러 시점의 관측 토큰을 시간순으로 입력</div>
-<div class="step">현재 관측과 cognition 위치에 과거 맥락 축적</div>
-<div class="step">그 뒤 과거 토큰을 압축해 후속 계산 절감</div>
-</div>
-
-프레임을 네 번 관측한 뒤 동작하는 규칙이 아니다. <strong>한 VLM 계산 안에서 층을 통과하는 과정</strong>이다.
-
-### 요점
-
-Attention은 정보 교환 방식이고, causal mask는 그때 어느 위치를 참고할 수 있는지 정한다.
-
-### 출처
-
-Sec.2.1 Motion Awareness, LLM backbone · PDF p.7; attention 배경은 상세 해설 S014
-
-### 발표 메모
-
-표는 기존 공부 기록의 단순화다. 실제 Qwen3-VL의 모든 multimodal attention mask를 새로 정의한 것이 아니다. cognition tokens는 언어 지시도 참고한다. 초반4층 이후 압축은 로봇 timestep4가 지난다는 의미와 구분한다. MSAT의 joint attention에 같은 causal mask를 그대로 대입하지 않는다.
-
-### 상세 공부 기록
-
-#### [S014] Self-attention과 causal mask
-
-<!-- study-meta
-layout: split
-kind: fact
--->
-
-##### 한 문장
-
-뒤쪽 위치는 허용된 앞쪽 정보를 읽어 자신의 표현을 갱신할 수 있다.
-
-##### 본문
-
-###### 정보를 읽는 기본 연산
-
-$$
-\begin{aligned}
-\operatorname{Attention}(\mathbf{Q},\mathbf{K},\mathbf{V})
-&=\operatorname{softmax}\!\left(\frac{\mathbf{Q}\mathbf{K}^{\mathsf T}}{\sqrt d}+\mathbf{M}\right)\mathbf{V}
-\end{aligned}
-$$
-
-**Q**는 무엇을 찾을지, **K**는 참고할 특징의 주소, **V**는 가져올 내용을 표현하는 학습된 벡터다. mask M은 참고할 수 없는 위치의 점수를 차단한다. 각 query 위치는 허용된 value들을 가중합해 새로운 표현을 얻는다.
-
-<p class="mini">위 식은 Transformer의 일반 배경식이다. RLDX-1 구현의 모든 attention 세부를 정의하는 식은 아니다.</p>
-
-##### 보충
-
-###### 앞→뒤 순서가 하는 일
-
-<span class="label example">세 위치로 단순화</span>
-
-| 읽는 위치 ↓ | 과거 | 현재 | q |
-| --- | --- | --- | --- |
-| 과거 | ○ | × | × |
-| 현재 | ○ | ○ | × |
-| q | ○ | ○ | ○ |
-
-초반 LLM의 causal 구조로 과거 맥락을 현재 프레임과 뒤의 cognition tokens에 모은다. 이는 action을 한 개씩 생성한다는 뜻은 아니다.
-
-##### 요점
-
-Causal mask는 정보 접근 방향을 정한다. 위치마다 표현을 계산하는 것과 순차 행동 생성은 구분한다.
-
-##### 출처
-
-Sec.2.1 · PDF p.7; 배경: Vaswani et al., Sec.3.2 (arXiv:1706.03762)
-
-##### 발표 메모
-
-일반 scaled dot-product attention과 causal masking은 원전 https://arxiv.org/html/1706.03762v7 의 Sec3.1–3.2를 참조했다. 표는 로봇 관측과 q의 시간순서를 설명하는 단순화이며, 실제 Qwen3-VL의 multimodal mask 전체를 재현한 표가 아니다. M의 허용 위치는0, 차단 위치는−∞로 두는 배경 설명이다. MSAT의 joint attention에 이 causal mask를 그대로 적용한다고 주장하지 않는다.
-
-## [P055] 과거 프레임 압축
-
-<!-- slide-meta
-layout: split
-kind: fact
-source_ids: S015
--->
-
-### 한 문장
-
-LLM의 4층 뒤에서 과거 관측의 hidden states를 평균 풀링해 context token 하나로 압축한다.
-
-### 본문
-
-#### 1–4층: 여러 프레임 그대로
-
-<div class="token-row"><span class="token c">과거 ①</span><span class="token c">과거 ②</span><span class="token c">과거 ③</span><span class="token c">현재</span></div>
-
-여러 프레임의 시간 관계를 먼저 읽는다. Qwen3-VL의 <strong>DeepStack</strong>도 초기 4층에 여러 수준의 시각 특징을 주입한다.
-
-#### 4층 뒤: 과거만 평균 풀링
-
-<div class="sequence">
-<div class="step">과거 관측 위치의 hidden states → context 1개</div>
-<div class="step">현재 관측·언어 지시·cognition 위치는 유지</div>
-</div>
-
-### 보충
-
-#### 이후 층이 처리하는 입력
-
-<div class="token-row"><span class="token c">context 1개</span><span class="token c">현재 관측</span><span class="token">지시</span><span class="token a">cognition × 64</span></div>
-
-토큰 수를 줄여 후속 attention 계산을 가볍게 하면서, 앞선 층에서 모은 시간 맥락을 활용한다.
-
-<p class="callout">평균 내는 것은 <strong>과거 관측의 특징 벡터</strong>다. 영상 픽셀을 겹쳐 한 장의 그림으로 만드는 과정은 아니다.</p>
-
-### 요점
-
-Context token은 이번 VLM 입력의 과거 프레임을 압축한 표현이며, 뒤의 장기 Memory Module과 다르다.
-
-### 출처
-
-Sec.2.1 Motion Awareness, LLM backbone · PDF p.7
-
-### 발표 메모
-
-원문은 DeepStack을 압축 없이 활용하기 위해2층 대신4층 뒤에 압축한다고 설명한다. 현재 관측·지시·q를 평균에 넣지 않는다. 원본 영상이 아니라 해당 층 hidden states를 평균 낸다. 정확한 camera/view별 packing이나 mask 전체는 이 문단에서 확인되지 않았다.
-
-### 상세 공부 기록
-
-#### [S015] 과거 프레임 압축
-
-<!-- study-meta
-layout: split
-kind: fact
--->
-
-##### 한 문장
-
-LLM의 4층 뒤에서 과거 관측 hidden states를 한 context token으로 평균 낸다.
-
-##### 본문
-
-###### 초반에는 시간 맥락을 읽는다
-
-<div class="sequence">
-<div class="step">초기 4층: 시간순 영상 토큰 + 지시 + q를 처리</div>
-<div class="step">과거 관측 hidden states → average pooling → context 1개</div>
-<div class="step">이후 층: context + 현재 관측 + 지시 + q를 처리</div>
-</div>
-
-현재 프레임은 남기고, **과거 관측 위치의 표현**을 평균 낸 context token으로 교체한다. 원본 영상을 평균 내서 흐린 한 장을 만드는 과정이 아니다.
-
-##### 보충
-
-###### 왜 4층까지 기다리는가?
-
-Qwen3-VL의 **DeepStack**은 vision encoder의 여러 수준 특징을 초기 4개 LLM 층에 주입한다. 저자는 이 과정을 압축 없이 활용하도록 4층 뒤에 압축한다고 설명한다.
-
-$$
-\mathrm{context}=\frac{\mathbf{z}_1+\cdots+\mathbf{z}_{N_{\mathrm{past}}}}{N_{\mathrm{past}}}
-$$
-
-<p class="eq-caption">원문의 average pooling을 풀어 쓴 개념식. z는 해당 층의 과거 관측 hidden vectors다.</p>
-
-토큰 수를 줄여 이후 attention 계산을 가볍게 하면서, 초반에 모인 시간 맥락을 활용하려는 설계다.
-
-##### 요점
-
-압축 대상은 과거 관측 표현이고, 현재 관측·지시·cognition 위치는 계속 유지한다.
-
-##### 출처
-
-Sec.2.1 Motion Awareness, LLM backbone · PDF p.7
-
-##### 발표 메모
-
-원문은 과거 observations를 single context token으로 압축하고 현재 관측·지시·q와 함께 후속 블록에서 처리한다고 명시한다. 평균식은 해설용이다. 모든 camera/view별 실제 token grouping이나 구현상 packing 방식은 이 문단에서 명시되지 않는다. 4층 선택 이유는 DeepStack 활용이며, 2층 대비 성능 개선치를 이 절이 보고하는 것은 아니다. VLM 내부 context token을 이후 장의 memory features와 구별한다.
 
 ## [P056] Memory Module
 

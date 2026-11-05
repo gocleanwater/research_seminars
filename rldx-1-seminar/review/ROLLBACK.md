@@ -1,5 +1,10 @@
 # 버전 보존과 복구
 
+## v19 변경 전: VLM 발표 대본 통합
+
+- 태그: `rldx-v18-before-vlm-speaker-notes-20261106` (`aea70d3`).
+- 84장 버전에서 현재6–9쪽 P052–P055를4쪽의 VLM 발표 메모로 통합한 뒤80장이 된다. 복원은 새 commit으로 하며 main reset/force-push는 하지 않는다.
+
 ## v18 변경 전: Vision 발표 대본 통합
 
 - 태그: `rldx-v17-before-vision-speaker-notes-20261106` (`3c43f0b`).

@@ -1,5 +1,15 @@
 # v09 페이지 번호 입력 검증 — 2026-11-06
 
+## 2026-11-06 / v19 / 현재6–9쪽을 VLM 발표 대본으로 통합
+
+- 범위 정정: 최초9–12쪽 요청은87장 버전의 번호였고 사용자가 현재6–9쪽이라고 정정했다. 정정 전에 파일 수정은 없었다. 대상은 P052/P053/P054/P055이며 Memory P056/P057/P058을 제거하지 않았다.
+- 대본: P032 발표 메모에 세 종류 입력과64개 q→초기4층/causal→과거 특징을context1개로 압축/DeepStack→중간층 cognition 위치 출력h_t의 네 화살표 순서로 구두 설명을 작성했다. 입력·평균·출력 선택 수식도 대본에서 KaTeX로 읽는다. 원문 식/설명용 표기와 중간층·18층 사실의 구분을 유지한다.
+- 구성/보존: 네 장을 본문에서 제외해 전체80장이다. S009/S010/S014/S015를 P032에 연결했고, HEAD(aea70d3)와 전체121개 상세 기록 제목·본문을 추출 비교해 바깥 공백 외 동일함을 확인했다. 기존 네 링크는 P032 VLM 확대 첫 상태로 연결한다. P051 다음은 P056이다. 변경 전 태그는 `rldx-v18-before-vlm-speaker-notes-20261106`이다.
+- 소스/화면: `python3 scripts/build_deck.py`, `python3 scripts/verify_sources.py`, `node scripts/verify_deck.mjs` 통과.80장·121개 기록·27상태/18화살표 대응 유지. 넘침·이미지 실패·브라우저 오류·외부 요청0.
+- 탐색: `node scripts/verify_navigation.mjs` 통과. P051→P056 흐름, 번호 입력·정역순·기존 링크와새4개 링크·실제 N 대본 문구를 확인했다. Fig.3의 상태·화살표 문구/좌표는 이번에 바꾸지 않았다.
+- 수식: `node scripts/verify_math_font.mjs` 통과. 실제 Arial/한글fallback, 내장 Nanum·KaTeX 및 전체 N 해설 수식 너비 확인. 대본을 캡처한 `P032-vlm-speaker-notes.png`, `P032-context-equation-notes.png`와 새6쪽 P056 PNG를 직접 확인했다.
+- 빌드/게시: 기본/base `pnpm build`와 `python3 scripts/package_pages.py`, `node scripts/verify_pages.mjs` 통과. HTML3종 동일성과 `git diff --check` 확인 후 자동 commit/push한다. Pages 실제 배포 완료와 사용자 결과물 승인은 별도 확인 전이다.
+
 ## 2026-11-06 / v18 후속 / VQA의 동기·효과와 Fig.3
 
 - 근거: PDF 스킬의 읽기 절차로 원문6–7쪽 Sec.2.1과25쪽 Table2(b)의 전체 텍스트를 확인하고 원문 Fig.3 PNG를 직접 봤다. 텍스트는 제공된 pypdf로 추출했다. VQA는 embodied grounding 부족을 보완하는 학습이며 그림에는 별도 학습 블록이 없음을 확인했다.
