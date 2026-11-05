@@ -1,9 +1,11 @@
 # 전체 목차
 
-상태: **페이지 수 제한 없음 / 9개 섹션 MD 편집 원본 / v17 부록 통합·87장 구성 / 결과물 미승인**
+상태: **페이지 수 제한 없음 / 9개 섹션 MD 편집 원본 / v18 Vision 발표 대본 통합·84장 구성 / 결과물 미승인**
 업데이트: 2026-11-06
 
 관련 설명을 자연스럽게 연결하되 화살표·단계 설명을 위해 필요한 화면 수를 제한하지 않는다. 본문과 상세 공부 기록은 아홉 `sections/*.md`에서 편집한다. 전체 제작·수정 허가는 개별 장의 결과물 승인과 구분한다.
+
+Vision Encoder·STSS·residual의 기존5–7쪽(P048–P050)은4쪽(P032)의 Vision 확대 단계 발표 메모로 통합했다. 본문에서는 제외하며, 기존 ID 링크는 Vision 확대 위치로 연결한다.
 
 ## 현재 발표 흐름
 
@@ -12,7 +14,7 @@ Fig.1을 사용하는 표지 뒤에 아래 섹션을 따른다. 섹션명은 영
 | 편집 원본 | 섹션 | 현재 MD에 배치된 ID |
 | --- | --- | --- |
 | [01-problems.md](sections/01-problems.md) | Problems | P002 |
-| [02-rldx-1-architecture.md](sections/02-rldx-1-architecture.md) | RLDX-1 Architecture | P031, P032, P048–P059, P009, P010, P006, P008, P071 |
+| [02-rldx-1-architecture.md](sections/02-rldx-1-architecture.md) | RLDX-1 Architecture | P031, P032, P051–P059, P009, P010, P006, P008, P071 |
 | [03-training-data.md](sections/03-training-data.md) | Training Data | P013, P033, P034, P072–P073, P014, P074, P045, P015, P046, P047 |
 | [04-training-procedure.md](sections/04-training-procedure.md) | Training Procedure | P035, P016, P036, P017, P018, P019, P037, P075–P077 |
 | [05-inference-strategy.md](sections/05-inference-strategy.md) | Inference Strategy | P020, P038, P039, P078 |
@@ -33,7 +35,7 @@ Architecture는 Fig.2로 입출력 overview를 보여준 뒤 Fig.3의 전체 구
 
 ## v15 Vision·VLM·Memory 설명
 
-기존4페이지 P032 Fig.3 전체 지도 뒤와 기존5페이지 P009 MSAT 사이에 P048–P059를 삽입한다. 순서는 Vision Encoder → Motion/STSS → residual 수식 → VLM·로봇 VQA → cognition tokens → 중간층 특징 추출 수식 → causal 시간 처리 → 과거 프레임 압축 → Memory 구조 → Memory 계산 → 저장 범위·미해결 → context/cognition/memory 구별이다. 수식은 별도 장에서 항별로 설명한다. 기존 상세11개를 해당 본문 장으로 옮기며 내용은 보존하고 S016은 기존 링크 호환을 위해 P032 N 해설에 유지한다. 총52장으로, 장수 한도를 두지 않는다.
+기존4페이지 P032 Fig.3 전체 지도 뒤와 기존5페이지 P009 MSAT 사이에 P051–P059를 삽입한다. 순서는 Vision Encoder → Motion/STSS → residual 수식 → VLM·로봇 VQA → cognition tokens → 중간층 특징 추출 수식 → causal 시간 처리 → 과거 프레임 압축 → Memory 구조 → Memory 계산 → 저장 범위·미해결 → context/cognition/memory 구별이다. 수식은 별도 장에서 항별로 설명한다. 기존 상세11개를 해당 본문 장으로 옮기며 내용은 보존하고 S016은 기존 링크 호환을 위해 P032 N 해설에 유지한다. 총52장으로, 장수 한도를 두지 않는다.
 
 ## v14 합성 데이터 검증
 

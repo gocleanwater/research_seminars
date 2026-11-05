@@ -1,5 +1,10 @@
 # 버전 보존과 복구
 
+## v18 변경 전: Vision 발표 대본 통합
+
+- 태그: `rldx-v17-before-vision-speaker-notes-20261106` (`3c43f0b`).
+- 기존5–7쪽이 본문에 있던87장 버전이다. v18은 이를4쪽 발표 메모로 통합한84장이다. 원격 main을 reset/force-push하지 않고 필요한 변경을 새 commit으로 복원한다.
+
 ## v17 변경 전 버전
 
 - 태그: `rldx-v16-before-integrated-appendix-20261106`

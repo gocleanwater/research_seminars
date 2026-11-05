@@ -210,7 +210,7 @@ Sec.1.1, Fig.2 · PDF p.5
 <!-- slide-meta
 layout: explorer
 kind: fact
-source_ids: S016, S035, S040
+source_ids: S016, S035, S040, S011, S012, S013
 -->
 
 ### 한 문장
@@ -233,7 +233,45 @@ Fig.3 · PDF p.6; Sec.2.1–2.2 · PDF pp.7–9; 추출 층 비교: Table2(a), p
 
 ### 발표 메모
 
-그림은 시각적 요약이다. Vision Encoder는27층 중9층 뒤에 motion module을 삽입한다. LLM에서는4층 뒤에 과거 관측을 압축한다. 화면은 중간층이라고 설명하며, 실제18층 선택과 비교 실험은 연결된 상세 해설에 보존한다. Memory는 과거 Qₜ와 현재 hₜ를 concat해 mₜ를 만들고, hₜ·mₜ를 concat한 토큰을 C stream에 제공한다. MSAT는 초반 stream별 residual과 후반 C-A concat을 구분하며, 한 forward의 변화율로 미래 후보를 반복 갱신한다. 전체 지도 뒤 P048–P059에서 Vision Encoder·Motion·로봇 VQA·cognition·시간 압축·Memory를 자세히 설명한다. 그 뒤 P009–P010의 MSAT 입력·내부 연산과 P006–P008의 학습·추론 수식으로 연결한다. 로봇별 projection은 P016의 공통·전용 경로와 함께 설명한다. 약30% 깊이의 동기를 모든 설정에서 최적이라는 실험 결과로 과장하지 않는다.
+그림은 시각적 요약이다. Vision Encoder는27층 중9층 뒤에 motion module을 삽입한다. LLM에서는4층 뒤에 과거 관측을 압축한다. 화면은 중간층이라고 설명하며, 실제18층 선택과 비교 실험은 연결된 상세 해설에 보존한다. Memory는 과거 Qₜ와 현재 hₜ를 concat해 mₜ를 만들고, hₜ·mₜ를 concat한 토큰을 C stream에 제공한다. MSAT는 초반 stream별 residual과 후반 C-A concat을 구분하며, 한 forward의 변화율로 미래 후보를 반복 갱신한다. Vision Encoder·STSS·residual은 이 장의 확대 단계에서 아래 대본으로 설명한다. 전체 지도 뒤 P051–P059에서 로봇 VQA·cognition·시간 압축·Memory를 자세히 설명한다. 그 뒤 P009–P010의 MSAT 입력·내부 연산과 P006–P008의 학습·추론 수식으로 연결한다. 로봇별 projection은 P016의 공통·전용 경로와 함께 설명한다. 약30% 깊이의 동기를 모든 설정에서 최적이라는 실험 결과로 과장하지 않는다.
+
+
+
+#### Vision Encoder 발표 대본 — 기존 5·6·7페이지 통합
+
+**확대 직후 · 입력 관측**
+
+“먼저 Vision Encoder를 보겠습니다. 한 장의 사진만 보는 것이 아니라, 과거부터 현재까지 여러 시점의 영상을 함께 입력받습니다. 실제 pre-training에서는 현재를 기준으로 −6, −4, −2, 0의 네 시점 관측을 사용합니다. 네 시점은 카메라 네 대라는 뜻이 아니며, 모든 중간 프레임을 빠짐없이 넣는다는 뜻도 아닙니다. 이렇게 해야 현재 물체의 모양뿐 아니라, 그 물체가 어떻게 움직여 왔는지도 알 수 있습니다.”
+
+**첫 번째 화살표 · 1–9층의 시각 특징**
+
+“Vision Encoder는 총 27개 ViT 층입니다. 먼저 1–9층에서 영상의 시각 특징을 추출합니다. 그런데 특징을 뽑는 것만으로는 프레임 사이의 움직임을 명시적으로 다루기 어렵기 때문에, 9층 뒤에 Motion Module을 추가합니다. 약 30% 깊이에 물리 관련 단서가 풍부하다는 선행 관찰을 참고한 설계이며, 이 보고서에서 모든 삽입 위치를 비교해 최적이라고 증명한 것은 아닙니다.”
+
+**두 번째 화살표 · Motion Extractor와 STSS**
+
+“여기서 STSS는 Space-Time Self-Similarity, 즉 시공간 자기 유사성입니다. 앞쪽 ViT가 만든 각 특징과 주변 시공간 이웃의 correlation을 계산하고, 그 결과인 STSS tensor를 encoder가 읽어서 움직임 특징을 만듭니다. Space는 주변 위치, Time은 프레임 사이의 관계입니다.”
+
+“직관을 위한 예로, 공이 지금 화면 중앙에 있더라도 이전에 왼쪽에 있었는지 오른쪽에 있었는지에 따라 이동 방향이 다르겠죠. 이전 공 특징과 다음 프레임의 오른쪽 이웃이 비슷하다면, 그 유사성의 배치가 오른쪽 이동의 단서가 될 수 있습니다. 이것은 설명용 상황이며, 모듈이 정확한 공의 속도나 optical flow를 직접 출력한다는 뜻은 아닙니다. 이웃 범위·상관 함수·tensor shape도 이 설명만으로 확정하지 않습니다.”
+
+**세 번째 화살표 · Residual addition**
+
+“추출한 움직임 특징은 기존 시각 특징에 residual로 더합니다. 원문의 식은 다음과 같습니다.”
+
+$$
+\widetilde{\mathbf v}^{(i)}_t
+=\mathbf v^{(i)}_t+S_\theta(\mathbf S_t)
+$$
+
+“여기서 $\mathbf v^{(i)}_t$는 앞 $i$개 ViT 층의 시각 특징이고, $\mathbf S_t$는 시공간 유사성 tensor입니다. $S_\theta$는 그 tensor를 움직임 특징으로 바꾸는 학습 가능한 encoder입니다. $i$는 설명용 중간층 표기이며, 실제 삽입 위치는 9층 뒤입니다.”
+
+“이 +는 concat이 아니라 같은 위치·차원을 맞춘 원소별 덧셈입니다. 기존 특징 경로를 유지하면서 움직임 정보로 보정하므로, 출력 shape는 같고 특징값이 바뀝니다. 이를 특징을 길게 이어 붙이는 Memory의 $h_t$·$m_t$ concat과 구분해야 합니다. Shape가 같다는 사실이 정보의 완전 보존을 보장하거나, 보정값이 항상 작다는 뜻은 아닙니다.”
+
+**네 번째 화살표 · 10–27층과 다음 모듈**
+
+“움직임 정보가 더해진 특징은 나머지 10–27층에서 계속 처리합니다. 최종 출력은 영상 픽셀이 아니라 VLM이 읽을 영상 특징 토큰입니다. 여러 프레임 입력은 pre-training부터 사용하지만, 이 STSS Motion Module은 mid-training에서 추가한다는 점도 구분하겠습니다. 이제 전체 그림으로 돌아가서, 이 특징이 언어 지시와 cognition tokens에 어떻게 연결되는지 VLM을 보겠습니다.”
+
+근거: Fig.3 · PDF p.6; Sec.2.1 Motion Awareness · p.7; Sec.4.1–4.2 · p.13. 공 예시는 우리의 설명용 직관이다. 원문 식·조건과 예시를 구분한다.
+
 
 ### 확대 단계
 
@@ -687,50 +725,6 @@ Fig.3, Sec.2.1–2.2 · PDF pp.6–9; 질문노트 Q1·Q5–Q7
 
 Fig.3의 Denoise 표시는 미래 행동·센서 후보의 생성과 연결한다. Action chunk의 각 미래 행동을 autoregressive하게 하나씩 출력하는 흐름으로 읽지 않는다. VLM에서 현재 조건을 얻는 과정과 MSAT denoising 반복은 개념적으로 구별되며 실제 feature caching 구현은 이 그림만으로 단정하지 않는다. Fig.3 caption의 previous actions 표현을 추가 제어 입력 명세로 확장하지 않고 본문의 $\mathbf{s}_t$, noisy actions 설명을 따른다. 현재 sensor는 observed condition, future physical prediction은 auxiliary objective라는 구분을 다시 짚는다. 각 module의 독립적인 인과 기여는 구조도 자체로 검증되지 않는다.
 
-## [P048] Vision Encoder
-
-<!-- slide-meta
-layout: split
-kind: fact
-source_ids: S011
--->
-
-### 한 문장
-
-여러 시점의 관측을 시각 특징으로 바꾸고, 중간에 움직임 단서를 추가해 VLM으로 전달한다.
-
-### 본문
-
-<figure class="architecture-crop-figure"><div class="architecture-crop vision-crop"><img src="/figures/fig-03.png" alt="Figure 3의 영상 관측, Vision Encoder와 Motion Extractor"></div><figcaption>Figure 3 · 영상 관측과 Vision Encoder</figcaption></figure>
-
-### 보충
-
-#### 한 장면의 모양 + 프레임 사이의 변화
-
-<div class="sequence">
-<div class="step"><strong>1–9층:</strong> 입력 영상의 시각 특징 추출</div>
-<div class="step"><strong>9층 뒤:</strong> Motion Module로 움직임 특징 추가</div>
-<div class="step"><strong>10–27층:</strong> 보정된 특징을 계속 처리</div>
-</div>
-
-실제 pre-training은 현재 기준 <strong>−6, −4, −2, 0</strong>의 네 시점 관측을 사용한다.
-
-출력은 영상 픽셀이 아니라, VLM이 읽을 <strong>영상 특징 토큰</strong>이다.
-
-### 요점
-
-여러 프레임 입력은 pre-training부터 사용하고, STSS Motion Module은 mid-training에서 추가한다.
-
-### 출처
-
-Fig.3 · PDF p.6; Sec.2.1 · p.7; Sec.4.1–4.2 · p.13
-
-### 발표 메모
-
-원문 Vision Encoder는 총27층이며9층 뒤에 STSS 모듈을 residual로 삽입한다. 1–9층/10–27층 구분은 그 위치를 읽기 쉽게 푼 것이다. 30% 깊이에 물리 단서가 풍부하다는 선행 관찰이 동기이며 이 보고서가 모든 삽입 위치의 최적성을 입증한 것은 아니다. 네 프레임과 카메라 개수를 혼동하지 않고 초 단위로 환산하지 않는다.
-
-### 상세 공부 기록
-
 #### [S011] 여러 프레임의 표기
 
 <!-- study-meta
@@ -774,54 +768,6 @@ Sec.2.1 · PDF p.7; Sec.4.1 Implementation Details · PDF p.13
 
 네 프레임의 상대 offset은 원문 PDF13에서 직접 확인했다. fps를 가정해 초 단위로 환산하지 않는다. 여러 카메라 view가 있을 수 있으나 여기의 네 시점과 카메라 개수는 서로 다르다. Vision token 수를 cognition token64개와 혼동하지 않는다. 여러 프레임 입력은 pre-training부터 있으며 STSS 모듈 추가는 mid-training에서 다룬다.
 
-## [P049] Motion Module
-
-<!-- slide-meta
-layout: split
-kind: fact
-source_ids: S012
--->
-
-### 한 문장
-
-공간과 시간으로 가까운 시각 특징들의 유사성을 계산해, 프레임 사이의 움직임 단서를 추출한다.
-
-### 본문
-
-#### STSS — Space-Time Self-Similarity
-
-<div class="sequence">
-<div class="step">ViT 앞 9층이 만든 시공간 특징</div>
-<div class="step">각 특징과 주변 시공간 이웃의 correlation 계산</div>
-<div class="step">STSS tensor를 encoder가 읽어 motion features 생성</div>
-</div>
-
-<strong>Space</strong>는 주변 위치, <strong>Time</strong>은 프레임 사이의 관계다. 비슷한 특징이 어느 이웃에서 나타나는지 살핀다.
-
-### 보충
-
-#### 모양만으로 구분하기 어려운 변화
-
-<p class="callout"><span class="label example">직관 예시</span> 공이 지금 중앙에 있어도, 이전에 왼쪽에 있었는지 오른쪽에 있었는지에 따라 이동 방향이 달라진다.</p>
-
-이전 공 특징과 다음 프레임의 오른쪽 이웃이 비슷하다면, 그 <strong>유사성의 배치</strong>가 오른쪽 이동의 단서가 된다.
-
-이 단서를 기존 시각 특징에 더하고, 뒤쪽 ViT 층에서 함께 처리한다.
-
-### 요점
-
-STSS는 시각 특징의 시공간 관계를 읽는 단계다. 다음은 motion features를 더하는 residual 연산이다.
-
-### 출처
-
-Sec.2.1 Functionality 1: Motion Awareness · PDF p.7
-
-### 발표 메모
-
-공 예시는 개념을 설명하는 상황이며 실제 입력 영상이나 측정값이 아니다. STSS 출력이 정확한 공 속도 또는 optical flow라고 정의하지 않는다. local neighborhood의 정확한 범위·상관 함수·tensor shape는 이 문단 이상으로 임의 지정하지 않는다.
-
-### 상세 공부 기록
-
 #### [S012] Motion module과 STSS
 
 <!-- study-meta
@@ -864,62 +810,6 @@ Sec.2.1 Functionality1: Motion Awareness · PDF p.7
 ##### 발표 메모
 
 원문은 각 spatio-temporal feature와 local neighbors의 correlation을 계산한다고 명시한다. 이 설명만으로 이웃의 정확한 크기, 상관 함수의 normalization, tensor shape를 확정하지 않는다. STSS를 attention softmax와 동일시하지 않는다. $\mathbf{S}_t$는 STSS tensor이고 $S_\theta$는 그 tensor를 읽는 학습 모듈이다. 이 모듈을 적용한 후 residual update하는 식은 다음 S013에서 확대한다.
-
-## [P050] Motion Module의 Residual
-
-<!-- slide-meta
-layout: split
-kind: fact
-source_ids: S013
--->
-
-### 한 문장
-
-기존 시각 특징에 움직임 특징을 원소별로 더해, 같은 shape의 보정된 표현을 만든다.
-
-### 본문
-
-#### 원문의 특징 갱신
-
-$$
-\widetilde{\mathbf v}^{(i)}_t
-=\mathbf v^{(i)}_t+S_\theta(\mathbf S_t)
-$$
-
-| 기호 | 의미 |
-| --- | --- |
-| $\mathbf v^{(i)}_t$ | 앞 $i$개 ViT 층의 시각 특징 |
-| $\mathbf S_t$ | 시공간 이웃의 유사성 tensor |
-| $S_\theta$ | STSS를 움직임 특징으로 바꾸는 encoder |
-| $\widetilde{\mathbf v}^{(i)}_t$ | 보정 후 다음 ViT 층으로 갈 특징 |
-
-### 보충
-
-#### 여기의 +는 원소별 덧셈
-
-두 경로의 같은 위치·차원을 더한다. <strong>출력 shape는 유지되고 특징값이 바뀐다.</strong>
-
-<div class="sequence">
-<div class="step">기존 시각 특징 경로를 그대로 연결</div>
-<div class="step">Motion Module의 출력으로 보정</div>
-<div class="step">보정된 특징을 10–27층에서 계속 변환</div>
-</div>
-
-Memory의 hₜ·mₜ를 이어 붙이는 <strong>concat</strong>과 구분한다.
-
-### 요점
-
-Residual addition은 같은 shape의 특징을 보정하고, concat은 토큰이나 특징을 이어 붙인다.
-
-### 출처
-
-Sec.2.1 Motion Awareness의 residual 식 · PDF p.7
-
-### 발표 메모
-
-원문의 i는 임의의 중간층을 나타내는 설명 표기이며 실제 삽입은9층 뒤다. S_t는 tensor, S_theta는 학습 모듈이다. shape 유지가 정보의 완전 보존을 보장한다거나, residual branch가 항상 작은 수치라고 주장하지 않는다.
-
-### 상세 공부 기록
 
 #### [S013] Residual connection
 

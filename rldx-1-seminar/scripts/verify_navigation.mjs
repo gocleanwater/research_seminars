@@ -19,8 +19,8 @@ try{
   await pageNumber.click();await page.keyboard.type('5');
   assert.equal(await pageNumber.inputValue(),'5','focusing selects the existing number for replacement');
   assert.equal(await active(),'S001','editing alone does not navigate');
-  await page.keyboard.press('Enter');assert.equal(await active(),'P048');
-  assert.equal(new URL(page.url()).hash,'#P048');
+  await page.keyboard.press('Enter');assert.equal(await active(),'P051');
+  assert.equal(new URL(page.url()).hash,'#P051');
   assert.notEqual(await page.evaluate(()=>document.activeElement?.id),'page-number');
   async function jump(value){await pageNumber.fill(value);await pageNumber.press('Enter');}
   await jump('4');assert.equal(await active(),'P032');
@@ -73,7 +73,7 @@ try{
   await page.locator('#stage').click({position:{x:50,y:30}});
   assert.equal(await page.locator('.architecture-explorer').getAttribute('data-state'),'1');
   for(let i=1;i<tourLength;i++)await page.keyboard.press('ArrowRight');
-  assert.equal(await active(),'P048');
+  assert.equal(await active(),'P051');
   await page.keyboard.press('ArrowLeft');assert.equal(await active(),'P032');
   assert.equal(await page.locator('.architecture-explorer').getAttribute('data-state'),String(tourLength-1));
   for(let i=tourLength-2;i>=0;i--){await page.keyboard.press('ArrowLeft');assert.equal(await page.locator('.architecture-explorer').getAttribute('data-state'),String(i));}
@@ -103,7 +103,7 @@ try{
   assert.match(await page.locator('#notes-text').innerText(),/상세 해설 S039/);
   await page.keyboard.press('Escape');
   assert.equal(await page.locator('.deck-page[data-id="P012"]').count(),0);
-  for (const [oldId,newId,unit] of [['P005','P032','S016'],['P007','P006','S024'],['P011','P036','S036'],['P021','P038','S077']]) {
+  for (const [oldId,newId,unit] of [['P005','P032','S016'],['P007','P006','S024'],['P011','P036','S036'],['P021','P038','S077'],['P048','P032','S011'],['P049','P032','S012'],['P050','P032','S013']]) {
     await page.goto(pathToFileURL(path.resolve('presentation.html')).href+'#'+oldId);
     assert.equal(await active(),newId);
     if(oldId==='P005') assert.equal(await page.locator('.architecture-explorer').getAttribute('data-scene'),'memory');
@@ -112,8 +112,12 @@ try{
     assert.equal(await page.locator(`.deck-page[data-id="${oldId}"]`).count(),0);
   }
   // Visual and language representations are explained between the overview and MSAT.
-  await show('P048');
-  for(const id of ['P049','P050','P051','P052','P053','P054','P055','P056','P057','P058','P059','P009']){await page.keyboard.press('ArrowRight');assert.equal(await active(),id);}
+  await show('P051');
+  for(const id of ['P052','P053','P054','P055','P056','P057','P058','P059','P009']){await page.keyboard.press('ArrowRight');assert.equal(await active(),id);}
+  await show('P032'); await page.keyboard.press('n');
+  const scriptText=await page.locator('#notes-text .study-intro').innerText();
+  for(const term of ['Vision Encoder 발표 대본','첫 번째 화살표','STSS','Residual addition','10–27층'])assert(scriptText.includes(term),term);
+  await page.keyboard.press('Escape');
   // Architecture structure precedes its learning/inference equations.
   await show('P009');
   for(const id of ['P010','P006','P008','P071','P013']){await page.keyboard.press('ArrowRight');assert.equal(await active(),id);}

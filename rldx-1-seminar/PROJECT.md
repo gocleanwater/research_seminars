@@ -1,7 +1,7 @@
 # 프로젝트 설정
 
 - 논문: RLDX-1 Technical Report
-- 상태: v17 / 부록42–55쪽을 관련 설명·실험 흐름에 통합 / 기본87장·상세121단위 유지
+- 상태: v18 / Vision Encoder 3장을 Fig.3 발표 대본으로 통합 / 기본84장·상세121단위 유지
 - 목적: 전체 맥락의 HTML 발표와 자세한 공부 기록을 함께 유지하고, 사용자 피드백에 따라 장별로 수정
 - 형식: 오프라인 단일 HTML 중심 / Slidev 생성 소스 병행
 - 발표 시간·장수·청중: 별도 제한 없음. 이전 30장 한도는 해제
@@ -13,7 +13,7 @@
 - 결과물: `presentation.html`·`index.html`(동일한 오프라인/게시용 발표), `slides.md`(Slidev 생성 소스), `review/SLIDE_INDEX.md`(본문·상세 해설 매핑)
 - 페이지 이동: 하단 현재 번호를 입력하고 Enter. 번호로 이동하면 Fig.3 같은 단계형 페이지도 첫 단계로 진입한다. Esc는 입력 취소.
 - 모바일 조작: 좁은 세로 화면에서는 하단 메뉴가 두 줄, 가로 화면에서는 가능한 폭에서 한 줄로 배치된다. 터치 버튼/번호 입력은 최소44px이며 safe area를 반영한다. 슬라이드 크기는 실제 메뉴 높이에 맞춰 조정된다.
-- 발표 구성: Fig.1 표지 → Problems → Architecture(Fig.2·Fig.3 → Vision Encoder·Motion·VLM·VQA·Cognition·시간 압축·Memory → MSAT 입력·Joint Attention → 학습·추론 수식) → Training Data(전체 종류 → 공개 → 자체 →합성) → Training Procedure → Inference Strategy → Evaluation and Analysis → Ablation and Analysis → Conclusion → My opinions and limitation
+- 발표 구성: Fig.1 표지 → Problems → Architecture(Fig.2·Fig.3(Vision Encoder·Motion은 확대 단계 대본) → VLM·VQA·Cognition·시간 압축·Memory → MSAT 입력·Joint Attention → 학습·추론 수식) → Training Data(전체 종류 → 공개 → 자체 →합성) → Training Procedure → Inference Strategy → Evaluation and Analysis → Ablation and Analysis → Conclusion → My opinions and limitation
 - Figure 3: 전체 그림 → Vision Encoder·VLM·Memory Module·MSAT 네 모듈 확대/복귀와 순차 화살표 설명. 버튼·좌우 방향키와 기존 PPT 조작 유지. 수식은 별도 장에서 설명
 - P032 v05: video·language·cognition(64) 토큰 범위를 그림에 묶음 괄호·화살표로 표시, 과거 프레임 → context 1개에 ‘압축’ 명시. 본문은 ‘중간층’과 ‘cognition token 위치의 출력 특징을 행동 생성을 위해 전달’, 18층 사실은 상세 해설에 보존
 - Memory 최신 정정: `C = concat(h_t, m_t)`로 토큰 축 연결 표시. MSAT velocity 예측과 최종 clean action chunk는 구분해 설명. 원문 대조 및 27개 설명 상태·기본30개 화면 검증 완료

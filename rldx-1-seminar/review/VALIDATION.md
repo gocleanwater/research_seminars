@@ -1,5 +1,16 @@
 # v09 페이지 번호 입력 검증 — 2026-11-06
 
+## 2026-11-06 / v18 / Vision Encoder 3장을4쪽 대본으로 통합
+
+- 요청: 기존5·6·7쪽(Vision Encoder·STSS·residual)은4쪽 Fig.3의 Vision 확대에서 설명하고 대본에 적는다.
+- 반영: P048–P050 본문을 제외하고 P032 발표 메모에 입력 관측→1–9층→STSS→residual 수식/기호·원소별 덧셈→10–27층의 화살표 순서로 대본을 썼다.4쪽에서 N/설명으로 읽을 수 있으며 Slidev 발표 메모에도 들어간다. 다음 본문은 VLM/VQA(P051)다.
+- 보존: S011–S013을 P032에 연결했다. 변경 전 `3c43f0b`의121개 상세 기록을 추출 비교해 바깥 공백을 제외한 제목·내용이 모두 동일함을 확인했다. 퇴역 ID3개는 P032 Vision 확대 첫 상태로 연결한다. 변경 전 태그는 `rldx-v17-before-vision-speaker-notes-20261106`이다.
+- 소스/화면: `python3 scripts/build_deck.py`, `python3 scripts/verify_sources.py`, `node scripts/verify_deck.mjs` 통과.84장·121개 기록·27상태/18화살표이며 넘침·이미지 실패·브라우저 오류·외부 요청0.
+- 대본 시각 확인: 실제 HTML의 P032 Vision 화면, 대본 대화상자, residual 수식 PNG와 새5쪽 P051을 직접 확인했다. 수식은 KaTeX로 표시하며 그림에 추가하지 않았다. 최초 캡처의 h4 선택자는 renderer가 h3로 바꾸는 규칙에 맞춰 수정해 다시 캡처했다.
+- 탐색: `node scripts/verify_navigation.mjs`, `node scripts/verify_architecture.mjs` 통과.4쪽 마지막 단계→새5쪽(P051), 역방향 마지막 단계 복귀, 번호 입력, 기존/새 퇴역 링크3개, 실제 N 대본 문구, 전체27개 확대 상태·18화살표·애니메이션을 확인했다.
+- 수식/모바일: `node scripts/verify_math_font.mjs`, `node scripts/verify_mobile_toolbar.mjs` 통과. 전체 N 해설 수식 너비·글꼴,10개 터치 화면·페이지 입력·대화상자 검증을 유지했다.
+- 빌드/게시: 기본 `pnpm build`, 프로젝트 base 빌드 통과. `node scripts/verify_slidev.mjs`84장·오류0·실패0. `python3 scripts/package_pages.py`, `node scripts/verify_pages.mjs` 통과. HTML3종 동일성과 `git diff --check` 확인 후 자동 commit/push한다. Pages의 실제 배포 완료와 사용자 결과물 승인은 별도 확인 전이다.
+
 ## 2026-11-06 / v17 후속 / 모바일 조작 메뉴
 
 - 원인: 하단 메뉴가 nowrap 한 줄 고정 flex였고, stage fit은 메뉴 크기를62px로 가정했다. 수정 전 새 회귀 검사에서 `320x568: toolbar fits horizontally` 실패를 재현했다.

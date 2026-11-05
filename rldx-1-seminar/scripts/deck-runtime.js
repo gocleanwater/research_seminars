@@ -233,7 +233,7 @@ document.querySelector('#stage').addEventListener('click', event => {
   advance();
 });
 // Preserve links to explanations that were merged during the slide review.
-const MERGED_SLIDES = {P005:'P032', P007:'P006', P011:'P036', P012:'P009', P021:'P038'};
+const MERGED_SLIDES = {P005:'P032', P007:'P006', P011:'P036', P012:'P009', P021:'P038', P048:'P032', P049:'P032', P050:'P032'};
 function showFromHash() {
   const requested = location.hash.slice(1);
   const id = MERGED_SLIDES[requested] || requested;
@@ -241,6 +241,7 @@ function showFromHash() {
   if (index < 0) return false;
   show(index);
   if (requested === 'P005') renderTour(ARCH_TOUR.focus.memory);
+  if (['P048','P049','P050'].includes(requested)) renderTour(ARCH_TOUR.focus.vision);
   return true;
 }
 addEventListener('hashchange', showFromHash);
