@@ -119,6 +119,8 @@ explorer?.querySelectorAll('[data-arch-focus]').forEach(button => button.onclick
 explorer?.querySelector('[data-arch-reset]').addEventListener('click', () => renderTour(0));
 explorer?.querySelector('[data-arch-next]').addEventListener('click', advance);
 explorer?.querySelector('[data-arch-prev]').addEventListener('click', retreat);
+const pageNumber = document.querySelector('#page-number');
+pageNumber.max = String(pages.length);
 const exportMode = new URLSearchParams(location.search).has('export');
 if (exportMode) document.body.dataset.export = 'true';
 function fit() {
@@ -137,7 +139,8 @@ function show(index, updateHash = true, enterAtLastStep = false) {
   if (inTour()) renderTour(enterAtLastStep ? ARCH_TOUR.states.length - 1 : 0);
   hydrate(current);
   if (current + 1 < pages.length) hydrate(current + 1);
-  document.querySelector('#counter').textContent = `${current + 1} / ${pages.length} · ${DECK[current].id}`;
+  pageNumber.value = String(current + 1);
+  document.querySelector('#counter').textContent = `/ ${pages.length} · ${DECK[current].id}`;
   document.title = `${DECK[current].id} · ${DECK[current].title} · RLDX-1`;
   document.querySelector('#prev').disabled = current === 0;
   document.querySelector('#next').disabled = current === pages.length - 1;
@@ -155,6 +158,26 @@ function openNotes() {
   });
   notes.showModal();
 }
+// Jump by presentation order; show() enters interactive slides at their first step.
+document.querySelector('#page-jump').addEventListener('submit', event => {
+  event.preventDefault();
+  const requestedPage = pageNumber.valueAsNumber;
+  if (!pageNumber.checkValidity() || !Number.isInteger(requestedPage)) {
+    pageNumber.reportValidity();
+    return;
+  }
+  show(requestedPage - 1);
+  pageNumber.blur();
+});
+pageNumber.addEventListener('focus', () => pageNumber.select());
+pageNumber.addEventListener('blur', () => { pageNumber.value = String(current + 1); });
+pageNumber.addEventListener('keydown', event => {
+  if (event.key === 'Escape') {
+    event.preventDefault();
+    event.stopPropagation();
+    pageNumber.blur();
+  }
+});
 document.querySelector('#prev').onclick = retreat;
 document.querySelector('#next').onclick = advance;
 document.querySelector('#open-toc').onclick = () => { toc.showModal(); document.querySelector('#toc-search').focus(); };

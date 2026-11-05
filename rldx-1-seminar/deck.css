@@ -90,9 +90,12 @@ body.deck-app { margin: 0; background: #142b40; overflow: hidden; font-family: '
 .deck-app .deck-page { display: none; position: absolute; inset: 0; }
 .deck-app .deck-page.active { display: block; }
 .deck-app .deck-toolbar { position: fixed; z-index: 5; bottom: 9px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 11px; padding: 6px 13px; background: #f8fbfc; color: #183d50; border-radius: 5px; box-shadow: 0 3px 15px #0002; font-size: 14px; white-space: nowrap; }
+.deck-toolbar #page-jump { display: flex; align-items: center; gap: 5px; margin: 0; }
+.deck-toolbar #page-number { box-sizing: border-box; width: 3em; padding: 3px 5px; border: 1px solid #a5c5c1; border-radius: 3px; background: white; color: inherit; font: inherit; line-height: 1.5; text-align: center; font-variant-numeric: tabular-nums; appearance: textfield; }
+.deck-toolbar #page-number::-webkit-inner-spin-button, .deck-toolbar #page-number::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
 .deck-toolbar button { background: none; border: 0; color: inherit; font: inherit; padding: 4px 8px; cursor: pointer; border-radius: 3px; }
 .deck-toolbar button:hover { background: #e1eeec; }
-.deck-toolbar button:focus-visible, .deck-app a:focus-visible { outline: 3px solid #228e85; outline-offset: 3px; }
+.deck-toolbar button:focus-visible, .deck-toolbar #page-number:focus-visible, .deck-app a:focus-visible { outline: 3px solid #228e85; outline-offset: 3px; }
 .deck-app dialog { max-width: min(1040px, 88vw); width: 1040px; max-height: 82vh; border: 0; padding: 26px; color: #142b40; background: #fbfcfd; border-radius: 8px; }
 .deck-app dialog::backdrop { background: #0c1c2caa; }
 .deck-app dialog h2 { margin: 0 0 15px; font-size: 25px; }

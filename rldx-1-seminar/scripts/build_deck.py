@@ -49,11 +49,11 @@ def main():
     cover = (ROOT / 'content/cover.html').read_text()
     total = len(content) + 1
     slides = [('S001', 'RLDX-1 Technical Report', cover, '표지. 움직임·기억·물리 센싱을 지원하는 범용 로봇 조작 연구다. 원문 Fig.1을 사용한다.', '<p>Figure 1은 데이터·아키텍처·학습·추론·평가를 연결하는 전체 시스템 개요다. 원문 PDF p.1.</p>')]
-    markdown = '---' + frontmatter + '---\n\n<!-- slide-id: S001 | revision: v08 | status: draft -->\n\n' + cover + '\n'
+    markdown = '---' + frontmatter + '---\n\n<!-- slide-id: S001 | revision: v09 | status: draft -->\n\n' + cover + '\n'
     for i, s in enumerate(content, 2):
         markup = slide_markup(s, i, total)
         notes = s.get('notes', '')
-        markdown += f'\n---\nlayout: none\n---\n\n<!-- slide-id: {s["id"]} | revision: v08 | status: draft -->\n\n{markup}\n\n<!--\n{notes.replace("-->", "→")}\n-->\n'
+        markdown += f'\n---\nlayout: none\n---\n\n<!-- slide-id: {s["id"]} | revision: v09 | status: draft -->\n\n{markup}\n\n<!--\n{notes.replace("-->", "→")}\n-->\n'
         slides.append((s['id'], s['title'], markup, notes, s['study_html']))
     (ROOT / 'slides.md').write_text(markdown)
 
@@ -78,7 +78,7 @@ def main():
     html = f'''<!doctype html>
 <html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>RLDX-1 · 상세 논문 세미나</title><style>{css}</style></head>
 <body class="deck-app"><main id="stage">{''.join(pages)}</main>
-<nav class="deck-toolbar" aria-label="발표 탐색"><button id="prev" aria-label="이전 장">←</button><span id="counter"></span><button id="next" aria-label="다음 장">→</button><button id="open-toc">목차 G</button><button id="open-notes">설명 N</button><button id="fullscreen">전체 화면 F</button></nav>
+<nav class="deck-toolbar" aria-label="발표 탐색"><button id="prev" aria-label="이전 장">←</button><form id="page-jump" aria-label="페이지 바로 이동"><input id="page-number" type="number" min="1" step="1" required inputmode="numeric" enterkeyhint="go" autocomplete="off" aria-label="현재 페이지 번호" title="페이지 번호를 입력하고 Enter"><span id="counter" aria-live="polite"></span></form><button id="next" aria-label="다음 장">→</button><button id="open-toc">목차 G</button><button id="open-notes">설명 N</button><button id="fullscreen">전체 화면 F</button></nav>
 <dialog id="toc"><button class="dialog-close" aria-label="닫기">×</button><h2>전체 목차</h2><input id="toc-search" type="search" placeholder="장 ID·제목·주제 검색" aria-label="목차 검색"><div id="toc-list">{''.join(entries)}</div></dialog>
 <dialog id="notes"><button class="dialog-close" aria-label="닫기">×</button><h2 id="notes-title"></h2><div id="notes-text" class="study-notes"></div></dialog>
 <dialog id="image-dialog"><button class="dialog-close" aria-label="닫기">×</button><img alt="확대한 원문 그림"></dialog>
@@ -86,8 +86,8 @@ def main():
     (ROOT / 'presentation.html').write_text(html)
     # Keep the manually published Pages entry in sync with the generated deck.
     (ROOT / 'index.html').write_text(html)
-    (ROOT / 'content/deck-manifest.json').write_text(json.dumps([{'order': i + 1, 'id': sid, 'title': title, 'chapter': chapter(sid), 'version': 'v08', 'status': '전체 초안 / 미승인', 'source_ids': next((s['source_ids'] for s in content if s['id'] == sid), ['S001'])} for i, (sid, title, _, _, _) in enumerate(slides)], ensure_ascii=False, indent=2))
-    index = ['# 슬라이드 색인 — v08', '', 'MD 원본 → HTML. 전체 도식 확대 단계는 P032 안에서 방향키로 이동한다. 개별 결과물은 사용자 검토 전이다.', '', '| 순서 | ID | 섹션 | 제목 | MD 원본 | 상세 단위 |', '| --- | --- | --- | --- | --- | --- |']
+    (ROOT / 'content/deck-manifest.json').write_text(json.dumps([{'order': i + 1, 'id': sid, 'title': title, 'chapter': chapter(sid), 'version': 'v09', 'status': '전체 초안 / 미승인', 'source_ids': next((s['source_ids'] for s in content if s['id'] == sid), ['S001'])} for i, (sid, title, _, _, _) in enumerate(slides)], ensure_ascii=False, indent=2))
+    index = ['# 슬라이드 색인 — v09', '', 'MD 원본 → HTML. 전체 도식 확대 단계는 P032 안에서 방향키로 이동한다. 개별 결과물은 사용자 검토 전이다.', '', '| 순서 | ID | 섹션 | 제목 | MD 원본 | 상세 단위 |', '| --- | --- | --- | --- | --- | --- |']
     index.append('| 1 | S001 | 표지 | RLDX-1 Technical Report | content/cover.html | — |')
     for i, s in enumerate(content, 2):
         index.append(f"| {i} | {s['id']} | {s['chapter']} | {s['title']} | {s['markdown_source']} | {', '.join(s['source_ids'])} |")

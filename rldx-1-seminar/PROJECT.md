@@ -1,7 +1,7 @@
 # 프로젝트 설정
 
 - 논문: RLDX-1 Technical Report
-- 상태: v08 / 자간0 적용·전체 화면 검토 / 기본25장·상세121단위 유지
+- 상태: v09 / 하단 페이지 번호 입력·첫 단계 이동 / 기본25장·상세121단위 유지
 - 목적: 전체 맥락의 HTML 발표와 자세한 공부 기록을 함께 유지하고, 사용자 피드백에 따라 장별로 수정
 - 형식: 오프라인 단일 HTML 중심 / Slidev 생성 소스 병행
 - 발표 시간·장수·청중: 별도 제한 없음. 이전 30장 한도는 해제
@@ -11,6 +11,7 @@
 - 이전 자료: `content/main-*.json`과 상세 JSON은 마이그레이션 스냅샷으로 보존. 이후 내용 수정은 MD에서 진행
 - 상세 공부 기록: 기존 S002–S122를 연결한 N 해설로 보존. 본문 장수와 상세 단위 수를 일대일 대응하지 않음
 - 결과물: `presentation.html`·`index.html`(동일한 오프라인/게시용 발표), `slides.md`(Slidev 생성 소스), `review/SLIDE_INDEX.md`(본문·상세 해설 매핑)
+- 페이지 이동: 하단 현재 번호를 입력하고 Enter. 번호로 이동하면 Fig.3 같은 단계형 페이지도 첫 단계로 진입한다. Esc는 입력 취소.
 - 발표 구성: Fig.1 표지 → Problems → RLDX-1 Architecture(Fig.2 overview, Fig.3 구조) → Training Data → Training Procedure → Inference Strategy → Evaluation and Analysis → Ablation and Analysis → Conclusion → My opinions and limitation
 - Figure 3: 전체 그림 → Vision Encoder·VLM·Memory Module·MSAT 네 모듈 확대/복귀와 순차 화살표 설명. 버튼·좌우 방향키와 기존 PPT 조작 유지. 수식은 별도 장에서 설명
 - P032 v05: video·language·cognition(64) 토큰 범위를 그림에 묶음 괄호·화살표로 표시, 과거 프레임 → context 1개에 ‘압축’ 명시. 본문은 ‘중간층’과 ‘cognition token 위치의 출력 특징을 행동 생성을 위해 전달’, 18층 사실은 상세 해설에 보존

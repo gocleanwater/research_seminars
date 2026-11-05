@@ -1,3 +1,20 @@
+# v09 페이지 번호 입력 검증 — 2026-11-06
+
+- 먼저 입력칸 부재로 verify_navigation.mjs가 실패(0≠1)하는 것을 확인한 후 기능을 구현했다.
+- verify_navigation.mjs:클릭후기존번호전체선택,5입력/Enter→5번째P006,4→P032첫단계,진행후같은4재입력→첫단계,1/마지막장,빈값/0/초과/소수거부,Esc입력취소시단계보존,800px폭툴바경계 통과.
+- 기존 PPT키·빈화면클릭·그림확대·검색/G/N·전체화면·정역순·퇴역링크도 같은실제브라우저검사에서 통과했다.
+- verify_sources.py:9개MD·121개상세·25장·27상태/18화살표 대응 통과.
+- verify_deck.mjs:25장PNG의넘침/이미지실패/오류/외부요청0.
+- verify_architecture.mjs:27상태·4모듈·주석경계·정역순·애니메이션/reduced-motion 통과.
+- verify_math_font.mjs:Nanum 실제글리프·KaTeX·상세 수식 너비 통과.
+- pnpm build 및 pnpm build --base /rldx-1-seminar/:종료0. qa/full-deck/build-v09.log·base-build-v09.log.
+- package_pages.py·verify_pages.mjs:게시패키지·실제저장소하위경로·그림/해설·오류0. 발표HTML과두게시HTML바이트동일.
+- 실제전체화면과툴바PNG를직접확인했다: review/previews/navigation-v09/P032-page-jump.png·page-number-toolbar.png.
+
+본문25장/121개상세와자간0을유지한다. Pages의실제배포완료와원격push완료는구분해보고한다.
+
+---
+
 # v08 자간0·전체 화면 검증 — 2026-11-05
 
 - verify_sources.py:9개MD·121개단위·25장·27상태/18화살표 통과.

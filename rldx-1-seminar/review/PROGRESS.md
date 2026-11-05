@@ -1,15 +1,15 @@
 # 슬라이드 제작 진행 상황
 
-- 업데이트: 2026-11-05 / v08
-- 현재 단계: 자간0 적용·전체25장/27개확대단계 검토 완료 / 자동 게시.
+- 업데이트: 2026-11-06 / v09
+- 현재 단계: 하단 페이지 번호 입력·첫 단계 이동 검증 완료 / 자동 게시.
 - 구성: 기본25장(표지+본문24장), P032 내부27상태·18화살표.
 - 원본: 9개 섹션 MD. S002–S122의121개 상세 단위는 각각 한 번 연결되며 통합 전과 내용이 같다.
 - 통합: P005→P032, P007→P006, P011→P032/P016, P021→P020. P012→P009/P010의 기존 통합도 유지한다.
 - 흐름: Fig.3→학습 원리→추론 갱신→MSAT 입력→내부 연산→데이터→학습→실행 최적화→평가/분석→결론→의견/미해결.
 - 원리와 검증은 분리 유지. Conclusion의 기여 반복을 줄이고 의견은 PEFT/BoN의 적용 조건에 집중한다.
 - 원본 기록 보존: review/versions/before-dedup-v07/; 통합 근거와 계획: review/DEDUPLICATION.md.
-- 게시 정책: 수정·검증 후 추가 확인 없이 commit·push한다. 현재 v08 자간 수정도 게시 대상이다.
-- 승인: 수정·축소 요청과 결과물 개별 승인을 구분한다. v08은 검토 전이다.
+- 게시 정책: 수정·검증 후 추가 확인 없이 commit·push한다. 현재 v09 페이지 탐색 수정도 게시 대상이다.
+- 승인: 수정·축소 요청과 결과물 개별 승인을 구분한다. v09은 검토 전이다.
 
 ## 검증
 
@@ -23,33 +23,33 @@
 
 | 순서 | ID | 제목 | 버전 | 상태 | PNG |
 | --- | --- | --- | --- | --- | --- |
-| 1 | S001 | RLDX-1 Technical Report | v08 | 검토 전 | review/previews/deck-v08/S001-v08.png |
-| 2 | P002 | 기존 VLA의 문제 | v08 | 검토 전 | review/previews/deck-v08/P002-v08.png |
-| 3 | P031 | RLDX-1 Overview | v08 | 검토 전 | review/previews/deck-v08/P031-v08.png |
-| 4 | P032 | RLDX-1 Architecture | v08 | 검토 전 | review/previews/deck-v08/P032-v08.png |
-| 5 | P006 | Action Model의 학습 원리 | v08 | 검토 전 | review/previews/deck-v08/P006-v08.png |
-| 6 | P008 | Action Model의 추론 수식 | v08 | 검토 전 | review/previews/deck-v08/P008-v08.png |
-| 7 | P009 | MSAT의 입력 | v08 | 검토 전 | review/previews/deck-v08/P009-v08.png |
-| 8 | P010 | MSAT의 Joint Attention | v08 | 검토 전 | review/previews/deck-v08/P010-v08.png |
-| 9 | P013 | 학습 데이터 | v08 | 검토 전 | review/previews/deck-v08/P013-v08.png |
-| 10 | P014 | Task·Scene Augmentation | v08 | 검토 전 | review/previews/deck-v08/P014-v08.png |
-| 11 | P015 | 합성 데이터 검증 | v08 | 검토 전 | review/previews/deck-v08/P015-v08.png |
-| 12 | P016 | Pre-training | v08 | 검토 전 | review/previews/deck-v08/P016-v08.png |
-| 13 | P017 | Mid-training | v08 | 검토 전 | review/previews/deck-v08/P017-v08.png |
-| 14 | P018 | Post-training | v08 | 검토 전 | review/previews/deck-v08/P018-v08.png |
-| 15 | P019 | RECAP | v08 | 검토 전 | review/previews/deck-v08/P019-v08.png |
-| 16 | P020 | 추론 최적화 | v08 | 검토 전 | review/previews/deck-v08/P020-v08.png |
-| 17 | P022 | Simulation Experiments | v08 | 검토 전 | review/previews/deck-v08/P022-v08.png |
-| 18 | P023 | OpenArm | v08 | 검토 전 | review/previews/deck-v08/P023-v08.png |
-| 19 | P024 | ALLEX | v08 | 검토 전 | review/previews/deck-v08/P024-v08.png |
-| 20 | P025 | Franka | v08 | 검토 전 | review/previews/deck-v08/P025-v08.png |
-| 21 | P026 | Ablation | v08 | 검토 전 | review/previews/deck-v08/P026-v08.png |
-| 22 | P027 | RL·추론 지연 분석 | v08 | 검토 전 | review/previews/deck-v08/P027-v08.png |
-| 23 | P029 | Conclusion | v08 | 검토 전 | review/previews/deck-v08/P029-v08.png |
-| 24 | P028 | 나의 의견 | v08 | 검토 전 | review/previews/deck-v08/P028-v08.png |
-| 25 | P030 | 한계와 미해결 질문 | v08 | 검토 전 | review/previews/deck-v08/P030-v08.png |
+| 1 | S001 | RLDX-1 Technical Report | v09 | 검토 전 | review/previews/deck-v09/S001-v09.png |
+| 2 | P002 | 기존 VLA의 문제 | v09 | 검토 전 | review/previews/deck-v09/P002-v09.png |
+| 3 | P031 | RLDX-1 Overview | v09 | 검토 전 | review/previews/deck-v09/P031-v09.png |
+| 4 | P032 | RLDX-1 Architecture | v09 | 검토 전 | review/previews/deck-v09/P032-v09.png |
+| 5 | P006 | Action Model의 학습 원리 | v09 | 검토 전 | review/previews/deck-v09/P006-v09.png |
+| 6 | P008 | Action Model의 추론 수식 | v09 | 검토 전 | review/previews/deck-v09/P008-v09.png |
+| 7 | P009 | MSAT의 입력 | v09 | 검토 전 | review/previews/deck-v09/P009-v09.png |
+| 8 | P010 | MSAT의 Joint Attention | v09 | 검토 전 | review/previews/deck-v09/P010-v09.png |
+| 9 | P013 | 학습 데이터 | v09 | 검토 전 | review/previews/deck-v09/P013-v09.png |
+| 10 | P014 | Task·Scene Augmentation | v09 | 검토 전 | review/previews/deck-v09/P014-v09.png |
+| 11 | P015 | 합성 데이터 검증 | v09 | 검토 전 | review/previews/deck-v09/P015-v09.png |
+| 12 | P016 | Pre-training | v09 | 검토 전 | review/previews/deck-v09/P016-v09.png |
+| 13 | P017 | Mid-training | v09 | 검토 전 | review/previews/deck-v09/P017-v09.png |
+| 14 | P018 | Post-training | v09 | 검토 전 | review/previews/deck-v09/P018-v09.png |
+| 15 | P019 | RECAP | v09 | 검토 전 | review/previews/deck-v09/P019-v09.png |
+| 16 | P020 | 추론 최적화 | v09 | 검토 전 | review/previews/deck-v09/P020-v09.png |
+| 17 | P022 | Simulation Experiments | v09 | 검토 전 | review/previews/deck-v09/P022-v09.png |
+| 18 | P023 | OpenArm | v09 | 검토 전 | review/previews/deck-v09/P023-v09.png |
+| 19 | P024 | ALLEX | v09 | 검토 전 | review/previews/deck-v09/P024-v09.png |
+| 20 | P025 | Franka | v09 | 검토 전 | review/previews/deck-v09/P025-v09.png |
+| 21 | P026 | Ablation | v09 | 검토 전 | review/previews/deck-v09/P026-v09.png |
+| 22 | P027 | RL·추론 지연 분석 | v09 | 검토 전 | review/previews/deck-v09/P027-v09.png |
+| 23 | P029 | Conclusion | v09 | 검토 전 | review/previews/deck-v09/P029-v09.png |
+| 24 | P028 | 나의 의견 | v09 | 검토 전 | review/previews/deck-v09/P028-v09.png |
+| 25 | P030 | 한계와 미해결 질문 | v09 | 검토 전 | review/previews/deck-v09/P030-v09.png |
 
-Fig.3의 실제 상태 PNG는 review/previews/architecture-v08/step-00.png–step-26.png다. 세 토큰은08, VLM은11, Memory는17, MSAT입력은22, 처리·출력은25에서 볼 수 있다.
+Fig.3의 실제 상태 PNG는 review/previews/architecture-v09/step-00.png–step-26.png다. 세 토큰은08, VLM은11, Memory는17, MSAT입력은22, 처리·출력은25에서 볼 수 있다.
 
 ## 재개
 
@@ -138,3 +138,12 @@ AGENTS.md → PROJECT.md → 이 파일 → FEEDBACK.md → sections/README.md �
 - 실제25장 PNG·27개Fig.3확대 상태에서 넘침·겹침·이미지 실패·브라우저 오류는0이었다. 제목 모두 한 줄이며 제목 텍스트가 영역 안에 들어가고 표지도 그림/바닥글과 겹치지 않는다. 추가 문구 삭제나 배치 변경은 필요하지 않았다.
 - 소스·수식·실제Nanum글리프·상세 수식 너비·기본/base빌드·Slidev25장·로컬Pages경로를 검증했다. CSS0을 브라우저가normal로 직렬화하는 경우도 실제추가자간0으로 확인했다.
 - PNG: review/previews/deck-v08/overview-v08.png, review/previews/typography-v08/title-spacing-before-after.png. 최신 지시에 따라 commit/push한다.
+
+## 2026-11-06 / 하단 탐색 / 페이지 번호 입력 v09
+
+- 사용자 요청: 현재 번호/전체 수의 현재 번호를 입력칸으로 바꿔1·5 등 원하는 장으로 이동하고,4페이지 같은 단계형 장은 첫 동작부터 시작할 것.
+- 반영: 숫자 입력+Enter로 이동한다. 전체 수와 P ID는 유지하고 현재 번호는 페이지 이동 때마다 동기화한다. 같은 번호 재입력도 첫 단계로 초기화한다.
+- 1~25의 정수만 허용한다. 빈 값·0·범위 초과·소수는 이동하지 않는다. Esc는 편집 취소이며 기존 단계는 유지한다. 입력 중 기존 발표 단축키는 실행되지 않는다.
+- 기존 방향키·목차·해설·전체화면·역방향 마지막 단계 진입·퇴역 링크는 유지한다. 기본25장·121개 상세 기록·자간0 유지.
+- 검증: 새 입력칸 부재의 실패를 먼저 확인한 뒤,1/5/4/마지막장·같은장초기화·잘못된번호·Esc·800px폭·기존조작을 실제Chrome에서 확인했다.25장/27단계·소스·수식/글꼴·기본/base빌드·로컬Pages 검증을 수행했다.
+- PNG: review/previews/navigation-v09/P032-page-jump.png 및 page-number-toolbar.png. 최신 자동게시 지시에 따라 commit/push한다.
