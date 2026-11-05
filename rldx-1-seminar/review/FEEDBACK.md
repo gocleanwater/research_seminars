@@ -206,3 +206,11 @@
 - 사용자 원문: “그냥 수정하자마자 push 바로바로 해줘”. 이 프로젝트의 수정은 검증 후 별도 게시 질문 없이 commit·push한다.
 - 현재 P006의 noisy action chunk 용어·기호 표·u_θ 직접 annotation 수정도 포함한다. source/수식/글꼴/로컬Pages 검증을 다시 통과했다.
 - 기존 ‘아직 push 전’ 기록은 당시 상태다. Pages 실제 배포 완료와 원격 push 완료는 구별한다.
+
+## 2026-11-05 / P006 / clean a와 noisy a^τ 구분
+
+- 사용자 지적: a는 정답이어도 a^τ는 noisy action인데 표에 a만 정의하면 혼동할 수 있다.
+- 반영: 표에 a=정답(clean) action chunk, a^τ=노이즈가 섞인 action chunk를 각각 표시했다. 도입문도 정답 a로 입력 a^τ를 구성한다고 구분했다.
+- 경계 조건 τ=1이면 a^τ=a를 명시해 noisy라는 이름을 끝점까지 오해하지 않도록 했다. 기존 표 헤더를 행별 기호 표로 바꾸고 글꼴 크기는 유지했다.
+- 검증:25장PNG 넘침/이미지실패/브라우저오류/외부요청0,소스매핑/KaTeX생성,기본/base빌드 통과. 상세121개내용지문과3개HTML동일성 확인.
+- 실제PNG: review/previews/deck-v07/P006-symbols-v07.png. 최신 자동commit/push 지시에 따라 게시한다.

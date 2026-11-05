@@ -1242,7 +1242,7 @@ source_ids: S020, S021, S022, S023, S024, S025, S026, S028
 
 ### 한 문장
 
-정답 action chunk에 노이즈를 섞고, 정답 변화율을 예측하도록 flow-matching 손실을 최소화한다.
+정답 $\mathbf a$와 노이즈를 섞어 입력 $\mathbf a^\tau$를 만들고, 정답 변화율을 예측하도록 학습한다.
 
 ### 본문
 
@@ -1252,11 +1252,12 @@ $$
 \mathbf{a}^{\tau}=\tau\mathbf{a}+(1-\tau)\boldsymbol{\epsilon}
 $$
 
-| 기호 | 의미 |
-| --- | --- |
-| $\mathbf a$ | 정답 action chunk $\mathbf a_{t:t+H}$ |
-| $\boldsymbol\epsilon$ | 같은 shape의 표준 정규 노이즈 |
-| $\tau$ | Denoising timestep (0 → 1) |
+<table class="chunk-symbols" aria-label="Action chunk 기호 설명"><tbody>
+<tr><th scope="row">$\mathbf a$</th><td>정답(clean) action chunk</td></tr>
+<tr><th scope="row">$\mathbf a^\tau$</th><td><strong>노이즈가 섞인 action chunk</strong></td></tr>
+<tr><th scope="row">$\boldsymbol\epsilon$</th><td>같은 shape의 표준 정규 노이즈</td></tr>
+<tr><th scope="row">$\tau$</th><td>Denoising timestep; $\tau=1\Rightarrow\mathbf a^\tau=\mathbf a$</td></tr>
+</tbody></table>
 
 $$
 \frac{d\mathbf a^\tau}{d\tau}=\mathbf a-\boldsymbol\epsilon=\mathbf v^*
