@@ -1,5 +1,15 @@
 # v09 페이지 번호 입력 검증 — 2026-11-06
 
+## 2026-11-06 / v20 / Memory 대본 통합과 비교 요약 제외
+
+- 범위: 직전80장 버전의6–8쪽 P056/P057/P058을4쪽 Memory 확대 대본으로 통합했다.9쪽 P059 비교 요약은 본문에서 빼고 발표 대본으로도 옮기지 않았다. 사용자도 Memory Module 쪽이라고 확인했다.
+- 대본: 필요성/shell game→과거 queue→현재 특징과concat/입력256개→causal Transformer와m_t→h_t/m_t concat의 네 화살표 순서다. 저장 간격·시간 범위·H/H+1 불일치·cache 갱신 미해결은 발표자 보충으로 보존한다. 원문 그림과27개 확대 상태/18화살표는 바꾸지 않았다.
+- 보존: S017/S019/S018을 P032로 옮겼다. HEAD(8a6201d)와 전체121개 상세 기록의 제목·본문을 추출 비교해 바깥 공백 외 동일함을 확인했다. P059는 원래 별도 상세 기록을 소유하지 않았으며 기존 공부 기록 S016은 기록으로 유지한다. 변경 전 태그는 `rldx-v19-before-memory-speaker-notes-20261106`이다.
+- 소스/화면: `python3 scripts/build_deck.py`, `python3 scripts/verify_sources.py`, `node scripts/verify_deck.mjs` 통과.76장·121개 기록이며 넘침·이미지 실패·브라우저 오류·외부 요청0.
+- 탐색/수식: `node scripts/verify_navigation.mjs`, `node scripts/verify_math_font.mjs` 통과. 세 링크는 Memory 확대, P059는 전체 Fig.3으로 연결한다. P051→P009와 입력·정역순·실제 대본 문구 및 전체 N 해설 수식 너비/글꼴을 확인했다.
+- 시각 확인: 실제 N 대본의 Memory 도입·concat 수식 PNG와 새6쪽 MSAT 입력 PNG를 직접 확인했다. 대본 intro에는 저장 간격 표1개만 있고, 제거한 세 표현 비교 표가 추가되지 않았음을 DOM으로 확인했다.
+- 빌드/게시: 기본/base `pnpm build`, 게시 패키지 생성과 `node scripts/verify_pages.mjs` 통과. HTML3종 동일성과 `git diff --check` 확인 후 자동 commit/push한다. Pages 실제 반영과 사용자 결과물 승인은 별도 확인 전이다.
+
 ## 2026-11-06 / v19 / 현재6–9쪽을 VLM 발표 대본으로 통합
 
 - 범위 정정: 최초9–12쪽 요청은87장 버전의 번호였고 사용자가 현재6–9쪽이라고 정정했다. 정정 전에 파일 수정은 없었다. 대상은 P052/P053/P054/P055이며 Memory P056/P057/P058을 제거하지 않았다.

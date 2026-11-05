@@ -233,14 +233,14 @@ document.querySelector('#stage').addEventListener('click', event => {
   advance();
 });
 // Preserve links to explanations that were merged during the slide review.
-const MERGED_SLIDES = {P005:'P032', P007:'P006', P011:'P036', P012:'P009', P021:'P038', P048:'P032', P049:'P032', P050:'P032', P052:'P032', P053:'P032', P054:'P032', P055:'P032'};
+const MERGED_SLIDES = {P005:'P032', P007:'P006', P011:'P036', P012:'P009', P021:'P038', P048:'P032', P049:'P032', P050:'P032', P052:'P032', P053:'P032', P054:'P032', P055:'P032', P056:'P032', P057:'P032', P058:'P032', P059:'P032'};
 function showFromHash() {
   const requested = location.hash.slice(1);
   const id = MERGED_SLIDES[requested] || requested;
   const index = DECK.findIndex(s => s.id === id);
   if (index < 0) return false;
   show(index);
-  if (requested === 'P005') renderTour(ARCH_TOUR.focus.memory);
+  if (['P005','P056','P057','P058'].includes(requested)) renderTour(ARCH_TOUR.focus.memory);
   if (['P048','P049','P050'].includes(requested)) renderTour(ARCH_TOUR.focus.vision);
   if (['P052','P053','P054','P055'].includes(requested)) renderTour(ARCH_TOUR.focus.vlm);
   return true;

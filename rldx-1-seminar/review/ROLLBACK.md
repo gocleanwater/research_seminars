@@ -1,5 +1,10 @@
 # 버전 보존과 복구
 
+## v20 변경 전: Memory 대본 통합
+
+- 태그: `rldx-v19-before-memory-speaker-notes-20261106` (`8a6201d`).
+- 80장 버전의6–8쪽 P056–P058은4쪽 대본으로,9쪽 P059는 본문/대본에서 제외한76장이 된다. 복원은 새 commit으로 하며 main reset/force-push는 하지 않는다.
+
 ## v19 변경 전: VLM 발표 대본 통합
 
 - 태그: `rldx-v18-before-vlm-speaker-notes-20261106` (`aea70d3`).

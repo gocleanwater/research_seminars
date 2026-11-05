@@ -103,21 +103,24 @@ try{
   assert.match(await page.locator('#notes-text').innerText(),/상세 해설 S039/);
   await page.keyboard.press('Escape');
   assert.equal(await page.locator('.deck-page[data-id="P012"]').count(),0);
-  for (const [oldId,newId,unit] of [['P005','P032','S016'],['P007','P006','S024'],['P011','P036','S036'],['P021','P038','S077'],['P048','P032','S011'],['P049','P032','S012'],['P050','P032','S013'],['P052','P032','S009'],['P053','P032','S010'],['P054','P032','S014'],['P055','P032','S015']]) {
+  for (const [oldId,newId,unit] of [['P005','P032','S016'],['P007','P006','S024'],['P011','P036','S036'],['P021','P038','S077'],['P048','P032','S011'],['P049','P032','S012'],['P050','P032','S013'],['P052','P032','S009'],['P053','P032','S010'],['P054','P032','S014'],['P055','P032','S015'],['P056','P032','S017'],['P057','P032','S019'],['P058','P032','S018']]) {
     await page.goto(pathToFileURL(path.resolve('presentation.html')).href+'#'+oldId);
     assert.equal(await active(),newId);
     if(['P052','P053','P054','P055'].includes(oldId)) assert.equal(await page.locator('.architecture-explorer').getAttribute('data-scene'),'vlm');
-    if(oldId==='P005') assert.equal(await page.locator('.architecture-explorer').getAttribute('data-scene'),'memory');
+    if(['P005','P056','P057','P058'].includes(oldId)) assert.equal(await page.locator('.architecture-explorer').getAttribute('data-scene'),'memory');
     await page.keyboard.press('n');assert((await page.locator('#notes-text').innerText()).includes('상세 해설 '+unit));
     await page.keyboard.press('Escape');
     assert.equal(await page.locator(`.deck-page[data-id="${oldId}"]`).count(),0);
   }
+  await page.goto(pathToFileURL(path.resolve('presentation.html')).href+'#P059');
+  assert.equal(await active(),'P032');
+  assert.equal(await page.locator('.deck-page[data-id="P059"]').count(),0);
   // Visual and language representations are explained between the overview and MSAT.
   await show('P051');
-  for(const id of ['P056','P057','P058','P059','P009']){await page.keyboard.press('ArrowRight');assert.equal(await active(),id);}
+  for(const id of ['P009']){await page.keyboard.press('ArrowRight');assert.equal(await active(),id);}
   await show('P032'); await page.keyboard.press('n');
   const scriptText=await page.locator('#notes-text .study-intro').innerText();
-  for(const term of ['Vision Encoder 발표 대본','첫 번째 화살표','STSS','Residual addition','10–27층','VLM 발표 대본','세 종류의 입력','causal 구조','과거 프레임 특징의 압축','cognition 위치 출력'])assert(scriptText.includes(term),term);
+  for(const term of ['Vision Encoder 발표 대본','첫 번째 화살표','STSS','Residual addition','10–27층','VLM 발표 대본','세 종류의 입력','causal 구조','과거 프레임 특징의 압축','cognition 위치 출력','Memory Module 발표 대본','과거 cognition features의 queue','Causal Transformer의 계산','저장 간격과 과거 범위'])assert(scriptText.includes(term),term);
   await page.keyboard.press('Escape');
   // Architecture structure precedes its learning/inference equations.
   await show('P009');
