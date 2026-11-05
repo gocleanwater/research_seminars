@@ -1,6 +1,6 @@
 # 전체 목차
 
-상태: **페이지 수 제한 없음 / 9개 섹션 MD 편집 원본 / v16 Ablation 상세화·63장 구성 / 결과물 미승인**
+상태: **페이지 수 제한 없음 / 9개 섹션 MD 편집 원본 / v17 부록 통합·87장 구성 / 결과물 미승인**
 업데이트: 2026-11-06
 
 관련 설명을 자연스럽게 연결하되 화살표·단계 설명을 위해 필요한 화면 수를 제한하지 않는다. 본문과 상세 공부 기록은 아홉 `sections/*.md`에서 편집한다. 전체 제작·수정 허가는 개별 장의 결과물 승인과 구분한다.
@@ -12,16 +12,20 @@ Fig.1을 사용하는 표지 뒤에 아래 섹션을 따른다. 섹션명은 영
 | 편집 원본 | 섹션 | 현재 MD에 배치된 ID |
 | --- | --- | --- |
 | [01-problems.md](sections/01-problems.md) | Problems | P002 |
-| [02-rldx-1-architecture.md](sections/02-rldx-1-architecture.md) | RLDX-1 Architecture | P031, P032, P048–P059, P009, P010, P006, P008 |
-| [03-training-data.md](sections/03-training-data.md) | Training Data | P013, P033, P034, P014, P045, P015, P046, P047 |
-| [04-training-procedure.md](sections/04-training-procedure.md) | Training Procedure | P035, P016, P036, P017, P018, P019, P037 |
-| [05-inference-strategy.md](sections/05-inference-strategy.md) | Inference Strategy | P020, P038, P039 |
-| [06-evaluation-and-analysis.md](sections/06-evaluation-and-analysis.md) | Evaluation and Analysis | P040, P022, P041, P042, P023, P043, P024, P044, P025 |
-| [07-ablation-and-analysis.md](sections/07-ablation-and-analysis.md) | Ablation and Analysis | P026, P060–P065, P070, P066–P067, P027, P068–P069 |
+| [02-rldx-1-architecture.md](sections/02-rldx-1-architecture.md) | RLDX-1 Architecture | P031, P032, P048–P059, P009, P010, P006, P008, P071 |
+| [03-training-data.md](sections/03-training-data.md) | Training Data | P013, P033, P034, P072–P073, P014, P074, P045, P015, P046, P047 |
+| [04-training-procedure.md](sections/04-training-procedure.md) | Training Procedure | P035, P016, P036, P017, P018, P019, P037, P075–P077 |
+| [05-inference-strategy.md](sections/05-inference-strategy.md) | Inference Strategy | P020, P038, P039, P078 |
+| [06-evaluation-and-analysis.md](sections/06-evaluation-and-analysis.md) | Evaluation and Analysis | P040, P079–P080, P022, P091–P094, P041, P082, P042, P081, P023, P043, P024, P044, P025 |
+| [07-ablation-and-analysis.md](sections/07-ablation-and-analysis.md) | Ablation and Analysis | P026, P060–P064, P083–P084, P090, P065, P070, P066–P067, P085–P089, P027, P068–P069 |
 | [08-conclusion.md](sections/08-conclusion.md) | Conclusion | P029 |
 | [09-my-opinions-and-limitation.md](sections/09-my-opinions-and-limitation.md) | My opinions and limitation | P028, P030 |
 
 Architecture는 Fig.2로 입출력 overview를 보여준 뒤 Fig.3의 전체 구조를 설명한다. Fig.3은 전체 그림을 보여준 뒤 Vision Encoder·VLM·Memory Module·MSAT 네 모듈에 클릭·방향키 기반 확대/복귀와 순차 화살표 설명을 적용한다. 단계 버튼과 좌우 방향키로 전진·후진하며 기존 PPT 조작을 유지한다. Flow matching·학습·추론 수식은 별도 장에서 다룬다. 장 ID와 화면 순서는 분리하고, 새 설명을 추가할 때 기존 ID의 의미를 바꾸지 않는다.
+
+## v17 부록의 본문 통합
+
+부록을 뒤에 한꺼번에 붙이지 않고24개 새 장과 기존 장 보강으로 통합했다. Action 생성 수식 뒤에40개 생성/20개 실행, 합성 데이터에영상 모델 적응/학습 설정/IDM, 학습 절차의 RECAP 설명 뒤에PEFT, 추론 최적화에실제kernel목록을 둔다. 평가 앞에는조건·baseline출처, 결과 뒤에는환경/과제별편차, 실제로봇에는시행수·시연수·활성모듈을 연결한다. Ablation의 Table3 뒤에는실제ALLEX합성실험과batch분석, RECAP 뒤에는BoN원리/temperature/실험을 둔다. 기존 의견 장의 PEFT/BoN 숫자 반복은 줄이고 해석에 집중한다. 배치 근거는 review/APPENDIX_INTEGRATION.md에 기록한다.
 
 ## v16 Ablation 일곱 근거
 

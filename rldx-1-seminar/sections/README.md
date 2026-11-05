@@ -9,16 +9,16 @@
 | 파일 | 섹션 | 본문 장 | 상세 단위 |
 | --- | --- | ---: | ---: |
 | [01-problems.md](01-problems.md) | Problems | 1 | 3 |
-| [02-rldx-1-architecture.md](02-rldx-1-architecture.md) | RLDX-1 Architecture | 18 | 36 |
-| [03-training-data.md](03-training-data.md) | Training Data | 8 | 15 |
-| [04-training-procedure.md](04-training-procedure.md) | Training Procedure | 7 | 17 |
-| [05-inference-strategy.md](05-inference-strategy.md) | Inference Strategy | 3 | 10 |
-| [06-evaluation-and-analysis.md](06-evaluation-and-analysis.md) | Evaluation and Analysis | 9 | 15 |
-| [07-ablation-and-analysis.md](07-ablation-and-analysis.md) | Ablation and Analysis | 13 | 11 |
+| [02-rldx-1-architecture.md](02-rldx-1-architecture.md) | RLDX-1 Architecture | 19 | 37 |
+| [03-training-data.md](03-training-data.md) | Training Data | 11 | 15 |
+| [04-training-procedure.md](04-training-procedure.md) | Training Procedure | 10 | 17 |
+| [05-inference-strategy.md](05-inference-strategy.md) | Inference Strategy | 4 | 10 |
+| [06-evaluation-and-analysis.md](06-evaluation-and-analysis.md) | Evaluation and Analysis | 17 | 17 |
+| [07-ablation-and-analysis.md](07-ablation-and-analysis.md) | Ablation and Analysis | 21 | 16 |
 | [08-conclusion.md](08-conclusion.md) | Conclusion | 1 | 2 |
-| [09-my-opinions-and-limitation.md](09-my-opinions-and-limitation.md) | My opinions and limitation | 2 | 12 |
+| [09-my-opinions-and-limitation.md](09-my-opinions-and-limitation.md) | My opinions and limitation | 2 | 4 |
 
-표지 S001을 제외한 본문62장과 상세 공부 기록121개를 포함한다(v16). source_ids 기준으로 S002–S122가 각각 정확히 한 번 연결된다. 장 ID는 위치가 바뀌어도 유지하고, 퇴역한 P003·P004·P005·P007·P011·P012·P021의 ID를 다른 의미로 재사용하지 않는다.
+표지 S001을 제외한 본문86장과 상세 공부 기록121개를 포함한다(v17). source_ids 기준으로 S002–S122가 각각 정확히 한 번 연결된다. 장 ID는 위치가 바뀌어도 유지하고, 퇴역한 P003·P004·P005·P007·P011·P012·P021의 ID를 다른 의미로 재사용하지 않는다.
 
 ## 편집 순서
 

@@ -116,18 +116,18 @@ try{
   for(const id of ['P049','P050','P051','P052','P053','P054','P055','P056','P057','P058','P059','P009']){await page.keyboard.press('ArrowRight');assert.equal(await active(),id);}
   // Architecture structure precedes its learning/inference equations.
   await show('P009');
-  for(const id of ['P010','P006','P008','P013']){await page.keyboard.press('ArrowRight');assert.equal(await active(),id);}
+  for(const id of ['P010','P006','P008','P071','P013']){await page.keyboard.press('ArrowRight');assert.equal(await active(),id);}
   // Public and in-house data come between the overview and synthetic augmentation.
-  for(const id of ['P033','P034','P014']){await page.keyboard.press('ArrowRight');assert.equal(await active(),id);}
+  for(const id of ['P033','P034','P072','P073','P014']){await page.keyboard.press('ArrowRight');assert.equal(await active(),id);}
   // Generated video, simulator rollout, feature comparison, then classifier training.
-  for(const id of ['P045','P015','P046','P047','P035']){await page.keyboard.press('ArrowRight');assert.equal(await active(),id);}
+  for(const id of ['P074','P045','P015','P046','P047','P035']){await page.keyboard.press('ArrowRight');assert.equal(await active(),id);}
   // Purpose first, then each training stage; graph and fused-kernel explanations stay separate.
   await show('P035');
-  for(const id of ['P016','P036','P017','P018','P019','P037','P020','P038','P039','P040']){await page.keyboard.press('ArrowRight');assert.equal(await active(),id);}
+  for(const id of ['P016','P036','P017','P018','P019','P037','P075','P076','P077','P020','P038','P039','P078','P040']){await page.keyboard.press('ArrowRight');assert.equal(await active(),id);}
   // Benchmarks and real robot/task photos come before their result plots.
-  for(const id of ['P022','P041','P042','P023','P043','P024','P044','P025','P026']){await page.keyboard.press('ArrowRight');assert.equal(await active(),id);}
+  for(const id of ['P079','P080','P022','P091','P092','P093','P094','P041','P082','P042','P081','P023','P043','P024','P044','P025','P026']){await page.keyboard.press('ArrowRight');assert.equal(await active(),id);}
   // Follow the seven ablation topics without skipping their separate conditions and interpretations.
-  for(const id of ['P060','P061','P062','P063','P064','P065','P070','P066','P067','P027','P068','P069','P029']){await page.keyboard.press('ArrowRight');assert.equal(await active(),id);}
+  for(const id of ['P060','P061','P062','P063','P064','P083','P084','P090','P065','P070','P066','P067','P085','P086','P087','P088','P089','P027','P068','P069','P029']){await page.keyboard.press('ArrowRight');assert.equal(await active(),id);}
   assert.deepEqual(errors,[]);
   fs.writeFileSync('qa/full-deck/navigation-report.json',JSON.stringify({pageJump:true,pageJumpResetsTour:true,pageJumpValidation:true,pageJumpEscape:true,arrows:true,enterBackspace:true,spaceShiftSpace:true,upDownPageKeys:true,homeEnd:true,canvasClick:true,imageZoom:true,buttonFocus:true,tourReverseBoundary:true,dialogsAndModifiers:true,fullscreenEscape:true,mergedP012Link:true,allMergedLinks:true,movedStudyNotes:true,errors},null,2));
   console.log('PASS: presentation keys/clicks, native buttons, dialogs, and reverse animation boundary.');

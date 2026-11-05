@@ -79,6 +79,94 @@ Sec.6 · Fig.11 · PDF p.17
 
 Figure 11(a)는 LIBERO/LIBERO-Plus와 SIMPLER, (b)는 RoboCasa Kitchen, GR-1 Tabletop, RoboCasa365를 보여준다. 이 논문의 평가는 하나의 zero-shot 범용 모델을 그대로 모든 환경에 투입한 결과가 아니다. 6.1/6.2는 pre-trained 모델의 downstream fine-tuning, 6.3/6.4는 mid-trained 모델의 task별 fine-tuning이다. 6.5에서도 각 실험의 데이터와 초기화가 달라 직접 수치 연결에 주의한다.
 
+## [P079] 시뮬레이션의 실행 설정
+
+<!-- slide-meta
+layout: split
+kind: fact
+source_ids:
+-->
+
+### 한 문장
+
+Benchmark마다 denoising 횟수와 실제 실행하는 action 길이가 다르므로,4회 denoising을 모든 결과에 적용하면 안 된다.
+
+### 본문
+
+#### Table 8 · 추론 설정
+
+| Benchmark | Denoising | 실행 길이 |
+| --- | --- | --- |
+| LIBERO / Plus | 4 | 8 |
+| SIMPLER Google | 4 | 2 |
+| SIMPLER WidowX | 10 | 2 |
+| RoboCasa Kitchen | 10 | 16 |
+| GR-1 Tabletop | 4 | 8 |
+| RoboCasa365 | 4 | 16 |
+
+### 보충
+
+#### 계산 반복과 로봇 실행을 구별
+
+16개 action을 생성해도, SIMPLER는 앞의 2개를 실행한 뒤 다시 계산한다. Kitchen은 16개를 실행한다.
+
+GR-1은 denoising timestep을 <strong>Beta(1.5,1.0)</strong>에서 고르고, 나머지는 고정 간격을 사용한다.
+
+<p class="callout">Table 4의 4회 denoising·horizon 40은 ALLEX 지연 측정 설정이다. 여기의 benchmark 설정과 구분한다.</p>
+
+### 요점
+
+성공률과 latency를 설명할 때에는 입력·생성 길이·실행 길이·denoising 설정을 함께 확인한다.
+
+### 출처
+
+App.G.1 · Table 8 · PDF pp.48–49
+
+### 발표 메모
+
+원문은 16개 생성 후 일부 horizon 실행을 설명한다. Training iterations는LIBERO60K,Google20K,WidowX60K,Kitchen60K,GR160K,RC365250K다. Batch는 256/1024/1024/1024/1024/192(Table8)이며 RC365 문장은 196이라고 쓰는 불일치를 마지막 질문 장에 유지한다. State dropout은Google/GR1만 0.5,나머지 0이다. GR1 Beta sampling58.7 vs fixed58.0 보고를 모든 환경의 우위로 일반화하지 않는다.
+
+### 상세 공부 기록
+
+## [P080] Baseline 결과의 출처
+
+<!-- slide-meta
+layout: full
+kind: fact
+source_ids:
+-->
+
+### 한 문장
+
+Table 1의 baseline에는 같은 조건으로 재현한 결과와, 공식 저장소·논문·leaderboard에서 가져온 결과가 함께 있다.
+
+### 본문
+
+| Benchmark | 재현·직접 평가 | 인용한 baseline 결과 |
+| --- | --- | --- |
+| LIBERO | GR00T N=1.6 재현 | 나머지는 공식 저장소 |
+| LIBERO-Plus | LIBERO checkpoint로 평가 | π0·π0-FAST는 기존 논문 |
+| SIMPLER | RLDX-1 평가 | 기존 논문·보고값 |
+| RoboCasa Kitchen | RLDX-1 평가 | GR00T 공식 저장소·기존 논문 |
+| GR-1 Tabletop | π0 계열 재현 | GR00T 계열 공식 저장소 |
+| RoboCasa365 | π0-FAST 재현 | 나머지는 leaderboard |
+
+<p class="callout"><span class="label interpretation">읽는 기준</span> 같은 표에 있다는 이유만으로 모든 모델을 같은 코드·장비·학습 예산에서 다시 실행한 비교라고 읽지 않는다.</p>
+
+### 요점
+
+순위와 절대 수치를 보되, 어떤 결과가 재현이고 어떤 결과가 외부 보고값인지 함께 밝힌다.
+
+### 출처
+
+App.G.1 Simulation Benchmark Details · PDF p.48
+
+### 발표 메모
+
+LIBERO-Plus는π0/π0FAST 외 나머지 방법을 10,300 perturbation tasks에서 같은LIBERO checkpoint로 평가한다고 명시한다. SIMPLER는Community2026/Yang2025/GEAR2025 등 보고값을 사용한다. 재현한 모델도 전체 pre-training 예산이 같다는 뜻은 아니다. 원문이 밝힌 provenance를 설명하고 결과 자체를 임의 보정하지 않는다.
+
+### 상세 공부 기록
+
 ## [P022] Simulation 결과
 
 <!-- slide-meta
@@ -334,6 +422,294 @@ Table 1(b) · Sec.6.1 · PDF pp.18–19; Table 15 · PDF p.55
 
 원문 전 값(열:Kitchen,GR1,Atomic,CompS,CompU,Avg). FAST:63.6/미보고/51.7/8.0/1.8/21.7; π0:62.5/13.6/34.6/6.1/1.1/14.8; π0.5:62.1/15.4/39.6/7.1/1.2/16.9; N1.5:65.7/48.0/43.0/9.6/4.4/20.0; N1.6:66.2/47.6/61.1/12.6/2.6/26.9; RLDX:70.6/58.7/67.3/19.0/5.6/32.1. 원문은 N1.6 대비 5.6 vs 2.6을 강조하지만 Comp-U 열의 최강 baseline은 N1.5 4.4다. RC365 전체 32.1은 Atomic 18개, Composite seen16개/unseen16개 작업수로 가중한 평균과 부합하며 세 split 단순 평균이 아니다. RLDX가 pre-training에 simulation data를 쓰지 않았다는 저자 설명도 downstream simulation fine-tuning을 하지 않았다는 뜻은 아니다.
 
+## [P091] 환경 변화별 성능
+
+<!-- slide-meta
+layout: full
+kind: fact
+source_ids: S114
+-->
+
+### 한 문장
+
+LIBERO-Plus의 평균 86.7% 안에서도 조명 변화와 카메라 변화에 대한 결과는 크게 다르다.
+
+### 본문
+
+| 변화 조건 | 성공률 | 변화 조건 | 성공률 |
+| --- | --- | --- | --- |
+| Camera | 75.0% | Robot 초기 상태 | 91.8% |
+| Language | 92.2% | Light | 97.1% |
+| Background | 95.5% | Noise | 80.3% |
+| Layout | 80.7% | 전체 평균 | 86.7% |
+
+<p class="callout"><span class="label interpretation">직관</span> ‘환경 변화에 강하다’를 한 능력으로 묶기보다, 어느 변화에는 강하고 어느 변화에는 약한지 봐야 한다.</p>
+
+카메라 변화 75.0%와 조명 변화 97.1%의 차이는 관측 결과다. 원인을 특정 모듈 하나로 분해한 표는 아니다.
+
+### 요점
+
+평균 성능이 높다는 사실과, 특정 변화에 대한 취약성이 남아 있다는 사실은 함께 성립한다.
+
+### 출처
+
+App.G.6 · Table 11 · PDF p.54
+
+### 발표 메모
+
+LIBERO일반suite는Long95.3/Spatial98/Object99.3/Goal98.4/Avg97.8이다. Plus는모두같은정도로성능을낮추는변화가아니다. 원문의perturbation별평가값이며CI나여러seed분산을추가하지않는다. S114의SIMPLER세부값은다음P092에서도본문으로설명한다.
+
+### 상세 공부 기록
+
+#### [S114] 과제별 강건성 결과
+
+<!-- study-meta
+layout: split
+kind: fact
+-->
+
+##### 한 문장
+
+높은 평균에도 camera·noise·layout 변화와 일부 drawer 동작의 약점이 가려져 있다.
+
+##### 본문
+
+###### LIBERO-Plus 조건별 (%)
+
+| Camera | Robot | Language | Light |
+| --- | --- | --- | --- |
+| 75.0 | 91.8 | 92.2 | 97.1 |
+
+| Background | Noise | Layout | 전체 |
+| --- | --- | --- | --- |
+| 95.5 | 80.3 | 80.7 | 86.7 |
+
+평균 86.7보다 camera 75.0이 가장 낮다. 강건성을 한 개의 능력으로 요약하기 어렵다.
+
+##### 보충
+
+###### SIMPLER의 서로 다른 변화
+
+Google Open Drawer는 VM58.5→VA32.3으로 낮아진다. 반면 Close Drawer는 78.5→93.2로 높아진다.
+
+<span class="label interpretation">해석</span> VA가 모든 task를 똑같이 어렵게 만드는 단일 축은 아니다. 조건·분포가 다른 평균에 각자 원인을 붙이면 안 된다.
+
+WidowX도 Spoon88.5와 Eggplant52.0의 차이가 크다. 평균 71.9는 편차를 숨긴다.
+
+##### 요점
+
+전체 평균의 우위와 취약한 변형·task를 함께 보여준다.
+
+##### 출처
+
+App.G.6 · Tables 11–12 · PDF p.54
+
+##### 발표 메모
+
+Table11 LIBERO Long95.3/Spatial98.0/Object99.3/Goal98.4/Avg97.8. Plus Camera75/Robot91.8/Language92.2/Light97.1/Background95.5/Noise80.3/Layout80.7/Total86.7. Table12 Google-VM Move92/Close78.5/Open58.5/Coke97/Avg81.5; VA Move90.9/Close93.2/Open32.3/Coke93.4/Avg77.4; WidowX Carrot83/Eggplant52/Spoon88.5/Stack64/Avg71.9. 각 조건의 seed·불확실성을 함께 보여주는 표는 아니다.
+
+## [P092] SIMPLER의 과제별 결과
+
+<!-- slide-meta
+layout: split
+kind: fact
+source_ids:
+-->
+
+### 한 문장
+
+같은 benchmark 평균 안에서도 작업별 차이가 크고, VM에서 VA로 바뀌는 효과도 모든 작업에서 같지는 않다.
+
+### 본문
+
+#### Google robot · 성공률(%)
+
+| 작업 | VM | VA |
+| --- | --- | --- |
+| Move Near | 92.0 | 90.9 |
+| Close Drawer | 78.5 | 93.2 |
+| Open Drawer | 58.5 | 32.3 |
+| Pick Coke Can | 97.0 | 93.4 |
+| 평균 | 81.5 | 77.4 |
+
+<p class="mini">Open은 낮아졌지만 Close는 높아졌다. VA를 모든 작업을 똑같이 어렵게 만드는 한 축으로 읽지 않는다.</p>
+
+### 보충
+
+#### WidowX · 성공률(%)
+
+| 작업 | 성공률 |
+| --- | --- |
+| Carrot on Plate | 83.0 |
+| Eggplant in Basket | 52.0 |
+| Spoon on Towel | 88.5 |
+| Stack Cube | 64.0 |
+| 평균 | 71.9 |
+
+Spoon 88.5와 Eggplant 52.0의 차이는 평균 71.9만으로 드러나지 않는다.
+
+### 요점
+
+평균과 순위 뒤에서 과제별 난도와 분포 차이를 함께 읽는다.
+
+### 출처
+
+App.G.6 · Table 12 · PDF p.54
+
+### 발표 메모
+
+VM은VisualMatching,VA는VariantAggregation으로앞benchmark장정의를따른다. 조건마다task의seed·분포가달라질수있으며개별증감원인을한가지로단정하지않는다. 기존S114의원형해설은P091에유지한다.
+
+### 상세 공부 기록
+
+## [P093] Kitchen·GR-1의 과제별 편차
+
+<!-- slide-meta
+layout: split
+kind: fact
+source_ids:
+-->
+
+### 한 문장
+
+Kitchen 평균 70.6%, GR-1 평균 58.7%에도 잘하는 작업과 여전히 어려운 작업이 함께 섞여 있다.
+
+### 본문
+
+#### RoboCasa Kitchen · Table 13
+
+| 과제 | 성공률 |
+| --- | --- |
+| Close Single Door | 100.0% |
+| Turn On Sink Faucet | 100.0% |
+| Microwave → Counter | 26.0% |
+| Turn On Stove | 24.0% |
+| Turn Off Stove | 22.0% |
+| 전체 24개 과제 평균 | 70.6% |
+
+### 보충
+
+#### GR-1 Tabletop · Table 14
+
+| 과제 | 성공률 |
+| --- | --- |
+| Tray → Pot | 74.0% |
+| Can → Drawer | 74.0% |
+| Placemat → Tiered Shelf | 24.0% |
+| 전체 24개 과제 평균 | 58.7% |
+
+<p class="callout"><span class="label interpretation">직관</span> 같은 조작 범주라도 물체·배치·요구 동작이 달라 평균이 편차를 가릴 수 있다.</p>
+
+### 요점
+
+최고 평균 성능이라는 설명과 특정 과제의 낮은 절대 성공률을 함께 보여 준다.
+
+### 출처
+
+App.G.6 · Tables 13–14 · PDF p.55; 대표 고·저성능 과제를 발췌
+
+### 발표 메모
+
+원문 24개씩의표에서대표사례를선택한것으로명시한다. 낮은작업의실패원인을시각/언어/제어중하나로확정하지않는다. 전체작업별표는원문p55에서확인할수있다. 기존S115해설은RC365세부를다루는다음P094로옮긴다.
+
+### 상세 공부 기록
+
+## [P094] 복합 작업의 남은 어려움
+
+<!-- slide-meta
+layout: split
+kind: fact
+source_ids: S115
+-->
+
+### 한 문장
+
+RoboCasa365의 전체 32.1%는 atomic과 composite의 큰 차이를 함께 묶은 값이다.
+
+### 본문
+
+#### Table 15 · 구분별 성공률
+
+| 구분 | 과제 수 | 성공률 |
+| --- | --- | --- |
+| Atomic-Seen | 18 | 67.3% |
+| Composite-Seen | 16 | 19.0% |
+| Composite-Unseen | 16 | 5.6% |
+
+전체 32.1%는 50개 과제의 가중 평균과 부합한다. 세 구분의 단순 평균은 아니다.
+
+### 보충
+
+#### 평가에서 성공을 관측하지 못한 예
+
+<div class="sequence">
+<div class="step"><strong>Composite-Seen:</strong> Prepare Coffee 0%, Get Toasted Bread 0%</div>
+<div class="step"><strong>Composite-Unseen:</strong> Gather Tableware 0%, Pan Transfer 0%</div>
+</div>
+
+<p class="callout">0%는 이 평가 시행에서 성공하지 못했다는 뜻이다. 모든 가능한 상황에서 불가능하다는 증명은 아니다.</p>
+
+### 요점
+
+상대적으로 높은 전체 성능과 긴 복합 작업의 남은 절대 난도를 동시에 읽는다.
+
+### 출처
+
+App.G.6 · Table 15 · PDF p.55
+
+### 발표 메모
+
+가중평균은(18×67.3+16×19+16×5.6)/50=32.104≈32.1이며split단순평균은약 30.63이다. 성공을관측하지못한작업을수행불가능으로규정하지않는다. 전체모델순위와개별작업의절대성능은서로다른정보다. S115의Kitchen/GR1약점도앞P093에서본문으로설명한다.
+
+### 상세 공부 기록
+
+#### [S115] 과제별 낮은 성공률을 읽는 법
+
+<!-- study-meta
+layout: split
+kind: fact
+-->
+
+##### 한 문장
+
+전체 순위가 높아도 주방·휴머노이드·복합 작업의 일부 항목은 여전히 낮다.
+
+##### 본문
+
+###### 낮은 항목의 예
+
+| 환경 | 과제 | 성공률 |
+| --- | --- | --- |
+| Kitchen | 스토브 켜기/끄기 | 24.0/22.0% |
+| GR-1 | 매트→다단 선반 | 24.0% |
+| RC365 Seen | 커피 준비 | 0.0% |
+| RC365 Seen | 토스트 꺼내기 | 0.0% |
+| RC365 Unseen | 식기 모으기 | 0.0% |
+
+<p class="mini">RC365의 두 구분은 Composite(복합 과제)다.</p>
+
+##### 보충
+
+###### 0%의 정확한 뜻
+
+주어진 평가 시도에서 성공을 관측하지 못했다는 뜻이다. 모든 미래 초기 상태와 새 학습까지 포함해 원리적으로 불가능하다는 증명은 아니다.
+
+RC365는 Atomic67.3%, Composite-Seen19.0%, Unseen5.6%다. 긴 복합 조작의 절대 난도를 유지한 채 상대 개선을 평가해야 한다.
+
+전체 32.1은 18/16/16개 task 수의 가중 평균과 부합한다.
+
+##### 요점
+
+“최고 성능”이라는 한 문장으로 남은 실패와 절대 난도를 지우지 않는다.
+
+##### 출처
+
+App.G.6 · Tables 13–15 · PDF p.55
+
+##### 발표 메모
+
+Kitchen은 Close Single Door와Turn On Sink100인 반면 Microwave-to-Counter26, Stove Off22다. GR-1은 Tray-to-Pot와Can-to-Drawer74인 반면 Placemat-to-Tiered-Shelf24다. RC365 Composite-Seen Load Dishwasher50, Get Toasted Bread0, Prepare Coffee0. Composite-Unseen은 Categorize Condiments/Gather Tableware/Heat Kebab Sandwich/Pan Transfer/Separate Freezer Rack에서0이다. $\frac{18\times67.3+16\times19+16\times5.6}{50}=32.104\approx32.1$. Split 단순 평균30.63과 다르다. 다단계 실패의 원인을 인지 또는 제어 한 가지로 단정할 수 없다. 화면 표의 매트→다단 선반은 Placemat to Tiered Shelf, 토스트 꺼내기는 Get Toasted Bread, 식기 모으기는 Gather Tableware에 해당한다. Seen/Unseen은 Composite split을 줄여 쓴다.
+
 ## [P041] 실제 로봇
 
 <!-- slide-meta
@@ -374,7 +750,53 @@ DoF는독립적으로움직일수있는자유도다. OpenArm은7DoF팔2개,6DoF 
 
 ### 상세 공부 기록
 
+## [P082] 실제 로봇의 실험 조건
 
+<!-- slide-meta
+layout: split
+kind: fact
+source_ids:
+-->
+
+### 한 문장
+
+ALLEX·Franka는 각 과제에서 관련 기능 모듈만 켜며, 시행 횟수와 학습 설정도 구분해서 보고한다.
+
+### 본문
+
+#### 과제별 학습·평가 설정
+
+| 설정 | ALLEX | Franka |
+| --- | --- | --- |
+| 출발 모델 | Mid-trained | Mid-trained |
+| 학습량 | 과제별 30K steps | 과제별 30K steps |
+| Batch | 128 | 64 |
+| State dropout | 0.8 | 0.3 |
+| 기본 평가 | 과제별 24회 | 과제별 24회 |
+
+### 보충
+
+#### 활성 모듈과 평가 단위
+
+<strong>움직임 과제는 motion, 기억 과제는 memory, 접촉 과제는 sensing</strong>처럼 해당 기능의 모듈만 활성화한다.
+
+Franka의 예외는 <strong>Spin Tracking 96 interactions</strong>, <strong>Pong 54 interactions</strong>다.
+
+<p class="callout">각 기능이 필요한 과제의 결과이며, 모든 기능을 동시에 켠 복합 과제의 통합 검증으로 확대하지 않는다.</p>
+
+### 요점
+
+다음 로봇 과제·결과는 기능별 평가다. 동일한 ‘성공률’이라도 시행의 단위와 조건을 함께 본다.
+
+### 출처
+
+App.G.3–G.4 · PDF pp.51–52
+
+### 발표 메모
+
+ALLEX시연:Conveyor40,ObjectBox90,Card72,Pouring62. Franka시연:Spin64(각 3interaction),Pong 50(각 5interaction),Cup60,Shell60,Plug100,Egg60. Spin평가 4initial positions×24=96,Pong 54interaction,다른과제 24trials다. ALLEX24회에는conveyor속도 4×6,box위치 3×8등이 포함된다. Egg61.1%와 24회 대응 질문은 해소하지 않는다. ALLEX의RTC는기본추론전략이며 torso torque48차원,Franka touch15/torque7차원은각하드웨어의정보다.
+
+### 상세 공부 기록
 
 ## [P042] OpenArm 과제
 
@@ -461,6 +883,56 @@ Sec.6.2 · Figs.13–14 · PDF pp.19–20; App.G.2 · PDF p.50
 ##### 발표 메모
 
 Figure 13의 좌상단 Basic, 상단 가운데 Shelf, 상단 오른쪽 Dish Rack, 하단 Unseen Object/Unseen Task/Grounding을 순서대로 짚는다. Basic에서도 물체와 목표 위치가 반대편이면 양손 협응이 필요하다. 학습은 Bottle-to-Shelf96, Snack-to-Shelf96, Cup-to-DishRack108, Doll-to-Box48로 총348 demonstrations. Unseen은 이 downstream demonstration 설정에 대한 표현이며 인터넷 또는 전체 사전 학습에서 한 번도 본 적 없는 개념이라는 뜻이 아니다.
+
+## [P081] OpenArm의 시연과 평가
+
+<!-- slide-meta
+layout: split
+kind: fact
+source_ids:
+-->
+
+### 한 문장
+
+OpenArm은 348개 시연으로 학습하고, 물체·초기 위치·목표 칸을 조합해 작업별 일반화를 평가한다.
+
+### 본문
+
+#### 학습 시연 348개
+
+| 작업 family | 시연 수 |
+| --- | --- |
+| Bottle → Shelf | 96 |
+| Snack → Shelf | 96 |
+| Cup → Dish Rack | 108 |
+| Doll → Box | 48 |
+| 합계 | 348 |
+
+병·간식·컵·인형의 4종류, 종류별 4개 instance를 사용한다.
+
+### 보충
+
+#### 평가의 분모
+
+일반 과제는 <strong>24 trials</strong>다. 선반 Directional PnP는 두 종류를 각각 24회 평가해 <strong>총 48 trials</strong>다.
+
+한 장면에 목표 물체와 다른 종류의 distractor2개를 놓는다. 일부 배치는 양손 협응이 필요하다.
+
+<p class="mini">RLDX-1과 baseline은 30K steps·batch 64로 학습한다. 원문의 시연 수·평가 횟수와 모델 간 초기 학습 이력을 구별한다.</p>
+
+### 요점
+
+결과의 성공률은 어떤 장면·몇 번의 시행·어떤 시연 범위에서 얻었는지와 함께 읽는다.
+
+### 출처
+
+App.G.2 OpenArm Experiments Details · PDF p.50
+
+### 발표 메모
+
+Bottle/Snack은 4instances×3initial positions×4shelf slots×2trials=96씩, Cup은 4×3×3×3=108, Doll은 4×3×4=48이다. State dropout0.3, top4LLM외 고정,ExoArm7/ManusPro로 시연하며 수집 중 neck은 고정한다. 하드웨어 설명은 앞 Fig12 소개와 중복해 늘리지 않는다.
+
+### 상세 공부 기록
 
 ## [P023] OpenArm 결과
 

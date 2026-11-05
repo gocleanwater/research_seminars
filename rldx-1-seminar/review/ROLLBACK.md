@@ -1,5 +1,13 @@
 # 버전 보존과 복구
 
+## v17 변경 전 버전
+
+- 태그: `rldx-v16-before-integrated-appendix-20261106`
+- 커밋: `35759a6` — Ablation을 상세화한63장
+- 이후 v17: 부록을 관련 흐름에24장 추가한87장. 상세121개의 내용은 같다.
+- 저장소 루트에서 비교: `git diff rldx-v16-before-integrated-appendix-20261106 -- rldx-1-seminar/sections`
+- 복구는 필요한 변경을 새 커밋으로 되돌리며 main을 reset/force-push하지 않는다.
+
 ## v16 변경 전 버전
 
 - 태그: `rldx-v15-before-detailed-ablation-20261106`

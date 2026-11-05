@@ -1,5 +1,21 @@
 # v09 페이지 번호 입력 검증 — 2026-11-06
 
+## 2026-11-06 / v17 / 부록42–55쪽의 흐름별 통합
+
+- 요청: 부록의 구현 정보·추가 실험을 관련 본문 사이에 배치하고 새로운 주제는 별도 장으로 설명한다. 배치표와 중복 정리는 `review/APPENDIX_INTEGRATION.md`에 기록했다.
+- 근거: 원문 PDF pp.42–55, 기존9개 섹션 MD와121개 상세 공부 단위를 대조했다. 원문 Fig.22/23도 확인했다. 새로운 근거나 인과 실험을 만들지 않았다.
+- 구성: Action40개 생성/20개 실행, 영상 생성 모델·IDM 학습, 품질 검사 샘플 수, PEFT/LoRA 성능·비용, 실제 fused kernels, 평가 조건·baseline 출처, 합성 데이터의 실제 ALLEX 실험, batch 효과, BoN과 과제별 성능 편차를 해당 설명 옆에 배치했다.24장을 추가해 전체87장이다.
+- 연결: 생성/실행은 Action 수식 뒤, 생성 모델·IDM은 합성 데이터, PEFT는 RECAP까지 설명한 학습 절차 뒤, BoN은 RECAP 결과 뒤에 둔다. 기존 의견 장의 반복 수치를 줄이고 적용 조건에 대한 해석으로 정리했다.
+- 범위:40/20은 해당 RL 설정이다. PEFT는 H200 측정이며 소비자 GPU에서 직접 검증한 결과가 아니다. BoN은 별도Q critic을 사용하며 N/T가 함께 바뀐 비교를 구별한다. 합성 추가 실험은 따르기 전체 성공률이 아닌 grasping subtask이고, Table9의 count/scoring 불일치는 미해결로 명시한다.
+- 보존: 변경 전 태그 `rldx-v16-before-integrated-appendix-20261106`(35759a6)의121개 상세 단위를 추출 비교했다. 바깥 공백을 제외한 제목·본문이 동일하고 각각 한 번 연결된다.10개 단위의 본문 소유 장을 옮겼으며 기존 ID 의미·퇴역 링크·Fig.3의27상태/18화살표를 유지했다.
+- 소스/화면: `python3 scripts/build_deck.py`, `python3 scripts/verify_sources.py`, `node scripts/verify_deck.mjs` 통과.87개 PNG에서 넘침·이미지 실패·브라우저 오류·외부 요청0. 최초 P077/P093 넘침은 중복 설명을 정리해 해결했으며 글꼴 크기는 줄이지 않았다.
+- 시각 확인: 새 P071–P094의24개 PNG와 보강 P045/P047·의견 P028을 직접 확인했다. 마지막 순서 조정 뒤 전체87장을 다시 렌더링했다.40/20의 안쪽/바깥쪽 반복, 표·수식·Fig.22/23 및 설명 상자의 경계를 확인했다.
+- 탐색: `node scripts/verify_navigation.mjs` 통과. 새24장의 실제 연결 순서, 번호 입력의 첫 상태 진입, 정역순 키·대화상자·기존 별칭·이동한 상세 해설을 확인했다.
+- 수식/글꼴: `node scripts/verify_math_font.mjs` 통과. Arial·한글 fallback·내장 Nanum·KaTeX와 전체 N 해설의 수식 너비를 확인했다. 이후 변경은 PEFT 장의 위치 조정이며 글꼴·수식 구현은 변경하지 않았다.
+- 빌드: 기본 `pnpm build`와 `pnpm build --base /rldx-1-seminar/` 통과. 최종 `node scripts/verify_slidev.mjs`에서87장·브라우저 오류0·실패0을 확인했다.
+- 게시 산출물: `python3 scripts/package_pages.py`, `node scripts/verify_pages.mjs` 통과. repository 하위 경로·랜딩·표지·Fig.3·해설 및 외부 요청0. presentation/index/게시 index 바이트 동일성과 `git diff --check` 통과. HTML은20.90MiB이다.
+- 사용자 결과물 검토 전이다. 자동 게시 지시에 따라 관련 소스·기록·HTML·ZIP과 보존 태그를 commit·push한다. GitHub Pages 실제 반영 완료는 별도 확인하지 않았다.
+
 ## 2026-11-06 / v16 / Ablation 일곱 근거의 상세화
 
 - 요청: Table2(a)·Table2(b)·Fig.19·Table3·Fig.20·Fig.21·Table4를 모두 자세히 설명하고, 저자의 중간층 해석처럼 직관을 주는 설명을 본문에 포함할 것. 페이지 수를 제한하지 않는다.

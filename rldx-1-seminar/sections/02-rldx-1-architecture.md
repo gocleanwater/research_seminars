@@ -2292,6 +2292,7 @@ Sec.2.2 Further Design Choices · PDF p.9; 배경: arXiv:1910.07467, arXiv:2002.
 ##### 발표 메모
 
 배경 원전 https://arxiv.org/html/1910.07467v1 의 Sec.4와 https://arxiv.org/html/2002.05202v1 의 Sec.2 식(5)–(6)을 확인했다. RMS 식은 root mean square 정의이며 정규화한 값에 learned gain을 곱하며 구현에 따라 수치 안정화 항을 더한다. 출력 공식 전체 대신 RMS 정의만 표시했다. SwiGLU 식은 bias 생략 개념식이며 $\operatorname{SiLU}(x)=x\operatorname{sigmoid}(x)$인 $\operatorname{Swish}_1$ gate를 쓴다. 실제 RLDX-1 weight 이름이나 FFN width를 명세한 것은 아니다. QK에 RMSNorm을 적용한다는 사실과 구체 shape는 구별한다.
+
 ## [P006] Action Model의 학습 원리
 
 <!-- slide-meta
@@ -2810,7 +2811,7 @@ $$
 
 ### 요점
 
-변화율 × denoising 간격으로 후보를 갱신한다. 다음은 이 모델을 학습시키는 데이터다.
+변화율 × denoising 간격으로 후보를 갱신한다. 다음은 생성한 chunk를 실제로 실행하는 바깥 반복이다.
 
 ### 출처
 
@@ -2970,3 +2971,98 @@ Sec.2.2 Functionality3: Physical Sensing · PDF p.8; Sec.4.2 · PDF p.13
 ##### 발표 메모
 
 학습은 미래 센서의 정답을 데이터에서 얻는다. 추론에서 초기 future candidate는 noise이고 정답 미래 sensor를 알지 못한다. Sec.4.2는 L=H+1로 설정한다. Action과 physics loss의 정확한 합산 가중치나 센서 좌표별 normalization은 이 문단만으로 확정하지 않는다. Auxiliary objective 단독의 성능 효과는 전체 시스템 비교와 분리해서 보아야 한다. 마지막 문장의 noisy action “C stream” 표기는 S031의 명시적 입력 배치와 불일치하므로 S034에서 다룬다.
+
+## [P071] Action Chunk의 실행
+
+<!-- slide-meta
+layout: split
+kind: fact
+source_ids: S071
+-->
+
+### 한 문장
+
+Action chunk를 생성하는 길이와 실제 실행하는 길이는 다르다. 부록의 RECAP 설정은 40개 생성·20개 실행이다.
+
+### 본문
+
+#### 행동 생성 바깥의 실행 반복
+
+<div class="sequence">
+<div class="step">현재 관측 → 미래 action 40개 생성</div>
+<div class="step">앞의 action 20개만 실행</div>
+<div class="step">새 관측 → policy 재호출 → 새 chunk 생성</div>
+</div>
+
+<p class="callout"><span class="label interpretation">직관</span> 오래된 계획을 끝까지 따르기보다, 새 상황을 반영해 다시 계획할 기회를 준다.</p>
+
+### 보충
+
+#### 구별할 세 가지 길이
+
+| 설정 | 무엇을 세는가? |
+| --- | --- |
+| 생성 길이 40 | 예측한 미래 action의 수 |
+| 실행 길이 20 | 다시 계산하기 전에 실행할 action의 수 |
+| Denoising 횟수 | 한 chunk를 만드는 내부 갱신 횟수 |
+
+원문은 RTC 기반 replanning을 사용한다고 설명한다. <strong>40/20은 이 RL 설정</strong>이며, 다른 benchmark의 값은 뒤에서 구분한다.
+
+### 요점
+
+Chunk 생성·일부 실행·재관측은 바깥 반복이고, denoising은 chunk를 만드는 안쪽 반복이다.
+
+### 출처
+
+App.C Policy Inference · PDF p.43; Sec.2.2 · p.8
+
+### 발표 메모
+
+RTC의 overlap/inpainting 세부를 임의 구현 설명으로 추가하지 않는다. 이 실행 간격이 memory 저장·교체 간격까지 확정하는 것은 아니다. Policy 학습은 vision encoder 고정, 최대 30K steps, batch 128, AdamW1e-4,40개 action chunk를 쓴다. 기존 S071을 이 장으로 옮겨 수식 설명 뒤 실제 실행과 연결한다.
+
+### 상세 공부 기록
+
+#### [S071] 40개 생성·20개 실행은 무엇인가?
+
+<!-- study-meta
+layout: split
+kind: fact
+-->
+
+##### 한 문장
+
+한 번에 계획한 chunk 길이와 실제로 실행할 길이, 내부 denoising 횟수는 서로 다르다.
+
+##### 본문
+
+###### RECAP policy의 바깥 반복
+
+<div class="sequence">
+<div class="step">관측으로 미래 action 40개 생성</div>
+<div class="step">앞쪽 action 20개만 실행</div>
+<div class="step">새 관측에서 policy를 재호출</div>
+</div>
+
+App.C는 이 구성과 RTC 기반 replanning을 사용한다고 명시한다.
+
+##### 보충
+
+###### 그 안의 denoising 반복
+
+Action 40개를 만들기 위해 noisy chunk 전체를 여러 denoising timestep <strong>$\tau$</strong>에서 갱신한다. 이 반복은 action을 로봇에서 20번 실행하는 것과 다르다.
+
+로봇 시간 **t**, chunk 생성 길이, 실행 길이, denoising 횟수를 따로 기록해야 한다.
+
+<p class="callout">“40개 예측·20개 실행”은 RECAP 부록 설정이다. 모든 benchmark에 그대로 일반화하지 않는다.</p>
+
+##### 요점
+
+Chunk는 미래 계획의 길이이고, denoising은 그 계획을 만드는 내부 계산이다.
+
+##### 출처
+
+App.C · Policy Training/Inference · PDF p.43; Sec.2.2 · PDF p.8
+
+##### 발표 메모
+
+RTC의 구체적인 overlap/inpainting 알고리즘은 이 보고서 내 설명 밖이므로 추가하지 않는다. ALLEX mid-training 40, Franka mid-training 16, ALLEX IDM20 등과 조건을 구분한다. Memory queue가 실행20개마다 갱신되는지는 미해결이며 여기서 추론하지 않는다.

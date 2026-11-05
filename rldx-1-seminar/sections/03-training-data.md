@@ -271,6 +271,96 @@ Sec.3.2 · PDF pp.9–10; Fig.12 · PDF p.19
 
 역기구학은 원하는 말단/손끝 위치·자세에서 관절각을 구하는 계산이라는 배경 풀이이다. Franka의 토크 측정과 ALLEX의 전류 기반 토크 추정을 구별한다. ALLEX 합계는 양팔14+양손30+허리2+목2=48DoF. OpenArm은 이 장의 자체 센서 수집 대상과 구분한다.
 
+## [P072] 로봇용 영상 생성 모델
+
+<!-- slide-meta
+layout: split
+kind: fact
+source_ids:
+-->
+
+### 한 문장
+
+일반 영상 생성 모델을 그대로 쓰지 않고, 로봇 시점과 조작 동작에 맞게 시연 영상으로 추가 학습한다.
+
+### 본문
+
+#### 로봇별로 적응시킨 생성 모델
+
+| 대상 | 기반 영상 생성 모델 |
+| --- | --- |
+| GR-1 | Cosmos-Predict2-14B |
+| ALLEX | Cosmos-Predict2.5-2B |
+
+<span class="label authors">저자 설명</span> 범용 영상 모델만으로는 로봇의 자기 시점과 조작 dynamics를 충분히 표현하기 어렵다고 본다.
+
+### 보충
+
+#### ALLEX 영상 모델의 학습 데이터
+
+<div class="sequence">
+<div class="step"><strong>ALLEX : OpenArm : ActionNet = 2 : 1 : 1</strong></div>
+<div class="step">다른 로봇의 시연도 섞어 조작 동작의 범위 확장</div>
+</div>
+
+OpenArm은 평가뿐 아니라 <strong>ALLEX용 영상 생성 모델의 학습</strong>에도 사용된다.
+
+<p class="callout">여기서 학습하는 것은 합성 영상을 만드는 모델이다. 행동을 실행할 RLDX-1 정책의 학습과 구분한다.</p>
+
+### 요점
+
+로봇 시연으로 영상 생성 모델부터 적응시킨 뒤, 다음 Task·Scene Augmentation에 사용한다.
+
+### 출처
+
+App.B.3 GR-1/ALLEX Video Fine-tuning · PDF p.42
+
+### 발표 메모
+
+GR-1은 ActionNet 3027개와 NVIDIA GR-1 공개영상 92개를 사용한다. ALLEX는 자체 ALLEX/OpenArm과 같은 3027 ActionNet을 2:1:1로 혼합한다. 이 비율을 RLDX-1 policy의 pre/mid-training 혼합 비율과 동일시하지 않는다.
+
+### 상세 공부 기록
+
+## [P073] 영상 생성 모델의 학습
+
+<!-- slide-meta
+layout: full
+kind: fact
+source_ids:
+-->
+
+### 한 문장
+
+두 영상 모델은 로봇 시연에 적응시키지만, 학습 방식과 데이터 구성은 서로 다르다.
+
+### 본문
+
+| 설정 | GR-1 영상 모델 | ALLEX 영상 모델 |
+| --- | --- | --- |
+| 데이터 | ActionNet 3027 + NVIDIA 92개 영상 | ALLEX·OpenArm·ActionNet = 2:1:1 |
+| 적응 방식 | LoRA · rank 32 | Full fine-tuning |
+| 학습량 / batch | 10K steps / 4 | 20K steps / 8 |
+| 영상 clip | 93 frames · 432×768 | 93 frames · 432×768 |
+| Caption | 짧게·중간·길게 작성 후 하나 선택 | 같은 방식으로 길이가 다른 설명 선택 |
+
+ALLEX는 <strong>전체 episode에서 균일 추출</strong>하는 방식과, <strong>16FPS에서 연속 93프레임</strong>을 뽑는 방식을 함께 사용한다.
+
+<p class="callout"><span class="label interpretation">직관</span> 전체 작업의 흐름과 짧은 구간의 연속적인 움직임을 모두 보게 하려는 구성으로 읽을 수 있다.</p>
+
+### 요점
+
+합성 데이터의 바탕에도 로봇 시연·caption·시간 샘플링을 설계하는 별도의 학습 과정이 있다.
+
+### 출처
+
+App.B.3 · PDF p.42
+
+### 발표 메모
+
+GR-1 re-caption은 Qwen3-VL8B Instruct, ALLEX는 8B 또는 30B-A3B Instruct다. ALLEX의 uniform은 episode 전체를 93개 간격으로, random은 시작점을 무작위로 고른 연속 93프레임이다. 모든 실험의 입력을 93프레임으로 바꾼다는 뜻이 아니라 영상 생성 모델 학습의 clip 길이다.
+
+### 상세 공부 기록
+
 ## [P014] Task·Scene Augmentation
 
 <!-- slide-meta
@@ -626,6 +716,102 @@ Fig.5; Sec.3.3 · PDF p.11
 
 원문 캡션을 기준으로 (c)의 생성 경로를 정확히 명시한다. 예시 영상을 보고 전체 합성 집합의 품질을 정량적으로 단정하지 않는다. 개별 augmentation 효과는 이후 Table3의 통제 범위를 따로 설명한다.
 
+## [P074] IDM과 행동 라벨
+
+<!-- slide-meta
+layout: split
+kind: fact
+source_ids: S051
+-->
+
+### 한 문장
+
+생성 영상에는 정답 행동이 없으므로, 별도 IDM이 두 관측 사이의 수치 행동을 추정해 라벨로 붙인다.
+
+### 본문
+
+#### 영상의 변화 → 중간 행동 추정
+
+<div class="sequence">
+<div class="step">현재·미래 관측 쌍</div>
+<div class="step"><strong>SigLIP-2 vision encoder + 0.1B DiT</strong></div>
+<div class="step">Flow matching으로 중간 action sequence 예측</div>
+</div>
+
+결과는 언어 task 문장이 아니라 <strong>로봇 제어에 쓰일 행동 값</strong>이다. 추정값이므로 pseudo-action label이라고 부른다.
+
+### 보충
+
+#### 로봇별 IDM 준비
+
+| 대상 | 사용한 IDM |
+| --- | --- |
+| GR-1 | 공개 사전학습 checkpoint |
+| ALLEX | 자체 원격 조작 시연으로 처음부터 학습 |
+
+ALLEX IDM은 <strong>horizon 20 · batch 256 · 60K steps</strong>로 학습한다.
+
+<p class="callout">IDM은 데이터에 라벨을 붙이는 모델이다. 실제 관측·지시에서 행동할 RLDX-1 정책과 다르다.</p>
+
+### 요점
+
+영상 생성 → IDM 행동 라벨 → 영상 품질·움직임 검증을 거쳐 학습 가능한 쌍을 만든다.
+
+### 출처
+
+Sec.3.3 · PDF pp.10–12; App.B.3 Action Annotation · p.42
+
+### 발표 메모
+
+IDM의 20은 RLDX-1의 생성 40/실행 20과 다른 설정이다. 추정 행동은 뒤에서 simulator에 실행해 rollout 영상을 만들고 원래 합성 영상과 비교한다. S051을 P015에서 옮기며 P015의 전체 비교 그림은 유지한다.
+
+### 상세 공부 기록
+
+#### [S051] IDM과 simulator rollout
+
+<!-- study-meta
+layout: split
+kind: fact
+-->
+
+##### 한 문장
+
+Task 문장은 목표를 말하고, IDM은 두 관측 사이에 필요한 행동 시퀀스를 추정한다.
+
+##### 본문
+
+###### 영상에 없는 라벨을 추정
+
+<div class="sequence">
+<div class="step">현재·미래 프레임 쌍을 IDM에 입력</div>
+<div class="step">중간 action 시퀀스를 flow matching으로 예측</div>
+<div class="step">예측 action을 simulator에서 재생</div>
+</div>
+
+rollout은 언어 지시만으로 만든 영상이 아니라 **추정한 수치 행동을 실행한 참조 영상**이다.
+
+##### 보충
+
+###### IDM 구현과 라벨의 지위
+
+0.1B DiT와 SigLIP-2 vision encoder를 사용한다. GR-1은 공개 사전학습 checkpoint, ALLEX는 자체 원격 조작 데이터로 처음부터 학습한다.
+
+ALLEX 설정은 action horizon 20, batch 256, 60K gradient steps다.
+
+<p class="callout">생성 영상의 행동은 ground truth가 아니라 pseudo-action label이다.</p>
+
+##### 요점
+
+IDM이 붙인 라벨도 추정치이므로, 생성 영상과의 움직임 일치를 다시 검사한다.
+
+##### 출처
+
+Sec.3.3 · PDF pp.10–12; App.B.3 · PDF p.42
+
+##### 발표 메모
+
+ALLEX IDM horizon $H+1=20$은 mid-training policy의 ALLEX chunk40이나 RECAP 생성40/실행20과 다른 설정이다. 문맥이 다른 horizon 수치를 하나로 합치지 않는다.
+
 ## [P045] 영상 품질 검사
 
 <!-- slide-meta
@@ -648,6 +834,8 @@ source_ids: S052
 
 <p class="callout">“무엇을 하라고 했는가?”와<br>“영상에서는 무엇을 했는가?”를 맞추는 검사다.</p>
 
+<p class="mini">Gemini API · 균일 추출 16프레임을 입력</p>
+
 ### 보충
 
 #### 동작이 그럴듯한가?
@@ -657,6 +845,8 @@ source_ids: S052
 미리 정한 기준을 넘는 영상을 남긴다.
 
 <p class="callout">이 단계는 <strong>영상 자체의 품질</strong>을 본다. 영상에 붙인 행동이 맞는지는 다음 검사에서 확인한다.</p>
+
+<p class="mini">Gemini API · 8프레임을 입력해 평가</p>
 
 ### 요점
 
@@ -668,7 +858,7 @@ Sec.3.3 Video Quality Filtering · PDF p.11; App.B.3 · PDF p.42
 
 ### 발표 메모
 
-기존P015의video quality설명을별도장으로분리했다. 검사용VLM은부록에서Gemini API로명시하고지시일치16프레임/plausibility8프레임을입력한다. 구체적API모델버전/점수cutoff는임의추가하지않는다. 영상생성/IDM라벨링/필터링의전체파이프라인은Fig4를따르며발표는검사대상별로설명순서를나눴다. 지시가어긋난영상을모두폐기한다고말하지않고re-caption과plausibility선별을구분한다.
+기존P015의video quality설명을별도장으로분리했다. 검사용VLM은부록에서Gemini API로명시하고지시일치 16프레임/plausibility8프레임을입력한다. 구체적API모델버전/점수cutoff는임의추가하지않는다. 영상생성/IDM라벨링/필터링의전체파이프라인은Fig4를따르며발표는검사대상별로설명순서를나눴다. 지시가어긋난영상을모두폐기한다고말하지않고re-caption과plausibility선별을구분한다.
 
 ### 상세 공부 기록
 
@@ -720,7 +910,7 @@ Sec.3.3 · PDF p.11; App.B.3 · PDF p.42
 <!-- slide-meta
 layout: full
 kind: fact
-source_ids: S051, S055
+source_ids: S055
 -->
 
 ### 한 문장
@@ -768,51 +958,6 @@ Fig.4 · PDF p.10; Sec.3.3 Motion-Consistency Filtering · PDF p.12; App.B.3 · 
 사용자지적에따라그림에없던simulator와rollout분기를명시했다. A는영상생성기로만든합성영상,IDM출력은영상이아닌pseudo-action, B는그추정action을simulator에서실행해렌더링한영상이다. 원래합성영상A를비교기에직접연결하고,행동실행의결과B를다른입력으로넣는다. 비교는frozenV-JEPA2특징을사용하며다음P046에서설명한다. 높은일치도는합성영상/라벨쌍을선별하는조건이며현실로봇성공의보증으로확대하지않는다. 그림은원문의흐름을읽기위한재도식이고원문에없는초기상태복원방식/임계값을추가하지않는다.
 
 ### 상세 공부 기록
-
-#### [S051] IDM과 simulator rollout
-
-<!-- study-meta
-layout: split
-kind: fact
--->
-
-##### 한 문장
-
-Task 문장은 목표를 말하고, IDM은 두 관측 사이에 필요한 행동 시퀀스를 추정한다.
-
-##### 본문
-
-###### 영상에 없는 라벨을 추정
-
-<div class="sequence">
-<div class="step">현재·미래 프레임 쌍을 IDM에 입력</div>
-<div class="step">중간 action 시퀀스를 flow matching으로 예측</div>
-<div class="step">예측 action을 simulator에서 재생</div>
-</div>
-
-rollout은 언어 지시만으로 만든 영상이 아니라 **추정한 수치 행동을 실행한 참조 영상**이다.
-
-##### 보충
-
-###### IDM 구현과 라벨의 지위
-
-0.1B DiT와 SigLIP-2 vision encoder를 사용한다. GR-1은 공개 사전학습 checkpoint, ALLEX는 자체 원격 조작 데이터로 처음부터 학습한다.
-
-ALLEX 설정은 action horizon 20, batch 256, 60K gradient steps다.
-
-<p class="callout">생성 영상의 행동은 ground truth가 아니라 pseudo-action label이다.</p>
-
-##### 요점
-
-IDM이 붙인 라벨도 추정치이므로, 생성 영상과의 움직임 일치를 다시 검사한다.
-
-##### 출처
-
-Sec.3.3 · PDF pp.10–12; App.B.3 · PDF p.42
-
-##### 발표 메모
-
-ALLEX IDM horizon $H+1=20$은 mid-training policy의 ALLEX chunk40이나 RECAP 생성40/실행20과 다른 설정이다. 문맥이 다른 horizon 수치를 하나로 합치지 않는다.
 
 #### [S055] 합성 모델과 검증 범위
 
@@ -975,6 +1120,8 @@ source_ids: S054
 </div>
 
 겉모습이 실제·시뮬레이션으로 달라도 **같은 행동에 대응하는 움직임**을 갖는다.
+
+<p class="mini">Probe 학습:16프레임·256×256·stride4, binary cross-entropy, batch 32·AdamW·학습률 $10^{-4}$. 고정 encoder 위의 작은 판정기를 학습한다.</p>
 
 ### 보충
 
