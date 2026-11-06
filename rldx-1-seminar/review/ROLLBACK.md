@@ -1,5 +1,12 @@
 # 버전 보존과 복구
 
+## v24 변경 전 버전
+
+- 태그: `rldx-v23-before-projection-script-20261106`, 변경 전 커밋 `3435379`.
+- 이후 P036 본문을 없애고4쪽 MSAT 마지막 대본으로 통합했다.72장→71장, 상세121개는 내용 그대로 보존한다.
+- 저장소 루트에서 비교: `git diff rldx-v23-before-projection-script-20261106 -- rldx-1-seminar/sections/02-rldx-1-architecture.md`
+- 필요한 변경을 새 커밋으로 되돌리며 main을 reset/force-push하지 않는다.
+
 ## v23 변경 전 버전
 
 - 태그: `rldx-v22-before-projection-reorder-20261106`, 변경 전 커밋 `be4eb7a`.

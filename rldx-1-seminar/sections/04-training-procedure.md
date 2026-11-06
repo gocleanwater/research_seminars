@@ -131,7 +131,7 @@ Sec.4.1 · Fig.6 · PDF pp.12–13; G=gripper, H=hand, K=1,000 episodes
 
 ### 발표 메모
 
-Fig.6의 색상·범례·표를 원문과 직접 대조했다. OXE25/DROID25/Galaxea10/AgiBotG10/AgiBotH5/ActionNet10/Everyday5/Synthetic10이며 합계100%다. 표에 적힌 pool 크기는870/92/114/239/36/30/9/150K이고 합계1,540K로 그림의 약1.5M과 대응한다. Section3의 원시 데이터셋 규모와 Figure6의 실제 corpus 규모를 섞지 않는다. 합성 GR-1 150K는 휴머노이드 데이터 부족을 보완하기 위해 포함한다. 입출력 구조는 앞의 P036에서 설명했다. Pre-training에서는 매 batch에서256 trajectories를 무작위로 선택해 공통 encoder–decoder로 보낸다. 전체 학습 데이터가256개라는 뜻은 아니다. 세부 학습 설정은 S059에도 보존한다.
+Fig.6의 색상·범례·표를 원문과 직접 대조했다. OXE25/DROID25/Galaxea10/AgiBotG10/AgiBotH5/ActionNet10/Everyday5/Synthetic10이며 합계100%다. 표에 적힌 pool 크기는870/92/114/239/36/30/9/150K이고 합계1,540K로 그림의 약1.5M과 대응한다. Section3의 원시 데이터셋 규모와 Figure6의 실제 corpus 규모를 섞지 않는다. 합성 GR-1 150K는 휴머노이드 데이터 부족을 보완하기 위해 포함한다. 입출력 구조는4쪽 P032의 MSAT 마무리 대본에서 설명했다. Pre-training에서는 매 batch에서256 trajectories를 무작위로 선택해 공통 encoder–decoder로 보낸다. 전체 학습 데이터가256개라는 뜻은 아니다. 세부 학습 설정은 S059에도 보존한다.
 
 ### 상세 공부 기록
 

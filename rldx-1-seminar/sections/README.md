@@ -9,7 +9,7 @@
 | 파일 | 섹션 | 본문 장 | 상세 단위 |
 | --- | --- | ---: | ---: |
 | [01-problems.md](01-problems.md) | Problems | 1 | 3 |
-| [02-rldx-1-architecture.md](02-rldx-1-architecture.md) | RLDX-1 Architecture | 9 | 39 |
+| [02-rldx-1-architecture.md](02-rldx-1-architecture.md) | RLDX-1 Architecture | 8 | 39 |
 | [03-training-data.md](03-training-data.md) | Training Data | 7 | 15 |
 | [04-training-procedure.md](04-training-procedure.md) | Training Procedure | 9 | 15 |
 | [05-inference-strategy.md](05-inference-strategy.md) | Inference Strategy | 4 | 10 |
@@ -18,9 +18,9 @@
 | [08-conclusion.md](08-conclusion.md) | Conclusion | 1 | 2 |
 | [09-my-opinions-and-limitation.md](09-my-opinions-and-limitation.md) | My opinions and limitation | 2 | 4 |
 
-표지 S001을 제외한 본문71장과 상세 공부 기록121개를 포함한다(v23). source_ids 기준으로 S002–S122가 각각 정확히 한 번 연결된다. 장 ID는 위치가 바뀌어도 유지한다.
+표지 S001을 제외한 본문70장과 상세 공부 기록121개를 포함한다(v24). source_ids 기준으로 S002–S122가 각각 정확히 한 번 연결된다. 장 ID는 위치가 바뀌어도 유지한다.
 
-퇴역한 P003·P004·P005·P007·P011·P012·P021·P045·P046·P048·P049·P050·P052·P053·P054·P055·P056·P057·P058·P059·P073·P074의 ID를 다른 의미로 재사용하지 않는다.
+퇴역한 P036·P003·P004·P005·P007·P011·P012·P021·P045·P046·P048·P049·P050·P052·P053·P054·P055·P056·P057·P058·P059·P073·P074의 ID를 다른 의미로 재사용하지 않는다.
 
 P015의 발표 메모에 IDM·영상 품질·움직임 일치 검사를 통합한다. S051/S052/S053도 P015에 연결하며 기존 내용을 보존한다. P047의 실제 시연/정답 행동을 이용한 판정기 학습 설명은 별도 본문이다.
 
@@ -74,3 +74,5 @@ $$
 문장 안에서는 `$\tau$`, `$\mathbf{a}_{t:t+H}$`처럼 쓴다. KaTeX가 빌드할 때 분수·첨자·벡터·노름으로 렌더링하며, 코드 블록은 수식으로 변환하지 않는다. LaTeX 오류는 생성 단계에서 알려 준다. 한국어 조사와 붙은 수식을 굵게 강조할 때 Markdown 구분자가 그대로 나오면 `<strong>$...$</strong>`를 사용한다.
 
 제목·본문·해설은 Arial을 우선한다. Arial에 없는 한글은 Apple SD Gothic Neo → Malgun Gothic → 내장 Nanum Gothic 순서로 표시한다. Arial·Apple·Microsoft 글꼴은 OS 설치본을 사용하므로 환경에 따라 한글 모양은 달라질 수 있다. 수학 기호는 KaTeX를 유지한다. 내장 나눔고딕 3종과 KaTeX는 단일 HTML에 포함되며 외부 CDN은 필요 없다. 원본·라이선스는 public/fonts/nanum-gothic/, public/fonts/katex/에 있고 font_assets.py는 원본 Nanum TTF를 수정하지 않는다.
+
+P036 입출력 경로 본문은 제외하고4쪽 P032의 MSAT 마지막 대본에 통합했다. S036/S058은 P032에 보존하며 P036·P011 기존 링크는 MSAT 확대로 연결한다.

@@ -1,6 +1,6 @@
 # 전체 목차
 
-상태: **페이지 수 제한 없음 / 9개 섹션 MD 편집 원본 / v23 입출력 경로의 Architecture 재배치·72장 구성 / 결과물 미승인**
+상태: **페이지 수 제한 없음 / 9개 섹션 MD 편집 원본 / v24 입출력 경로를4쪽 대본으로 통합·71장 구성 / 결과물 미승인**
 업데이트: 2026-11-06
 
 관련 설명을 자연스럽게 연결하되 화살표·단계 설명을 위해 필요한 화면 수를 제한하지 않는다. 본문과 상세 공부 기록은 아홉 `sections/*.md`에서 편집한다. 전체 제작·수정 허가는 개별 장의 결과물 승인과 구분한다.
@@ -13,7 +13,7 @@ v20에서는 직전80장 버전의6–8쪽(P056–P058)을4쪽 Memory 확대 대
 
 ## 현재 발표 흐름
 
-로봇별 입출력 경로(P036)는 기존20쪽 Training Procedure에서 새7쪽 Architecture로 옮겼다. MSAT 입력(6쪽) → 로봇별 입출력 경로(7쪽) → Joint Attention(8쪽) 순서다. 공통 경로의 batch당256개 trajectory 학습 설정은 P036·P016의 설명(N)에 둔다.
+로봇별 입출력 경로(P036) 본문을 제외하고4쪽 P032의 MSAT 마지막 설명 뒤 발표 대본에 통합했다. 로봇별 전용 projection·새 로봇을 위한 공통 경로·학습 설정을 대본에서 말하며 S036/S058 공부 기록과 기존 링크는 보존한다.
 
 IDM(P074)·영상 품질(P045)·움직임 일치(P046)는 합성 데이터 검증(P015)의 대본으로 통합했다. P015의 rollout 비교 그림을 보며 설명하고, 다음 P047에서 판정기의 학습 쌍을 설명한다.
 
@@ -24,7 +24,7 @@ Fig.1을 사용하는 표지 뒤에 아래 섹션을 따른다. 섹션명은 영
 | 편집 원본 | 섹션 | 현재 MD에 배치된 ID |
 | --- | --- | --- |
 | [01-problems.md](sections/01-problems.md) | Problems | P002 |
-| [02-rldx-1-architecture.md](sections/02-rldx-1-architecture.md) | RLDX-1 Architecture | P031, P032, P051, P009, P036, P010, P006, P008, P071 |
+| [02-rldx-1-architecture.md](sections/02-rldx-1-architecture.md) | RLDX-1 Architecture | P031, P032, P051, P009, P010, P006, P008, P071 |
 | [03-training-data.md](sections/03-training-data.md) | Training Data | P013, P033, P034, P072, P014, P015, P047 |
 | [04-training-procedure.md](sections/04-training-procedure.md) | Training Procedure | P035, P016, P017, P018, P019, P037, P075–P077 |
 | [05-inference-strategy.md](sections/05-inference-strategy.md) | Inference Strategy | P020, P038, P039, P078 |

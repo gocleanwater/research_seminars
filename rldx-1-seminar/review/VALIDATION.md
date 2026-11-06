@@ -1,5 +1,12 @@
 # v09 페이지 번호 입력 검증 — 2026-11-06
 
+## 2026-11-06 / v24 / 입출력 경로 페이지 제외·MSAT 마지막 대본
+
+- P036 본문을 제외하고4쪽 P032 발표 메모 끝에 MSAT 마무리 대본을 추가했다. 로봇별 입출력 projection·P stream과의 차이·공통 경로와 학습 보충을 설명한다. S036/S058을 P032로 이동했으며 변경 전3435379와 상세121개 내용은 바깥 공백 외 동일하다. 전체71장이다.
+- `build_deck.py`, `verify_sources.py`, `verify_deck.mjs`, `verify_navigation.mjs` 통과.71장 화면 넘침·이미지 실패·브라우저 오류·외부 요청0. P036 DOM 부재, P036/P011 링크의 P032 MSAT 연결,4쪽 N 대본 문구, 새7쪽 P010 번호 입력을 확인했다.
+- 실제 대본 PNG `review/previews/deck-v24/P032-msat-script.png`를 직접 확인했다. 원문 Fig.3 및27상태/18화살표는 유지한다.
+- 기본/base `pnpm build`, `package_pages.py`, `verify_pages.mjs` 통과. HTML3종 동일성·git diff --check 확인 후 자동 commit/push한다. 실제 Pages 반영과 사용자 결과물 승인은 별도 확인 전이다. 보존 태그: `rldx-v23-before-projection-script-20261106`.
+
 ## 2026-11-06 / v23 / 입출력 경로를 Architecture로 이동
 
 - 기존20쪽 P036을 새7쪽으로 이동했다. 새 순서는 P009 입력(6) → P036 입출력 연결(7) → P010 Joint Attention(8)이며, 학습 절차는 P016 → P017로 연결한다. P036의 batch당256 trajectories 문장은 설명(N)에만 남기고 P016 설명에도 연결했다.
