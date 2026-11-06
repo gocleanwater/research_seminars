@@ -1,5 +1,12 @@
 # v09 페이지 번호 입력 검증 — 2026-11-06
 
+## 2026-11-06 / v25 / Critic 방식 비교를 본문에 표시
+
+- 원문 PDF pp.14–15·43과 S067–S070을 확인했다. P019에 기존 VLM critic의 새 value head와 숫자 텍스트 출력 방식의 대비를 추가했고 P037에 Fig.8의 파랑 distributional/초록 text prediction 방식을 명시했다. 일반 critic 전체를 단일 구조로 설명하지 않는다. 새 head 적응 부담과 기존 지식 재사용 동기·저자의 해석 범위는 대본에 남겼다.
+- 전체71장·121개 상세 공부 기록은 기존5bb3cf4와 내용이 동일하다(바깥 공백 제외). Fig.3의27상태/18화살표·페이지 순서·탐색 기능은 유지했다. 변경 전 태그는 `rldx-v24-before-critic-comparison-20261106`이다.
+- `build_deck.py`, `verify_sources.py`, `verify_deck.mjs` 통과. 초기 두 장의 본문 넘침은 중복 문장을 줄여 해결했고 글꼴 크기는 줄이지 않았다. 최종71장 넘침·이미지 실패·브라우저 오류·외부 요청0. P019/P037 실제 PNG를 직접 확인했다.
+- 기본/base `pnpm build`, `package_pages.py`, `verify_pages.mjs` 통과. HTML3종 동일성·git diff --check 확인 후 자동 commit/push한다. 실제 Pages 반영과 개별 결과물 승인은 별도 확인 전이다.
+
 ## 2026-11-06 / v24 / 입출력 경로 페이지 제외·MSAT 마지막 대본
 
 - P036 본문을 제외하고4쪽 P032 발표 메모 끝에 MSAT 마무리 대본을 추가했다. 로봇별 입출력 projection·P stream과의 차이·공통 경로와 학습 보충을 설명한다. S036/S058을 P032로 이동했으며 변경 전3435379와 상세121개 내용은 바깥 공백 외 동일하다. 전체71장이다.

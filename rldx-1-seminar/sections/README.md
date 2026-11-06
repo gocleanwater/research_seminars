@@ -18,7 +18,7 @@
 | [08-conclusion.md](08-conclusion.md) | Conclusion | 1 | 2 |
 | [09-my-opinions-and-limitation.md](09-my-opinions-and-limitation.md) | My opinions and limitation | 2 | 4 |
 
-표지 S001을 제외한 본문70장과 상세 공부 기록121개를 포함한다(v24). source_ids 기준으로 S002–S122가 각각 정확히 한 번 연결된다. 장 ID는 위치가 바뀌어도 유지한다.
+표지 S001을 제외한 본문70장과 상세 공부 기록121개를 포함한다(v25). source_ids 기준으로 S002–S122가 각각 정확히 한 번 연결된다. 장 ID는 위치가 바뀌어도 유지한다.
 
 퇴역한 P036·P003·P004·P005·P007·P011·P012·P021·P045·P046·P048·P049·P050·P052·P053·P054·P055·P056·P057·P058·P059·P073·P074의 ID를 다른 의미로 재사용하지 않는다.
 

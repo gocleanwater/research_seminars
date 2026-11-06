@@ -16,7 +16,7 @@ fonts:
 layout: none
 ---
 
-<!-- slide-id: S001 | revision: v24 | status: draft -->
+<!-- slide-id: S001 | revision: v25 | status: draft -->
 
 <div class="cover-slide cover-figure1">
   <div class="cover-image-field" aria-hidden="true"></div>
@@ -41,7 +41,7 @@ layout: none
 layout: none
 ---
 
-<!-- slide-id: P002 | revision: v24 | status: draft -->
+<!-- slide-id: P002 | revision: v25 | status: draft -->
 
 <section class="seminar-slide" data-slide-id="P002"><header class="seminar-header"><div class="chapter-label">Problems</div><h1>기존 VLA의 문제</h1><p class="slide-lead">폭넓은 장면 이해만으로는 움직임·과거 사건·접촉 상태를 충분히 다루기 어렵다.</p></header><div class="seminar-body full"><div class="body-main"><div class="three-scenes">
 <div>
@@ -138,7 +138,7 @@ Occlusion은 손이나 물체에 의해 중요한 부분이 가려지는 상황�
 layout: none
 ---
 
-<!-- slide-id: P031 | revision: v24 | status: draft -->
+<!-- slide-id: P031 | revision: v25 | status: draft -->
 
 <section class="seminar-slide" data-slide-id="P031"><header class="seminar-header"><div class="chapter-label">RLDX-1 Architecture</div><h1>RLDX-1 Overview</h1><p class="slide-lead">관측과 지시를 표현으로 바꾸고, 로봇 상태·센서와 함께 미래 action chunk를 만든다.</p></header><div class="seminar-body figure"><figure class="paper-figure"><img src="/figures/fig-02.png" alt="Figure 2 · RLDX-1 전체 흐름" loading="eager"><figcaption>Figure 2 · RLDX-1 전체 흐름</figcaption></figure><div class="body-main"><h3>관측 → 표현 → 행동</h3>
 <p><strong>영상·지시:</strong> VLM에서 현재 cognition features를 추출한다.</p>
@@ -226,7 +226,7 @@ Sec.1.1, Fig.2 · PDF p.5
 layout: none
 ---
 
-<!-- slide-id: P032 | revision: v24 | status: draft -->
+<!-- slide-id: P032 | revision: v25 | status: draft -->
 
 <section class="seminar-slide" data-slide-id="P032"><header class="seminar-header"><div class="chapter-label">RLDX-1 Architecture</div><h1>RLDX-1 Architecture</h1><p class="slide-lead">전체 그림에서 Vision Encoder·VLM·Memory Module·MSAT를 차례로 살펴본다.</p></header><div class="seminar-body explorer"><div class="architecture-explorer" data-scene="overview" data-step="0" data-state="0">
   <div class="arch-viewport" aria-label="Figure 3 확대 영역">
@@ -784,7 +784,7 @@ Sec.2.2 MSAT · PDF p.8; Sec.4.1 Generalization to New Embodiments · PDF p.12
 layout: none
 ---
 
-<!-- slide-id: P051 | revision: v24 | status: draft -->
+<!-- slide-id: P051 | revision: v25 | status: draft -->
 
 <section class="seminar-slide" data-slide-id="P051"><header class="seminar-header"><div class="chapter-label">RLDX-1 Architecture</div><h1>VLM과 로봇 VQA</h1><p class="slide-lead">범용 VLM의 조작 grounding 부족을 세 범주의 로봇 VQA 학습으로 보완한다.</p></header><div class="seminar-body split"><div class="body-main"><h3>왜 로봇 VQA가 필요한가?</h3>
 <p>범용 VLM은 시각 추론에 강해도,<br>조작에 필요한 <strong>embodied grounding</strong>이 부족할 수 있다.</p>
@@ -866,7 +866,7 @@ Sec.2.1 · PDF pp.6–7
 layout: none
 ---
 
-<!-- slide-id: P009 | revision: v24 | status: draft -->
+<!-- slide-id: P009 | revision: v25 | status: draft -->
 
 <section class="seminar-slide" data-slide-id="P009"><header class="seminar-header"><div class="chapter-label">RLDX-1 Architecture</div><h1>MSAT의 입력</h1><p class="slide-lead">C·A·P의 입력 묶음을 구성하고, denoising timestep과 행동의 시간 순서를 알려준다.</p></header><div class="seminar-body split"><div class="body-main"><h3>전체 입력 토큰 구성</h3>
 <div class="sequence">
@@ -1011,7 +1011,7 @@ Sec.2.2 Further Design Choices · PDF p.9; 배경: RoFormer Sec.3.2 (arXiv:2104.
 layout: none
 ---
 
-<!-- slide-id: P010 | revision: v24 | status: draft -->
+<!-- slide-id: P010 | revision: v25 | status: draft -->
 
 <section class="seminar-slide" data-slide-id="P010"><header class="seminar-header"><div class="chapter-label">RLDX-1 Architecture</div><h1>MSAT의 Joint Attention</h1><p class="slide-lead">각 stream의 파라미터로 입력을 변환하고, 공통 attention 뒤에는 원래 stream별로 갱신한다.</p></header><div class="seminar-body split"><div class="body-main"><h3>정규화 · projection · 정보 교환</h3>
 <div class="sequence">
@@ -1118,7 +1118,7 @@ Sec.2.2 Further Design Choices · PDF p.9; 배경: arXiv:1910.07467, arXiv:2002.
 layout: none
 ---
 
-<!-- slide-id: P006 | revision: v24 | status: draft -->
+<!-- slide-id: P006 | revision: v25 | status: draft -->
 
 <section class="seminar-slide" data-slide-id="P006"><header class="seminar-header"><div class="chapter-label">RLDX-1 Architecture</div><h1>Action Model의 학습 원리</h1><p class="slide-lead">노이즈 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="bold-italic">ϵ</mi></mrow><annotation encoding="application/x-tex">\boldsymbol\epsilon</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.4444em;"></span><span class="mord"><span class="mord"><span class="mord boldsymbol">ϵ</span></span></span></span></span></span>에서 정답 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="bold">a</mi></mrow><annotation encoding="application/x-tex">\mathbf a</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.4444em;"></span><span class="mord mathbf">a</span></span></span></span>로 잇는 직선 경로를 미분한 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi mathvariant="bold">v</mi><mo>∗</mo></msup><mo>=</mo><mi mathvariant="bold">a</mi><mo>−</mo><mi mathvariant="bold-italic">ϵ</mi></mrow><annotation encoding="application/x-tex">\mathbf v^*=\mathbf a-\boldsymbol\epsilon</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.6887em;"></span><span class="mord"><span class="mord mathbf" style="margin-right:0.016em;">v</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6887em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mbin mtight">∗</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:0.6667em;vertical-align:-0.0833em;"></span><span class="mord mathbf">a</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:0.4444em;"></span><span class="mord"><span class="mord"><span class="mord boldsymbol">ϵ</span></span></span></span></span></span>을 정답 변화율로 삼는다.</p></header><div class="seminar-body split"><div class="body-main"><h3>Noisy action chunk</h3>
 <div class="equation"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msup><mi mathvariant="bold">a</mi><mi>τ</mi></msup><mo>=</mo><mi>τ</mi><mi mathvariant="bold">a</mi><mo>+</mo><mo stretchy="false">(</mo><mn>1</mn><mo>−</mo><mi>τ</mi><mo stretchy="false">)</mo><mi mathvariant="bold-italic">ϵ</mi></mrow><annotation encoding="application/x-tex">\mathbf{a}^{\tau}=\tau\mathbf{a}+(1-\tau)\boldsymbol{\epsilon}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.7144em;"></span><span class="mord"><span class="mord mathbf">a</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7144em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.1132em;">τ</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:0.6667em;vertical-align:-0.0833em;"></span><span class="mord mathnormal" style="margin-right:0.1132em;">τ</span><span class="mord mathbf">a</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.1132em;">τ</span><span class="mclose">)</span><span class="mord"><span class="mord"><span class="mord boldsymbol">ϵ</span></span></span></span></span></span></span></div>
@@ -1389,7 +1389,7 @@ Sec.2.2 Eq.(1) 앞의 training 설명 · PDF p.8
 layout: none
 ---
 
-<!-- slide-id: P008 | revision: v24 | status: draft -->
+<!-- slide-id: P008 | revision: v25 | status: draft -->
 
 <section class="seminar-slide" data-slide-id="P008"><header class="seminar-header"><div class="chapter-label">RLDX-1 Architecture</div><h1>Action Model의 추론 수식</h1><p class="slide-lead">현재 조건을 고정해 참조하면서 미래 행동·센서 후보를 반복 갱신한다.</p></header><div class="seminar-body split"><div class="body-main"><h3>변화율 × 간격 = 이동량</h3>
 <div class="equation"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mtable rowspacing="0.25em" columnalign="right left" columnspacing="0em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mi mathvariant="normal">Δ</mi><msub><mi>τ</mi><mi>i</mi></msub></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><msub><mi>τ</mi><mrow><mi>i</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>−</mo><msub><mi>τ</mi><mi>i</mi></msub></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><msup><mi mathvariant="bold">a</mi><msub><mi>τ</mi><mrow><mi>i</mi><mo>+</mo><mn>1</mn></mrow></msub></msup></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><msup><mi mathvariant="bold">a</mi><msub><mi>τ</mi><mi>i</mi></msub></msup><mo>+</mo><mi mathvariant="normal">Δ</mi><msub><mi>τ</mi><mi>i</mi></msub><msub><mi mathvariant="bold">u</mi><mi>θ</mi></msub><mo stretchy="false">(</mo><msup><mi mathvariant="bold">a</mi><msub><mi>τ</mi><mi>i</mi></msub></msup><mo separator="true">,</mo><msub><mi>τ</mi><mi>i</mi></msub><mo separator="true">,</mo><msub><mi mathvariant="bold">c</mi><mi>t</mi></msub><mo stretchy="false">)</mo></mrow></mstyle></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
@@ -1500,7 +1500,7 @@ Sec.2.2 Functionality3: Physical Sensing · PDF p.8; Sec.4.2 · PDF p.13
 layout: none
 ---
 
-<!-- slide-id: P071 | revision: v24 | status: draft -->
+<!-- slide-id: P071 | revision: v25 | status: draft -->
 
 <section class="seminar-slide" data-slide-id="P071"><header class="seminar-header"><div class="chapter-label">RLDX-1 Architecture</div><h1>Action Chunk의 실행</h1><p class="slide-lead">Action chunk를 생성하는 길이와 실제 실행하는 길이는 다르다. 부록의 RECAP 설정은 40개 생성·20개 실행이다.</p></header><div class="seminar-body split"><div class="body-main"><h3>행동 생성 바깥의 실행 반복</h3>
 <div class="sequence">
@@ -1564,7 +1564,7 @@ RTC의 구체적인 overlap/inpainting 알고리즘은 이 보고서 내 설명 
 layout: none
 ---
 
-<!-- slide-id: P013 | revision: v24 | status: draft -->
+<!-- slide-id: P013 | revision: v25 | status: draft -->
 
 <section class="seminar-slide" data-slide-id="P013"><header class="seminar-header"><div class="chapter-label">Training Data</div><h1>학습 데이터</h1><p class="slide-lead">실제 데이터는 공개·자체 수집으로 나뉘며, 합성 데이터는 직접 모으기 어려운 경험을 보완한다.</p></header><div class="seminar-body figure balanced"><figure class="paper-figure"><img src="/figures/fig-04.png" alt="Figure 4 · 생성 영상에 행동을 붙이고 두 단계로 검사하는 파이프라인" loading="eager"><figcaption>Figure 4 · 생성 영상에 행동을 붙이고 두 단계로 검사하는 파이프라인</figcaption></figure><div class="body-main"><h3>공개 실제 데이터</h3>
 <p><strong>“다른 로봇들이 이미 해본 경험”</strong><br>
@@ -1617,7 +1617,7 @@ Fig.4; Sec.3.3 · PDF pp.10–12
 layout: none
 ---
 
-<!-- slide-id: P033 | revision: v24 | status: draft -->
+<!-- slide-id: P033 | revision: v25 | status: draft -->
 
 <section class="seminar-slide" data-slide-id="P033"><header class="seminar-header"><div class="chapter-label">Training Data</div><h1>공개 실제 데이터</h1><p class="slide-lead">이미 수집된 여러 로봇의 실제 시연에서, 다양한 몸체와 작업에 걸친 조작의 기본기를 배운다.</p></header><div class="seminar-body split"><div class="body-main"><h3>어떤 데이터인가?</h3>
 <table>
@@ -1671,7 +1671,7 @@ layout: none
 layout: none
 ---
 
-<!-- slide-id: P034 | revision: v24 | status: draft -->
+<!-- slide-id: P034 | revision: v25 | status: draft -->
 
 <section class="seminar-slide" data-slide-id="P034"><header class="seminar-header"><div class="chapter-label">Training Data</div><h1>자체 실제 데이터</h1><p class="slide-lead">목표 로봇 특화와 물리 센싱 등 새 기능 학습을 위해, 자체 시연 데이터를 수집한다.</p></header><div class="seminar-body figure balanced"><figure class="paper-figure"><img src="/figures/fig-12-inhouse.png" alt="Figure 12 · (b) ALLEX · (c) Franka의 카메라·물리 센서 구성" loading="eager"><figcaption>Figure 12 · (b) ALLEX · (c) Franka의 카메라·물리 센서 구성</figcaption></figure><div class="body-main"><h3>Franka — 그리퍼·접촉 정보</h3>
 <p>영상·행동과 <strong>AnySkin 촉각·관절 토크</strong>를 함께 기록한다.</p>
@@ -1712,7 +1712,7 @@ Sec.3.2 · PDF pp.9–10; Fig.12 · PDF p.19
 layout: none
 ---
 
-<!-- slide-id: P072 | revision: v24 | status: draft -->
+<!-- slide-id: P072 | revision: v25 | status: draft -->
 
 <section class="seminar-slide" data-slide-id="P072"><header class="seminar-header"><div class="chapter-label">Training Data</div><h1>로봇 영상 생성 모델</h1><p class="slide-lead">시연 영상으로 합성 데이터를 만들기 위한 로봇 영상 생성 모델을 훈련한다.</p></header><div class="seminar-body full"><div class="body-main"><div class="flow">
 <div class="node"><h3>실제 로봇 시연</h3><p>로봇의 시점과<br>조작 동작이 담긴 영상</p></div>
@@ -1771,7 +1771,7 @@ GR-1 re-caption은 Qwen3-VL8B Instruct, ALLEX는8B 또는30B-A3B Instruct를 사
 layout: none
 ---
 
-<!-- slide-id: P014 | revision: v24 | status: draft -->
+<!-- slide-id: P014 | revision: v25 | status: draft -->
 
 <section class="seminar-slide" data-slide-id="P014"><header class="seminar-header"><div class="chapter-label">Training Data</div><h1>Task·Scene Augmentation</h1><p class="slide-lead">Task는 지시를, Scene은 시작 이미지와 영상의 외관을 바꿔 합성 데이터를 다양화한다.</p></header><div class="seminar-body figure"><figure class="paper-figure"><img src="/figures/fig-05.png" alt="Figure 5 · (a) 원본 (b) 지시 변형 (c) I2I 편집 후 I2V 생성" loading="eager"><figcaption>Figure 5 · (a) 원본 (b) 지시 변형 (c) I2I 편집 후 I2V 생성</figcaption></figure><div class="body-main"><p><strong>Task:</strong> 행동·물체·위치·손을 재조합하거나 원본 skill을 조건으로 변형한다. 두 전략의 결과는 겹칠 수 있다.</p>
 <p><strong>Scene:</strong> 시작 이미지를 I2I로 편집 → I2V로 영상 생성. V2V는 생성된 영상의 색·질감을 바꾸며 동작을 유지하려 한다.</p>
@@ -1943,7 +1943,7 @@ Fig.5; Sec.3.3 · PDF p.11
 layout: none
 ---
 
-<!-- slide-id: P015 | revision: v24 | status: draft -->
+<!-- slide-id: P015 | revision: v25 | status: draft -->
 
 <section class="seminar-slide" data-slide-id="P015"><header class="seminar-header"><div class="chapter-label">Training Data</div><h1>합성 데이터 검증</h1><p class="slide-lead">합성 영상의 품질을 확인하고, 추정 행동의 rollout 영상과 움직임을 비교한다.</p></header><div class="seminar-body full"><div class="body-main"><div class="rollout-diagram" role="img" aria-label="A 합성 영상에서 IDM이 행동을 추정한다. Simulator에서 그 행동을 실행해 B rollout 영상을 만든다. A와 B의 영상 특징을 비교해 학습 쌍을 선별한다.">
 <svg class="rollout-connectors" viewBox="0 0 1152 420" aria-hidden="true">
@@ -2089,7 +2089,7 @@ logit→probability는 이진 분류 설명을 위한 연결이다. 원문은 al
 layout: none
 ---
 
-<!-- slide-id: P047 | revision: v24 | status: draft -->
+<!-- slide-id: P047 | revision: v25 | status: draft -->
 
 <section class="seminar-slide" data-slide-id="P047"><header class="seminar-header"><div class="chapter-label">Training Data</div><h1>일치 검사기의 학습</h1><p class="slide-lead">판정기는 실제 시연과 그 정답 행동을 재생한 영상을 기준으로, 움직임이 맞거나 어긋나는 쌍을 배운다.</p></header><div class="seminar-body split"><div class="body-main"><h3>일치하는 쌍 — Positive</h3>
 <div class="sequence">
@@ -2133,7 +2133,7 @@ Sec.3.3 · Motion-Consistency Filtering · PDF p.12
 layout: none
 ---
 
-<!-- slide-id: P035 | revision: v24 | status: draft -->
+<!-- slide-id: P035 | revision: v25 | status: draft -->
 
 <section class="seminar-slide" data-slide-id="P035"><header class="seminar-header"><div class="chapter-label">Training Procedure</div><h1>학습 단계</h1><p class="slide-lead">조작의 기본기 → 목표 로봇·기능 적응 → 실제 작업 적응의 순서로 학습 목적을 구체화한다.</p></header><div class="seminar-body full"><div class="body-main"><div class="flow">
 <div class="node"><h3>Pre-training</h3><strong>“여러 로봇으로 기본기”</strong><p>다양한 몸체·장면·작업에서 범용 조작 정책을 배운다.</p></div>
@@ -2170,7 +2170,7 @@ Sec.4.1–4.3 · PDF pp.12–15
 layout: none
 ---
 
-<!-- slide-id: P016 | revision: v24 | status: draft -->
+<!-- slide-id: P016 | revision: v25 | status: draft -->
 
 <section class="seminar-slide" data-slide-id="P016"><header class="seminar-header"><div class="chapter-label">Training Procedure</div><h1>Pre-training</h1><p class="slide-lead">다양한 로봇의 조작 경험에서, 새 로봇·작업 적응의 출발점이 될 범용 정책을 학습한다.</p></header><div class="seminar-body split"><div class="body-main"><h3>Figure 6 읽기</h3>
 <figure class="optimization-figure"><img src="/figures/fig-06.png" alt="Figure 6: Pre-training sampling 비중과 데이터별 episode pool"></figure>
@@ -2230,7 +2230,7 @@ Sec.4.1 · Implementation Details · PDF p.13
 layout: none
 ---
 
-<!-- slide-id: P017 | revision: v24 | status: draft -->
+<!-- slide-id: P017 | revision: v25 | status: draft -->
 
 <section class="seminar-slide" data-slide-id="P017"><header class="seminar-header"><div class="chapter-label">Training Procedure</div><h1>Mid-training</h1><p class="slide-lead">범용 정책을 ALLEX·Franka의 전문가로 적응시키고, 움직임·장기 기억·물리 센싱 기능을 통합한다.</p></header><div class="seminar-body figure balanced"><figure class="paper-figure"><img src="/figures/fig-07.png" alt="Figure 7 · 목표 로봇별 혼합: ALLEX 실제·합성, Franka DROID·자체" loading="eager"><figcaption>Figure 7 · 목표 로봇별 혼합: ALLEX 실제·합성, Franka DROID·자체</figcaption></figure><div class="body-main"><h3>왜 추가 학습이 필요한가?</h3>
 <p>범용 정책을 <strong>목표 로봇·센서에 맞춘다.</strong></p>
@@ -2346,7 +2346,7 @@ Near-zero가 정확한0이나 특정분산(예$10^{-5}$)이라는 숫자를 만�
 layout: none
 ---
 
-<!-- slide-id: P018 | revision: v24 | status: draft -->
+<!-- slide-id: P018 | revision: v25 | status: draft -->
 
 <section class="seminar-slide" data-slide-id="P018"><header class="seminar-header"><div class="chapter-label">Training Procedure</div><h1>Post-training</h1><p class="slide-lead">실제 목표 작업에는 시연 기반 IL을 먼저 적용하고, 어려운 정밀 조작에는 RL로 추가 개선한다.</p></header><div class="seminar-body split"><div class="body-main"><h3>기본: 작업별 IL</h3>
 <p><strong>“이 작업에서 어떻게 움직이는지”</strong>를 시연으로 가르친다. 논문의 대부분 실험이 이 방식이다.</p>
@@ -2419,15 +2419,17 @@ Sec.4.3 · Adaptive Data Collection · PDF p.14
 layout: none
 ---
 
-<!-- slide-id: P019 | revision: v24 | status: draft -->
+<!-- slide-id: P019 | revision: v25 | status: draft -->
 
 <section class="seminar-slide" data-slide-id="P019"><header class="seminar-header"><div class="chapter-label">Training Procedure</div><h1>RECAP</h1><p class="slide-lead">행동을 만드는 policy와 진행을 평가하는 critic을 분리하고, 새 실행 경험으로 반복 개선한다.</p></header><div class="seminar-body split"><div class="body-main"><h3>두 모델의 역할</h3>
 <p><strong>Policy — RLDX-1</strong><br>
-관측·지시를 보고 다음 행동을 생성한다.</p>
+관측·지시에서 행동을 생성한다.</p>
 <p><strong>Critic — 별도 Gemma3-4b-it</strong><br>
 “현재 작업이 얼마나 진행됐는가?”를 <strong>숫자 텍스트 value</strong>로 예측한다.</p>
-<p>이 평가에서 <strong>advantage labels</strong>를 만들어 policy 학습에 사용한다.</p>
-<p class="mini">Advantage는 행동이 기대보다 얼마나 유리했는지에 대한 직관이다. 보고서의 정확한 label 식은 미기재다.</p></div><div class="body-aside"><h3>먼저 학습하고, 경험을 추가한다</h3>
+<h3>이 critic은 무엇이 다른가?</h3>
+<p><strong>기존 VLM critic:</strong> 새 value 예측 head를 붙여 학습한다.<br>
+<strong>이 보고서:</strong> 기존 텍스트 출력으로 숫자 value를 예측한다.</p>
+<p class="mini">평가값 → advantage labels → policy 학습.</p></div><div class="body-aside"><h3>먼저 학습하고, 경험을 추가한다</h3>
 <div class="sequence">
 <div class="step"><strong>시연으로 critic 학습</strong><br>value → advantage labels → policy 학습</div>
 <div class="step"><strong>현재 policy로 실제 rollout 수집</strong><br>새 경험을 기존 데이터에 합친다.</div>
@@ -2436,7 +2438,7 @@ layout: none
 </div></div></div><div class="takeaway">Critic이 행동을 직접 내리는 것이 아니라, critic이 만든 학습 신호로 policy를 개선한다.</div><footer class="seminar-footer"><span class="source">Sec.4.3 · PDF pp.14–15; App.C Algorithm 1 · PDF p.43</span><span class="slide-id">P019 · 022/71</span></footer></section>
 
 <!--
-Algorithm1 초기: Train V on D_l, A←V(D_l), Train π with A. 반복: D_l∪rollout, 누적 중 성공 subset으로 critic 갱신, 전체 advantage 재부여, policy 갱신. Critic은 RLDX-1의 Qwen VLM을 공유하는 모델이 아니며 Gemma3-4b-it 별도 backbone을 사용한다. AppendixC critic은 성공시연만으로1epoch, LoRA r128을 사용한다. Policy40개 생성·앞20개 실행·재호출 설정은 S071에 보존한다. 일반 RL의 Q−V 등을 이 보고서의 실제 label 구현 식으로 추가하지 않는다. 다음 Fig8은 critic의 value가 실제 진행·실패·회복을 읽는지 보는 예시다.
+Algorithm1 초기: Train V on D_l, A←V(D_l), Train π with A. 반복: D_l∪rollout, 누적 중 성공 subset으로 critic 갱신, 전체 advantage 재부여, policy 갱신. Critic은 RLDX-1의 Qwen VLM을 공유하는 모델이 아니며 Gemma3-4b-it 별도 backbone을 사용한다. AppendixC critic은 성공시연만으로1epoch, LoRA r128을 사용한다. Policy40개 생성·앞20개 실행·재호출 설정은 S071에 보존한다. 일반 RL의 Q−V 등을 이 보고서의 실제 label 구현 식으로 추가하지 않는다. 일반 critic 전체가 반드시 새 head를 쓴다는 뜻은 아니다. 원문이 대비한 기존 VLM critic과 Fig.8의 distributional critic을 비교한다. 원문은 새로 초기화한 head의 적응에 큰 학습량이 필요하고 목표 도메인과의 분포 차이로 전이가 제한될 수 있다고 설명한다. 저자의 제안은 기존 VLM의 숫자 토큰을 autoregressive하게 예측하는 인터페이스를 재사용해 적은 데이터의 적응에 내부 지식을 활용하려는 것이다. 새 head를 붙이지 않는 것이 critic을 학습하지 않는다는 뜻은 아니다. Advantage는 행동이 기대보다 얼마나 유리했는지에 대한 배경 직관이며 정확한 label 식은 미기재다. 다음 Fig8은 두 critic의 value가 실제 진행·실패·회복을 읽는지 보는 예시다.
 
 S067 Policy와 critic은 별도 모델
 RLDX-1 policy는 행동을 만들고, 별도 Gemma critic은 현재 상황의 가치를 추정한다.
@@ -2510,16 +2512,18 @@ Algorithm 1의 $D_{\mathrm{succ}}$는 누적 $D_l$에서 $y=\mathrm{success}$인
 layout: none
 ---
 
-<!-- slide-id: P037 | revision: v24 | status: draft -->
+<!-- slide-id: P037 | revision: v25 | status: draft -->
 
-<section class="seminar-slide" data-slide-id="P037"><header class="seminar-header"><div class="chapter-label">Training Procedure</div><h1>Critic과 Figure 8</h1><p class="slide-lead">큐브 pick-and-place의 진행·실패·회복이 critic의 값 변화에 반영되는지 비교한다.</p></header><div class="seminar-body figure balanced"><figure class="paper-figure"><img src="/figures/fig-08.png" alt="Figure 8 · 초록: text prediction critic / 파랑: distributional critic" loading="eager"><figcaption>Figure 8 · 초록: text prediction critic / 파랑: distributional critic</figcaption></figure><div class="body-main"><h3>축과 색의 의미</h3>
-<p><strong>가로축:</strong> 로봇 timestep<br>
-<strong>세로축:</strong> 정규화한 value</p>
+<section class="seminar-slide" data-slide-id="P037"><header class="seminar-header"><div class="chapter-label">Training Procedure</div><h1>Critic과 Figure 8</h1><p class="slide-lead">새 value head를 쓰는 critic과 숫자 텍스트로 평가하는 critic의 진행 추정을 비교한다.</p></header><div class="seminar-body figure balanced"><figure class="paper-figure"><img src="/figures/fig-08.png" alt="Figure 8 · 초록: text prediction critic / 파랑: distributional critic" loading="eager"><figcaption>Figure 8 · 초록: text prediction critic / 파랑: distributional critic</figcaption></figure><div class="body-main"><h3>두 critic의 차이</h3>
+<p><strong>파랑 · Distributional critic</strong><br>
+새 head로 value 분포를 예측한다.</p>
+<p><strong>초록 · Text prediction critic</strong><br>
+기존 VLM의 텍스트 출력으로 숫자를 예측한다.</p>
 <h3>(a) 첫 시도에 성공</h3>
-<p>초록 곡선은 작업이 진행됨에 따라 비교적 꾸준히 증가한다.</p>
+<p>초록은 진행에 따라 비교적 꾸준히 증가한다.</p>
 <h3>(b) 실패 후 재시도에 성공</h3>
-<p>실패 때 내려가고, 재시도·회복 때 다시 올라가는 변화를 초록 곡선이 더 잘 반영한다.</p>
-<p class="mini">저자의 예시 해석이다. 숫자 텍스트로 출력한 값을 정규화한 그림이며 성공률 곡선이 아니다.</p></div></div><div class="takeaway">좋은 critic은 최종 성공뿐 아니라 중간의 진행·실패·회복도 평가해야 한다는 예시다.</div><footer class="seminar-footer"><span class="source">Fig.8 · PDF p.14; Sec.4.3 · PDF p.15; App.C · PDF p.43</span><span class="slide-id">P037 · 023/71</span></footer></section>
+<p>초록은 실패 때 하락하고 회복 때 상승한다.</p>
+<p class="mini">가로: timestep · 세로: 정규화 value(성공률 아님).</p></div></div><div class="takeaway">좋은 critic은 최종 성공뿐 아니라 중간의 진행·실패·회복도 평가해야 한다는 예시다.</div><footer class="seminar-footer"><span class="source">Fig.8 · PDF p.14; Sec.4.3 · PDF p.15; App.C · PDF p.43</span><span class="slide-id">P037 · 023/71</span></footer></section>
 
 <!--
 Text critic은 새 예측 head를 처음부터 맞추는 대신 기존 VLM의 숫자 토큰·텍스트 예측 인터페이스를 활용한다. 비교 대상 distributional critic은 값 분포를 예측하는 별도 head 방식이며 구체적인 bin 설계를 본문에 없는 값으로 추가하지 않는다. 그림의 두 trajectory 사례는 저자의 progress 추정 해석을 보여주며 정량적 critic 정확도·정책 성공률을 직접 측정한 결과는 아니다. x축은 물리적 작업 timestep이며 denoising τ가 아니다.
@@ -2543,7 +2547,7 @@ Fig.8 · PDF p.14; Sec.4.3 · PDF p.15; App.C · PDF p.43
 layout: none
 ---
 
-<!-- slide-id: P075 | revision: v24 | status: draft -->
+<!-- slide-id: P075 | revision: v25 | status: draft -->
 
 <section class="seminar-slide" data-slide-id="P075"><header class="seminar-header"><div class="chapter-label">Training Procedure</div><h1>PEFT와 LoRA</h1><p class="slide-lead">작업별 적응을 마친 뒤에는, 더 적은 학습 파라미터와 메모리로 적응할 수 있는지도 따져볼 수 있다.</p></header><div class="seminar-body split"><div class="body-main"><h3>PEFT — Parameter-Efficient Fine-Tuning</h3>
 <p>전체 가중치를 모두 업데이트하는 대신, 일부 파라미터만 학습해 적응 비용을 줄이는 접근이다.</p>
@@ -2567,7 +2571,7 @@ rank는 LoRA 보정의 크기를 정하는 설정이며 rank가 클수록 언제
 layout: none
 ---
 
-<!-- slide-id: P076 | revision: v24 | status: draft -->
+<!-- slide-id: P076 | revision: v25 | status: draft -->
 
 <section class="seminar-slide" data-slide-id="P076"><header class="seminar-header"><div class="chapter-label">Training Procedure</div><h1>PEFT의 성능 비교</h1><p class="slide-lead">Action Model만 LoRA로 바꾸면 같은 성공률을 얻었지만, VLM을 완전히 고정하면 성능이 크게 낮아진다.</p></header><div class="seminar-body split"><div class="body-main"><h3>Table 6 · rank 64 조건</h3>
 <table>
@@ -2628,7 +2632,7 @@ App.D · Table 6 · PDF p.44
 layout: none
 ---
 
-<!-- slide-id: P077 | revision: v24 | status: draft -->
+<!-- slide-id: P077 | revision: v25 | status: draft -->
 
 <section class="seminar-slide" data-slide-id="P077"><header class="seminar-header"><div class="chapter-label">Training Procedure</div><h1>PEFT의 학습 비용</h1><p class="slide-lead">학습 범위를 줄이면 VRAM도 줄지만, 어느 부분을 줄이는지에 따라 유지할 수 있는 성능이 달라진다.</p></header><div class="seminar-body full"><div class="body-main"><table>
 <thead>
@@ -2679,7 +2683,7 @@ Both-LoRA64의 397.8M은 모델 전체 파라미터의 5.72%다. Batch 32의 35.
 layout: none
 ---
 
-<!-- slide-id: P020 | revision: v24 | status: draft -->
+<!-- slide-id: P020 | revision: v25 | status: draft -->
 
 <section class="seminar-slide" data-slide-id="P020"><header class="seminar-header"><div class="chapter-label">Inference Strategy</div><h1>CUDA Graph</h1><p class="slide-lead">고정된 배포 설정의 RoPE·mask 준비값을 미리 계산해, 반복할 forward를 하나의 그래프로 캡처한다.</p></header><div class="seminar-body figure balanced"><figure class="paper-figure"><img src="/figures/fig-09.png" alt="Figure 9 · 위: 여러 graph launch / 아래: 한 CUDA Graph launch" loading="eager"><figcaption>Figure 9 · 위: 여러 graph launch / 아래: 한 CUDA Graph launch</figcaption></figure><div class="body-main"><h3>왜 설정값이 필요한가?</h3>
 <p>토큰 수·위치 배치·서로 볼 수 있는 범위에 따라 <strong>RoPE 위치값과 attention mask의 구조</strong>가 정해진다.</p>
@@ -2776,7 +2780,7 @@ Fig.9; Sec.5.1 · PDF pp.15–16
 layout: none
 ---
 
-<!-- slide-id: P038 | revision: v24 | status: draft -->
+<!-- slide-id: P038 | revision: v25 | status: draft -->
 
 <section class="seminar-slide" data-slide-id="P038"><header class="seminar-header"><div class="chapter-label">Inference Strategy</div><h1>Kernel Fusion</h1><p class="slide-lead">RMSNorm·RoPE·Attention을 하나의 fused GPU kernel 안에서 이어 계산해 중간 메모리 왕복을 줄인다.</p></header><div class="seminar-body figure balanced"><figure class="paper-figure"><img src="/figures/fig-10.png" alt="Figure 10 · (a) 중간 결과를 저장·재읽기 / (b) fused kernel 안에서 계산" loading="eager"><figcaption>Figure 10 · (a) 중간 결과를 저장·재읽기 / (b) fused kernel 안에서 계산</figcaption></figure><div class="body-main"><h3>(a) 따로 계산하면</h3>
 <p>RMSNorm 계산 → 결과를 <strong>global memory에 저장</strong> → 다음 kernel이 읽기 → RoPE 계산 → 다시 저장·읽기 → Attention.</p>
@@ -2898,7 +2902,7 @@ Table 7의 총 8개 kernel을 모두 반영했다. $h_{\mathrm{ds}}$가 더해�
 layout: none
 ---
 
-<!-- slide-id: P039 | revision: v24 | status: draft -->
+<!-- slide-id: P039 | revision: v25 | status: draft -->
 
 <section class="seminar-slide" data-slide-id="P039"><header class="seminar-header"><div class="chapter-label">Inference Strategy</div><h1>Kernel Fusion의 계산</h1><p class="slide-lead">N=RMSNorm, R=RoPE로 두면, 같은 계산을 중간 결과 저장 방식에 따라 다르게 실행할 수 있다.</p></header><div class="seminar-body split"><div class="body-main"><h3>별도 kernel로 단계마다 계산</h3>
 <div class="equation"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mtable rowspacing="0.25em" columnalign="right left" columnspacing="0em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><msub><mi mathvariant="bold">q</mi><mi>N</mi></msub></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mi>N</mi><mo stretchy="false">(</mo><mi mathvariant="bold">q</mi><mo stretchy="false">)</mo><mo separator="true">,</mo><mspace width="1em"/><msub><mi mathvariant="bold">k</mi><mi>N</mi></msub><mo>=</mo><mi>N</mi><mo stretchy="false">(</mo><mi mathvariant="bold">k</mi><mo stretchy="false">)</mo></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><msub><mi mathvariant="bold">q</mi><mi>R</mi></msub></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mi>R</mi><mo stretchy="false">(</mo><msub><mi mathvariant="bold">q</mi><mi>N</mi></msub><mo stretchy="false">)</mo><mo separator="true">,</mo><mspace width="1em"/><msub><mi mathvariant="bold">k</mi><mi>R</mi></msub><mo>=</mo><mi>R</mi><mo stretchy="false">(</mo><msub><mi mathvariant="bold">k</mi><mi>N</mi></msub><mo stretchy="false">)</mo></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mi mathvariant="bold">o</mi></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mi mathvariant="normal">Attn</mi><mo>⁡</mo><mo stretchy="false">(</mo><msub><mi mathvariant="bold">q</mi><mi>R</mi></msub><mo separator="true">,</mo><msub><mi mathvariant="bold">k</mi><mi>R</mi></msub><mo separator="true">,</mo><mi mathvariant="bold">v</mi><mo stretchy="false">)</mo></mrow></mstyle></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
@@ -2936,7 +2940,7 @@ Fig.10; Sec.5.2 · PDF pp.16–17
 layout: none
 ---
 
-<!-- slide-id: P078 | revision: v24 | status: draft -->
+<!-- slide-id: P078 | revision: v25 | status: draft -->
 
 <section class="seminar-slide" data-slide-id="P078"><header class="seminar-header"><div class="chapter-label">Inference Strategy</div><h1>실제 Fused Kernels</h1><p class="slide-lead">Table 7은 실제로 어떤 연산들을 한 kernel 안에서 이어 계산하도록 만들었는지 보여준다.</p></header><div class="seminar-body full"><div class="body-main"><table>
 <thead>
@@ -2983,7 +2987,7 @@ Table7의 8개 이름은 fused_vision_attention, fused_llm_attention, fused_add2
 layout: none
 ---
 
-<!-- slide-id: P040 | revision: v24 | status: draft -->
+<!-- slide-id: P040 | revision: v25 | status: draft -->
 
 <section class="seminar-slide" data-slide-id="P040"><header class="seminar-header"><div class="chapter-label">Evaluation and Analysis</div><h1>시뮬레이션 벤치마크</h1><p class="slide-lead">Benchmark는 정해진 환경과 과제들로 정책을 비교하는 평가 세트다. 조작 능력의 서로 다른 면을 확인한다.</p></header><div class="seminar-body figure balanced"><figure class="paper-figure"><img src="/figures/fig-11.png" alt="Figure 11 · 평가 환경: 단일 팔·양팔 휴머노이드·주방 조작" loading="eager"><figcaption>Figure 11 · 평가 환경: 단일 팔·양팔 휴머노이드·주방 조작</figcaption></figure><div class="body-main"><p><strong>LIBERO / LIBERO-Plus</strong><br>탁자 조작 / 조건 변화 대응</p>
 <p><strong>SIMPLER — Google Robot·WidowX</strong><br>실제 영상에 맞춘 로봇 시뮬레이션</p>
@@ -3013,7 +3017,7 @@ Figure 11(a)는 LIBERO/LIBERO-Plus와 SIMPLER, (b)는 RoboCasa Kitchen, GR-1 Tab
 layout: none
 ---
 
-<!-- slide-id: P079 | revision: v24 | status: draft -->
+<!-- slide-id: P079 | revision: v25 | status: draft -->
 
 <section class="seminar-slide" data-slide-id="P079"><header class="seminar-header"><div class="chapter-label">Evaluation and Analysis</div><h1>시뮬레이션의 실행 설정</h1><p class="slide-lead">Benchmark마다 denoising 횟수와 실제 실행하는 action 길이가 다르므로,4회 denoising을 모든 결과에 적용하면 안 된다.</p></header><div class="seminar-body split"><div class="body-main"><h3>Table 8 · 추론 설정</h3>
 <table>
@@ -3072,7 +3076,7 @@ layout: none
 layout: none
 ---
 
-<!-- slide-id: P080 | revision: v24 | status: draft -->
+<!-- slide-id: P080 | revision: v25 | status: draft -->
 
 <section class="seminar-slide" data-slide-id="P080"><header class="seminar-header"><div class="chapter-label">Evaluation and Analysis</div><h1>Baseline 결과의 출처</h1><p class="slide-lead">Table 1의 baseline에는 같은 조건으로 재현한 결과와, 공식 저장소·논문·leaderboard에서 가져온 결과가 함께 있다.</p></header><div class="seminar-body full"><div class="body-main"><table>
 <thead>
@@ -3127,7 +3131,7 @@ LIBERO-Plus는π0/π0FAST 외 나머지 방법을 10,300 perturbation tasks에�
 layout: none
 ---
 
-<!-- slide-id: P022 | revision: v24 | status: draft -->
+<!-- slide-id: P022 | revision: v25 | status: draft -->
 
 <section class="seminar-slide" data-slide-id="P022"><header class="seminar-header"><div class="chapter-label">Evaluation and Analysis</div><h1>Simulation 결과</h1><p class="slide-lead">사전학습한 모델을 각 벤치마크의 학습 데이터로 fine-tuning한 뒤 성공률을 비교한다.</p></header><div class="seminar-body split"><div class="body-main"><h3>Table 1의 주요 결과</h3>
 <table>
@@ -3276,7 +3280,7 @@ Table 1(b) · Sec.6.1 · PDF pp.18–19; Table 15 · PDF p.55
 layout: none
 ---
 
-<!-- slide-id: P091 | revision: v24 | status: draft -->
+<!-- slide-id: P091 | revision: v25 | status: draft -->
 
 <section class="seminar-slide" data-slide-id="P091"><header class="seminar-header"><div class="chapter-label">Evaluation and Analysis</div><h1>환경 변화별 성능</h1><p class="slide-lead">LIBERO-Plus의 평균 86.7% 안에서도 조명 변화와 카메라 변화에 대한 결과는 크게 다르다.</p></header><div class="seminar-body full"><div class="body-main"><table>
 <thead>
@@ -3350,7 +3354,7 @@ Table11 LIBERO Long95.3/Spatial98.0/Object99.3/Goal98.4/Avg97.8. Plus Camera75/R
 layout: none
 ---
 
-<!-- slide-id: P092 | revision: v24 | status: draft -->
+<!-- slide-id: P092 | revision: v25 | status: draft -->
 
 <section class="seminar-slide" data-slide-id="P092"><header class="seminar-header"><div class="chapter-label">Evaluation and Analysis</div><h1>SIMPLER의 과제별 결과</h1><p class="slide-lead">같은 benchmark 평균 안에서도 작업별 차이가 크고, VM에서 VA로 바뀌는 효과도 모든 작업에서 같지는 않다.</p></header><div class="seminar-body split"><div class="body-main"><h3>Google robot · 성공률(%)</h3>
 <table>
@@ -3433,7 +3437,7 @@ VM은VisualMatching,VA는VariantAggregation으로앞benchmark장정의를따른�
 layout: none
 ---
 
-<!-- slide-id: P093 | revision: v24 | status: draft -->
+<!-- slide-id: P093 | revision: v25 | status: draft -->
 
 <section class="seminar-slide" data-slide-id="P093"><header class="seminar-header"><div class="chapter-label">Evaluation and Analysis</div><h1>Kitchen·GR-1의 과제별 편차</h1><p class="slide-lead">Kitchen 평균 70.6%, GR-1 평균 58.7%에도 잘하는 작업과 여전히 어려운 작업이 함께 섞여 있다.</p></header><div class="seminar-body split"><div class="body-main"><h3>RoboCasa Kitchen · Table 13</h3>
 <table>
@@ -3509,7 +3513,7 @@ layout: none
 layout: none
 ---
 
-<!-- slide-id: P094 | revision: v24 | status: draft -->
+<!-- slide-id: P094 | revision: v25 | status: draft -->
 
 <section class="seminar-slide" data-slide-id="P094"><header class="seminar-header"><div class="chapter-label">Evaluation and Analysis</div><h1>복합 작업의 남은 어려움</h1><p class="slide-lead">RoboCasa365의 전체 32.1%는 atomic과 composite의 큰 차이를 함께 묶은 값이다.</p></header><div class="seminar-body split"><div class="body-main"><h3>Table 15 · 구분별 성공률</h3>
 <table>
@@ -3578,7 +3582,7 @@ Kitchen은 Close Single Door와Turn On Sink100인 반면 Microwave-to-Counter26,
 layout: none
 ---
 
-<!-- slide-id: P041 | revision: v24 | status: draft -->
+<!-- slide-id: P041 | revision: v25 | status: draft -->
 
 <section class="seminar-slide" data-slide-id="P041"><header class="seminar-header"><div class="chapter-label">Evaluation and Analysis</div><h1>실제 로봇</h1><p class="slide-lead">양팔·손가락을 쓰는 휴머노이드 두 종류와 단일 팔·그리퍼 로봇으로 실제 조작을 평가한다.</p></header><div class="seminar-body widefigure"><figure class="paper-figure"><img src="/figures/fig-12.png" alt="Figure 12 · (a) OpenArm 28DoF · (b) ALLEX 48DoF · (c) Franka 7DoF" loading="eager"><figcaption>Figure 12 · (a) OpenArm 28DoF · (b) ALLEX 48DoF · (c) Franka 7DoF</figcaption></figure><div class="body-main"><div class="robot-glossary">
 <p><strong>OpenArm — 양팔 휴머노이드</strong><br>Inspire 손·머리 stereo 카메라<br>지시·대상 변화의 일반화 평가</p>
@@ -3596,7 +3600,7 @@ DoF는독립적으로움직일수있는자유도다. OpenArm은7DoF팔2개,6DoF 
 layout: none
 ---
 
-<!-- slide-id: P082 | revision: v24 | status: draft -->
+<!-- slide-id: P082 | revision: v25 | status: draft -->
 
 <section class="seminar-slide" data-slide-id="P082"><header class="seminar-header"><div class="chapter-label">Evaluation and Analysis</div><h1>실제 로봇의 실험 조건</h1><p class="slide-lead">ALLEX·Franka는 각 과제에서 관련 기능 모듈만 켜며, 시행 횟수와 학습 설정도 구분해서 보고한다.</p></header><div class="seminar-body split"><div class="body-main"><h3>과제별 학습·평가 설정</h3>
 <table>
@@ -3650,7 +3654,7 @@ ALLEX시연:Conveyor40,ObjectBox90,Card72,Pouring62. Franka시연:Spin64(각 3in
 layout: none
 ---
 
-<!-- slide-id: P042 | revision: v24 | status: draft -->
+<!-- slide-id: P042 | revision: v25 | status: draft -->
 
 <section class="seminar-slide" data-slide-id="P042"><header class="seminar-header"><div class="chapter-label">Evaluation and Analysis</div><h1>OpenArm 과제</h1><p class="slide-lead">기본 집어 옮기기에 위치 지시·새 개체·새 놓기 설정·정확한 대상 선택을 더해 평가한다.</p></header><div class="seminar-body figure balanced"><figure class="paper-figure"><img src="/figures/fig-13.png" alt="Figure 13 · OpenArm의 6개 평가 설정; PnP=Pick-and-Place(집어 옮기기)" loading="eager"><figcaption>Figure 13 · OpenArm의 6개 평가 설정; PnP=Pick-and-Place(집어 옮기기)</figcaption></figure><div class="body-main"><h3>기본 조작 — Basic PnP</h3>
 <p>세 물체 중 <strong>인형을 골라 오른쪽 상자에 놓기</strong>.</p>
@@ -3685,7 +3689,7 @@ Figure 13의 좌상단 Basic, 상단 가운데 Shelf, 상단 오른쪽 Dish Rack
 layout: none
 ---
 
-<!-- slide-id: P081 | revision: v24 | status: draft -->
+<!-- slide-id: P081 | revision: v25 | status: draft -->
 
 <section class="seminar-slide" data-slide-id="P081"><header class="seminar-header"><div class="chapter-label">Evaluation and Analysis</div><h1>OpenArm의 시연과 평가</h1><p class="slide-lead">OpenArm은 348개 시연으로 학습하고, 물체·초기 위치·목표 칸을 조합해 작업별 일반화를 평가한다.</p></header><div class="seminar-body split"><div class="body-main"><h3>학습 시연 348개</h3>
 <table>
@@ -3734,7 +3738,7 @@ Bottle/Snack은 4instances×3initial positions×4shelf slots×2trials=96씩, Cup
 layout: none
 ---
 
-<!-- slide-id: P023 | revision: v24 | status: draft -->
+<!-- slide-id: P023 | revision: v25 | status: draft -->
 
 <section class="seminar-slide" data-slide-id="P023"><header class="seminar-header"><div class="chapter-label">Evaluation and Analysis</div><h1>OpenArm 결과</h1><p class="slide-lead">위치 지시와 새로운 대상·놓기 설정에서도 지시한 조작을 수행하는지 본다.</p></header><div class="seminar-body figure balanced"><figure class="paper-figure"><img src="/figures/fig-14.png" alt="Figure 14 · 앞 장의 여섯 설정에 대한 성공률 비교" loading="eager"><figcaption>Figure 14 · 앞 장의 여섯 설정에 대한 성공률 비교</figcaption></figure><div class="body-main"><h3>성공은 무엇인가?</h3>
 <p><strong>Basic·Directional·Unseen 과제:</strong><br>
@@ -3768,7 +3772,7 @@ Figure14 순서 Basic/Shelf/Dish/UnseenObject/UnseenTask/Grounding: π0.5 41.7/5
 layout: none
 ---
 
-<!-- slide-id: P043 | revision: v24 | status: draft -->
+<!-- slide-id: P043 | revision: v25 | status: draft -->
 
 <section class="seminar-slide" data-slide-id="P043"><header class="seminar-header"><div class="chapter-label">Evaluation and Analysis</div><h1>ALLEX 과제</h1><p class="slide-lead">48DoF 양팔 휴머노이드로, 한 장면만 봐서는 해결하기 어려운 기능별 과제를 수행한다.</p></header><div class="seminar-body figure balanced"><figure class="paper-figure"><img src="/figures/fig-15.png" alt="Figure 15 · ALLEX의 움직임·기억·물리 피드백 과제" loading="eager"><figcaption>Figure 15 · ALLEX의 움직임·기억·물리 피드백 과제</figcaption></figure><div class="body-main"><p><strong>Conveyor Pick-and-Place — 움직임</strong><br>움직이는 상자를 속도에 맞춰 잡아 옮긴다.</p>
 <p><strong>Object-in-Box Selection — 기억</strong><br>물체를 숨긴 상자를 기억해 고른다.</p>
@@ -3816,7 +3820,7 @@ Card72 demonstrations,Pour62 demonstrations. ALLEX torque는 모터 전류에서
 layout: none
 ---
 
-<!-- slide-id: P024 | revision: v24 | status: draft -->
+<!-- slide-id: P024 | revision: v25 | status: draft -->
 
 <section class="seminar-slide" data-slide-id="P024"><header class="seminar-header"><div class="chapter-label">Evaluation and Analysis</div><h1>ALLEX 결과</h1><p class="slide-lead">같은 0–100 막대여도 ‘완전 성공한 비율’과 ‘얼마나 진행했는지’는 다른 의미다.</p></header><div class="seminar-body figure balanced"><figure class="paper-figure"><img src="/figures/fig-16.png" alt="Figure 16 · 성공률 두 과제와 부분 진행 점수 두 과제" loading="eager"><figcaption>Figure 16 · 성공률 두 과제와 부분 진행 점수 두 과제</figcaption></figure><div class="body-main"><p><strong>움직임:</strong> 속도에 맞춰 상자를 잡는다.<br>
 <strong>기억:</strong> 물체를 숨긴 상자를 고른다.</p>
@@ -3853,7 +3857,7 @@ Figure16 순서 Conveyor/Box/Card/Pour/Avg: π0.5 29.2/33.3/55.3/38.5/39.1; N1.6
 layout: none
 ---
 
-<!-- slide-id: P044 | revision: v24 | status: draft -->
+<!-- slide-id: P044 | revision: v25 | status: draft -->
 
 <section class="seminar-slide" data-slide-id="P044"><header class="seminar-header"><div class="chapter-label">Evaluation and Analysis</div><h1>Franka 과제</h1><p class="slide-lead">단일 팔과 AnySkin 촉각·관절 토크로 움직임·과거 기억·접촉 조작을 평가한다.</p></header><div class="seminar-body figure balanced"><figure class="paper-figure"><img src="/figures/fig-17.png" alt="Figure 17 · Franka의 여섯 기능 평가 과제" loading="eager"><figcaption>Figure 17 · Franka의 여섯 기능 평가 과제</figcaption></figure><div class="body-main"><h3>움직임</h3>
 <p><strong>Spin Tracking:</strong> 시계/반시계 회전 판단<br>
@@ -3909,7 +3913,7 @@ Cup60 demonstrations(2 initial positions),Shell60(각cup20),Plug100,Egg60. Cup/S
 layout: none
 ---
 
-<!-- slide-id: P025 | revision: v24 | status: draft -->
+<!-- slide-id: P025 | revision: v25 | status: draft -->
 
 <section class="seminar-slide" data-slide-id="P025"><header class="seminar-header"><div class="chapter-label">Evaluation and Analysis</div><h1>Franka 결과</h1><p class="slide-lead">움직임·기억에서 큰 개선을 보이지만, 컵 교체와 플러그 삽입에는 여전히 많은 실패가 남는다.</p></header><div class="seminar-body figure balanced"><figure class="paper-figure"><img src="/figures/fig-18.png" alt="Figure 18 · 앞 장의 여섯 과제에 대한 성공률" loading="eager"><figcaption>Figure 18 · 앞 장의 여섯 과제에 대한 성공률</figcaption></figure><div class="body-main"><h3>움직임</h3>
 <p><strong>Spin 97.9% · Pong 81.5%</strong></p>
@@ -3966,7 +3970,7 @@ App.G.3–G.4 · PDF pp.51–52; Sec.6.3–6.4 · PDF pp.21–24
 layout: none
 ---
 
-<!-- slide-id: P026 | revision: v24 | status: draft -->
+<!-- slide-id: P026 | revision: v25 | status: draft -->
 
 <section class="seminar-slide" data-slide-id="P026"><header class="seminar-header"><div class="chapter-label">Ablation and Analysis</div><h1>Ablation and Analysis</h1><p class="slide-lead">VLM 표현·합성 데이터·RL·실행 최적화가 무엇을 바꾸는지, 일곱 근거를 따라 나눠 살펴본다.</p></header><div class="seminar-body full"><div class="body-main"><table>
 <thead>
@@ -4065,7 +4069,7 @@ Sec.6.5 · PDF pp.24–26; Sec.4.2 · PDF p.13; App.G.3–G.4 · PDF pp.51–52;
 layout: none
 ---
 
-<!-- slide-id: P060 | revision: v24 | status: draft -->
+<!-- slide-id: P060 | revision: v25 | status: draft -->
 
 <section class="seminar-slide" data-slide-id="P060"><header class="seminar-header"><div class="chapter-label">Ablation and Analysis</div><h1>VLM의 특징 추출 층</h1><p class="slide-lead">Table 2(a)는 VLM의 특징을 꺼내는 층을 바꿨을 때 조작 성공률이 어떻게 달라지는지 비교한다.</p></header><div class="seminar-body split"><div class="body-main"><h3>RoboCasa Kitchen · Table 2(a)</h3>
 <table>
@@ -4130,7 +4134,7 @@ Table 2(a) · Sec.6.5 · PDF pp.24–25; Q4
 layout: none
 ---
 
-<!-- slide-id: P061 | revision: v24 | status: draft -->
+<!-- slide-id: P061 | revision: v25 | status: draft -->
 
 <section class="seminar-slide" data-slide-id="P061"><header class="seminar-header"><div class="chapter-label">Ablation and Analysis</div><h1>로봇 VQA의 효과</h1><p class="slide-lead">Table 2(b)는 로봇 관련 VQA로 적응시킨 VLM이 실제 조작 성공률에도 도움이 되는지 확인한다.</p></header><div class="seminar-body split"><div class="body-main"><h3>RoboCasa Kitchen · Table 2(b)</h3>
 <table>
@@ -4191,7 +4195,7 @@ Table 2(b) · Sec.6.5 · PDF pp.24–25; Q4
 layout: none
 ---
 
-<!-- slide-id: P062 | revision: v24 | status: draft -->
+<!-- slide-id: P062 | revision: v25 | status: draft -->
 
 <section class="seminar-slide" data-slide-id="P062"><header class="seminar-header"><div class="chapter-label">Ablation and Analysis</div><h1>VQA 전후의 Attention</h1><p class="slide-lead">Figure 19는 로봇 VQA 전후에 VLM이 영상의 어느 영역을 더 참고하는지 정성적으로 비교한다.</p></header><div class="seminar-body figure"><figure class="paper-figure"><img src="/figures/fig-19.png" alt="Figure 19 · 마지막 prompt token에서 image patch로 향하는 attention" loading="eager"><figcaption>Figure 19 · 마지막 prompt token에서 image patch로 향하는 attention</figcaption></figure><div class="body-main"><h3>위에서 아래로 비교</h3>
 <p><strong>위:</strong> 원본 관측 영상<br><strong>가운데:</strong> Qwen3-VL 8B의 attention<br><strong>아래:</strong> 로봇 VQA 적응 후 RLDX-1-VLM</p>
@@ -4222,7 +4226,7 @@ Figure19 caption은 “self-attention scores from the last prompt token to the i
 layout: none
 ---
 
-<!-- slide-id: P063 | revision: v24 | status: draft -->
+<!-- slide-id: P063 | revision: v25 | status: draft -->
 
 <section class="seminar-slide" data-slide-id="P063"><header class="seminar-header"><div class="chapter-label">Ablation and Analysis</div><h1>합성 데이터 규모 실험</h1><p class="slide-lead">Table 3은 실제 데이터를 고정하고 사용 가능한 합성 데이터 pool의 크기를 바꾼 실험이다.</p></header><div class="seminar-body split"><div class="body-main"><h3>바꾼 것과 고정한 것</h3>
 <table>
@@ -4294,7 +4298,7 @@ Table 3 · Sec.6.5 · PDF p.25; Q2
 layout: none
 ---
 
-<!-- slide-id: P064 | revision: v24 | status: draft -->
+<!-- slide-id: P064 | revision: v25 | status: draft -->
 
 <section class="seminar-slide" data-slide-id="P064"><header class="seminar-header"><div class="chapter-label">Ablation and Analysis</div><h1>합성 데이터의 성능 효과</h1><p class="slide-lead">실제 데이터가 같아도 합성 pool을 늘리면, 이 실험의 평균 조작 성공률은 41.0%에서 50.1%로 높아진다.</p></header><div class="seminar-body split"><div class="body-main"><h3>GR-1 Tabletop · Table 3</h3>
 <table>
@@ -4365,7 +4369,7 @@ Table 3 · Sec.6.5 · PDF p.25; Q2·Q8
 layout: none
 ---
 
-<!-- slide-id: P083 | revision: v24 | status: draft -->
+<!-- slide-id: P083 | revision: v25 | status: draft -->
 
 <section class="seminar-slide" data-slide-id="P083"><header class="seminar-header"><div class="chapter-label">Ablation and Analysis</div><h1>합성 데이터의 실제 로봇 검증</h1><p class="slide-lead">Table 3의 시뮬레이션 실험 뒤에, 합성 데이터가 실제 ALLEX의 새로운 물체 위치에도 도움이 되는지 확인한다.</p></header><div class="seminar-body split"><div class="body-main"><h3>Table 9 · 평가하는 하위 작업</h3>
 <p>Pot-to-Cup Pouring에서 <strong>컵을 잡고 이어서 포트를 잡는 부분</strong>을 평가한다. 따르기 전체 작업의 성공률이 아니다.</p>
@@ -4387,7 +4391,7 @@ layout: none
 layout: none
 ---
 
-<!-- slide-id: P084 | revision: v24 | status: draft -->
+<!-- slide-id: P084 | revision: v25 | status: draft -->
 
 <section class="seminar-slide" data-slide-id="P084"><header class="seminar-header"><div class="chapter-label">Ablation and Analysis</div><h1>합성 데이터의 실제 결과</h1><p class="slide-lead">원문 Table 9는 실패 7→2회, 완전 성공 9→14회를 보고하지만, 보고 점수와 개수의 가중합에는 불일치가 있다.</p></header><div class="seminar-body full"><div class="body-main"><table>
 <thead>
@@ -4450,7 +4454,7 @@ App.G.5 · Table 9 · PDF p.53
 layout: none
 ---
 
-<!-- slide-id: P090 | revision: v24 | status: draft -->
+<!-- slide-id: P090 | revision: v25 | status: draft -->
 
 <section class="seminar-slide" data-slide-id="P090"><header class="seminar-header"><div class="chapter-label">Ablation and Analysis</div><h1>Batch Size의 효과</h1><p class="slide-lead">Table 10에서는 큰 batch의 성공률이 높다. 아키텍처만 아니라 학습 설정도 결과에 큰 영향을 줄 수 있다.</p></header><div class="seminar-body split"><div class="body-main"><h3>Table 10 · 성공률(%)</h3>
 <table>
@@ -4518,7 +4522,7 @@ GR-1은36.8→53.2→58.7, Kitchen66.9→69.6→70.6, LIBERO97.4→97.8이다. G
 layout: none
 ---
 
-<!-- slide-id: P065 | revision: v24 | status: draft -->
+<!-- slide-id: P065 | revision: v25 | status: draft -->
 
 <section class="seminar-slide" data-slide-id="P065"><header class="seminar-header"><div class="chapter-label">Ablation and Analysis</div><h1>RL 평가 작업</h1><p class="slide-lead">Figure 20은 ALLEX의 Light Bulb Twisting 작업이다. 전구가 켜질 때까지 손가락으로 돌려야 한다.</p></header><div class="seminar-body figure"><figure class="paper-figure"><img src="/figures/fig-20.png" alt="Figure 20 · ALLEX가 플라스틱 전구를 비틀어 점등하는 작업" loading="eager"><figcaption>Figure 20 · ALLEX가 플라스틱 전구를 비틀어 점등하는 작업</figcaption></figure><div class="body-main"><h3>무엇을 조작하는가?</h3>
 <p>ALLEX <strong>오른손의 검지·엄지</strong>로 소켓의 플라스틱 전구를 비튼다. 목표는 전구의 점등이다.</p>
@@ -4550,7 +4554,7 @@ Figure20은 작업 사진이며 Figure21은 frames와 attempts의 box-and-whiske
 layout: none
 ---
 
-<!-- slide-id: P070 | revision: v24 | status: draft -->
+<!-- slide-id: P070 | revision: v25 | status: draft -->
 
 <section class="seminar-slide" data-slide-id="P070"><header class="seminar-header"><div class="chapter-label">Ablation and Analysis</div><h1>RECAP 결과의 지표</h1><p class="slide-lead">Figure 21은 완료 효율을 두 지표로 보고, BC와 연속 RECAP round의 결과 분포를 비교한다.</p></header><div class="seminar-body split"><div class="body-main"><h3>세로축 — 낮을수록 좋은 두 지표</h3>
 <div class="sequence">
@@ -4594,7 +4598,7 @@ layout: none
 layout: none
 ---
 
-<!-- slide-id: P066 | revision: v24 | status: draft -->
+<!-- slide-id: P066 | revision: v25 | status: draft -->
 
 <section class="seminar-slide" data-slide-id="P066"><header class="seminar-header"><div class="chapter-label">Ablation and Analysis</div><h1>RECAP 반복 결과</h1><p class="slide-lead">Figure 21에서는 RECAP을 반복할수록 완료에 필요한 프레임과 비틀기 횟수가 줄고, 결과의 편차도 작아진다.</p></header><div class="seminar-body widefigure"><figure class="paper-figure"><img src="/figures/fig-21.png" alt="Figure 21 · Teleop, BC, RECAP1–3의 완료 프레임 수와 비틀기 횟수 분포" loading="eager"><figcaption>Figure 21 · Teleop, BC, RECAP1–3의 완료 프레임 수와 비틀기 횟수 분포</figcaption></figure><div class="body-main"></div></div><div class="takeaway">분포가 낮아지는 것은 완료 효율의 개선이고, 퍼짐이 작아지는 것은 반복 시행의 일관성 개선이다.</div><footer class="seminar-footer"><span class="source">Sec.6.5 · Figure 21 · PDF p.26</span><span class="slide-id">P066 · 059/71</span></footer></section>
 
@@ -4622,7 +4626,7 @@ $\frac{1056}{353}\approx2.99$,$\frac{12.7}{4.1}\approx3.10$이다. 본문의 ±�
 layout: none
 ---
 
-<!-- slide-id: P067 | revision: v24 | status: draft -->
+<!-- slide-id: P067 | revision: v25 | status: draft -->
 
 <section class="seminar-slide" data-slide-id="P067"><header class="seminar-header"><div class="chapter-label">Ablation and Analysis</div><h1>RECAP 개선의 의미</h1><p class="slide-lead">BC에서 RECAP3로 완료 프레임 수와 비틀기 횟수가 약 3배 줄었고, 시행 간 일관성도 좋아졌다.</p></header><div class="seminar-body split"><div class="body-main"><h3>원문이 보고한 BC → RECAP3</h3>
 <table>
@@ -4662,7 +4666,7 @@ layout: none
 layout: none
 ---
 
-<!-- slide-id: P085 | revision: v24 | status: draft -->
+<!-- slide-id: P085 | revision: v25 | status: draft -->
 
 <section class="seminar-slide" data-slide-id="P085"><header class="seminar-header"><div class="chapter-label">Ablation and Analysis</div><h1>Best-of-N</h1><p class="slide-lead">RECAP 이후 정책을 더 학습하는 대신, 추론 때 여러 행동 후보를 만들고 높은 Q값의 후보를 고를 수도 있다.</p></header><div class="seminar-body split"><div class="body-main"><h3>추론 중의 후보 선택</h3>
 <div class="sequence">
@@ -4706,7 +4710,7 @@ VLM 최종 token states를 sequence 방향 average pooling하고 embodiment-cond
 layout: none
 ---
 
-<!-- slide-id: P086 | revision: v24 | status: draft -->
+<!-- slide-id: P086 | revision: v25 | status: draft -->
 
 <section class="seminar-slide" data-slide-id="P086"><header class="seminar-header"><div class="chapter-label">Ablation and Analysis</div><h1>BoN의 Temperature</h1><p class="slide-lead">Temperature는 flow matching의 초기 노이즈 크기를 바꿔, 생성되는 행동 후보들의 다양성을 조절한다.</p></header><div class="seminar-body split"><div class="body-main"><h3>초기 노이즈의 분포</h3>
 <div class="equation"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi mathvariant="bold-italic">ϵ</mi><mo>∼</mo><mi mathvariant="script">N</mi><mo stretchy="false">(</mo><mn>0</mn><mo separator="true">,</mo><msup><mi>T</mi><mn>2</mn></msup><mi>I</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\boldsymbol\epsilon\sim\mathcal N(0,T^2I)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.4444em;"></span><span class="mord"><span class="mord"><span class="mord boldsymbol">ϵ</span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">∼</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:1.1141em;vertical-align:-0.25em;"></span><span class="mord mathcal" style="margin-right:0.1474em;">N</span><span class="mopen">(</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.1389em;">T</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8641em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mord mathnormal" style="margin-right:0.0785em;">I</span><span class="mclose">)</span></span></span></span></span></div>
@@ -4750,7 +4754,7 @@ IQL expectile도원문에서tau기호를쓰지만여기의denoisingtau와다르�
 layout: none
 ---
 
-<!-- slide-id: P087 | revision: v24 | status: draft -->
+<!-- slide-id: P087 | revision: v25 | status: draft -->
 
 <section class="seminar-slide" data-slide-id="P087"><header class="seminar-header"><div class="chapter-label">Ablation and Analysis</div><h1>BoN의 Offline 분석</h1><p class="slide-lead">Temperature가 커지면 후보의 Q값 차이가 커지지만, 높은 예측 Q가 곧 실제 로봇의 좋은 수행을 보장하지는 않는다.</p></header><div class="seminar-body widefigure"><figure class="paper-figure"><img src="/figures/fig-22.png" alt="Figure 22 · RECAP3 offline 관측에서 N=10 후보의 Q값과 다양성" loading="eager"><figcaption>Figure 22 · RECAP3 offline 관측에서 N=10 후보의 Q값과 다양성</figcaption></figure><div class="body-main"><table>
 <thead>
@@ -4797,7 +4801,7 @@ $T=1.5$이면 초기 noise 표준편차는1.5배, 분산은2.25배다. 본문 fl
 layout: none
 ---
 
-<!-- slide-id: P088 | revision: v24 | status: draft -->
+<!-- slide-id: P088 | revision: v25 | status: draft -->
 
 <section class="seminar-slide" data-slide-id="P088"><header class="seminar-header"><div class="chapter-label">Ablation and Analysis</div><h1>BoN의 실제 로봇 결과</h1><p class="slide-lead">BoN은 RECAP1의 수행을 개선했지만, 같은 방법을 RECAP2·3에 적용하면 오히려 비틀기 횟수가 늘었다.</p></header><div class="seminar-body widefigure"><figure class="paper-figure"><img src="/figures/fig-23.png" alt="Figure 23 · Light Bulb Twisting의 비틀기 횟수, 낮을수록 좋음" loading="eager"><figcaption>Figure 23 · Light Bulb Twisting의 비틀기 횟수, 낮을수록 좋음</figcaption></figure><div class="body-main"><table>
 <thead>
@@ -4837,7 +4841,7 @@ RECAP1 기본8.5±2.8, BoN4.9±1.3 attempts다. $N=8$/$T=1.5$에서$N=32$/$T=1.5
 layout: none
 ---
 
-<!-- slide-id: P089 | revision: v24 | status: draft -->
+<!-- slide-id: P089 | revision: v25 | status: draft -->
 
 <section class="seminar-slide" data-slide-id="P089"><header class="seminar-header"><div class="chapter-label">Ablation and Analysis</div><h1>BoN이 돕는 조건</h1><p class="slide-lead">후보를 고르는 이득은 정책의 수렴 정도와 평가 모델의 판단에 달려 있으며, 후보 수만 늘린다고 계속 좋아지지 않는다.</p></header><div class="seminar-body split"><div class="body-main"><h3>원문의 attempts 변화</h3>
 <table>
@@ -4878,7 +4882,7 @@ RECAP1기본 8.5±2.8,BoN4.9±1.3이다. 별도Qcritic은RECAP1특징으로학�
 layout: none
 ---
 
-<!-- slide-id: P027 | revision: v24 | status: draft -->
+<!-- slide-id: P027 | revision: v25 | status: draft -->
 
 <section class="seminar-slide" data-slide-id="P027"><header class="seminar-header"><div class="chapter-label">Ablation and Analysis</div><h1>추론 지연 측정</h1><p class="slide-lead">Table 4는 같은 하드웨어와 ALLEX 입력 설정에서 추론 stack을 단계적으로 바꾸며 policy 지연을 측정한다.</p></header><div class="seminar-body split"><div class="body-main"><h3>고정한 측정 조건</h3>
 <table>
@@ -4950,7 +4954,7 @@ All-modality 최종43.7ms를 전체 로봇 제어 지연이나 제어 주파수 
 layout: none
 ---
 
-<!-- slide-id: P068 | revision: v24 | status: draft -->
+<!-- slide-id: P068 | revision: v25 | status: draft -->
 
 <section class="seminar-slide" data-slide-id="P068"><header class="seminar-header"><div class="chapter-label">Ablation and Analysis</div><h1>추론 최적화의 단계별 효과</h1><p class="slide-lead">Graph·static conversion·kernel 최적화를 누적하면, All-modality 모델의 p50 지연은 71.2ms에서 43.7ms로 줄어든다.</p></header><div class="seminar-body full"><div class="body-main"><table>
 <thead>
@@ -5019,7 +5023,7 @@ Table 4 · Sec.6.5 · PDF p.26
 layout: none
 ---
 
-<!-- slide-id: P069 | revision: v24 | status: draft -->
+<!-- slide-id: P069 | revision: v25 | status: draft -->
 
 <section class="seminar-slide" data-slide-id="P069"><header class="seminar-header"><div class="chapter-label">Ablation and Analysis</div><h1>추론 최적화의 해석</h1><p class="slide-lead">Static graph는 실행 분할을 줄이고, kernel 최적화는 연산 경계와 중간 메모리 이동을 더 줄인다.</p></header><div class="seminar-body split"><div class="body-main"><h3>전체 개선과 마지막 단계의 개선</h3>
 <div class="equation"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>전체 speedup</mtext><mo>=</mo><mfrac><mn>71.2</mn><mn>43.7</mn></mfrac><mo>≈</mo><mn>1.63</mn><mo>×</mo></mrow><annotation encoding="application/x-tex">\text{전체 speedup}=\frac{71.2}{43.7}\approx1.63\times</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord text"><span class="mord hangul_fallback">전체</span><span class="mord"> speedup</span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:2.0074em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3214em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">43.7</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">71.2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≈</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">1.63</span><span class="mord">×</span></span></span></span></span></div>
@@ -5040,7 +5044,7 @@ layout: none
 layout: none
 ---
 
-<!-- slide-id: P029 | revision: v24 | status: draft -->
+<!-- slide-id: P029 | revision: v25 | status: draft -->
 
 <section class="seminar-slide" data-slide-id="P029"><header class="seminar-header"><div class="chapter-label">Conclusion</div><h1>Conclusion</h1><p class="slide-lead">RLDX-1은 기능 확장·합성 데이터·3단계 학습·추론 최적화를 결합한 VLA 시스템이다.</p></header><div class="seminar-body split"><div class="body-main"><h3>저자가 제시한 기여</h3>
 <p>VLM의 범용 이해에 <strong>motion·memory·physical sensing</strong>을 명시적으로 연결했다.</p>
@@ -5096,7 +5100,7 @@ Conclusion의 ALLEX around90 vs frontier around40은 RLDX86.8과π0.5 39.1/N1.6 
 layout: none
 ---
 
-<!-- slide-id: P028 | revision: v24 | status: draft -->
+<!-- slide-id: P028 | revision: v25 | status: draft -->
 
 <section class="seminar-slide" data-slide-id="P028"><header class="seminar-header"><div class="chapter-label">My opinions and limitation</div><h1>나의 의견</h1><p class="slide-lead">부록까지 보면 모델 확장의 가치는 더 많은 학습·후보·기능 자체보다, 조건에 맞는 성능과 비용으로 판단해야 한다.</p></header><div class="seminar-body split"><div class="body-main"><h3>학습 비용과 표현의 적응</h3>
 <p><span class="label interpretation">의견</span> PEFT에서는 업데이트할 파라미터 수만 줄이기보다, <strong>새 작업에 필요한 표현까지 적응되는지</strong> 함께 봐야 한다.</p>
@@ -5116,7 +5120,7 @@ layout: none
 layout: none
 ---
 
-<!-- slide-id: P030 | revision: v24 | status: draft -->
+<!-- slide-id: P030 | revision: v25 | status: draft -->
 
 <section class="seminar-slide" data-slide-id="P030"><header class="seminar-header"><div class="chapter-label">My opinions and limitation</div><h1>한계와 미해결 질문</h1><p class="slide-lead">원문 명세·집계의 불일치와 아직 분리하지 못한 효과를 다음 검증의 대상으로 남긴다.</p></header><div class="seminar-body full"><div class="body-main"><table>
 <thead>

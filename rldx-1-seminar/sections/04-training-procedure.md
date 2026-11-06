@@ -638,14 +638,17 @@ source_ids: S067, S068, S070
 #### 두 모델의 역할
 
 **Policy — RLDX-1**<br>
-관측·지시를 보고 다음 행동을 생성한다.
+관측·지시에서 행동을 생성한다.
 
 **Critic — 별도 Gemma3-4b-it**<br>
 “현재 작업이 얼마나 진행됐는가?”를 **숫자 텍스트 value**로 예측한다.
 
-이 평가에서 **advantage labels**를 만들어 policy 학습에 사용한다.
+#### 이 critic은 무엇이 다른가?
 
-<p class="mini">Advantage는 행동이 기대보다 얼마나 유리했는지에 대한 직관이다. 보고서의 정확한 label 식은 미기재다.</p>
+**기존 VLM critic:** 새 value 예측 head를 붙여 학습한다.<br>
+**이 보고서:** 기존 텍스트 출력으로 숫자 value를 예측한다.
+
+<p class="mini">평가값 → advantage labels → policy 학습.</p>
 
 ### 보충
 
@@ -668,7 +671,7 @@ Sec.4.3 · PDF pp.14–15; App.C Algorithm 1 · PDF p.43
 
 ### 발표 메모
 
-Algorithm1 초기: Train V on D_l, A←V(D_l), Train π with A. 반복: D_l∪rollout, 누적 중 성공 subset으로 critic 갱신, 전체 advantage 재부여, policy 갱신. Critic은 RLDX-1의 Qwen VLM을 공유하는 모델이 아니며 Gemma3-4b-it 별도 backbone을 사용한다. AppendixC critic은 성공시연만으로1epoch, LoRA r128을 사용한다. Policy40개 생성·앞20개 실행·재호출 설정은 S071에 보존한다. 일반 RL의 Q−V 등을 이 보고서의 실제 label 구현 식으로 추가하지 않는다. 다음 Fig8은 critic의 value가 실제 진행·실패·회복을 읽는지 보는 예시다.
+Algorithm1 초기: Train V on D_l, A←V(D_l), Train π with A. 반복: D_l∪rollout, 누적 중 성공 subset으로 critic 갱신, 전체 advantage 재부여, policy 갱신. Critic은 RLDX-1의 Qwen VLM을 공유하는 모델이 아니며 Gemma3-4b-it 별도 backbone을 사용한다. AppendixC critic은 성공시연만으로1epoch, LoRA r128을 사용한다. Policy40개 생성·앞20개 실행·재호출 설정은 S071에 보존한다. 일반 RL의 Q−V 등을 이 보고서의 실제 label 구현 식으로 추가하지 않는다. 일반 critic 전체가 반드시 새 head를 쓴다는 뜻은 아니다. 원문이 대비한 기존 VLM critic과 Fig.8의 distributional critic을 비교한다. 원문은 새로 초기화한 head의 적응에 큰 학습량이 필요하고 목표 도메인과의 분포 차이로 전이가 제한될 수 있다고 설명한다. 저자의 제안은 기존 VLM의 숫자 토큰을 autoregressive하게 예측하는 인터페이스를 재사용해 적은 데이터의 적응에 내부 지식을 활용하려는 것이다. 새 head를 붙이지 않는 것이 critic을 학습하지 않는다는 뜻은 아니다. Advantage는 행동이 기대보다 얼마나 유리했는지에 대한 배경 직관이며 정확한 label 식은 미기재다. 다음 Fig8은 두 critic의 value가 실제 진행·실패·회복을 읽는지 보는 예시다.
 
 ### 상세 공부 기록
 
@@ -820,26 +823,29 @@ caption: Figure 8 · 초록: text prediction critic / 파랑: distributional cri
 
 ### 한 문장
 
-큐브 pick-and-place의 진행·실패·회복이 critic의 값 변화에 반영되는지 비교한다.
+새 value head를 쓰는 critic과 숫자 텍스트로 평가하는 critic의 진행 추정을 비교한다.
 
 ### 본문
 
-#### 축과 색의 의미
+#### 두 critic의 차이
 
-**가로축:** 로봇 timestep<br>
-**세로축:** 정규화한 value
+**파랑 · Distributional critic**<br>
+새 head로 value 분포를 예측한다.
+
+**초록 · Text prediction critic**<br>
+기존 VLM의 텍스트 출력으로 숫자를 예측한다.
 
 #### (a) 첫 시도에 성공
 
-초록 곡선은 작업이 진행됨에 따라 비교적 꾸준히 증가한다.
+초록은 진행에 따라 비교적 꾸준히 증가한다.
 
 #### (b) 실패 후 재시도에 성공
 
-실패 때 내려가고, 재시도·회복 때 다시 올라가는 변화를 초록 곡선이 더 잘 반영한다.
+초록은 실패 때 하락하고 회복 때 상승한다.
 
 ### 보충
 
-<p class="mini">저자의 예시 해석이다. 숫자 텍스트로 출력한 값을 정규화한 그림이며 성공률 곡선이 아니다.</p>
+<p class="mini">가로: timestep · 세로: 정규화 value(성공률 아님).</p>
 
 ### 요점
 
