@@ -1,5 +1,10 @@
 # 버전 보존과 복구
 
+## v27 변경 전 버전
+
+- 태그: `rldx-v26-before-kernel-table-removal-20261106`, 변경 전 커밋 `2f90667`.
+- P078을 제외해52장→51장. 원본은 review/versions/before-kernel-table-removal-v27/P078.md에 보존했다. 복구는 필요한 변경을 새 커밋으로 되돌리며 main을 reset/force-push하지 않는다.
+
 ## v26 변경 전 버전
 
 - 태그: `rldx-v25-before-appendix-experiments-removal-20261106`, 변경 전 커밋 `117226f`.

@@ -147,7 +147,7 @@ try{
   await page.keyboard.press('Escape');
   // Purpose first, then each training stage; graph and fused-kernel explanations stay separate.
   await show('P035');
-  for(const id of ['P016','P017','P018','P019','P037','P020','P038','P039','P078','P040']){await page.keyboard.press('ArrowRight');assert.equal(await active(),id);}
+  for(const id of ['P016','P017','P018','P019','P037','P020','P038','P039','P040']){await page.keyboard.press('ArrowRight');assert.equal(await active(),id);}
   // Benchmarks and real robot/task photos come before their result plots.
   for(const id of ['P022','P041','P042','P023','P043','P024','P044','P025','P026']){await page.keyboard.press('ArrowRight');assert.equal(await active(),id);}
   // Follow the seven ablation topics without skipping their separate conditions and interpretations.
@@ -159,6 +159,9 @@ try{
     assert.equal(await active(),target);
     if(unit){await page.keyboard.press('n');assert((await page.locator('#notes-text').innerText()).includes('상세 해설 '+unit));await page.keyboard.press('Escape');}
   }
+  await page.goto(pathToFileURL(path.resolve('presentation.html')).href+'#P078');
+  assert.equal(await active(),'P039');
+  assert.equal(await page.locator('.deck-page[data-id="P078"]').count(),0);
   assert.deepEqual(errors,[]);
   fs.writeFileSync('qa/full-deck/navigation-report.json',JSON.stringify({pageJump:true,pageJumpResetsTour:true,pageJumpValidation:true,pageJumpEscape:true,arrows:true,enterBackspace:true,spaceShiftSpace:true,upDownPageKeys:true,homeEnd:true,canvasClick:true,imageZoom:true,buttonFocus:true,tourReverseBoundary:true,dialogsAndModifiers:true,fullscreenEscape:true,mergedP012Link:true,allMergedLinks:true,movedStudyNotes:true,errors},null,2));
   console.log('PASS: presentation keys/clicks, native buttons, dialogs, and reverse animation boundary.');

@@ -1,5 +1,12 @@
 # v09 페이지 번호 입력 검증 — 2026-11-06
 
+## 2026-11-06 / v27 / 실제 Fused Kernels 페이지 제외
+
+- P078을 발표 본문에서 제외했다. P039 Kernel Fusion 계산 → P040 시뮬레이션 벤치마크로 바로 연결하며 기존 P078 링크는 P039로 연결한다. 전체52장→51장이고121개 공부 기록은 기존2f90667과 바깥 공백 외 동일하다. 제외 페이지는 source_ids가 비어 있어 이동할 상세 단위가 없다.
+- 원본은 review/versions/before-kernel-table-removal-v27/P078.md와 `rldx-v26-before-kernel-table-removal-20261106` 태그에 보존했다. 기존 S081의 kernel 상세 기록은 유지한다.
+- `build_deck.py`, `verify_sources.py`, `verify_deck.mjs`, `verify_navigation.mjs` 통과.51장 넘침·이미지 실패·브라우저 오류·외부 요청0. P039→P040 순서·P078 DOM 부재·기존 링크 연결을 확인했고 새27쪽 P040 PNG를 직접 확인했다.
+- 기본/base `pnpm build`, 패키지 생성과 `verify_pages.mjs` 통과. HTML3종 동일성·git diff --check 확인 후 자동 commit/push한다. 사용자가 이전에 추가 배포 확인을 중단하도록 했으므로 이번에는 공개 서버 반영을 별도 추적하지 않는다.
+
 ## 2026-11-06 / v26 / 실험 부록 제외
 
 - 사용자 요청에 따라 PEFT3장·부록 평가 설정/과제별 결과8장·추가 ALLEX 합성/batch/BoN8장, 총19장을 발표 화면에서 제외했다. 전체71장→52장. 본문 Table1·Fig.14/16/18 결과와 Table2–4·Fig.19–21 분석은 유지한다. 원본/대응표는 review/versions/before-appendix-removal-v26/에 보존했다.

@@ -12,13 +12,13 @@
 | [02-rldx-1-architecture.md](02-rldx-1-architecture.md) | RLDX-1 Architecture | 8 | 39 |
 | [03-training-data.md](03-training-data.md) | Training Data | 7 | 15 |
 | [04-training-procedure.md](04-training-procedure.md) | Training Procedure | 6 | 14 |
-| [05-inference-strategy.md](05-inference-strategy.md) | Inference Strategy | 4 | 10 |
+| [05-inference-strategy.md](05-inference-strategy.md) | Inference Strategy | 3 | 10 |
 | [06-evaluation-and-analysis.md](06-evaluation-and-analysis.md) | Evaluation and Analysis | 9 | 17 |
 | [07-ablation-and-analysis.md](07-ablation-and-analysis.md) | Ablation and Analysis | 13 | 16 |
 | [08-conclusion.md](08-conclusion.md) | Conclusion | 1 | 2 |
 | [09-my-opinions-and-limitation.md](09-my-opinions-and-limitation.md) | My opinions and limitation | 2 | 5 |
 
-표지 S001을 제외한 본문51장과 상세 공부 기록121개를 포함한다(v26). source_ids 기준으로 S002–S122가 각각 정확히 한 번 연결된다. 장 ID는 위치가 바뀌어도 유지한다.
+표지 S001을 제외한 본문50장과 상세 공부 기록121개를 포함한다(v27). source_ids 기준으로 S002–S122가 각각 정확히 한 번 연결된다. 장 ID는 위치가 바뀌어도 유지한다.
 
 퇴역한 P036·P003·P004·P005·P007·P011·P012·P021·P045·P046·P048·P049·P050·P052·P053·P054·P055·P056·P057·P058·P059·P073·P074의 ID를 다른 의미로 재사용하지 않는다.
 
@@ -78,3 +78,5 @@ $$
 P036 입출력 경로 본문은 제외하고4쪽 P032의 MSAT 마지막 대본에 통합했다. S036/S058은 P032에 보존하며 P036·P011 기존 링크는 MSAT 확대로 연결한다.
 
 부록 실험·설정19장(P075–P077, P079–P094)을 본문에서 제외했다. 상세121개는 보존하며 제외 장의 원본/기존 링크 대응은 review/versions/before-appendix-removal-v26/에 기록한다.
+
+P078 실제 Fused Kernels 페이지는 제외했다. 기존 링크는 P039 Kernel Fusion의 계산으로 연결하며 원본은 review/versions/before-kernel-table-removal-v27/P078.md에 보존한다.
