@@ -149,7 +149,7 @@ try{
   await show('P035');
   for(const id of ['P016','P017','P018','P019','P037','P020','P038','P039','P040']){await page.keyboard.press('ArrowRight');assert.equal(await active(),id);}
   // Benchmarks and real robot/task photos come before their result plots.
-  for(const id of ['P022','P041','P042','P023','P043','P024','P044','P025','P026']){await page.keyboard.press('ArrowRight');assert.equal(await active(),id);}
+  for(const id of ['P022','P095','P041','P042','P023','P043','P024','P044','P025','P026']){await page.keyboard.press('ArrowRight');assert.equal(await active(),id);}
   // Follow the seven ablation topics without skipping their separate conditions and interpretations.
   for(const id of ['P060','P061','P062','P063','P064','P065','P070','P066','P067','P027','P068','P069','P029']){await page.keyboard.press('ArrowRight');assert.equal(await active(),id);}
   // Appendix experiments are absent, and their old links resolve to retained topics.

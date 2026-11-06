@@ -63,6 +63,14 @@
 .seminar-slide td { border-bottom: 1px solid #dce4e8; }
 .seminar-slide tr:last-child td { border-bottom-color: #b7cbd2; }
 .seminar-slide table + p { margin-top: 15px; }
+.seminar-slide .table-one { table-layout: fixed; font-size: 24px; line-height: 1.25; }
+.seminar-slide .table-one td, .seminar-slide .table-one th { padding: 8px; text-align: center; vertical-align: middle; white-space: nowrap; }
+.seminar-slide .table-one th:first-child { text-align: left; }
+.seminar-slide .table-one tbody th { background: transparent; color: inherit; font-weight: 400; border-bottom: 1px solid #dce4e8; }
+.seminar-slide .table-one .best-baseline { font-weight: 750; }
+.seminar-slide .table-one .ours { background: #e8f2ef; color: #165f5b; font-weight: 750; }
+.seminar-slide .table-one .delta { color: #165f5b; font-weight: 750; border-left: 2px solid #bed5d2; }
+.seminar-slide .table-one .group-start > * { border-top: 2px solid #a1b8c1; }
 .seminar-slide .metric { font-size: 40px; font-weight: 750; color: #167e7a; line-height: 1.2; }
 .seminar-slide .bar-row { display: grid; grid-template-columns: 1.2fr 2fr auto; gap: 14px; align-items: center; margin: 15px 0; }
 .seminar-slide .bar-fill { display: block; background: #298d88; height: 25px; }

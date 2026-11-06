@@ -4,7 +4,7 @@
     "id": "S001",
     "title": "RLDX-1 Technical Report",
     "chapter": "표지",
-    "version": "v27",
+    "version": "v28",
     "status": "전체 초안 / 미승인",
     "source_ids": [
       "S001"
@@ -15,7 +15,7 @@
     "id": "P002",
     "title": "기존 VLA의 문제",
     "chapter": "Problems",
-    "version": "v27",
+    "version": "v28",
     "status": "전체 초안 / 미승인",
     "source_ids": [
       "S002",
@@ -28,7 +28,7 @@
     "id": "P031",
     "title": "RLDX-1 Overview",
     "chapter": "RLDX-1 Architecture",
-    "version": "v27",
+    "version": "v28",
     "status": "전체 초안 / 미승인",
     "source_ids": [
       "S122",
@@ -42,7 +42,7 @@
     "id": "P032",
     "title": "RLDX-1 Architecture",
     "chapter": "RLDX-1 Architecture",
-    "version": "v27",
+    "version": "v28",
     "status": "전체 초안 / 미승인",
     "source_ids": [
       "S016",
@@ -67,7 +67,7 @@
     "id": "P051",
     "title": "VLM과 로봇 VQA",
     "chapter": "RLDX-1 Architecture",
-    "version": "v27",
+    "version": "v28",
     "status": "전체 초안 / 미승인",
     "source_ids": [
       "S008"
@@ -78,7 +78,7 @@
     "id": "P009",
     "title": "MSAT의 입력",
     "chapter": "RLDX-1 Architecture",
-    "version": "v27",
+    "version": "v28",
     "status": "전체 초안 / 미승인",
     "source_ids": [
       "S031",
@@ -92,7 +92,7 @@
     "id": "P010",
     "title": "MSAT의 Joint Attention",
     "chapter": "RLDX-1 Architecture",
-    "version": "v27",
+    "version": "v28",
     "status": "전체 초안 / 미승인",
     "source_ids": [
       "S033",
@@ -105,7 +105,7 @@
     "id": "P006",
     "title": "Action Model의 학습 원리",
     "chapter": "RLDX-1 Architecture",
-    "version": "v27",
+    "version": "v28",
     "status": "전체 초안 / 미승인",
     "source_ids": [
       "S020",
@@ -123,7 +123,7 @@
     "id": "P008",
     "title": "Action Model의 추론 수식",
     "chapter": "RLDX-1 Architecture",
-    "version": "v27",
+    "version": "v28",
     "status": "전체 초안 / 미승인",
     "source_ids": [
       "S027",
@@ -136,7 +136,7 @@
     "id": "P071",
     "title": "Action Chunk의 실행",
     "chapter": "RLDX-1 Architecture",
-    "version": "v27",
+    "version": "v28",
     "status": "전체 초안 / 미승인",
     "source_ids": [
       "S071"
@@ -147,7 +147,7 @@
     "id": "P013",
     "title": "학습 데이터",
     "chapter": "Training Data",
-    "version": "v27",
+    "version": "v28",
     "status": "전체 초안 / 미승인",
     "source_ids": [
       "S041",
@@ -159,7 +159,7 @@
     "id": "P033",
     "title": "공개 실제 데이터",
     "chapter": "Training Data",
-    "version": "v27",
+    "version": "v28",
     "status": "전체 초안 / 미승인",
     "source_ids": []
   },
@@ -168,7 +168,7 @@
     "id": "P034",
     "title": "자체 실제 데이터",
     "chapter": "Training Data",
-    "version": "v27",
+    "version": "v28",
     "status": "전체 초안 / 미승인",
     "source_ids": [
       "S042"
@@ -179,7 +179,7 @@
     "id": "P072",
     "title": "로봇 영상 생성 모델",
     "chapter": "Training Data",
-    "version": "v27",
+    "version": "v28",
     "status": "전체 초안 / 미승인",
     "source_ids": []
   },
@@ -188,7 +188,7 @@
     "id": "P014",
     "title": "Task·Scene Augmentation",
     "chapter": "Training Data",
-    "version": "v27",
+    "version": "v28",
     "status": "전체 초안 / 미승인",
     "source_ids": [
       "S044",
@@ -205,7 +205,7 @@
     "id": "P015",
     "title": "합성 데이터 검증",
     "chapter": "Training Data",
-    "version": "v27",
+    "version": "v28",
     "status": "전체 초안 / 미승인",
     "source_ids": [
       "S055",
@@ -219,7 +219,7 @@
     "id": "P047",
     "title": "일치 검사기의 학습",
     "chapter": "Training Data",
-    "version": "v27",
+    "version": "v28",
     "status": "전체 초안 / 미승인",
     "source_ids": [
       "S054"
@@ -230,7 +230,7 @@
     "id": "P035",
     "title": "학습 단계",
     "chapter": "Training Procedure",
-    "version": "v27",
+    "version": "v28",
     "status": "전체 초안 / 미승인",
     "source_ids": [
       "S056"
@@ -241,7 +241,7 @@
     "id": "P016",
     "title": "Pre-training",
     "chapter": "Training Procedure",
-    "version": "v27",
+    "version": "v28",
     "status": "전체 초안 / 미승인",
     "source_ids": [
       "S057",
@@ -253,7 +253,7 @@
     "id": "P017",
     "title": "Mid-training",
     "chapter": "Training Procedure",
-    "version": "v27",
+    "version": "v28",
     "status": "전체 초안 / 미승인",
     "source_ids": [
       "S060",
@@ -268,7 +268,7 @@
     "id": "P018",
     "title": "Post-training",
     "chapter": "Training Procedure",
-    "version": "v27",
+    "version": "v28",
     "status": "전체 초안 / 미승인",
     "source_ids": [
       "S065",
@@ -280,7 +280,7 @@
     "id": "P019",
     "title": "RECAP",
     "chapter": "Training Procedure",
-    "version": "v27",
+    "version": "v28",
     "status": "전체 초안 / 미승인",
     "source_ids": [
       "S067",
@@ -293,7 +293,7 @@
     "id": "P037",
     "title": "Critic과 Figure 8",
     "chapter": "Training Procedure",
-    "version": "v27",
+    "version": "v28",
     "status": "전체 초안 / 미승인",
     "source_ids": [
       "S069"
@@ -304,7 +304,7 @@
     "id": "P020",
     "title": "CUDA Graph",
     "chapter": "Inference Strategy",
-    "version": "v27",
+    "version": "v28",
     "status": "전체 초안 / 미승인",
     "source_ids": [
       "S072",
@@ -318,7 +318,7 @@
     "id": "P038",
     "title": "Kernel Fusion",
     "chapter": "Inference Strategy",
-    "version": "v27",
+    "version": "v28",
     "status": "전체 초안 / 미승인",
     "source_ids": [
       "S076",
@@ -333,7 +333,7 @@
     "id": "P039",
     "title": "Kernel Fusion의 계산",
     "chapter": "Inference Strategy",
-    "version": "v27",
+    "version": "v28",
     "status": "전체 초안 / 미승인",
     "source_ids": [
       "S080"
@@ -344,7 +344,7 @@
     "id": "P040",
     "title": "시뮬레이션 벤치마크",
     "chapter": "Evaluation and Analysis",
-    "version": "v27",
+    "version": "v28",
     "status": "전체 초안 / 미승인",
     "source_ids": [
       "S082"
@@ -353,9 +353,9 @@
   {
     "order": 28,
     "id": "P022",
-    "title": "Simulation 결과",
+    "title": "Simulation 결과 (a)",
     "chapter": "Evaluation and Analysis",
-    "version": "v27",
+    "version": "v28",
     "status": "전체 초안 / 미승인",
     "source_ids": [
       "S083",
@@ -369,41 +369,50 @@
   },
   {
     "order": 29,
-    "id": "P041",
-    "title": "실제 로봇",
+    "id": "P095",
+    "title": "Simulation 결과 (b)",
     "chapter": "Evaluation and Analysis",
-    "version": "v27",
+    "version": "v28",
     "status": "전체 초안 / 미승인",
     "source_ids": []
   },
   {
     "order": 30,
+    "id": "P041",
+    "title": "실제 로봇",
+    "chapter": "Evaluation and Analysis",
+    "version": "v28",
+    "status": "전체 초안 / 미승인",
+    "source_ids": []
+  },
+  {
+    "order": 31,
     "id": "P042",
     "title": "OpenArm 과제",
     "chapter": "Evaluation and Analysis",
-    "version": "v27",
+    "version": "v28",
     "status": "전체 초안 / 미승인",
     "source_ids": [
       "S088"
     ]
   },
   {
-    "order": 31,
+    "order": 32,
     "id": "P023",
     "title": "OpenArm 결과",
     "chapter": "Evaluation and Analysis",
-    "version": "v27",
+    "version": "v28",
     "status": "전체 초안 / 미승인",
     "source_ids": [
       "S089"
     ]
   },
   {
-    "order": 32,
+    "order": 33,
     "id": "P043",
     "title": "ALLEX 과제",
     "chapter": "Evaluation and Analysis",
-    "version": "v27",
+    "version": "v28",
     "status": "전체 초안 / 미승인",
     "source_ids": [
       "S090",
@@ -411,22 +420,22 @@
     ]
   },
   {
-    "order": 33,
+    "order": 34,
     "id": "P024",
     "title": "ALLEX 결과",
     "chapter": "Evaluation and Analysis",
-    "version": "v27",
+    "version": "v28",
     "status": "전체 초안 / 미승인",
     "source_ids": [
       "S092"
     ]
   },
   {
-    "order": 34,
+    "order": 35,
     "id": "P044",
     "title": "Franka 과제",
     "chapter": "Evaluation and Analysis",
-    "version": "v27",
+    "version": "v28",
     "status": "전체 초안 / 미승인",
     "source_ids": [
       "S093",
@@ -434,11 +443,11 @@
     ]
   },
   {
-    "order": 35,
+    "order": 36,
     "id": "P025",
     "title": "Franka 결과",
     "chapter": "Evaluation and Analysis",
-    "version": "v27",
+    "version": "v28",
     "status": "전체 초안 / 미승인",
     "source_ids": [
       "S095",
@@ -446,11 +455,11 @@
     ]
   },
   {
-    "order": 36,
+    "order": 37,
     "id": "P026",
     "title": "Ablation and Analysis",
     "chapter": "Ablation and Analysis",
-    "version": "v27",
+    "version": "v28",
     "status": "전체 초안 / 미승인",
     "source_ids": [
       "S097",
@@ -458,55 +467,55 @@
     ]
   },
   {
-    "order": 37,
+    "order": 38,
     "id": "P060",
     "title": "VLM의 특징 추출 층",
     "chapter": "Ablation and Analysis",
-    "version": "v27",
+    "version": "v28",
     "status": "전체 초안 / 미승인",
     "source_ids": [
       "S098"
     ]
   },
   {
-    "order": 38,
+    "order": 39,
     "id": "P061",
     "title": "로봇 VQA의 효과",
     "chapter": "Ablation and Analysis",
-    "version": "v27",
+    "version": "v28",
     "status": "전체 초안 / 미승인",
     "source_ids": [
       "S099"
     ]
   },
   {
-    "order": 39,
+    "order": 40,
     "id": "P062",
     "title": "VQA 전후의 Attention",
     "chapter": "Ablation and Analysis",
-    "version": "v27",
+    "version": "v28",
     "status": "전체 초안 / 미승인",
     "source_ids": [
       "S100"
     ]
   },
   {
-    "order": 40,
+    "order": 41,
     "id": "P063",
     "title": "합성 데이터 규모 실험",
     "chapter": "Ablation and Analysis",
-    "version": "v27",
+    "version": "v28",
     "status": "전체 초안 / 미승인",
     "source_ids": [
       "S101"
     ]
   },
   {
-    "order": 41,
+    "order": 42,
     "id": "P064",
     "title": "합성 데이터의 성능 효과",
     "chapter": "Ablation and Analysis",
-    "version": "v27",
+    "version": "v28",
     "status": "전체 초안 / 미승인",
     "source_ids": [
       "S102",
@@ -515,42 +524,42 @@
     ]
   },
   {
-    "order": 42,
+    "order": 43,
     "id": "P065",
     "title": "RL 평가 작업",
     "chapter": "Ablation and Analysis",
-    "version": "v27",
+    "version": "v28",
     "status": "전체 초안 / 미승인",
     "source_ids": [
       "S103"
     ]
   },
   {
-    "order": 43,
+    "order": 44,
     "id": "P070",
     "title": "RECAP 결과의 지표",
     "chapter": "Ablation and Analysis",
-    "version": "v27",
+    "version": "v28",
     "status": "전체 초안 / 미승인",
     "source_ids": []
   },
   {
-    "order": 44,
+    "order": 45,
     "id": "P066",
     "title": "RECAP 반복 결과",
     "chapter": "Ablation and Analysis",
-    "version": "v27",
+    "version": "v28",
     "status": "전체 초안 / 미승인",
     "source_ids": [
       "S104"
     ]
   },
   {
-    "order": 45,
+    "order": 46,
     "id": "P067",
     "title": "RECAP 개선의 의미",
     "chapter": "Ablation and Analysis",
-    "version": "v27",
+    "version": "v28",
     "status": "전체 초안 / 미승인",
     "source_ids": [
       "S109",
@@ -559,42 +568,42 @@
     ]
   },
   {
-    "order": 46,
+    "order": 47,
     "id": "P027",
     "title": "추론 지연 측정",
     "chapter": "Ablation and Analysis",
-    "version": "v27",
+    "version": "v28",
     "status": "전체 초안 / 미승인",
     "source_ids": [
       "S105"
     ]
   },
   {
-    "order": 47,
+    "order": 48,
     "id": "P068",
     "title": "추론 최적화의 단계별 효과",
     "chapter": "Ablation and Analysis",
-    "version": "v27",
+    "version": "v28",
     "status": "전체 초안 / 미승인",
     "source_ids": [
       "S106"
     ]
   },
   {
-    "order": 48,
+    "order": 49,
     "id": "P069",
     "title": "추론 최적화의 해석",
     "chapter": "Ablation and Analysis",
-    "version": "v27",
+    "version": "v28",
     "status": "전체 초안 / 미승인",
     "source_ids": []
   },
   {
-    "order": 49,
+    "order": 50,
     "id": "P029",
     "title": "Conclusion",
     "chapter": "Conclusion",
-    "version": "v27",
+    "version": "v28",
     "status": "전체 초안 / 미승인",
     "source_ids": [
       "S116",
@@ -602,22 +611,22 @@
     ]
   },
   {
-    "order": 50,
+    "order": 51,
     "id": "P028",
     "title": "나의 의견",
     "chapter": "My opinions and limitation",
-    "version": "v27",
+    "version": "v28",
     "status": "전체 초안 / 미승인",
     "source_ids": [
       "S108"
     ]
   },
   {
-    "order": 51,
+    "order": 52,
     "id": "P030",
     "title": "한계와 미해결 질문",
     "chapter": "My opinions and limitation",
-    "version": "v27",
+    "version": "v28",
     "status": "전체 초안 / 미승인",
     "source_ids": [
       "S118",

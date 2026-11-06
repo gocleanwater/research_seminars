@@ -81,61 +81,50 @@ Sec.6 · Fig.11 · PDF p.17
 
 Figure 11(a)는 LIBERO/LIBERO-Plus와 SIMPLER, (b)는 RoboCasa Kitchen, GR-1 Tabletop, RoboCasa365를 보여준다. 이 논문의 평가는 하나의 zero-shot 범용 모델을 그대로 모든 환경에 투입한 결과가 아니다. 6.1/6.2는 pre-trained 모델의 downstream fine-tuning, 6.3/6.4는 mid-trained 모델의 task별 fine-tuning이다. 6.5에서도 각 실험의 데이터와 초기화가 달라 직접 수치 연결에 주의한다.
 
-## [P022] Simulation 결과
+## [P022] Simulation 결과 (a)
 
 <!-- slide-meta
-layout: split
+layout: full
 kind: fact
 source_ids: S083, S084, S085, S086, S087, S114, S115
 -->
 
 ### 한 문장
 
-사전학습한 모델을 각 벤치마크의 학습 데이터로 fine-tuning한 뒤 성공률을 비교한다.
+Table 1(a) 전체 · 성공률(%) · Δ = RLDX-1 − 각 평가의 최강 baseline(%p)
 
 ### 본문
 
-#### Table 1의 주요 결과
-
-| 성공률 (%) | 최강 baseline | RLDX-1 |
-| --- | --- | --- |
-| LIBERO 평균 | 96.9 | 97.8 |
-| LIBERO-Plus | 86.5 | 86.7 |
-| GR-1 Tabletop | 48.0 | 58.7 |
-| RC365 전체 | 26.9 | 32.1 |
-| RC365 미지 복합 | 4.4 | 5.6 |
-
-<p class="mini">비교 모델: π0-FAST·π0·π0.5·GR00T N1.5/N1.6. 최강 baseline은 열마다 다르다.</p>
+<table class="table-one" aria-label="Table 1(a) 전체 성공률과 최강 baseline 대비 차이"><colgroup><col style="width:25%"><col span="7" style="width:10.7142857%"></colgroup><thead><tr><th scope="col">평가</th><th scope="col">π0-FAST</th><th scope="col">π0</th><th scope="col">π0.5</th><th scope="col">GR00T<br>N1.5</th><th scope="col">GR00T<br>N1.6</th><th scope="col">RLDX-1</th><th scope="col">Δ (%p)</th></tr></thead><tbody>
+<tr data-benchmark="LIBERO · Short"><th scope="row">LIBERO · Short</th><td>93.9</td><td>97.1</td><td class="best-baseline">98.0</td><td>90.0</td><td>97.4</td><td class="ours">98.6</td><td class="delta">+0.6</td></tr>
+<tr data-benchmark="LIBERO · Long"><th scope="row">LIBERO · Long</th><td>60.2</td><td>85.2</td><td>92.0</td><td>76.0</td><td class="best-baseline">94.4</td><td class="ours">95.3</td><td class="delta">+0.9</td></tr>
+<tr data-benchmark="LIBERO · Avg."><th scope="row">LIBERO · Avg.</th><td>85.5</td><td>94.1</td><td class="best-baseline">96.9</td><td>86.5</td><td>96.7</td><td class="ours">97.8</td><td class="delta">+0.9</td></tr>
+<tr class="group-start" data-benchmark="LIBERO-Plus"><th scope="row">LIBERO-Plus</th><td>64.2</td><td>54.6</td><td class="best-baseline">86.5</td><td>66.3</td><td>72.6</td><td class="ours">86.7</td><td class="delta">+0.2</td></tr>
+<tr class="group-start" data-benchmark="SIMPLER Google-VM"><th scope="row">SIMPLER Google-VM</th><td>61.9</td><td>58.8</td><td>72.7</td><td>52.4</td><td class="best-baseline">76.1</td><td class="ours">81.5</td><td class="delta">+5.4</td></tr>
+<tr data-benchmark="SIMPLER Google-VA"><th scope="row">SIMPLER Google-VA</th><td>59.0</td><td>54.8</td><td class="best-baseline">68.4</td><td>43.7</td><td>57.1</td><td class="ours">77.4</td><td class="delta">+9.0</td></tr>
+<tr data-benchmark="SIMPLER WidowX"><th scope="row">SIMPLER WidowX</th><td>48.3</td><td>27.1</td><td>46.9</td><td class="best-baseline">62.0</td><td>57.1</td><td class="ours">71.9</td><td class="delta">+9.9</td></tr>
+</tbody></table>
 
 ### 보충
 
-#### LIBERO 평균의 의미
-
-**40개 조작 과제의 평균 성공률**이다. 과제는 다음 4개 묶음으로 나뉜다.
-
-- **Spatial:** 공간 관계
-- **Object:** 대상 물체
-- **Goal:** 수행 목표
-- **Long:** 여러 동작을 잇는 긴 절차
-
-Table 1의 **Short**는 앞의 세 묶음 평균,<br>
-**Avg**는 Long까지 포함한 전체 평균이다.
-
 ### 요점
 
-LIBERO 97.8%는 그 안의 과제 전반을 요약한 값이다. 새 복합 절차의 성공률 5.6%에는 큰 어려움이 남는다.
+굵은 baseline은 각 평가의 최고값이다. Δ는 상대 개선율이 아닌 성공률 차이(%p)다.
 
 ### 출처
 
-Table 1 · PDF p.18
+Table 1(a) · PDF p.18; 원문 표를 전치하고 보고값으로 Δ 계산
 
 ### 발표 메모
+
+원문 Table1은 모델을 행에, 평가를 열에 둔다. 발표에서는 전체 모델 수치를 유지하며 전치해 최강 baseline과의 차이를 마지막 열에 추가했다. 5개 baseline 중 보고된 숫자의 최댓값을 기준으로 삼고 RLDX-1은 기준 후보에 포함하지 않는다. 본문 오른쪽 LIBERO 설명은 제외했으며 정의와 집계 직관은 아래 공부 기록에 보존한다. 다음 P095는 Table1(b)의 전체 결과다.
 
 발표자 참고 출처: Table 1 · PDF p.18; App.G.1 · PDF p.48; RC365 세부 집계: Table15 · PDF p.55.
 
 원문의LIBERO는4sub-benchmark40tasks이며각task50회평가한다. Short는Spatial/Goal/Object suites평균, Avg는Long을포함한전체를요약한다. 표시된RLDX Short98.6/Long95.3에서(3*98.6+95.3)/4=97.775로Avg97.8에대응한다. Short/Long두숫자의단순평균으로해석하지않는다. 표는각열의최고baseline이며LIBERO/Plus는π0.5, GR-1/RC365미지복합은N1.5, RC365전체는N1.6이다. Baseline출처·설정·반복/불확실성·RC365task수가중평균과batch불일치는기존S083–087에보존한다. 전시스템recipe의비교와개별모듈의독립효과를구분하되그방법론설명을기초과제정의보다앞세우지않는다.
 
 ### 상세 공부 기록
+
 
 #### [S083] Baseline의 행동 생성 방식
 
@@ -431,6 +420,45 @@ App.G.6 · Tables 13–15 · PDF p.55
 ##### 발표 메모
 
 Kitchen은 Close Single Door와Turn On Sink100인 반면 Microwave-to-Counter26, Stove Off22다. GR-1은 Tray-to-Pot와Can-to-Drawer74인 반면 Placemat-to-Tiered-Shelf24다. RC365 Composite-Seen Load Dishwasher50, Get Toasted Bread0, Prepare Coffee0. Composite-Unseen은 Categorize Condiments/Gather Tableware/Heat Kebab Sandwich/Pan Transfer/Separate Freezer Rack에서0이다. $\frac{18\times67.3+16\times19+16\times5.6}{50}=32.104\approx32.1$. Split 단순 평균30.63과 다르다. 다단계 실패의 원인을 인지 또는 제어 한 가지로 단정할 수 없다. 화면 표의 매트→다단 선반은 Placemat to Tiered Shelf, 토스트 꺼내기는 Get Toasted Bread, 식기 모으기는 Gather Tableware에 해당한다. Seen/Unseen은 Composite split을 줄여 쓴다.
+
+## [P095] Simulation 결과 (b)
+
+<!-- slide-meta
+layout: full
+kind: fact
+source_ids:
+-->
+
+### 한 문장
+
+Table 1(b) 전체 · 성공률(%) · S: Seen / U: Unseen · RC365: RoboCasa365
+
+### 본문
+
+<table class="table-one" aria-label="Table 1(b) 전체 성공률과 최강 baseline 대비 차이"><colgroup><col style="width:25%"><col span="7" style="width:10.7142857%"></colgroup><thead><tr><th scope="col">평가</th><th scope="col">π0-FAST</th><th scope="col">π0</th><th scope="col">π0.5</th><th scope="col">GR00T<br>N1.5</th><th scope="col">GR00T<br>N1.6</th><th scope="col">RLDX-1</th><th scope="col">Δ (%p)</th></tr></thead><tbody>
+<tr data-benchmark="RoboCasa Kitchen"><th scope="row">RoboCasa Kitchen</th><td>63.6</td><td>62.5</td><td>62.1</td><td>65.7</td><td class="best-baseline">66.2</td><td class="ours">70.6</td><td class="delta">+4.4</td></tr>
+<tr data-benchmark="GR-1 Tabletop"><th scope="row">GR-1 Tabletop</th><td>—</td><td>13.6</td><td>15.4</td><td class="best-baseline">48.0</td><td>47.6</td><td class="ours">58.7</td><td class="delta">+10.7</td></tr>
+<tr class="group-start" data-benchmark="RC365 · Atomic-S"><th scope="row">RC365 · Atomic-S</th><td>51.7</td><td>34.6</td><td>39.6</td><td>43.0</td><td class="best-baseline">61.1</td><td class="ours">67.3</td><td class="delta">+6.2</td></tr>
+<tr data-benchmark="RC365 · Comp.-S"><th scope="row">RC365 · Comp.-S</th><td>8.0</td><td>6.1</td><td>7.1</td><td>9.6</td><td class="best-baseline">12.6</td><td class="ours">19.0</td><td class="delta">+6.4</td></tr>
+<tr data-benchmark="RC365 · Comp.-U"><th scope="row">RC365 · Comp.-U</th><td>1.8</td><td>1.1</td><td>1.2</td><td class="best-baseline">4.4</td><td>2.6</td><td class="ours">5.6</td><td class="delta">+1.2</td></tr>
+<tr data-benchmark="RC365 · Avg."><th scope="row">RC365 · Avg.</th><td>21.7</td><td>14.8</td><td>16.9</td><td>20.0</td><td class="best-baseline">26.9</td><td class="ours">32.1</td><td class="delta">+5.2</td></tr>
+</tbody></table>
+
+### 보충
+
+### 요점
+
+Δ = RLDX-1 − 최강 baseline(%p). ‘—’는 원문에서 결과를 보고하지 않은 항목이다.
+
+### 출처
+
+Table 1(b) · PDF p.18; 원문 표를 전치하고 보고값으로 Δ 계산
+
+### 발표 메모
+
+6개 평가와6개 모델의 원문 수치를 모두 표시한다. π0-FAST의 GR-1 Tabletop 값은 미보고이므로0으로 처리하지 않고 최강값 계산에서도 제외한다. Atomic-S는 학습한 단일 기술, Comp.-S/Comp.-U는 학습한/미지의 복합 절차다. Avg.는 원문이 보고한 평가 집계값을 그대로 옮겼으며 표시된 세 열의 단순 평균으로 다시 만들지 않는다. 차이는 성공률의 절대 차이인 %p다. 기존 관련 공부 기록 S084–S087은 P022에 보존한다.
+
+### 상세 공부 기록
 
 ## [P041] 실제 로봇
 

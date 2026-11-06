@@ -1,0 +1,182 @@
+{
+  "source": "Table 1, PDF p.18; all 78 cells checked against PDF text",
+  "models": [
+    "π0-FAST",
+    "π0",
+    "π0.5",
+    "GR00T N1.5",
+    "GR00T N1.6",
+    "RLDX-1 (Ours)"
+  ],
+  "rows": [
+    {
+      "label": "LIBERO · Short",
+      "values": [
+        "93.9",
+        "97.1",
+        "98.0",
+        "90.0",
+        "97.4",
+        "98.6"
+      ],
+      "best_baseline": "98.0",
+      "delta_pp": "+0.6"
+    },
+    {
+      "label": "LIBERO · Long",
+      "values": [
+        "60.2",
+        "85.2",
+        "92.0",
+        "76.0",
+        "94.4",
+        "95.3"
+      ],
+      "best_baseline": "94.4",
+      "delta_pp": "+0.9"
+    },
+    {
+      "label": "LIBERO · Avg.",
+      "values": [
+        "85.5",
+        "94.1",
+        "96.9",
+        "86.5",
+        "96.7",
+        "97.8"
+      ],
+      "best_baseline": "96.9",
+      "delta_pp": "+0.9"
+    },
+    {
+      "label": "LIBERO-Plus",
+      "values": [
+        "64.2",
+        "54.6",
+        "86.5",
+        "66.3",
+        "72.6",
+        "86.7"
+      ],
+      "best_baseline": "86.5",
+      "delta_pp": "+0.2"
+    },
+    {
+      "label": "SIMPLER Google-VM",
+      "values": [
+        "61.9",
+        "58.8",
+        "72.7",
+        "52.4",
+        "76.1",
+        "81.5"
+      ],
+      "best_baseline": "76.1",
+      "delta_pp": "+5.4"
+    },
+    {
+      "label": "SIMPLER Google-VA",
+      "values": [
+        "59.0",
+        "54.8",
+        "68.4",
+        "43.7",
+        "57.1",
+        "77.4"
+      ],
+      "best_baseline": "68.4",
+      "delta_pp": "+9.0"
+    },
+    {
+      "label": "SIMPLER WidowX",
+      "values": [
+        "48.3",
+        "27.1",
+        "46.9",
+        "62.0",
+        "57.1",
+        "71.9"
+      ],
+      "best_baseline": "62.0",
+      "delta_pp": "+9.9"
+    },
+    {
+      "label": "RoboCasa Kitchen",
+      "values": [
+        "63.6",
+        "62.5",
+        "62.1",
+        "65.7",
+        "66.2",
+        "70.6"
+      ],
+      "best_baseline": "66.2",
+      "delta_pp": "+4.4"
+    },
+    {
+      "label": "GR-1 Tabletop",
+      "values": [
+        null,
+        "13.6",
+        "15.4",
+        "48.0",
+        "47.6",
+        "58.7"
+      ],
+      "best_baseline": "48.0",
+      "delta_pp": "+10.7"
+    },
+    {
+      "label": "RC365 · Atomic-S",
+      "values": [
+        "51.7",
+        "34.6",
+        "39.6",
+        "43.0",
+        "61.1",
+        "67.3"
+      ],
+      "best_baseline": "61.1",
+      "delta_pp": "+6.2"
+    },
+    {
+      "label": "RC365 · Comp.-S",
+      "values": [
+        "8.0",
+        "6.1",
+        "7.1",
+        "9.6",
+        "12.6",
+        "19.0"
+      ],
+      "best_baseline": "12.6",
+      "delta_pp": "+6.4"
+    },
+    {
+      "label": "RC365 · Comp.-U",
+      "values": [
+        "1.8",
+        "1.1",
+        "1.2",
+        "4.4",
+        "2.6",
+        "5.6"
+      ],
+      "best_baseline": "4.4",
+      "delta_pp": "+1.2"
+    },
+    {
+      "label": "RC365 · Avg.",
+      "values": [
+        "21.7",
+        "14.8",
+        "16.9",
+        "20.0",
+        "26.9",
+        "32.1"
+      ],
+      "best_baseline": "26.9",
+      "delta_pp": "+5.2"
+    }
+  ]
+}
