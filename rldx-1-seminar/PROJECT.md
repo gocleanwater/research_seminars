@@ -11,6 +11,7 @@
 - 이전 자료: `content/main-*.json`과 상세 JSON은 마이그레이션 스냅샷으로 보존. 이후 내용 수정은 MD에서 진행
 - 상세 공부 기록: 기존 S002–S122를 연결한 N 해설로 보존. 본문 장수와 상세 단위 수를 일대일 대응하지 않음
 - 결과물: `presentation.html`·`index.html`(동일한 오프라인/게시용 발표), `slides.md`(Slidev 생성 소스), `review/SLIDE_INDEX.md`(본문·상세 해설 매핑)
+- 발표 대본: `SPEAKER_SCRIPT.md` v01. 현재 v28의52장과 Figure3의27단계에 대응하는 별도 리허설 문서. 검토 기록은 `review/SCRIPT_REVIEW.md`, 확인은 `python3 scripts/verify_speaker_script.py`. HTML N 상세 기록은 유지한다.
 - 페이지 이동: 하단 현재 번호를 입력하고 Enter. 번호로 이동하면 Fig.3 같은 단계형 페이지도 첫 단계로 진입한다. Esc는 입력 취소.
 - 모바일 조작: 좁은 세로 화면에서는 하단 메뉴가 두 줄, 가로 화면에서는 가능한 폭에서 한 줄로 배치된다. 터치 버튼/번호 입력은 최소44px이며 safe area를 반영한다. 슬라이드 크기는 실제 메뉴 높이에 맞춰 조정된다.
 - 발표 구성: Fig.1 표지 → Problems → Architecture(Fig.2·Fig.3(Vision Encoder·Motion은 확대 단계 대본) → VLM·VQA·Cognition·시간 압축·Memory → MSAT 마지막 대본의 로봇별 입출력 경로 → MSAT 입력·Joint Attention → 학습·추론 수식) → Training Data(전체 종류 → 공개 → 자체 →합성) → Training Procedure → Inference Strategy → Evaluation and Analysis → Ablation and Analysis → Conclusion → My opinions and limitation
