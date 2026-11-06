@@ -1,5 +1,13 @@
 # v09 페이지 번호 입력 검증 — 2026-11-06
 
+## 2026-11-06 / v26 / 실험 부록 제외
+
+- 사용자 요청에 따라 PEFT3장·부록 평가 설정/과제별 결과8장·추가 ALLEX 합성/batch/BoN8장, 총19장을 발표 화면에서 제외했다. 전체71장→52장. 본문 Table1·Fig.14/16/18 결과와 Table2–4·Fig.19–21 분석은 유지한다. 원본/대응표는 review/versions/before-appendix-removal-v26/에 보존했다.
+- S108→P028, S109–S111→P067, S112–S113→P064, S114–S115→P022 N 상세에 연결했다. 기존117226f와 전체121개 상세 기록의 제목·본문은 바깥 공백 외 동일하다. 관련 부록 정보를 필수 대본으로 새로 늘리지 않았다. 의견/한계는 본문 근거로 연결한다. 중앙 질문노트와 대조해 Q6=MSAT, Q8=Task 증강을 표시했다.
+- `build_deck.py`, `verify_sources.py`, `verify_deck.mjs` 통과.52장 화면 넘침·이미지 실패·브라우저 오류·외부 요청0. P028/P030 실제 PNG를 직접 확인했다. 본문 실험/의견 화면에 제외한 PEFT·BoN·부록 Table6/8–15 주제가 남지 않았음을 소스 검사했다.
+- `verify_navigation.mjs` 통과: 세 구간의 새 순서,19개 퇴역 ID의 본문 부재/이전 링크 연결과 옮긴 상세 기록을 확인했다. `verify_math_font.mjs`는 전체 N 수식·실제 글리프·글꼴 fallback을 확인해 통과했다. Fig.3의27상태/18화살표는 유지한다.
+- 기본/base `pnpm build`, 게시 패키지 생성·`verify_pages.mjs` 통과. 최종 HTML3종 동일성·`git diff --check` 확인 후 자동 commit/push한다. 실제 Pages 반영과 사용자 결과물 승인은 별도 확인 전이다. 변경 전 태그는 `rldx-v25-before-appendix-experiments-removal-20261106`이다.
+
 ## 2026-11-06 / v25 / Critic 방식 비교를 본문에 표시
 
 - 원문 PDF pp.14–15·43과 S067–S070을 확인했다. P019에 기존 VLM critic의 새 value head와 숫자 텍스트 출력 방식의 대비를 추가했고 P037에 Fig.8의 파랑 distributional/초록 text prediction 방식을 명시했다. 일반 critic 전체를 단일 구조로 설명하지 않는다. 새 head 적응 부담과 기존 지식 재사용 동기·저자의 해석 범위는 대본에 남겼다.

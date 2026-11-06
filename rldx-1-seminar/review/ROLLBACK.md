@@ -1,5 +1,11 @@
 # 버전 보존과 복구
 
+## v26 변경 전 버전
+
+- 태그: `rldx-v25-before-appendix-experiments-removal-20261106`, 변경 전 커밋 `117226f`.
+- 부록 실험·설정19장을 제외해71장→52장. 기존 공부 기록121개는 내용 그대로 보존했다. 제외 장 원본: review/versions/before-appendix-removal-v26/removed-pages.md.
+- 저장소 루트에서 비교: `git diff rldx-v25-before-appendix-experiments-removal-20261106 -- rldx-1-seminar/sections`. 복구는 필요한 변경을 새 커밋으로 되돌리며 main을 reset/force-push하지 않는다.
+
 ## v25 변경 전 버전
 
 - 태그: `rldx-v24-before-critic-comparison-20261106`, 변경 전 커밋 `5bb3cf4`.

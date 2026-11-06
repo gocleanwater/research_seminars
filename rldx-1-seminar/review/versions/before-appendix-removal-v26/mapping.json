@@ -1,0 +1,116 @@
+[
+  {
+    "id": "P075",
+    "title": "PEFT와 LoRA",
+    "target": "P028",
+    "unit": null
+  },
+  {
+    "id": "P076",
+    "title": "PEFT의 성능 비교",
+    "target": "P028",
+    "unit": "S108"
+  },
+  {
+    "id": "P077",
+    "title": "PEFT의 학습 비용",
+    "target": "P028",
+    "unit": null
+  },
+  {
+    "id": "P079",
+    "title": "시뮬레이션의 실행 설정",
+    "target": "P040",
+    "unit": null
+  },
+  {
+    "id": "P080",
+    "title": "Baseline 결과의 출처",
+    "target": "P022",
+    "unit": null
+  },
+  {
+    "id": "P091",
+    "title": "환경 변화별 성능",
+    "target": "P022",
+    "unit": "S114"
+  },
+  {
+    "id": "P092",
+    "title": "SIMPLER의 과제별 결과",
+    "target": "P022",
+    "unit": null
+  },
+  {
+    "id": "P093",
+    "title": "Kitchen·GR-1의 과제별 편차",
+    "target": "P022",
+    "unit": null
+  },
+  {
+    "id": "P094",
+    "title": "복합 작업의 남은 어려움",
+    "target": "P022",
+    "unit": "S115"
+  },
+  {
+    "id": "P082",
+    "title": "실제 로봇의 실험 조건",
+    "target": "P041",
+    "unit": null
+  },
+  {
+    "id": "P081",
+    "title": "OpenArm의 시연과 평가",
+    "target": "P042",
+    "unit": null
+  },
+  {
+    "id": "P083",
+    "title": "합성 데이터의 실제 로봇 검증",
+    "target": "P064",
+    "unit": null
+  },
+  {
+    "id": "P084",
+    "title": "합성 데이터의 실제 결과",
+    "target": "P064",
+    "unit": "S112"
+  },
+  {
+    "id": "P090",
+    "title": "Batch Size의 효과",
+    "target": "P064",
+    "unit": "S113"
+  },
+  {
+    "id": "P085",
+    "title": "Best-of-N",
+    "target": "P067",
+    "unit": "S109"
+  },
+  {
+    "id": "P086",
+    "title": "BoN의 Temperature",
+    "target": "P067",
+    "unit": null
+  },
+  {
+    "id": "P087",
+    "title": "BoN의 Offline 분석",
+    "target": "P067",
+    "unit": "S110"
+  },
+  {
+    "id": "P088",
+    "title": "BoN의 실제 로봇 결과",
+    "target": "P067",
+    "unit": "S111"
+  },
+  {
+    "id": "P089",
+    "title": "BoN이 돕는 조건",
+    "target": "P067",
+    "unit": null
+  }
+]

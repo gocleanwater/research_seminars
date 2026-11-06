@@ -1,6 +1,6 @@
 # 전체 목차
 
-상태: **페이지 수 제한 없음 / 9개 섹션 MD 편집 원본 / v25 critic 방식 비교 보강·71장 구성 / 결과물 미승인**
+상태: **페이지 수 제한 없음 / 9개 섹션 MD 편집 원본 / v26 부록 실험19장 제외·52장 구성 / 결과물 미승인**
 업데이트: 2026-11-06
 
 관련 설명을 자연스럽게 연결하되 화살표·단계 설명을 위해 필요한 화면 수를 제한하지 않는다. 본문과 상세 공부 기록은 아홉 `sections/*.md`에서 편집한다. 전체 제작·수정 허가는 개별 장의 결과물 승인과 구분한다.
@@ -12,6 +12,8 @@ v19에서는 당시6–9쪽(P052–P055: cognition·중간층 출력·시간 정
 v20에서는 직전80장 버전의6–8쪽(P056–P058)을4쪽 Memory 확대 대본에 통합했다.9쪽(P059)의 세 표현 비교 요약은 본문에서 빼고 대본으로도 옮기지 않았다. 기존 공부 기록은 별도로 보존한다.
 
 ## 현재 발표 흐름
+
+최신 요청으로 부록 실험·세부 평가 설정19장을 제외했다. PEFT·BoN·Batch Size·실제 ALLEX 합성 추가 실험·부록 과제별 결과와 설정은 발표 화면에서 빼고, 본문의 Table1/Fig.14·16·18과 Table2–4/Fig.19–21을 중심으로 읽는다. 구현 설명용 부록 근거는 기존 위치에 유지한다. 제외 목록과 기록 위치는 review/APPENDIX_REMOVAL.md를 따른다. 아래 v17 배치 기록은 변경 전 이력이다.
 
 RECAP(P019)에서 기존 VLM critic의 새 value head와 이 보고서의 숫자 텍스트 출력 방식을 먼저 대비한다. 다음 P037에서 Fig.8의 distributional/text prediction critic 곡선과 진행·실패·회복을 읽는다. 일반 critic 전체가 같은 구조라는 뜻으로 확대하지 않는다.
 
@@ -28,10 +30,10 @@ Fig.1을 사용하는 표지 뒤에 아래 섹션을 따른다. 섹션명은 영
 | [01-problems.md](sections/01-problems.md) | Problems | P002 |
 | [02-rldx-1-architecture.md](sections/02-rldx-1-architecture.md) | RLDX-1 Architecture | P031, P032, P051, P009, P010, P006, P008, P071 |
 | [03-training-data.md](sections/03-training-data.md) | Training Data | P013, P033, P034, P072, P014, P015, P047 |
-| [04-training-procedure.md](sections/04-training-procedure.md) | Training Procedure | P035, P016, P017, P018, P019, P037, P075–P077 |
+| [04-training-procedure.md](sections/04-training-procedure.md) | Training Procedure | P035, P016, P017, P018, P019, P037 |
 | [05-inference-strategy.md](sections/05-inference-strategy.md) | Inference Strategy | P020, P038, P039, P078 |
-| [06-evaluation-and-analysis.md](sections/06-evaluation-and-analysis.md) | Evaluation and Analysis | P040, P079–P080, P022, P091–P094, P041, P082, P042, P081, P023, P043, P024, P044, P025 |
-| [07-ablation-and-analysis.md](sections/07-ablation-and-analysis.md) | Ablation and Analysis | P026, P060–P064, P083–P084, P090, P065, P070, P066–P067, P085–P089, P027, P068–P069 |
+| [06-evaluation-and-analysis.md](sections/06-evaluation-and-analysis.md) | Evaluation and Analysis | P040, P022, P041, P042, P023, P043, P024, P044, P025 |
+| [07-ablation-and-analysis.md](sections/07-ablation-and-analysis.md) | Ablation and Analysis | P026, P060–P064, P065, P070, P066–P067, P027, P068–P069 |
 | [08-conclusion.md](sections/08-conclusion.md) | Conclusion | P029 |
 | [09-my-opinions-and-limitation.md](sections/09-my-opinions-and-limitation.md) | My opinions and limitation | P028, P030 |
 
