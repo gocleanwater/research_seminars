@@ -5,3 +5,7 @@ dist/
 qa/
 review/previews/
 *.log
+__pycache__/
+*.pyc
+/output/
+/deployment/site/
