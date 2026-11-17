@@ -597,11 +597,11 @@ $$
 설명: 노이즈와 정답 행동을 섞어 학습 후보를 만드는 보간식이다.
 요점: 이 식으로 학습할 후보를 만들고, 다음 단계에서 정답 변화율을 구한다.
 
-#### [30] MSAT가 맞힐 정답은 변화율이다
+#### [30] 왜 이 값이 정답 변화율일까?
 
-핵심: 앞에서 만든 경로를 따라 후보가 바뀌는 방향과 크기를 정답으로 삼는다.
-설명: 앞에서 만든 경로를 따라 후보가 바뀌는 방향과 크기를 정답으로 삼는다.
-요점: 정답 변화율 a−ε를 계산하고, MSAT가 이 값을 예측하도록 학습한다.
+핵심: 노이즈에서 정답 행동으로 향하는 경로의 변화율을 학습 목표로 삼는다.
+설명: 노이즈에서 정답 행동으로 향하는 경로의 변화율을 학습 목표로 삼는다.
+요점: MSAT의 예측 변화율과, 학습 경로에서 계산한 정답 변화율을 비교해 학습한다.
 
 #### [31] 예측과 정답의 차이를 줄여 학습한다
 
@@ -615,11 +615,11 @@ $$
 설명: 정답 행동을 모르는 추론에서는, 노이즈에서 시작해 행동 묶음을 생성한다.
 요점: 현재 후보에 Δτ × 예측 변화율을 더하고, 새 후보로 같은 계산을 반복한다.
 
-#### [33] 현재 센서는 조건, 미래 센서는 예측 대상
+#### [33] 미래 물리 신호도 같은 방식으로 학습한다
 
-핵심: 물리 신호를 사용하는 경우에는 미래 센서 후보도 행동 후보와 함께 다듬는다.
-설명: 물리 신호를 사용하는 경우에는 미래 센서 후보도 행동 후보와 함께 다듬는다.
-요점: 한 번의 denoising 반복 안에서는 현재 관측을 새로 읽는 것이 아니다.
+핵심: 행동과 마찬가지로, 미래 물리 신호에도 노이즈를 섞어 정답 변화율을 학습한다.
+설명: 행동과 마찬가지로, 미래 물리 신호에도 노이즈를 섞어 정답 변화율을 학습한다.
+요점: 현재 물리 신호는 조건으로 두고, 미래 물리 신호 예측을 보조 목표로 함께 학습한다.
 
 #### [34] 예측한 행동을 모두 실행할 필요는 없다
 
@@ -2550,19 +2550,21 @@ RTC의 구체적인 overlap/inpainting 알고리즘은 이 보고서 내 설명 
 
 이렇게 노이즈에서 정답 행동까지 이어지는 직선 경로를 준비합니다. 다음에는 이 경로에서 MSAT가 무엇을 정답으로 배우는지 보겠습니다.
 
-#### [velocity-target] MSAT가 맞힐 정답은 변화율이다
+#### [velocity-target] 왜 이 값이 정답 변화율일까?
 
 ##### 화면
 
-<p class="flow-formula-purpose"><strong>이 식은 학습에 사용할 정답 변화율을 구한다.</strong></p><div class="tour-equation">$$\frac{d\mathbf a^{\tau}}{d\tau}=\mathbf a-\boldsymbol\epsilon=\mathbf v^*$$</div><div class="tour-flow"><div class="tour-node">후보 $\mathbf a^\tau$<br>진행도 $\tau$ · 조건 $\mathbf c_t$</div><span class="tour-flow-arrow">→</span><div class="tour-node">MSAT<br>$\mathbf u_\theta$</div><span class="tour-flow-arrow">→</span><div class="tour-node">변화율 예측<br>정답은 $\mathbf v^*$</div></div><p class="flow-condition">$\mathbf c_t=[\mathbf h_t,\mathbf m_t,\mathbf s_t,\mathbf p_t]$<br>인지 · 기억 · 로봇 상태 · 사용 가능한 센서</p>
+<p class="flow-formula-purpose">$\tau$가 $0\rightarrow1$로 커질수록, 후보 $\mathbf a^\tau$는 정답 $\mathbf a$에 가까워진다.</p><div class="tour-equation">$$\frac{d\mathbf a^{\tau}}{d\tau}=\mathbf a-\boldsymbol\epsilon=\mathbf v^*$$</div><div class="tour-flow"><div class="tour-node">입력<br>$\mathbf a^\tau,\ \tau,\ \mathbf c_t$</div><span class="tour-flow-arrow">→</span><div class="tour-node">MSAT<br>함수 $\mathbf u_\theta$</div><span class="tour-flow-arrow">→</span><div class="tour-node">예측 변화율<br>$\widehat{\mathbf v}$</div></div><p class="tour-callout">예측 $\widehat{\mathbf v}=\mathbf u_\theta(\mathbf a^\tau,\tau,\mathbf c_t)$　↔　정답 $\mathbf v^*=\mathbf a-\boldsymbol\epsilon$</p><p class="flow-target-condition">$\mathbf c_t$: 인지 · 기억 · 현재 로봇 상태 · 사용 가능한 센서</p>
 
 ##### 대본
 
-학습할 후보를 만들었으니, 이제 MSAT가 무엇을 맞혀야 하는지 보겠습니다. 화면의 식은 앞에서 만든 경로의 정답 변화율을 구하는 식입니다.
+왜 이 값을 정답 변화율로 쓰는지 보겠습니다. 앞에서 만든 경로에서는 $\tau$가 $0$에서 $1$로 커질수록 노이즈의 비중은 줄고, 정답 행동의 비중은 커집니다. 따라서 후보 $\mathbf a^\tau$는 노이즈에서 정답 행동으로 가까워집니다.
 
-후보 $\mathbf a^\tau$를 $\tau$에 대해 미분하면, $\mathbf a-\boldsymbol\epsilon$이 나옵니다. 이것을 $\mathbf v^*$, 즉 정답 변화율이라고 부르겠습니다. $\tau$가 조금 바뀔 때 행동 후보를 어느 방향으로 얼마나 바꿔야 하는지 나타내는 값입니다.
+이 경로를 따라가려면, $\tau$가 변할 때 후보를 어느 방향으로 얼마나 바꿔야 할까요? 그것이 바로 $\mathbf a^\tau$를 $\tau$로 미분한 값입니다. 계산하면 $\mathbf a-\boldsymbol\epsilon$이 나오고, 이 값을 $\mathbf v^*$라고 둡니다. 우리가 정한 경로에서 노이즈를 정답 행동 쪽으로 바꾸는 데 필요한 변화율이므로, MSAT가 맞힐 정답 변화율로 사용하는 것입니다.
 
-아래 흐름처럼 MSAT에는 현재 후보, 진행도 $\tau$, 그리고 조건 $\mathbf c_t$를 넣습니다. $\mathbf c_t$는 앞에서 본 현재 인지 특징과 기억, 로봇 상태, 사용 가능한 센서 정보입니다. 모델은 이 입력을 보고 변화율을 예측하고, 우리는 방금 계산한 정답 변화율과 비교해 학습시킬 수 있습니다.
+아래 흐름에서는 MSAT를 함수 $\mathbf u_\theta$로 나타냈습니다. 후보 $\mathbf a^\tau$, 진행도 $\tau$, 조건 $\mathbf c_t$를 넣으면 예측 변화율 $\mathbf u_\theta(\mathbf a^\tau,\tau,\mathbf c_t)$가 나옵니다. 화면에서는 이 예측값을 $\widehat{\mathbf v}$로 표시했습니다. 조건 $\mathbf c_t$는 현재 인지 특징과 기억, 로봇 상태, 사용 가능한 센서 정보입니다.
+
+학습에서는 이 예측 변화율 $\widehat{\mathbf v}$를 방금 계산한 정답 변화율 $\mathbf v^*$와 비교합니다. 다음에는 두 값의 차이를 어떤 손실로 계산하는지 보겠습니다.
 
 #### [flow-loss] 예측과 정답의 차이를 줄여 학습한다
 
@@ -2592,15 +2594,21 @@ RTC의 구체적인 overlap/inpainting 알고리즘은 이 보고서 내 설명 
 
 새 후보를 다시 MSAT에 넣고 같은 계산을 반복해서, 진행도 $\tau$가 $1$에 도달하면 생성한 행동 묶음을 얻습니다. 한 묶음을 만드는 동안 현재 관측 조건과 모델 가중치는 유지하고, 행동 후보를 갱신합니다. 학습에서는 정답 변화율로 모델을 가르쳤고, 여기서는 학습된 모델의 예측을 사용해 행동을 만드는 것입니다.
 
-#### [sensor-future] 현재 센서는 조건, 미래 센서는 예측 대상
+#### [sensor-future] 미래 물리 신호도 같은 방식으로 학습한다
 
 ##### 화면
 
-<div class="tour-question-grid"><div><b>현재 관측</b><p>인지·기억·로봇 상태<br>현재 센서 $\mathbf p_t$</p></div><div><b>생성 후보</b><p>미래 행동<br>미래 물리 신호</p></div><div><b>각 반복</b><p>같은 조건을 참조하며<br>후보만 갱신</p></div></div><div class="tour-flow"><div class="tour-node">관측된 조건은 유지</div><span class="tour-flow-arrow">→</span><div class="tour-node">미래 행동·센서 후보 갱신</div><span class="tour-flow-arrow">→</span><div class="tour-node">다음 denoising 단계</div></div><p class="tour-callout">미래 물리 신호 예측은 상호작용을 배우기 위한 보조 목표다. 실제 센서 측정값과 혼동하지 않는다.</p>
+<p class="physics-future-label">미래 물리 신호 묶음: $\mathbf p_f=\mathbf p_{t+1:t+L}$</p><div class="physics-flow-pair"><div><h3>행동 · A stream</h3><p>노이즈를 섞어 후보 구성</p><div class="physics-equation">$$\mathbf a^\tau=\tau\mathbf a+(1-\tau)\boldsymbol\epsilon$$</div><p>경로의 정답 변화율</p><div class="physics-equation">$$\mathbf v_a^*=\mathbf a-\boldsymbol\epsilon$$</div></div><div><h3>미래 물리 신호 · P stream</h3><p>같은 방식으로 후보 구성</p><div class="physics-equation">$$\mathbf p_f^\tau=\tau\mathbf p_f+(1-\tau)\boldsymbol\epsilon_p$$</div><p>같은 방식으로 정답 계산</p><div class="physics-equation">$$\mathbf v_p^*=\mathbf p_f-\boldsymbol\epsilon_p$$</div></div></div><p class="tour-callout">현재 $\mathbf p_t$는 조건으로 유지 · 미래 $\mathbf p_f^\tau$는 행동 후보와 함께 갱신</p>
 
 ##### 대본
 
-P stream의 현재 물리 신호는 이미 측정한 조건입니다. 반면 미래 센서는 아직 관측하지 못했으므로 행동과 함께 예측하는 대상입니다. 학습에서는 미래 신호에도 노이즈를 섞어 정답 변화율을 학습하고, 추론에서는 후보를 함께 갱신합니다. 한 번의 행동 생성 안에서는 같은 현재 조건을 참조합니다. 실제 카메라나 센서를 매 denoising 단계마다 다시 읽는 바깥 제어 반복과는 구분해야 합니다.
+그렇다면 P stream의 물리 신호는 어떻게 학습할까요? 미래 물리 신호도 방금 본 행동과 같은 flow matching 방식을 사용합니다. 여기서 예측하는 미래 신호 묶음 $\mathbf p_{t+1:t+L}$을 화면에서는 짧게 $\mathbf p_f$로 쓰겠습니다.
+
+왼쪽이 앞에서 본 행동이고, 오른쪽이 미래 물리 신호입니다. 학습에서는 기록된 미래 물리 신호 $\mathbf p_f$에 노이즈 $\boldsymbol\epsilon_p$를 섞어서 후보 $\mathbf p_f^\tau$를 만듭니다. $\tau$가 $0$에서 $1$로 커질수록 이 후보도 노이즈에서 정답 미래 신호로 가까워집니다. 그래서 같은 방식으로 미분하면 정답 변화율은 $\mathbf p_f-\boldsymbol\epsilon_p$가 됩니다.
+
+P stream은 이 변화율을 예측하고, 예측값을 정답 변화율과 비교해 학습합니다. 추론에서는 행동 후보와 함께 미래 물리 신호 후보도 예측한 변화율로 갱신합니다.
+
+여기서 현재 측정한 $\mathbf p_t$는 이미 알고 있는 조건이고, 미래 신호 $\mathbf p_f$는 예측 대상입니다. 노이즈를 섞어 다듬는 것은 미래 신호 후보입니다. 이 미래 물리 신호 예측은 센서가 있는 경우에 사용하는 보조 학습 목표로, 행동을 만들 때 물리적 상호작용을 함께 배우도록 합니다.
 
 #### [execute-chunk] 예측한 행동을 모두 실행할 필요는 없다
 

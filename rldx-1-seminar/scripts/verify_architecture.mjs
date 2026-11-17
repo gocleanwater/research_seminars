@@ -25,7 +25,7 @@ try{
     const issues=await explorer.evaluate(root=>{
       if(root.classList.contains('has-detail')){
         const content=root.querySelector('.arch-detail-content'), box=content.getBoundingClientRect();
-        return [...content.querySelectorAll('p,.tour-equation,.tour-flow,.tour-input-row,.tour-loops,.ja-exchange,.ja-headings,.ja-context,.ja-reference,.ja-one-update')].flatMap(el=>{const r=el.getBoundingClientRect();return r.left<box.left-2||r.right>box.right+2||r.bottom>box.bottom+2||r.top<box.top-2?[{type:'detail-bounds',text:el.textContent}]:[];});
+        return [...content.querySelectorAll('p,.tour-equation,.tour-flow,.tour-input-row,.tour-loops,.ja-exchange,.ja-headings,.ja-context,.ja-reference,.ja-one-update,.physics-flow-pair,.physics-equation')].flatMap(el=>{const r=el.getBoundingClientRect();return r.left<box.left-2||r.right>box.right+2||r.bottom>box.bottom+2||r.top<box.top-2?[{type:'detail-bounds',text:el.textContent}]:[];});
       }
       const area=root.querySelector('.arch-annotations').getBoundingClientRect();const found=[];
       const cards=[...root.querySelectorAll('.arch-annotation')];

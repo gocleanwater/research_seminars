@@ -350,3 +350,13 @@ body[data-export="true"] .part-links { display: none; }
 .arch-detail-content:has(.flow-formula-purpose) { gap:12px; }
 .seminar-slide .flow-formula-purpose { font-size:21px; line-height:1.5; }
 .seminar-slide .flow-condition { font-size:21px; line-height:1.5; }
+
+.seminar-slide .flow-target-condition { font-size:19px; line-height:1.5; margin:0; }
+
+.arch-detail-content:has(.physics-flow-pair) { gap:12px; }
+.seminar-slide .physics-future-label { font-size:21px; line-height:1.5; }
+.physics-flow-pair { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+.physics-flow-pair > div { min-width:0; padding:14px 12px; background:#edf4f3; border-top:3px solid #80a9a6; }
+.seminar-slide .physics-flow-pair h3 { font-size:22px; margin:0 0 12px; }
+.seminar-slide .physics-flow-pair p { font-size:20px; margin:0; }
+.physics-equation { font-size:22px; text-align:center; }.physics-equation .katex-display { margin:10px 0; }
