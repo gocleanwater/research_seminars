@@ -59,63 +59,64 @@
 <!-- FEEDBACK-INDEX: generated from headings of the preserved source log -->
 | 원본 행 | 실제 기록 제목 |
 | --- | --- |
-| FEEDBACK.md:3 | 2026-11-17 / v33 / Part 분리와 Figure3 맥락 설명 |
-| FEEDBACK.md:12 | 2026-11-17 / Section 공부 기록과 공통 재발 방지 하네스 |
-| FEEDBACK.md:19 | 2026-11-06 / 발표 대본 v01 |
-| FEEDBACK.md:26 | 2026-11-06 / v28 / Table1 전체와 차이 열 |
-| FEEDBACK.md:32 | 2026-11-06 / v27 / 실제 Fused Kernels 페이지 제외 |
-| FEEDBACK.md:37 | 2026-11-06 / v26 / 실험 부록 제외 |
-| FEEDBACK.md:44 | 2026-11-06 / v25 / 기존 critic과의 차이 |
-| FEEDBACK.md:50 | 2026-11-06 / v24 / 입출력 경로 페이지 제외 |
-| FEEDBACK.md:56 | 2026-11-06 / v23 / 로봇별 입출력 경로의 위치 |
-| FEEDBACK.md:62 | 2026-11-06 / 합성 데이터 검증 / 세 장을 대본으로 |
-| FEEDBACK.md:69 | 2026-11-06 / 14·15쪽 / 영상 생성 모델 한 장 통합 |
-| FEEDBACK.md:75 | 2026-11-06 / 16쪽 P014 / Scene과 Canny edge 설명 |
-| FEEDBACK.md:81 | 2026-11-06 / 13쪽 P034 / 자체 데이터 수집 목적 |
-| FEEDBACK.md:87 | 2026-11-06 / 직전80장 버전6–9쪽 / Memory 대본 |
-| FEEDBACK.md:94 | 2026-11-06 / 현재6–9쪽 / VLM 발표 대본 |
-| FEEDBACK.md:101 | 2026-11-06 / P051 / 로봇 VQA의 동기와 Fig.3 |
-| FEEDBACK.md:108 | 2026-11-06 / 기존5·6·7페이지 / Vision 발표 대본 |
-| FEEDBACK.md:115 | 2026-11-06 / 모바일 하단 조작 메뉴 |
-| FEEDBACK.md:122 | 2026-11-06 / 부록42–55쪽 / 관련 흐름에 통합 |
-| FEEDBACK.md:130 | 2026-11-06 / Ablation / 일곱 근거의 상세 설명 |
-| FEEDBACK.md:138 | 2026-11-06 / P032 다음 / Vision·VLM·Memory 본문 설명 |
-| FEEDBACK.md:146 | 2026-11-06 / P015 / Rollout 생성과 비교 흐름 |
-| FEEDBACK.md:153 | 2026-11-05 / 프로젝트 전체 / 목차 제안 전 요구사항 |
-| FEEDBACK.md:166 | 2026-11-05 / 프로젝트 전체 / 목차 승인과 이미지·그래프 |
-| FEEDBACK.md:173 | 2026-11-05 / 프로젝트 전체 / 참고자료와 우선순위 |
-| FEEDBACK.md:183 | 2026-11-05 / S001 / v01 제작 요청과 검토 대기 |
-| FEEDBACK.md:193 | 2026-11-05 / 제작 방식 변경 / 전체 선제작 후 장별 수정 |
-| FEEDBACK.md:199 | 2026-11-05 / 전체 장수와 내용 통합 |
-| FEEDBACK.md:211 | 2026-11-05 / 최신 구성·편집 원본 변경 |
-| FEEDBACK.md:224 | 장별 피드백 양식 |
-| FEEDBACK.md:229 | YYYY-MM-DD / S001 / v01 |
-| FEEDBACK.md:238 | 2026-11-05 / v02 반영 결과 |
-| FEEDBACK.md:245 | 2026-11-05 / v03 / 수식·나눔고딕 |
-| FEEDBACK.md:254 | 2026-11-05 / v04 / PPT와 유사한 조작 |
-| FEEDBACK.md:263 | 2026-11-05 / P032 / v05 브라우저 피드백과 주석 참조 그림 — 진행 중 |
-| FEEDBACK.md:283 | 2026-11-05 / P032 / v05 반영 결과 |
-| FEEDBACK.md:292 | 2026-11-05 / P013 / v05 후속 줄바꿈 |
-| FEEDBACK.md:300 | 2026-11-05 / P032 / 원문 기호 복원·Memory 화살표 수정 |
-| FEEDBACK.md:309 | 2026-11-05 / P032 / MSAT 확대 하단 연결부 |
-| FEEDBACK.md:316 | 2026-11-05 / P009·P010·P012 / v06 통합 |
-| FEEDBACK.md:325 | 2026-11-05 / 전체 발표 / 중복 통합·페이지 축소 v07 |
-| FEEDBACK.md:335 | 2026-11-05 / P006 / 기호 표·손실 해석 후속 |
-| FEEDBACK.md:345 | 2026-11-05 / P006 / u_θ 직접 annotation |
-| FEEDBACK.md:354 | 2026-11-05 / 자동 commit·push 지시 |
-| FEEDBACK.md:360 | 2026-11-05 / P006 / clean a와 noisy a^τ 구분 |
-| FEEDBACK.md:368 | 2026-11-05 / P008 / 갱신식 한 줄 합치기 |
-| FEEDBACK.md:374 | 2026-11-05 / P008 / 숫자 예시 대신 수식 항 설명 |
-| FEEDBACK.md:382 | 2026-11-05 / P008 / 미래 센서 수식 중앙 정렬 |
-| FEEDBACK.md:390 | 2026-11-05 / 전체 / 자간0·타이포그래피 v08 |
-| FEEDBACK.md:398 | 2026-11-06 / 하단 탐색 / 페이지 번호 입력 v09 |
-| FEEDBACK.md:407 | 2026-11-06 / P006 / 조건 입력 c_t 설명 |
-| FEEDBACK.md:415 | 2026-11-06 / P006 / 정답 변화율 v*의 근거 |
-| FEEDBACK.md:423 | 2026-11-06 / v10 / Arial·한글 고딕 전환 |
-| FEEDBACK.md:435 | 2026-11-06 / v11 / MSAT 순서 변경·데이터 설명 확장 |
-| FEEDBACK.md:447 | 2026-11-06 / v12 / 학습 목적·Fig.6/8·Graph/Fusion 설명 복원 |
-| FEEDBACK.md:463 | 2026-11-06 / v13 / 벤치마크·로봇·과제 사진을 먼저 설명 |
-| FEEDBACK.md:479 | 2026-11-17 / v29 / P002 화면·대본 정렬 |
-| FEEDBACK.md:488 | 2026-11-17 / v30 / P002 움직임 카드의 컨베이어 그림 |
-| FEEDBACK.md:496 | 2026-11-17 / v31 / P002 야바위와 집기 힘 조절 |
-| FEEDBACK.md:505 | 2026-11-17 / v32 / 물리 센싱과 힘 조절 예시 구분 |
+| FEEDBACK.md:3 | 2026-11-17 / v34 / Part1 최종 정리·Part2 보류 |
+| FEEDBACK.md:11 | 2026-11-17 / v33 / Part 분리와 Figure3 맥락 설명 |
+| FEEDBACK.md:20 | 2026-11-17 / Section 공부 기록과 공통 재발 방지 하네스 |
+| FEEDBACK.md:27 | 2026-11-06 / 발표 대본 v01 |
+| FEEDBACK.md:34 | 2026-11-06 / v28 / Table1 전체와 차이 열 |
+| FEEDBACK.md:40 | 2026-11-06 / v27 / 실제 Fused Kernels 페이지 제외 |
+| FEEDBACK.md:45 | 2026-11-06 / v26 / 실험 부록 제외 |
+| FEEDBACK.md:52 | 2026-11-06 / v25 / 기존 critic과의 차이 |
+| FEEDBACK.md:58 | 2026-11-06 / v24 / 입출력 경로 페이지 제외 |
+| FEEDBACK.md:64 | 2026-11-06 / v23 / 로봇별 입출력 경로의 위치 |
+| FEEDBACK.md:70 | 2026-11-06 / 합성 데이터 검증 / 세 장을 대본으로 |
+| FEEDBACK.md:77 | 2026-11-06 / 14·15쪽 / 영상 생성 모델 한 장 통합 |
+| FEEDBACK.md:83 | 2026-11-06 / 16쪽 P014 / Scene과 Canny edge 설명 |
+| FEEDBACK.md:89 | 2026-11-06 / 13쪽 P034 / 자체 데이터 수집 목적 |
+| FEEDBACK.md:95 | 2026-11-06 / 직전80장 버전6–9쪽 / Memory 대본 |
+| FEEDBACK.md:102 | 2026-11-06 / 현재6–9쪽 / VLM 발표 대본 |
+| FEEDBACK.md:109 | 2026-11-06 / P051 / 로봇 VQA의 동기와 Fig.3 |
+| FEEDBACK.md:116 | 2026-11-06 / 기존5·6·7페이지 / Vision 발표 대본 |
+| FEEDBACK.md:123 | 2026-11-06 / 모바일 하단 조작 메뉴 |
+| FEEDBACK.md:130 | 2026-11-06 / 부록42–55쪽 / 관련 흐름에 통합 |
+| FEEDBACK.md:138 | 2026-11-06 / Ablation / 일곱 근거의 상세 설명 |
+| FEEDBACK.md:146 | 2026-11-06 / P032 다음 / Vision·VLM·Memory 본문 설명 |
+| FEEDBACK.md:154 | 2026-11-06 / P015 / Rollout 생성과 비교 흐름 |
+| FEEDBACK.md:161 | 2026-11-05 / 프로젝트 전체 / 목차 제안 전 요구사항 |
+| FEEDBACK.md:174 | 2026-11-05 / 프로젝트 전체 / 목차 승인과 이미지·그래프 |
+| FEEDBACK.md:181 | 2026-11-05 / 프로젝트 전체 / 참고자료와 우선순위 |
+| FEEDBACK.md:191 | 2026-11-05 / S001 / v01 제작 요청과 검토 대기 |
+| FEEDBACK.md:201 | 2026-11-05 / 제작 방식 변경 / 전체 선제작 후 장별 수정 |
+| FEEDBACK.md:207 | 2026-11-05 / 전체 장수와 내용 통합 |
+| FEEDBACK.md:219 | 2026-11-05 / 최신 구성·편집 원본 변경 |
+| FEEDBACK.md:232 | 장별 피드백 양식 |
+| FEEDBACK.md:237 | YYYY-MM-DD / S001 / v01 |
+| FEEDBACK.md:246 | 2026-11-05 / v02 반영 결과 |
+| FEEDBACK.md:253 | 2026-11-05 / v03 / 수식·나눔고딕 |
+| FEEDBACK.md:262 | 2026-11-05 / v04 / PPT와 유사한 조작 |
+| FEEDBACK.md:271 | 2026-11-05 / P032 / v05 브라우저 피드백과 주석 참조 그림 — 진행 중 |
+| FEEDBACK.md:291 | 2026-11-05 / P032 / v05 반영 결과 |
+| FEEDBACK.md:300 | 2026-11-05 / P013 / v05 후속 줄바꿈 |
+| FEEDBACK.md:308 | 2026-11-05 / P032 / 원문 기호 복원·Memory 화살표 수정 |
+| FEEDBACK.md:317 | 2026-11-05 / P032 / MSAT 확대 하단 연결부 |
+| FEEDBACK.md:324 | 2026-11-05 / P009·P010·P012 / v06 통합 |
+| FEEDBACK.md:333 | 2026-11-05 / 전체 발표 / 중복 통합·페이지 축소 v07 |
+| FEEDBACK.md:343 | 2026-11-05 / P006 / 기호 표·손실 해석 후속 |
+| FEEDBACK.md:353 | 2026-11-05 / P006 / u_θ 직접 annotation |
+| FEEDBACK.md:362 | 2026-11-05 / 자동 commit·push 지시 |
+| FEEDBACK.md:368 | 2026-11-05 / P006 / clean a와 noisy a^τ 구분 |
+| FEEDBACK.md:376 | 2026-11-05 / P008 / 갱신식 한 줄 합치기 |
+| FEEDBACK.md:382 | 2026-11-05 / P008 / 숫자 예시 대신 수식 항 설명 |
+| FEEDBACK.md:390 | 2026-11-05 / P008 / 미래 센서 수식 중앙 정렬 |
+| FEEDBACK.md:398 | 2026-11-05 / 전체 / 자간0·타이포그래피 v08 |
+| FEEDBACK.md:406 | 2026-11-06 / 하단 탐색 / 페이지 번호 입력 v09 |
+| FEEDBACK.md:415 | 2026-11-06 / P006 / 조건 입력 c_t 설명 |
+| FEEDBACK.md:423 | 2026-11-06 / P006 / 정답 변화율 v*의 근거 |
+| FEEDBACK.md:431 | 2026-11-06 / v10 / Arial·한글 고딕 전환 |
+| FEEDBACK.md:443 | 2026-11-06 / v11 / MSAT 순서 변경·데이터 설명 확장 |
+| FEEDBACK.md:455 | 2026-11-06 / v12 / 학습 목적·Fig.6/8·Graph/Fusion 설명 복원 |
+| FEEDBACK.md:471 | 2026-11-06 / v13 / 벤치마크·로봇·과제 사진을 먼저 설명 |
+| FEEDBACK.md:487 | 2026-11-17 / v29 / P002 화면·대본 정렬 |
+| FEEDBACK.md:496 | 2026-11-17 / v30 / P002 움직임 카드의 컨베이어 그림 |
+| FEEDBACK.md:504 | 2026-11-17 / v31 / P002 야바위와 집기 힘 조절 |
+| FEEDBACK.md:513 | 2026-11-17 / v32 / 물리 센싱과 힘 조절 예시 구분 |

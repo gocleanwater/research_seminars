@@ -899,3 +899,53 @@ Fig.8 · PDF p.14; Sec.4.3 · PDF p.15; App.C · PDF p.43
 ##### 발표 메모
 
 원문은 native number tokens와 text interface 재사용으로 기존 지식을 활용하고 적은 데이터에 적응할 수 있다고 주장한다. Figure 8 두 사례만으로 전반적인 calibration이나 정확도를 정량 확정하지 않는다. Distributional critic의 수학적 분포 설계는 이 그림 설명만으로 추가하지 않는다. x축은 로봇 timestep이며 denoising $\tau$가 아니다.
+
+## [P096] Part 1 최종 정리
+
+<!-- slide-meta
+layout: full
+kind: interpretation
+source_ids:
+-->
+
+### 한 문장
+
+문제에서 출발해, 구조·데이터·학습이 하나의 로봇 조작 정책으로 이어진다.
+
+### 본문
+
+<div class="part1-recap-flow" aria-label="관측에서 로봇 행동으로 이어지는 흐름">
+<div><small>보고</small><strong>영상·언어 지시</strong></div><span>→</span>
+<div><small>이해하고 기억해</small><strong>VLM + Memory</strong></div><span>→</span>
+<div><small>행동을 만들고</small><strong>MSAT + 상태·센서</strong></div><span>→</span>
+<div><small>움직인다</small><strong>행동 묶음 일부 실행</strong></div>
+</div>
+<div class="part1-recap-cards">
+<div><h3>왜 필요한가?</h3><p>움직임을 읽고<br>과거를 기억하고<br>물리적 상태를 감지하기 위해</p></div>
+<div><h3>무엇으로 배우나?</h3><p>공개 시연 + 자체 시연<br>+ 검증한 합성 데이터</p><small>조작 경험과 새로운 조건을 공급</small></div>
+<div><h3>어떻게 배우나?</h3><p>기본기 → 로봇·기능 적응<br>→ 실제 작업 적응</p><small>Pre → Mid → Post<br>작업별 IL · 필요하면 RECAP RL</small></div>
+</div>
+
+### 보충
+
+### 요점
+
+무엇을 보고 기억할지 설계하고, 다양한 경험과 단계별 학습으로 행동을 가르친다.
+
+### 출처
+
+Sec.1–4.3 · Fig.2–3, 8 · 앞선 Part 1 내용을 연결한 요약 도식
+
+### 발표 메모
+
+Part 1에서 본 내용을 하나로 연결해 보겠습니다. 출발점은 실제 조작에는 지금 보이는 물체를 알아보는 것 외에도, 움직임을 읽고 과거를 기억하며 물리적 상태를 감지하는 능력이 필요하다는 것이었습니다.
+
+구조로 보면 영상과 언어에서 조작에 필요한 특징을 만들고, 과거의 특징을 Memory에서 가져옵니다. MSAT는 이 정보와 현재 로봇 상태, 사용 가능한 센서 신호를 조건으로 미래 행동 묶음을 생성합니다. 생성한 행동의 일부를 실행한 뒤에는 새 관측으로 다시 판단합니다.
+
+이 모델을 가르치는 재료는 공개 시연, 자체 수집 시연, 그리고 검증한 합성 데이터입니다. 학습은 여러 로봇의 경험으로 기본기를 쌓는 Pre-training, 목표 로봇과 움직임·기억·센서 기능에 맞추는 Mid-training, 실제 작업에 적응하는 Post-training으로 이어집니다. 마지막 단계의 기본은 시연 기반 IL이고, 어려운 일부 작업에는 RECAP 기반 RL을 보완합니다. 이때 critic은 작업이 얼마나 진행됐는지를 평가하는 역할입니다.
+
+따라서 Part 1의 핵심은 모델 구조, 데이터, 학습이 하나의 조작 정책을 만드는 과정으로 이어진다는 것입니다.
+
+요약의 센서는 사용 가능한 경우의 조건이다. Post-training의 기본은 IL이며 RECAP RL을 모든 작업에 적용했다고 표현하지 않는다. 이 장은 앞선 내용의 요약이므로 새 상세 공부 단위를 추가하거나 기존 단위를 중복 연결하지 않는다. Part 2의 도입·요약은 후속 요청 전까지 보류한다.
+
+### 상세 공부 기록

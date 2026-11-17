@@ -516,6 +516,18 @@ body[data-export="true"] .part-links { display: none; }
 .rollout-compare span { margin-top: 6px; }
 .rollout-decisions { position: absolute; left: 0; right: 0; top: 331px; display: grid; grid-template-columns: 1fr 1fr; gap: 42px; }
 .rollout-decisions > div { padding: 8px 12px; background: #edf3f5; border-left: 3px solid #6994a3; text-align: center; }
+
+/* Part 1 recap: one information flow, then purpose/data/training. */
+.part1-recap-flow { display:flex; align-items:center; gap:12px; margin:8px 0 24px; }
+.part1-recap-flow > div { flex:1; min-width:0; text-align:center; padding:18px 8px; border:1px solid #afccca; border-radius:8px; background:#edf6f4; }
+.part1-recap-flow small { display:block; font-size:19px; color:#526d78; margin-bottom:10px; }
+.part1-recap-flow strong { font-size:23px; }
+.part1-recap-flow > span { color:#167e7a; font-size:28px; }
+.part1-recap-cards { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+.part1-recap-cards > div { padding:18px 20px; border-top:3px solid #167e7a; background:#f0f5f5; }
+.seminar-slide .part1-recap-cards h3 { font-size:24px; margin:0 0 14px; }
+.seminar-slide .part1-recap-cards p { font-size:23px; line-height:1.5; margin:0 0 12px; }
+.part1-recap-cards small { font-size:19px; line-height:1.5; color:#526d78; }
 </style></head>
 <body class="deck-app"><main id="stage"><article class="deck-page active" data-id="P020" aria-label="CUDA Graph"><section class="seminar-slide" data-slide-id="P020"><header class="seminar-header"><div class="chapter-label">Inference Strategy</div><h1>CUDA Graph</h1><p class="slide-lead">고정된 배포 설정의 RoPE·mask 준비값을 미리 계산해, 반복할 forward를 하나의 그래프로 캡처한다.</p></header><div class="seminar-body figure balanced"><figure class="paper-figure"><img data-asset="fig-09.png" alt="Figure 9 · 위: 여러 graph launch / 아래: 한 CUDA Graph launch" loading="eager"><figcaption>Figure 9 · 위: 여러 graph launch / 아래: 한 CUDA Graph launch</figcaption></figure><div class="body-main"><h3>왜 설정값이 필요한가?</h3>
 <p>토큰 수·위치 배치·서로 볼 수 있는 범위에 따라 <strong>RoPE 위치값과 attention mask의 구조</strong>가 정해진다.</p>

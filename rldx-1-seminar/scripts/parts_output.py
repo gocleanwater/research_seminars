@@ -107,8 +107,9 @@ def write_part_outputs(root: Path, full_html: str, manifest: list[dict],
     if 'P037' not in ids or 'P020' not in ids:
         raise ValueError('Both part boundaries P037 and P020 are required')
     split = ids.index('P020')
-    if split == 0 or ids[split - 1] != 'P037':
-        raise ValueError('Part 1 must end with P037 immediately before P020')
+    tail = ids[ids.index('P037') + 1:split]
+    if split <= ids.index('P037') or tail not in ([], ['P096']):
+        raise ValueError('P037 must precede P020, with only optional Part 1 recap P096 between them')
     doc = _Document(full_html)
     stage = doc.one(lambda e: e.tag == 'main' and e.attrs.get('id') == 'stage')
     toc = doc.one(lambda e: e.tag == 'div' and e.attrs.get('id') == 'toc-list')
