@@ -4,7 +4,8 @@ import path from 'node:path';
 import {pathToFileURL} from 'node:url';
 import {chromium} from 'playwright-chromium';
 
-const output = path.resolve('review/previews/problems-v29');
+const revision = JSON.parse(fs.readFileSync('content/deck-manifest.json','utf8'))[0].version;
+const output = path.resolve(`review/previews/problems-${revision}`);
 fs.mkdirSync(output, {recursive:true});
 const browser = await chromium.launch({headless:true, executablePath:'/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'});
 try {
@@ -23,6 +24,11 @@ try {
     const visibleText=await page.locator('.deck-page.active').innerText();
     assert(!visibleText.includes('VLM'),'visible P002 must introduce VLA only');
     assert.equal(await walkthrough.locator('.problem-card:visible').count(),Math.min(step,3));
+    if(step===1) {
+      const motion=walkthrough.locator('[data-problem-card="1"]');
+      assert.equal(await motion.locator('svg[role="img"]').count(),1,'motion problem needs a conveyor illustration');
+      assert.equal(await motion.locator('.problem-capability').innerText(),'움직임을 읽는 능력 부족');
+    }
     const geometry=await page.locator('.deck-page.active .seminar-slide').evaluate(slide=>{
       const body=slide.querySelector('.seminar-body').getBoundingClientRect();
       return [...slide.querySelectorAll('.vla-definition,.problem-card,.problem-step-label')].filter(el=>{

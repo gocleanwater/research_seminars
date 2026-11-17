@@ -28,9 +28,21 @@ VLA는 영상과 언어 지시를 받아 로봇의 행동을 만드는 모델이
 <div class="problem-cards">
 <div class="problem-card" data-problem-card="1">
 <div class="problem-number">01 · 움직임</div>
-<h3>지금 어디에 있는가?<br>어디로 움직이는가?</h3>
-<div class="problem-example">컨베이어 위의 물체 잡기</div>
-<div class="problem-capability">움직임 인식</div>
+<svg class="problem-conveyor" viewBox="0 0 330 145" role="img" aria-label="컨베이어에서 물체는 오른쪽으로 이동했지만 로봇 손은 이전 위치로 내려와 놓치는 설명용 그림">
+<defs><marker id="p002-belt-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#167e7a"/></marker></defs>
+<text x="74" y="17" text-anchor="middle" fill="#506574">손이 향한 곳</text>
+<path d="M 74 26 V 48 M 60 48 H 88 M 60 48 V 67 M 88 48 V 67" fill="none" stroke="#3f6573" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="60" y="76" width="28" height="25" rx="3" fill="none" stroke="#92b2b0" stroke-width="2" stroke-dasharray="4 3"/>
+<path d="M 68 82 L 80 94 M 80 82 L 68 94" stroke="#bc5849" stroke-width="2.5" stroke-linecap="round"/>
+<path d="M 109 88 H 214" fill="none" stroke="#167e7a" stroke-width="2.5" marker-end="url(#p002-belt-arrow)"/>
+<text x="163" y="72" text-anchor="middle" fill="#167e7a">벨트 이동</text>
+<rect x="236" y="76" width="28" height="25" rx="3" fill="#f0c989" stroke="#a87934" stroke-width="2"/>
+<rect x="14" y="104" width="302" height="20" rx="10" fill="#dce8e8" stroke="#7d9da4" stroke-width="2"/>
+<g fill="none" stroke="#9cb5ba" stroke-width="2"><circle cx="27" cy="114" r="5"/><circle cx="81" cy="114" r="5"/><circle cx="135" cy="114" r="5"/><circle cx="189" cy="114" r="5"/><circle cx="243" cy="114" r="5"/><circle cx="303" cy="114" r="5"/></g>
+<text x="74" y="141" text-anchor="middle" fill="#667b87">이전 위치</text>
+<text x="250" y="141" text-anchor="middle" fill="#94682e">이동한 물체</text>
+</svg>
+<div class="problem-capability">움직임을 읽는 능력 부족</div>
 </div>
 <div class="problem-card" data-problem-card="2">
 <div class="problem-number">02 · 기억</div>
@@ -47,7 +59,7 @@ VLA는 영상과 언어 지시를 받아 로봇의 행동을 만드는 모델이
 </div>
 <div class="problem-step-copy" hidden>
 <span data-problem-stage="0" data-lead="VLA는 영상과 언어 지시를 받아 로봇의 행동을 만드는 모델이다." data-takeaway="다양한 장면과 지시를 이해하는 능력은 실제 로봇 조작의 출발점이다." data-label="VLA가 하는 일"></span>
-<span data-problem-stage="1" data-lead="하지만, 움직이는 물체는 현재 위치만 알아서는 잡기 어렵다." data-takeaway="움직임 인식: 여러 시점의 변화에서 물체의 움직임을 읽는다." data-label="첫 번째 문제 · 움직임"></span>
+<span data-problem-stage="1" data-lead="하지만, 움직이는 물체는 현재 위치만 알아서는 잡기 어렵다." data-takeaway="움직임을 읽는 능력 부족: 물체가 이동했는데 이전 위치로 손을 뻗으면 놓칠 수 있다." data-label="첫 번째 문제 · 움직임"></span>
 <span data-problem-stage="2" data-lead="현재 화면에 없는 정보가 다음 행동을 결정하기도 한다." data-takeaway="장기 기억: 앞서 본 정보를 유지하고 이후 선택에 활용한다." data-label="두 번째 문제 · 기억"></span>
 <span data-problem-stage="3" data-lead="보이는 모습만으로는 힘과 접촉 상태를 구분하기 어려울 수 있다." data-takeaway="물리 센싱: 촉각·토크로 영상에서 부족한 접촉 단서를 보완한다." data-label="세 번째 문제 · 접촉"></span>
 <span data-problem-stage="4" data-lead="장면과 지시의 이해에 더해, 실제 조작에 필요한 세 가지 능력이 있다." data-takeaway="RLDX-1은 움직임 인식·장기 기억·물리 센싱을 함께 다루려는 연구다." data-label="필요한 세 가지 능력"></span>
@@ -68,7 +80,7 @@ Sec.1 · PDF p.3; Sec.1.1 · PDF p.5 · 상황과 흐름도는 설명용
 
 **화면 1/5 — VLA 정의.** 상단 입력→VLA→행동 흐름만 보인다. “영상과 언어 지시를 받아 로봇 행동을 만드는 모델”로 소개한다. 이 장에서는 VLM을 소개하거나 비교하지 않는다.
 
-**화면 2/5 — 움직임.** 다음 키로 첫 카드를 표시하고 컨베이어 사례와 현재 위치/시간 변화의 차이를 설명한다.
+**화면 2/5 — 움직임.** 다음 키로 첫 카드를 표시한다. 컨베이어의 물체는 오른쪽으로 이동했지만 손은 점선의 이전 위치를 향하는 그림을 설명한다. 그림은 실패 상황을 직관적으로 보여주는 예시이며 실험 결과가 아니다.
 
 **화면 3/5 — 기억.** 다음 키로 두 번째 카드를 표시하고 숨기기 전 관찰을 이후 선택에 사용하는 상황을 설명한다.
 

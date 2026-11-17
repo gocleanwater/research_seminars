@@ -475,3 +475,11 @@
 - 편집 원본: sections/01-problems.md, SPEAKER_SCRIPT.md의 P002. 화면 로직은 scripts/deck-runtime.js, P002 전용 스타일은 deck.css. 다른51장과 기존121개 상세 공부 기록은 보존한다.
 - 검증: verify_problems.mjs의5상태·화면VLA단일용어·카드/본문 경계·정방향/역방향/번호이동·5PNG, verify_speaker_script.py, verify_sources.py, 기존 verify_navigation.mjs·verify_architecture.mjs, 프로젝트base빌드가 통과했다. 실제 첫/정리 화면을 확인한다.
 - 미리보기: review/previews/problems-v29/P002-step-1.png–P002-step-5.png. 이전 원본은 review/versions/before-problems-v29/에 보존했다. 구현·검증 완료와 사용자 결과물 승인은 별개이며 현재 검토 전이다.
+
+## 2026-11-17 / v30 / P002 움직임 카드의 컨베이어 그림
+
+- 사용자 브라우저 피드백: 첫 카드의 글 중심 설명 대신 컨베이어의 움직이는 물체를 잘 읽지 못하는 상황을 간단한 그림으로 표시하고, “움직임 인식”을 “움직임을 읽는 능력 부족”으로 바꿀 것.
+- 반영: 원본 Section MD에 편집 가능한 SVG를 넣었다. 물체의 이전 위치는 점선, 이동한 물체는 오른쪽 실선 상자, 손은 이전 위치, 벨트 이동은 화살표로 표시한다. 원문 실험 이미지가 아닌 설명용 예시다.
+- 카드와2/5 하단 설명을 요청한 부족함 표현으로 바꾸고 대본도 점선 위치→오른쪽 물체→이전 위치로 향한 손 순서로 맞췄다. 두 번째·세 번째 카드와5단계 조작은 변경하지 않았다.
+- 검증: 실제5단계 PNG, 컨베이어 SVG·문구·경계·정방향/역방향/페이지입력, 대본 대응 검증 통과. 이전 상세 공부 기록을 보존한다. 사용자 결과물 검토 전이다.
+- 화면: review/previews/problems-v30/P002-step-2.png. 적용 규칙 H05/H08/H10/H21/H23/H24.
