@@ -25,7 +25,7 @@ try{
     const issues=await explorer.evaluate(root=>{
       if(root.classList.contains('has-detail')){
         const content=root.querySelector('.arch-detail-content'), box=content.getBoundingClientRect();
-        return [...content.querySelectorAll('p,.tour-equation,.tour-flow,.tour-input-row,.tour-loops')].flatMap(el=>{const r=el.getBoundingClientRect();return r.left<box.left-2||r.right>box.right+2||r.bottom>box.bottom+2||r.top<box.top-2?[{type:'detail-bounds',text:el.textContent}]:[];});
+        return [...content.querySelectorAll('p,.tour-equation,.tour-flow,.tour-input-row,.tour-loops,.ja-exchange,.ja-headings,.ja-context,.ja-reference,.ja-one-update')].flatMap(el=>{const r=el.getBoundingClientRect();return r.left<box.left-2||r.right>box.right+2||r.bottom>box.bottom+2||r.top<box.top-2?[{type:'detail-bounds',text:el.textContent}]:[];});
       }
       const area=root.querySelector('.arch-annotations').getBoundingClientRect();const found=[];
       const cards=[...root.querySelectorAll('.arch-annotation')];
@@ -44,6 +44,11 @@ try{
       return found;
     });
     assert.deepEqual(issues,[],`state ${index}`);
+    if(state.panel_id==='joint-attention'){
+      const rows=await explorer.locator('.ja-stream').evaluateAll(els=>els.map(el=>({y:el.getBoundingClientRect().top,label:el.querySelector('b').textContent,slots:el.querySelectorAll(':scope > span').length})));
+      assert.equal(rows.length,6);
+      for(let i=0;i<6;i+=2){assert.equal(rows[i].label,rows[i+1].label);assert.equal(rows[i].slots,rows[i+1].slots);assert(Math.abs(rows[i].y-rows[i+1].y)<1,'stream positions align before and after attention');}
+    }
     if(state.origin_index===8){
       assert.equal(await explorer.locator('.arch-picture-marks [data-mark-id^="vlm-"]').count(),3);
       for(const id of ['vlm-video','vlm-language','vlm-cognition'])assert.equal(await explorer.locator(`[data-label-id="${id}"]`).count(),1);

@@ -328,3 +328,27 @@ body[data-export="true"] .part-links { display: none; }
 .seminar-slide .part1-recap-cards h3 { font-size:24px; margin:0 0 14px; }
 .seminar-slide .part1-recap-cards p { font-size:23px; line-height:1.5; margin:0 0 12px; }
 .part1-recap-cards small { font-size:19px; line-height:1.5; color:#526d78; }
+
+/* Joint attention: same stream positions before and after information exchange. */
+.ja-headings { display:flex; justify-content:space-between; font-size:20px; font-weight:700; padding:0 10px; }
+.ja-exchange { display:grid; grid-template-columns:1fr 26px 150px 26px 1fr; gap:12px 6px; align-items:center; }
+.ja-stream { display:flex; align-items:center; gap:7px; padding:10px 9px; border:2px solid; border-radius:7px; min-width:0; }
+.ja-stream b { font-size:24px; margin-right:3px; }.ja-stream > span { padding:7px 6px; background:#ffffffc9; border:1px solid currentColor; border-radius:4px; font-size:20px; }
+.ja-stream i { font-size:20px; font-style:normal; }
+.ja-c { background:#e0f2e9; border-color:#4e9c7b; color:#205a42; }.ja-a { background:#ede7f7; border-color:#9581b9; color:#59427e; }.ja-p { background:#e2eff7; border-color:#6c9dba; color:#305f7b; }
+.ja-arrow { color:#167e7a; font-size:27px; text-align:center; }
+.ja-shared { grid-column:3; grid-row:1 / 4; align-self:stretch; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:20px; background:#edf4f3; border:2px solid #8aaead; border-radius:18px; text-align:center; }
+.ja-shared strong { font-size:25px; }.ja-shared > span { font-size:21px; }
+.seminar-slide p.ja-caption { font-size:17px; color:#526d78; margin:0; }
+.ja-updated { box-shadow:inset 0 -5px 0 #ffffffb0; }
+.ja-context { display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+.ja-hint { border:2px solid; border-radius:7px; padding:12px 14px; display:flex; flex-direction:column; gap:8px; font-size:21px; }
+.ja-hint span { font-size:20px; }.ja-reference { text-align:center; color:#167e7a; font-size:22px; margin:-5px 0; }
+.ja-one-update { display:grid; grid-template-columns:1fr 40px 1fr; align-items:center; gap:8px; }
+.ja-feature { padding:15px; border:2px solid #9581b9; border-radius:7px; text-align:center; min-height:115px; display:flex; flex-direction:column; justify-content:center; gap:8px; }
+.ja-feature small { font-size:20px; }.ja-feature strong { font-size:23px; line-height:1.4; }
+.arch-detail-content:has(.ja-exchange) { gap:10px; }
+.arch-detail-content:has(.ja-one-update) { gap:12px; }
+.ja-stream > span { padding:5px 6px; }
+
+.ja-one-update { align-items:stretch; }.ja-one-update > .ja-arrow { align-self:center; }

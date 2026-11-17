@@ -784,9 +784,9 @@
     {
       "scene": "msat",
       "step": 4,
-      "title": "MSAT의 블록",
-      "lead": "Triple-stream에서 각 stream은 자신의 경로를 유지하며 joint attention으로 정보를 교환한다.",
-      "takeaway": "stream별 Q/K/V → joint attention → 분리 → stream별 residual update",
+      "title": "초반 블록은 세 경로로 처리한다",
+      "lead": "C·A·P는 각자의 경로를 두고, joint attention에서 서로의 정보를 참고한다.",
+      "takeaway": "세 경로의 정보 교환을 다음 그림에서 따라가 보자.",
       "box": [
         800,
         50,
@@ -828,9 +828,9 @@
     {
       "scene": "msat",
       "step": 0,
-      "title": "각자 준비한 정보를 함께 읽는다",
-      "lead": "각 stream에서 Q·K·V를 만든 뒤, 토큰 방향으로 모아 joint attention을 계산한다.",
-      "takeaway": "전용 파라미터로 입력을 준비하고, attention에서는 서로의 정보를 참고한다.",
+      "title": "서로 참고하되, 각자의 자리는 유지한다",
+      "lead": "Joint attention은 다른 경로의 정보를 반영해 각 토큰의 특징을 갱신한다.",
+      "takeaway": "토큰의 자리와 묶음은 유지되고, 그 자리에 담긴 특징값은 바뀐다.",
       "box": [
         800,
         50,
@@ -870,9 +870,9 @@
     {
       "scene": "msat",
       "step": 0,
-      "title": "정보를 교환한 뒤 원래 경로로 돌아간다",
-      "lead": "Attention 출력은 각 query 위치에 대응하므로 다시 stream별로 나눌 수 있다.",
-      "takeaway": "초반의 출력 분리와 후반의 C–A 경로 통합은 서로 다른 연산이다.",
+      "title": "같은 자리에서 내용을 갱신한다",
+      "lead": "행동 토큰 하나를 따라가면, 정보 교환과 갱신의 의미가 보인다.",
+      "takeaway": "서로 참고한 뒤, 각 경로의 토큰을 전용 처리로 갱신한다.",
       "box": [
         800,
         50,

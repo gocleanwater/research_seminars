@@ -565,24 +565,23 @@ $$
 
 요점: 그림에 생략된 denoising timestep τ도 A stream 앞의 토큰으로 전달된다.
 
-#### [25] MSAT의 블록
-핵심: Triple-stream에서 각 stream은 자신의 경로를 유지하며 joint attention으로 정보를 교환한다.
+#### [25] 초반 블록은 세 경로로 처리한다
 
-설명:
+핵심: C·A·P는 각자의 경로를 두고, joint attention에서 서로의 정보를 참고한다.
+설명: C·A·P는 각자의 경로를 두고, joint attention에서 서로의 정보를 참고한다.
+요점: 세 경로의 정보 교환을 다음 그림에서 따라가 보자.
 
-요점: stream별 Q/K/V → joint attention → 분리 → stream별 residual update
+#### [26] 서로 참고하되, 각자의 자리는 유지한다
 
-#### [26] 각자 준비한 정보를 함께 읽는다
+핵심: Joint attention은 다른 경로의 정보를 반영해 각 토큰의 특징을 갱신한다.
+설명: Joint attention은 다른 경로의 정보를 반영해 각 토큰의 특징을 갱신한다.
+요점: 토큰의 자리와 묶음은 유지되고, 그 자리에 담긴 특징값은 바뀐다.
 
-핵심: 각 stream에서 Q·K·V를 만든 뒤, 토큰 방향으로 모아 joint attention을 계산한다.
-설명: 각 stream에서 Q·K·V를 만든 뒤, 토큰 방향으로 모아 joint attention을 계산한다.
-요점: 전용 파라미터로 입력을 준비하고, attention에서는 서로의 정보를 참고한다.
+#### [27] 같은 자리에서 내용을 갱신한다
 
-#### [27] 정보를 교환한 뒤 원래 경로로 돌아간다
-
-핵심: Attention 출력은 각 query 위치에 대응하므로 다시 stream별로 나눌 수 있다.
-설명: Attention 출력은 각 query 위치에 대응하므로 다시 stream별로 나눌 수 있다.
-요점: 초반의 출력 분리와 후반의 C–A 경로 통합은 서로 다른 연산이다.
+핵심: 행동 토큰 하나를 따라가면, 정보 교환과 갱신의 의미가 보인다.
+설명: 행동 토큰 하나를 따라가면, 정보 교환과 갱신의 의미가 보인다.
+요점: 서로 참고한 뒤, 각 경로의 토큰을 전용 처리로 갱신한다.
 
 #### [28] MSAT의 블록
 핵심: 후반에는 C와 A를 토큰 방향으로 concat하고, P와 C-A의 Double-stream으로 처리한다.
@@ -710,8 +709,7 @@ $$
 설명: 현재 상태 · noisy action chunk
 
 #### [msat-4] Triple-stream · 정보 교환
-
-설명: joint attention 뒤 다시 분리해 각 stream에서 residual로 갱신한다.
+설명: C·A·P는 각자의 경로로 처리하면서, joint attention으로 서로의 정보를 참고한다.
 
 #### [msat-5] C-A concat → Double-stream
 
@@ -2530,25 +2528,29 @@ RTC의 구체적인 overlap/inpainting 알고리즘은 이 보고서 내 설명 
 
 학습하는 내용은 세 범주입니다. 첫째는 손끝과 목표 물체의 공간 관계, 둘째는 목표를 이루기 위한 중간 subtask, 셋째는 현재 프레임에 대응하는 low-level action입니다. Qwen3-VL 8B를 이 자료로 추가 학습한 모델이 RLDX-1-VLM입니다. 추론할 때마다 질문에 답한 문장을 행동 모델로 보내는 별도 경로를 추가한 것은 아닙니다. 준비된 모델에서 행동에 쓸 특징을 얻는 것입니다. 실제 성능 비교는 Part 2의 ablation에서 다시 보겠습니다.
 
-#### [joint-attention] 각자 준비한 정보를 함께 읽는다
+#### [joint-attention] 서로 참고하되, 각자의 자리는 유지한다
 
 ##### 화면
 
-<div class="tour-flow"><div class="tour-node">C / A / P</div><span class="tour-flow-arrow">→</span><div class="tour-node">각자의 RMSNorm·QKV</div><span class="tour-flow-arrow">→</span><div class="tour-node">Q끼리 · K끼리 · V끼리 연결</div></div><div class="tour-flow"><div class="tour-node">전체 토큰의 joint attention</div><span class="tour-flow-arrow">→</span><div class="tour-node">각 query 위치의 출력</div></div><p class="tour-callout">입력의 준비 경로를 나눈다는 것과, 다른 정보와 교환하지 않는다는 것은 다르다.</p>
+<div class="ja-headings"><span>정보 교환 전</span><span>정보를 반영한 출력</span></div><div class="ja-exchange"><div class="ja-stream ja-c"><b>C</b><span>C<sub>1</sub></span><i>…</i><span>C<sub>n</sub></span></div><span class="ja-arrow">→</span><div class="ja-shared"><strong>Joint<br>attention</strong><span>서로의 정보를<br>참고</span></div><span class="ja-arrow">→</span><div class="ja-stream ja-c ja-updated"><b>C</b><span>C′<sub>1</sub></span><i>…</i><span>C′<sub>n</sub></span></div><div class="ja-stream ja-a"><b>A</b><span>A<sub>1</sub></span><i>…</i><span>A<sub>n</sub></span></div><span class="ja-arrow">→</span><span class="ja-arrow">→</span><div class="ja-stream ja-a ja-updated"><b>A</b><span>A′<sub>1</sub></span><i>…</i><span>A′<sub>n</sub></span></div><div class="ja-stream ja-p"><b>P</b><span>P<sub>1</sub></span><i>…</i><span>P<sub>n</sub></span></div><span class="ja-arrow">→</span><span class="ja-arrow">→</span><div class="ja-stream ja-p ja-updated"><b>P</b><span>P′<sub>1</sub></span><i>…</i><span>P′<sub>n</sub></span></div></div><p class="ja-caption">색은 경로, 칸은 토큰 위치를 나타내는 설명용 도식이다.</p><p class="tour-callout">C는 C 자리로 · A는 A 자리로 · P는 P 자리로 — 담긴 특징은 갱신된다.</p>
 
 ##### 대본
 
-그림의 triple-stream 블록 안에서는 각 경로가 자신의 RMSNorm과 QKV projection으로 정보를 준비합니다. RMSNorm은 특징의 크기를 정규화하고, projection은 query, key, value를 만드는 변환입니다. 그다음 Q끼리, K끼리, V끼리를 토큰 방향으로 이어 붙여 joint self-attention을 계산합니다. 전용 경로로 처리하면서도 attention에서는 다른 경로를 참고할 수 있다는 것이 핵심입니다.
+왼쪽의 초록색은 인지 C, 보라색은 행동 A, 파란색은 물리 신호 P의 토큰 자리입니다. 가운데 joint attention에서는 이 토큰들이 서로의 정보를 참고합니다. 예를 들어 행동 토큰은 장면과 기억, 접촉에 관한 정보를 함께 참고할 수 있습니다.
 
-#### [stream-update] 정보를 교환한 뒤 원래 경로로 돌아간다
+오른쪽을 보면 C 자리에는 여전히 C의 출력이, A 자리에는 A의 출력이, P 자리에는 P의 출력이 있습니다. 토큰이 서로 정보를 참고한다고 해서 어느 출력이 어느 자리의 것인지 없어지는 것은 아닙니다. 같은 색과 같은 위치를 남긴 이유가 이것입니다. 다만 각 토큰이 담은 특징값은 다른 정보를 반영해 바뀝니다. 여기서 유지되는 것은 토큰의 자리와 묶음이지, 입력값 자체가 그대로라는 뜻은 아닙니다. 토큰 표시는 위치 관계를 보여주는 설명용 도식입니다.
+
+#### [stream-update] 같은 자리에서 내용을 갱신한다
 
 ##### 화면
 
-<div class="tour-flow"><div class="tour-node">Joint attention 출력</div><span class="tour-flow-arrow">→</span><div class="tour-node">원래 토큰 위치로 분리</div><span class="tour-flow-arrow">→</span><div class="tour-node">Residual + SwiGLU FFN</div></div><div class="tour-token-strip"><span class="token-c">C의 위치</span><span class="token-c">C의 위치</span><span class="token-a">A의 위치</span><span class="token-p">P의 위치</span></div><p class="tour-callout">Residual은 기존 특징에 출력을 더하고, FFN은 각 토큰 안의 특징을 갱신한다.</p>
+<div class="ja-context"><div class="ja-hint ja-c"><b>C · 장면과 기억</b><span>조작할 대상·주변 상황</span></div><div class="ja-hint ja-p"><b>P · 물리 신호</b><span>접촉 상태 · 사용 가능할 때</span></div></div><div class="ja-reference">↘　참고한 정보를 반영　↙</div><div class="ja-one-update"><div class="ja-feature ja-a"><small>행동 토큰 Aᵢ</small><strong>갱신 전 특징</strong></div><span class="ja-arrow">→</span><div class="ja-feature ja-a ja-updated"><small>같은 행동 토큰 Aᵢ</small><strong>상황·접촉 정보를<br>반영한 특징</strong></div></div><p class="tour-callout">토큰 자리·묶음과 경로별 전용 처리는 유지하고, 특징값을 바꾼다.</p>
 
 ##### 대본
 
-Attention에서 정보가 섞여도 각 출력이 어느 query 위치에 대응하는지는 남아 있습니다. 그래서 원래 위치에 맞춰 C, A, P로 나눌 수 있습니다. 나눈 결과를 기존 특징에 더하는 것이 residual update입니다. 이어지는 SwiGLU FFN은 gate를 이용해 토큰 내부의 특징을 비선형으로 바꿉니다. 지금처럼 attention 출력을 나누는 것과, 그림의 후반 블록에서 C와 A를 한 경로로 통합하는 것은 다른 단계입니다.
+이번에는 보라색 행동 토큰 하나만 따라가 보겠습니다. 왼쪽과 오른쪽은 같은 A 자리입니다. 가운데에서 장면과 기억을 담은 C의 정보, 접촉 상태를 담은 P의 정보를 참고하면, 오른쪽의 A는 그 정보를 반영한 행동 특징이 됩니다. 같은 자리에 있으면서 담고 있는 내용이 갱신되는 것입니다.
+
+이 정보 교환이 끝나면 각 경로는 자기 토큰을 자기 전용 처리로 갱신합니다. 지금 기억할 핵심은 서로 참고하고, 각자의 자리에서 특징을 갱신한다는 것입니다. 이 특징은 아직 최종 로봇 명령이 아니라 행동 생성에 쓰는 내부 표현입니다.
 
 #### [action-path] 노이즈에서 행동으로 가는 학습 경로
 
