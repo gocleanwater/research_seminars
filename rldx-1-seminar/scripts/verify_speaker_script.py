@@ -30,6 +30,12 @@ architecture = next(p for p in load_sections(ROOT) if p['id'] == 'P032')
 rendered_tour = apply_tour_text(tour, architecture)
 for panel_id, panel in rendered_tour['panels'].items():
     assert panel['speech'] in sections['P032'], (panel_id, 'screen-card speech differs from rehearsal script')
+# Speaker-script symbols must remain formulas, including in the Part 1 copy.
+for filename in ['SPEAKER_SCRIPT.md', 'SPEAKER_SCRIPT_PART1.md']:
+    script_text = (ROOT / filename).read_text()
+    prose = re.sub(r'\$\$[\s\S]*?\$\$|\$[^$\n]*\$', '', script_text)
+    assert not re.search(r'\b(?:v star|u theta|c t|delta tau|minus|epsilon|theta)\b', prose, re.I), filename
+    assert 'τ' not in prose, (filename, 'bare tau outside math')
 assert text.count('$$') % 2 == 0
 assert len(re.findall(r'^## ', text, re.M)) == len(manifest)
 for placeholder in ['\ufffd', 'TODO', 'TBD', 'PLACEHOLDER']:
