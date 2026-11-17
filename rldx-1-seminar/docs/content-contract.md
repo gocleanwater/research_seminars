@@ -1,5 +1,7 @@
 # 전체 초안 콘텐츠 계약
 
+> 과거 초안 제작 당시의 계약이다. 아래 30장·JSON 담당 범위는 현재 지시가 아니다. 현재는 장수 제한 없이 `sections/`의 Markdown이 편집 원본이며 `scripts/build_deck.py`가 생성한다. `../AGENTS.md`, `../sections/README.md`, 공통 `../../docs/SEMINAR_PLAYBOOK.md`를 먼저 읽는다. 이 문서를 근거로 최신 MD를 과거 JSON으로 되돌리지 않는다.
+
 전체 HTML 초안을 제작한 뒤 한 장씩 수정한다. 2026-11-05 최신 사용자 요청이 이전 한 장 제작 제한을 대체한다.
 
 후속 결정: 관련 단위를 묶어 본문30장으로 만든다. 기존 상세 단위는 삭제하지 않고 main JSON의 source_ids를 통해 N 상세 해설에 연결한다. 본문main-*.json과 원형 상세 JSON을 분리한다. 실제 발표 장수는 표지1+main29=30이다.

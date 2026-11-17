@@ -63,3 +63,7 @@ pnpm build --base /new-paper-seminar/
 ## 보존
 
 공부 기록, 슬라이드 원본, 피드백과 승인 기록을 보존한다. 빌드·PNG 미리보기는 재생성할 수 있다. 이 틀에는 파일을 자동 삭제하는 도구나 예약 작업이 없다.
+
+## 재발 방지 하네스
+
+작업 전에 AGENTS.md와 docs/SEMINAR_PLAYBOOK.md·docs/FEEDBACK_LESSONS.md를 읽는다. 이전 피드백에서 얻은 규칙과 적용 범위를 확인하고 프로젝트별 PROGRESS/FEEDBACK 기록으로 이어간다. 기본은 전체 맥락의 초안 후 장별 수정이며 최신 사용자 요청이 우선한다. Section 공부 양식은 templates/study-section.md다.
