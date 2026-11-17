@@ -63,7 +63,7 @@ def load_sections(root):
             block = text[match.end():matches[i + 1].start() if i + 1 < len(matches) else len(text)]
             config = metadata(block, 'slide-meta')
             parts = sections(block)
-            row = dict(id=match[1], title=match[2].strip(), chapter=chapter,
+            row = dict(id=match[1], title=match[2].strip(), chapter=config.get('chapter', chapter),
                        layout=config.get('layout', 'full'), kind=config.get('kind', 'fact'),
                        lead=parts.get('한 문장', ''), takeaway=parts.get('요점', ''), source=parts.get('출처', ''),
                        notes=parts.get('발표 메모', ''),

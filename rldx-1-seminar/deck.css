@@ -379,3 +379,31 @@ body[data-export="true"] .part-links { display: none; }
 .seminar-slide .post-refine-return { font-size:22px; color:#167e7a; margin:0 0 20px; text-align:center; }.post-rl-note { padding:18px 20px; background:#e8f1f3; border-left:3px solid #527e90; display:flex; align-items:center; gap:24px; }.post-rl-note strong { font-size:23px; }.post-rl-note span { font-size:22px; }
 .recap-roles { margin-bottom:22px; }.recap-cycle { display:grid; grid-template-columns:1fr 24px 1fr 24px 1fr; gap:12px; align-items:center; }.recap-cycle > div { min-width:0; padding:16px 14px; background:#edf4f3; border:1px solid #a8c6c4; border-radius:7px; }.recap-cycle small { font-size:18px; color:#167e7a; display:block; margin-bottom:12px; }.recap-cycle b { font-size:23px; display:block; margin-bottom:12px; }.recap-cycle span { font-size:20px; line-height:1.4; display:block; }.recap-cycle i { font-size:28px; font-style:normal; color:#167e7a; }
 .critic-reading { display:grid; gap:18px; }.critic-reading > div { padding:12px 15px; border-left:3px solid #167e7a; background:#edf4f3; }.critic-reading small { font-size:18px; color:#526d78; }.seminar-slide .critic-reading h3 { font-size:24px; margin:4px 0 8px; }.seminar-slide .critic-reading p { font-size:22px; line-height:1.45; margin:0; }.seminar-slide .critic-legend { font-size:20px; line-height:1.5; margin-top:18px; color:#526d78; }
+/* v36: two-part overview, explicit Part dividers, and Q&A endings. */
+.cover-agenda .cover-copy { left:64px; top:52px; width:335px; }
+.cover-agenda .cover-series { font-size:14px; line-height:1.5; }
+.cover-agenda h1 { font-size:70px; margin-top:24px; }
+.cover-agenda .cover-title-sub { font-size:28px; margin-top:8px; }
+.cover-agenda .cover-description { font-size:22px; line-height:1.5; margin-top:24px; }
+.cover-agenda .cover-system { left:64px; top:330px; width:335px; height:275px; }
+.cover-agenda .cover-system img { height:238px; }.cover-agenda .cover-system figcaption { font-size:16px; padding-top:10px; }
+.cover-part-agenda { position:absolute; left:445px; right:64px; top:123px; }
+.cover-slide .agenda-hint { font-size:18px; color:#526d78; margin:0 0 16px; }
+.agenda-columns { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+.agenda-part { background:#edf4f3; border-top:4px solid #167e7a; padding:20px; min-width:0; }
+.agenda-part a { color:#173e53; text-decoration:none; }
+.agenda-part-heading { display:flex; flex-direction:column; gap:6px; padding:0 0 20px; }
+.agenda-part-heading small { color:#167e7a; font-size:19px; font-weight:700; }.agenda-part-heading strong { font-size:26px; line-height:1.35; }
+.agenda-part > a:not(.agenda-part-heading) { display:flex; justify-content:space-between; align-items:center; gap:8px; border-top:1px solid #c4d8d6; padding:16px 0; font-size:22px; line-height:1.4; }
+.agenda-part a:hover { color:#087b76; background:#dbece7; }.agenda-part a:focus-visible { outline:3px solid #167e7a; outline-offset:3px; }
+.agenda-ending { display:flex; gap:12px; margin-top:18px; }.agenda-ending a { padding:8px 13px; border:1px solid #9dbebc; border-radius:5px; background:white; font-size:20px; }
+.seminar-slide:has(.part-boundary-visual) .seminar-header { top:70px; }
+.seminar-slide:has(.part-boundary-visual) h1 { font-size:90px; margin-top:20px; }
+.seminar-slide:has(.part-boundary-visual) .slide-lead { font-size:32px; margin-top:20px; }
+.seminar-slide .seminar-body.boundary { top:330px; height:245px; }
+.seminar-slide .part-boundary-visual p { font-size:29px; line-height:1.55; color:#41616e; margin:0 0 35px; }
+.part-boundary-visual > div { display:flex; gap:18px; align-items:center; }
+.part-boundary-visual a { display:inline-block; padding:13px 22px; border:1px solid #8fb8b4; border-radius:6px; background:#e6f1ed; color:#145b59; font-size:23px; text-decoration:none; }
+.part-boundary-visual a:hover { background:#cfe8de; }.part-boundary-visual a:focus-visible { outline:3px solid #167e7a; outline-offset:4px; }
+.cover-agenda .cover-system { top:355px; height:250px; }.cover-agenda .cover-system img { height:213px; }
+.seminar-slide:has(.part-boundary-visual) .takeaway { display:none; }

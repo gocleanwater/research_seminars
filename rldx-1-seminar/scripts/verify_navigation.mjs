@@ -7,6 +7,8 @@ const browser=await chromium.launch({headless:true,executablePath:'/Applications
 const page=await browser.newPage({viewport:{width:1280,height:800}});
 const tourLength=JSON.parse(fs.readFileSync('content/architecture-tour.json','utf8')).states.length;
 const errors=[];page.on('pageerror',e=>errors.push(String(e)));
+const manifest=JSON.parse(fs.readFileSync('content/deck-manifest.json','utf8'));
+const orderOf=id=>String(manifest.findIndex(s=>s.id===id)+1);
 async function active(){return page.locator('.deck-page.active').getAttribute('data-id');}
 async function show(id){await page.evaluate(id=>window.deckShow(window.deckData.findIndex(s=>s.id===id)),id);}
 try{
@@ -16,29 +18,29 @@ try{
   const pageNumber=page.getByRole('spinbutton',{name:'현재 페이지 번호'});
   const pageCount=await page.evaluate(()=>window.deckData.length);
   assert.equal(await pageNumber.getAttribute('max'),String(pageCount));
-  await pageNumber.click();await page.keyboard.type('5');
-  assert.equal(await pageNumber.inputValue(),'5','focusing selects the existing number for replacement');
+  await pageNumber.click();await page.keyboard.type(orderOf('P013'));
+  assert.equal(await pageNumber.inputValue(),orderOf('P013'),'focusing selects the existing number for replacement');
   assert.equal(await active(),'S001','editing alone does not navigate');
   await page.keyboard.press('Enter');assert.equal(await active(),'P013');
   assert.equal(new URL(page.url()).hash,'#P013');
   assert.notEqual(await page.evaluate(()=>document.activeElement?.id),'page-number');
   async function jump(value){await pageNumber.fill(value);await pageNumber.press('Enter');}
-  await jump('4');assert.equal(await active(),'P032');
+  await jump(orderOf('P032'));assert.equal(await active(),'P032');
   const explorer=page.locator('.architecture-explorer');
   assert.equal(await explorer.getAttribute('data-state'),'0');
   await page.keyboard.press('ArrowRight');await page.keyboard.press('ArrowRight');
   assert.equal(await explorer.getAttribute('data-state'),'2');
-  await pageNumber.fill('5');await pageNumber.press('Escape');
-  assert.equal(await pageNumber.inputValue(),'4');
+  await pageNumber.fill(orderOf('P013'));await pageNumber.press('Escape');
+  assert.equal(await pageNumber.inputValue(),orderOf('P032'));
   assert.equal(await explorer.getAttribute('data-state'),'2','canceling input does not reset the current explanation');
-  await jump('4');assert.equal(await explorer.getAttribute('data-state'),'0','jumping to the same slide also starts at its first explanation');
+  await jump(orderOf('P032'));assert.equal(await explorer.getAttribute('data-state'),'0','jumping to the same slide also starts at its first explanation');
   for(const value of ['', '0',String(pageCount+1),'1.5']){
     await jump(value);assert.equal(await active(),'P032');
     assert.equal(await explorer.getAttribute('data-state'),'0');
     assert.equal(await pageNumber.evaluate(el=>el.checkValidity()),false);
   }
-  await jump(String(pageCount));assert.equal(await active(),'P030');
-  await jump('4');await page.evaluate(()=>document.fonts.ready);
+  await jump(String(pageCount));assert.equal(await active(),'P100');
+  await jump(orderOf('P032'));await page.evaluate(()=>document.fonts.ready);
   await page.locator('.arch-source-image').evaluate(im=>im.decode());
   const version=JSON.parse(fs.readFileSync('content/deck-manifest.json','utf8'))[0].version;
   const previews=path.resolve(`review/previews/navigation-${version}`);fs.mkdirSync(previews,{recursive:true});
@@ -49,20 +51,20 @@ try{
   await page.setViewportSize({width:1280,height:800});
   await jump('1');assert.equal(await active(),'S001');
 
-  await page.keyboard.press('ArrowRight');assert.equal(await active(),'P002');
+  await page.keyboard.press('ArrowRight');assert.equal(await active(),'P097');
   await page.keyboard.press('ArrowLeft');assert.equal(await active(),'S001');
-  await page.keyboard.press('Enter');assert.equal(await active(),'P002');
+  await page.keyboard.press('Enter');assert.equal(await active(),'P097');
   await page.keyboard.press('Backspace');assert.equal(await active(),'S001');
-  await page.keyboard.press('Space');assert.equal(await active(),'P002');
+  await page.keyboard.press('Space');assert.equal(await active(),'P097');
   await page.keyboard.press('Shift+Space');assert.equal(await active(),'S001');
-  await page.keyboard.press('ArrowDown');assert.equal(await active(),'P002');
+  await page.keyboard.press('ArrowDown');assert.equal(await active(),'P097');
   await page.keyboard.press('ArrowUp');assert.equal(await active(),'S001');
-  await page.keyboard.press('PageDown');assert.equal(await active(),'P002');
+  await page.keyboard.press('PageDown');assert.equal(await active(),'P097');
   await page.keyboard.press('PageUp');assert.equal(await active(),'S001');
-  await page.keyboard.press('End');assert.equal(await active(),'P030');
+  await page.keyboard.press('End');assert.equal(await active(),'P100');
   await page.keyboard.press('Home');assert.equal(await active(),'S001');
   // Blank slide canvas clicks advance, while figures retain zoom behavior.
-  await page.locator('.deck-page.active').click({position:{x:50,y:30}});assert.equal(await active(),'P002');
+  await page.locator('.deck-page.active').click({position:{x:50,y:30}});assert.equal(await active(),'P097');
   await show('P031');await page.locator('.deck-page.active .paper-figure img').click();
   assert.equal(await active(),'P031');assert.equal(await page.locator('#image-dialog[open]').count(),1);
   await page.keyboard.press('ArrowRight');assert.equal(await active(),'P031');
@@ -134,7 +136,7 @@ try{
   const scriptText=await page.locator('#notes-text .study-intro').innerText();
   for(const term of ['STSS','Residual addition','10–27층','과거 프레임 특징의 압축','cognition 위치 출력','과거 cognition features의 queue','Causal Transformer의 계산','저장 간격과 과거 범위','로봇별 입출력 경로','embodiment-agnostic','256 trajectories'])assert(scriptText.includes(term),term);
   await page.keyboard.press('Escape');
-  await jump('5');assert.equal(await active(),'P013');
+  await jump(orderOf('P013'));assert.equal(await active(),'P013');
   // Public/in-house are introduced once; synthetic detail follows the overview.
   for(const id of ['P072','P014']){await page.keyboard.press('ArrowRight');assert.equal(await active(),id);}
   // Generated video, simulator rollout, feature comparison, then classifier training.
@@ -145,7 +147,7 @@ try{
   await page.keyboard.press('Escape');
   // Purpose first, then each training stage; graph and fused-kernel explanations stay separate.
   await show('P035');
-  for(const id of ['P016','P017','P018','P019','P037','P096','P020','P038','P039','P040']){await page.keyboard.press('ArrowRight');assert.equal(await active(),id);}
+  for(const id of ['P016','P017','P018','P019','P037','P096','P098','P099','P020','P038','P039','P040']){await page.keyboard.press('ArrowRight');assert.equal(await active(),id);}
   // Benchmarks and real robot/task photos come before their result plots.
   for(const id of ['P022','P095','P041','P042','P023','P043','P024','P044','P025','P026']){await page.keyboard.press('ArrowRight');assert.equal(await active(),id);}
   // Follow the seven ablation topics without skipping their separate conditions and interpretations.

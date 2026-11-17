@@ -106,10 +106,20 @@ def write_part_outputs(root: Path, full_html: str, manifest: list[dict],
         raise ValueError('Manifest and DECK must have the same unique ordered IDs')
     if 'P037' not in ids or 'P020' not in ids:
         raise ValueError('Both part boundaries P037 and P020 are required')
-    split = ids.index('P020')
-    tail = ids[ids.index('P037') + 1:split]
-    if split <= ids.index('P037') or tail not in ([], ['P096']):
-        raise ValueError('P037 must precede P020, with only optional Part 1 recap P096 between them')
+    boundary_ids = {'P097', 'P098', 'P099', 'P100'}
+    if boundary_ids.intersection(ids):
+        if not boundary_ids.issubset(ids):
+            raise ValueError('Part divider/Q&A pages must be present as a complete set')
+        split = ids.index('P099')
+        if (ids[:2] != ['S001', 'P097'] or ids[split - 1] != 'P098'
+                or ids[split + 1] != 'P020' or ids[-1] != 'P100'
+                or ids[ids.index('P037') + 1:split] != ['P096', 'P098']):
+            raise ValueError('Each Part requires its start divider and ending Q&A in order')
+    else:
+        split = ids.index('P020')
+        tail = ids[ids.index('P037') + 1:split]
+        if split <= ids.index('P037') or tail not in ([], ['P096']):
+            raise ValueError('P037 must precede P020, with only optional Part 1 recap P096 between them')
     doc = _Document(full_html)
     stage = doc.one(lambda e: e.tag == 'main' and e.attrs.get('id') == 'stage')
     toc = doc.one(lambda e: e.tag == 'div' and e.attrs.get('id') == 'toc-list')
@@ -131,6 +141,14 @@ def write_part_outputs(root: Path, full_html: str, manifest: list[dict],
         count = end - start
         page_html = ''.join(_number_page(full_html, page, i + 1, count)
                             for i, page in enumerate(pages[start:end]))
+        # A topic outside this subset must open the sibling file, not a dead hash.
+        local_ids = set(ids[start:end])
+        def route_link(match):
+            target = match[3]
+            if target in ids and target not in local_ids:
+                return f'{match[1]}{match[2]}part-{3-number}.html#{target}{match[2]}'
+            return match[0]
+        page_html = re.sub(r'(\bhref\s*=\s*)([\'"])#([SP]\d{3})\2', route_link, page_html)
         toc_html = []
         for i, entry in enumerate(entries[start:end]):
             original = full_html[entry.start:entry.end]

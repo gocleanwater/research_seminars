@@ -285,3 +285,34 @@ Sec.6.5 · PDF pp.24–26; App.E · PDF pp.45–46; App.G.3–G.6 · PDF pp.51�
 ##### 발표 메모
 
 후속 제안은 논문의 관찰과 명세 한계에 근거한 우리의 해석이다. 평가 분포 밖 일반화, classifier calibration, 새 embodiment 적응 효과 등을 확인된 결론으로 만들지 않는다. 이 발표는 원문·질문노트를 검토해 정리한 초안이며 논문 학습·실험의 재현을 실행한 결과가 아니다. 유망한 통합 성과와 독립 인과 기여·재현 설정·집계 불확실성의 남은 과제를 함께 기록한다.
+
+## [P100] Q&A
+
+<!-- slide-meta
+layout: boundary
+kind: interpretation
+chapter: Seminar
+source_ids:
+-->
+
+### 한 문장
+
+Part 2 · 추론·실험·분석
+
+### 본문
+
+<div class="part-boundary-visual"><p>발표를 마칩니다.<br>질문과 토론을 이어가겠습니다.</p><div><a href="#S001">전체 목차</a><a href="#P099">Part 2 처음으로</a></div></div>
+
+### 보충
+
+### 요점
+
+### 출처
+
+세미나 구성 · Q&A
+
+### 발표 메모
+
+Part 2와 전체 발표를 마치겠습니다. 추론 최적화와 평가 결과, 설계의 효과와 남은 한계에 관해 질문이나 의견을 나누겠습니다.
+
+### 상세 공부 기록

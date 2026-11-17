@@ -41,7 +41,7 @@ for (let i = 0; i < count; i++) {
       const lead = slide.querySelector('.slide-lead').getBoundingClientRect();
       if (lead.bottom > b.top - 5) overflow.push({ type: 'header-body', bottom: lead.bottom, bodyTop: b.top });
       const takeaway = slide.querySelector('.takeaway').getBoundingClientRect();
-      if (takeaway.top < b.bottom + 2) overflow.push({ type: 'body-takeaway', takeawayTop: takeaway.top, bodyBottom: b.bottom });
+      if (takeaway.height > 0 && takeaway.top < b.bottom + 2) overflow.push({ type: 'body-takeaway', takeawayTop: takeaway.top, bodyBottom: b.bottom });
     }
     return { id: root.dataset.id, title: root.getAttribute('aria-label'), width: r.width, height: r.height, overflow, imageCount: root.querySelectorAll('img').length, imagesLoaded: [...root.querySelectorAll('img')].every(im => im.complete && im.naturalWidth > 0) };
   });
@@ -52,7 +52,7 @@ for (let i = 0; i < count; i++) {
 // Exercise controls, search, notes, and image expansion with actual DOM events.
 await page.evaluate(() => window.deckShow(0));
 await page.keyboard.press('ArrowRight');
-const keyboardPassed = (await page.locator('.deck-page.active').getAttribute('data-id')) === 'P002';
+const keyboardPassed = (await page.locator('.deck-page.active').getAttribute('data-id')) === 'P097';
 await page.keyboard.press('g');
 await page.locator('#toc-search').fill('S053');
 await page.locator('.toc-entry:visible').click();
@@ -64,7 +64,7 @@ await page.evaluate(() => window.deckShow(0));
 await page.locator('.cover-system img').click();
 const zoomPassed = await page.locator('#image-dialog[open]').count() === 1;
 await page.keyboard.press('Escape');
-await page.evaluate(() => window.deckShow(2));
+await page.evaluate(() => window.deckShow(window.deckData.findIndex(s=>s.id==='P031')));
 await page.keyboard.press('n');
 const detailImagesPassed = await page.locator('#notes-text img').count() > 0;
 const distinctionPassed = /원문 설명·결과/.test(await page.locator('#notes-text').innerText()) && /우리 해석/.test(await page.locator('#notes-text').innerText());
