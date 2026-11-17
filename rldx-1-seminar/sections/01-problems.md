@@ -63,7 +63,7 @@ VLA는 영상과 언어 지시를 받아 로봇의 행동을 만드는 모델이
 <div class="problem-capability">과거를 기억하는 능력 부족</div>
 </div>
 <div class="problem-card" data-problem-card="3">
-<div class="problem-number">03 · 힘 조절</div>
+<div class="problem-number">03 · 물리 센싱</div>
 <svg class="problem-scene" viewBox="0 0 330 145" role="img" aria-label="물체를 집는 힘이 약하면 놓치고 너무 강하면 손상되는 로봇 집기 설명용 그림">
 <defs><marker id="p002-grasp-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#bc5849"/></marker></defs>
 <text x="80" y="18" text-anchor="middle" fill="#506574">힘이 약하면</text>
@@ -78,14 +78,14 @@ VLA는 영상과 언어 지시를 받아 로봇의 행동을 만드는 모델이
 <text x="80" y="138" text-anchor="middle" fill="#94682e">놓침</text>
 <text x="250" y="138" text-anchor="middle" fill="#bc5849">손상</text>
 </svg>
-<div class="problem-capability">힘을 조절하는 능력 부족</div>
+<div class="problem-capability">물리적 상태 감지 능력 부족</div>
 </div>
 </div>
 <div class="problem-step-copy" hidden>
 <span data-problem-stage="0" data-lead="VLA는 영상과 언어 지시를 받아 로봇의 행동을 만드는 모델이다." data-takeaway="다양한 장면과 지시를 이해하는 능력은 실제 로봇 조작의 출발점이다." data-label="VLA가 하는 일"></span>
 <span data-problem-stage="1" data-lead="하지만, 움직이는 물체는 현재 위치만 알아서는 잡기 어렵다." data-takeaway="움직임을 읽는 능력 부족: 물체가 이동했는데 이전 위치로 손을 뻗으면 놓칠 수 있다." data-label="첫 번째 문제 · 움직임"></span>
 <span data-problem-stage="2" data-lead="현재 화면에 없는 정보가 다음 행동을 결정하기도 한다." data-takeaway="과거를 기억하는 능력 부족: 컵에 숨긴 공은 현재 모습만 보고 찾기 어렵다." data-label="두 번째 문제 · 기억"></span>
-<span data-problem-stage="3" data-lead="물체를 집을 때는 어디를 잡을지뿐 아니라 얼마나 힘을 줄지도 중요하다." data-takeaway="힘을 조절하는 능력 부족: 약하게 잡으면 놓치고, 너무 세게 잡으면 손상될 수 있다." data-label="세 번째 문제 · 힘 조절"></span>
+<span data-problem-stage="3" data-lead="물체의 모습만으로는 힘과 접촉 상태를 모두 알기 어렵다." data-takeaway="물리적 상태 감지 능력 부족: 힘 조절에는 촉각·토크 같은 물리 신호가 단서가 된다." data-label="세 번째 문제 · 물리 센싱"></span>
 <span data-problem-stage="4" data-lead="장면과 지시의 이해에 더해, 실제 조작에 필요한 세 가지 능력이 있다." data-takeaway="RLDX-1은 움직임 인식·장기 기억·물리 센싱을 함께 다루려는 연구다." data-label="필요한 세 가지 능력"></span>
 </div>
 </div>
@@ -108,7 +108,7 @@ Sec.1 pp.3–5 · Sec.2.2 p.8 · Sec.6.4 p.23 · 그림과 상황은 설명용
 
 **화면 3/5 — 기억.** 다음 키로 두 번째 카드를 표시한다. 공을 컵으로 가린 뒤 컵을 섞는 야바위 그림에서 처음 본 정보와 이후 컵의 이동을 기억해야 함을 설명한다.
 
-**화면 4/5 — 힘 조절.** 다음 키로 세 번째 카드를 표시한다. 물체를 집는 힘이 약하면 놓치고 너무 강하면 손상될 수 있는 그림을 설명한다. 가림은 접촉 상태를 읽기 어려운 원인 중 하나이지만, 이 화면은 가림을 전제하지 않는 집기 상황으로 설명한다.
+**화면 4/5 — 물리 센싱.** 힘·접촉·미끄러짐 같은 물리적 상태를 감지하는 능력을 설명한다. 그림의 힘 조절은 그 정보가 필요한 조작 예시다. 물리 센싱이라는 상위 개념을 힘 조절 자체와 동일시하지 않는다. 집기 그림은 그대로 유지한다.
 
 **화면 5/5 — 정리.** 다음 키로 세 카드를 함께 강조하고, RLDX-1이 세 능력을 함께 다루려 한다는 다음 장의 질문으로 연결한다.
 

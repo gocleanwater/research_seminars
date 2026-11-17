@@ -37,7 +37,8 @@ try {
     if(step===3) {
       const contact=walkthrough.locator('[data-problem-card="3"]');
       assert.equal(await contact.locator('svg[role="img"]').count(),1,'contact problem needs a grasp-force illustration');
-      assert.equal(await contact.locator('.problem-capability').innerText(),'힘을 조절하는 능력 부족');
+      assert.equal(await contact.locator('.problem-capability').innerText(),'물리적 상태 감지 능력 부족');
+      assert.equal(await contact.locator('.problem-number').innerText(),'03 · 물리 센싱');
       assert(!visibleText.includes('접촉부가 가려진'),'explain grasp force rather than requiring an occluded contact');
     }
     const geometry=await page.locator('.deck-page.active .seminar-slide').evaluate(slide=>{
