@@ -38,8 +38,8 @@ for page in pages:
         text = Text(); text.feed(html)
         assert '**' not in ''.join(text.parts), (page['id'], 'literal emphasis markers')
 tour = apply_tour_text(json.loads((ROOT / 'content/architecture-tour.json').read_text()), next(p for p in pages if p['layout'] == 'explorer'))
-assert len(tour['states']) == 38
-assert len(tour['panels']) == 11
+assert len(tour['states']) == 37
+assert len(tour['panels']) == 10
 assert set(tour['focus']) == {'vision','vlm','memory','msat'}
 assert sum(map(len, tour['annotations'].values())) == 18
-print(f'PASS: 9 MD sections, {len(pages)} pages, 121 study units; UTF-8, inline markup, 38 tour states/11 explanation cards/18 arrows.')
+print(f'PASS: 9 MD sections, {len(pages)} pages, 121 study units; UTF-8, inline markup, 37 tour states/10 explanation cards/18 arrows.')

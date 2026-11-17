@@ -341,14 +341,5 @@ body[data-export="true"] .part-links { display: none; }
 .ja-shared strong { font-size:25px; }.ja-shared > span { font-size:21px; }
 .seminar-slide p.ja-caption { font-size:17px; color:#526d78; margin:0; }
 .ja-updated { box-shadow:inset 0 -5px 0 #ffffffb0; }
-.ja-context { display:grid; grid-template-columns:1fr 1fr; gap:18px; }
-.ja-hint { border:2px solid; border-radius:7px; padding:12px 14px; display:flex; flex-direction:column; gap:8px; font-size:21px; }
-.ja-hint span { font-size:20px; }.ja-reference { text-align:center; color:#167e7a; font-size:22px; margin:-5px 0; }
-.ja-one-update { display:grid; grid-template-columns:1fr 40px 1fr; align-items:center; gap:8px; }
-.ja-feature { padding:15px; border:2px solid #9581b9; border-radius:7px; text-align:center; min-height:115px; display:flex; flex-direction:column; justify-content:center; gap:8px; }
-.ja-feature small { font-size:20px; }.ja-feature strong { font-size:23px; line-height:1.4; }
 .arch-detail-content:has(.ja-exchange) { gap:10px; }
-.arch-detail-content:has(.ja-one-update) { gap:12px; }
 .ja-stream > span { padding:5px 6px; }
-
-.ja-one-update { align-items:stretch; }.ja-one-update > .ja-arrow { align-self:center; }

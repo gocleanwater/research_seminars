@@ -33,15 +33,14 @@
     "21": 23,
     "22": 24,
     "23": 25,
-    "24": 28,
-    "25": 29,
-    "26": 37
+    "24": 27,
+    "25": 28,
+    "26": 36
   },
   "inserted_panels": [
     "vqa-purpose",
     "vqa-questions",
     "joint-attention",
-    "stream-update",
     "action-path",
     "velocity-target",
     "flow-loss",
@@ -61,6 +60,11 @@
       "former_step": 27,
       "panel_id": "time-encoding",
       "reason": "별도 시간 구분 화면·대본 제외; 수식 설명에 한 문장으로 언급"
+    },
+    {
+      "former_step": 28,
+      "panel_id": "stream-update",
+      "reason": "27번과 같은 핵심을 반복하므로 삭제; 예시는27번 대본에 한 번만 설명"
     }
   ]
 }
