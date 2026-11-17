@@ -112,9 +112,35 @@ function renderPictureMarks(state, camera) {
     if(state.step>=6){box(900,133,117,27,'#4092b3','future-signals');box(1293,133,116,27,'#7263ad','future-actions');const [lx,ly]=point(1455,430);textLabel('반복',lx,ly,{size:18,color:'#ce493a',id:'denoise-loop'});}
   }
 }
+const problemWalkthrough = document.querySelector('.problems-walkthrough');
+const problemStages = [...(problemWalkthrough?.querySelectorAll('[data-problem-stage]') || [])];
+let problemIndex = 0;
+function inProblems() { return !!problemWalkthrough && pages[current]?.contains(problemWalkthrough); }
+function renderProblems(index) {
+  problemIndex = Math.max(0, Math.min(problemStages.length - 1, index));
+  const state = problemStages[problemIndex];
+  problemWalkthrough.dataset.problemStep = String(problemIndex);
+  const slide = problemWalkthrough.closest('.seminar-slide');
+  slide.querySelector('.slide-lead').textContent = state.dataset.lead;
+  slide.querySelector('.takeaway').textContent = state.dataset.takeaway;
+  problemWalkthrough.querySelector('.problem-step-label').textContent = `${problemIndex + 1} / ${problemStages.length} · ${state.dataset.label}`;
+  problemWalkthrough.querySelectorAll('.problem-card').forEach(card => {
+    const number = Number(card.dataset.problemCard);
+    card.setAttribute('aria-hidden', String(number > problemIndex));
+    card.classList.toggle('is-current', number === problemIndex || problemIndex === problemStages.length - 1);
+  });
+}
 function inTour() { return pages[current]?.contains(explorer); }
-function advance() { if (inTour() && tourIndex < ARCH_TOUR.states.length - 1) renderTour(tourIndex + 1); else show(current + 1); }
-function retreat() { if (inTour() && tourIndex > 0) renderTour(tourIndex - 1); else show(current - 1, true, true); }
+function advance() {
+  if (inProblems() && problemIndex < problemStages.length - 1) renderProblems(problemIndex + 1);
+  else if (inTour() && tourIndex < ARCH_TOUR.states.length - 1) renderTour(tourIndex + 1);
+  else show(current + 1);
+}
+function retreat() {
+  if (inProblems() && problemIndex > 0) renderProblems(problemIndex - 1);
+  else if (inTour() && tourIndex > 0) renderTour(tourIndex - 1);
+  else show(current - 1, true, true);
+}
 explorer?.querySelectorAll('[data-arch-focus]').forEach(button => button.onclick = () => renderTour(ARCH_TOUR.focus[button.dataset.archFocus]));
 explorer?.querySelector('[data-arch-reset]').addEventListener('click', () => renderTour(0));
 explorer?.querySelector('[data-arch-next]').addEventListener('click', advance);
@@ -141,6 +167,7 @@ function show(index, updateHash = true, enterAtLastStep = false) {
   current = Math.max(0, Math.min(pages.length - 1, index));
   pages.forEach((p, i) => { p.classList.toggle('active', i === current); p.setAttribute('aria-hidden', String(i !== current)); });
   if (inTour()) renderTour(enterAtLastStep ? ARCH_TOUR.states.length - 1 : 0);
+  if (inProblems()) renderProblems(enterAtLastStep ? problemStages.length - 1 : 0);
   hydrate(current);
   if (current + 1 < pages.length) hydrate(current + 1);
   pageNumber.value = String(current + 1);

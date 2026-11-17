@@ -12,38 +12,71 @@ source_ids: S002, S003, S004
 
 ### 한 문장
 
-폭넓은 장면 이해만으로는 움직임·과거 사건·접촉 상태를 충분히 다루기 어렵다.
+VLA는 영상과 언어 지시를 받아 로봇의 행동을 만드는 모델이다.
 
 ### 본문
 
-<div class="three-scenes">
-<div>
-<div class="scene-track"><span class="moving-object">컵</span><span>→</span><span class="moving-object faint">컵</span></div>
-<h3>움직이는 대상</h3>
-<p>컨베이어의 물체는 계속 이동한다. 현재 위치뿐 아니라 여러 프레임의 변화가 필요하다.</p></div>
-<div>
-<div class="scene-memory"><span>이전 관찰</span><b>→</b><span>가려진 위치</span></div>
-<h3>현재 보이지 않는 사건</h3>
-<p>숨기기 전에 본 정보를 유지하고 이후 선택에 활용해야 한다.</p></div>
-<div>
-<div class="scene-contact"><span class="gripper">손</span><b>⇄</b><span class="moving-object">물체</span></div>
-<h3>가려진 접촉</h3>
-<p>힘·미끄러짐 같은 작은 변화는 영상만으로 파악하기 어렵다. 촉각·토크가 단서를 준다.</p></div>
+<div class="problems-walkthrough" data-problem-step="4">
+<div class="vla-definition">
+<div class="vla-input"><span>영상 관측</span><span>언어 지시</span></div>
+<span class="vla-flow-arrow">→</span>
+<div class="vla-model"><strong>VLA</strong><span>상황에 맞는 행동 생성</span></div>
+<span class="vla-flow-arrow">→</span>
+<div class="vla-action">로봇 행동</div>
+</div>
+<div class="problem-step-label" aria-live="polite">5 / 5 · 필요한 세 가지 능력</div>
+<div class="problem-cards">
+<div class="problem-card" data-problem-card="1">
+<div class="problem-number">01 · 움직임</div>
+<h3>지금 어디에 있는가?<br>어디로 움직이는가?</h3>
+<div class="problem-example">컨베이어 위의 물체 잡기</div>
+<div class="problem-capability">움직임 인식</div>
+</div>
+<div class="problem-card" data-problem-card="2">
+<div class="problem-number">02 · 기억</div>
+<h3>지금 보이지 않아도<br>앞서 본 것을 아는가?</h3>
+<div class="problem-example">물체를 숨긴 상자 고르기</div>
+<div class="problem-capability">장기 기억</div>
+</div>
+<div class="problem-card" data-problem-card="3">
+<div class="problem-number">03 · 접촉</div>
+<h3>잡은 모습만 보고<br>힘까지 알 수 있는가?</h3>
+<div class="problem-example">접촉부가 가려진 물체 조작</div>
+<div class="problem-capability">물리 센싱</div>
+</div>
+</div>
+<div class="problem-step-copy" hidden>
+<span data-problem-stage="0" data-lead="VLA는 영상과 언어 지시를 받아 로봇의 행동을 만드는 모델이다." data-takeaway="다양한 장면과 지시를 이해하는 능력은 실제 로봇 조작의 출발점이다." data-label="VLA가 하는 일"></span>
+<span data-problem-stage="1" data-lead="하지만, 움직이는 물체는 현재 위치만 알아서는 잡기 어렵다." data-takeaway="움직임 인식: 여러 시점의 변화에서 물체의 움직임을 읽는다." data-label="첫 번째 문제 · 움직임"></span>
+<span data-problem-stage="2" data-lead="현재 화면에 없는 정보가 다음 행동을 결정하기도 한다." data-takeaway="장기 기억: 앞서 본 정보를 유지하고 이후 선택에 활용한다." data-label="두 번째 문제 · 기억"></span>
+<span data-problem-stage="3" data-lead="보이는 모습만으로는 힘과 접촉 상태를 구분하기 어려울 수 있다." data-takeaway="물리 센싱: 촉각·토크로 영상에서 부족한 접촉 단서를 보완한다." data-label="세 번째 문제 · 접촉"></span>
+<span data-problem-stage="4" data-lead="장면과 지시의 이해에 더해, 실제 조작에 필요한 세 가지 능력이 있다." data-takeaway="RLDX-1은 움직임 인식·장기 기억·물리 센싱을 함께 다루려는 연구다." data-label="필요한 세 가지 능력"></span>
+</div>
 </div>
 
 ### 보충
 
 ### 요점
 
-RLDX-1은 VLM의 범용 이해에 motion awareness·long-term memory·physical sensing을 더한다.
+RLDX-1은 움직임 인식·장기 기억·물리 센싱을 함께 다루려는 연구다.
 
 ### 출처
 
-Sec.1 · PDF p.3 · 상황 도식은 설명용
+Sec.1 · PDF p.3; Sec.1.1 · PDF p.5 · 상황과 흐름도는 설명용
 
 ### 발표 메모
 
-Task·action·policy 및 VLM·VLA의 기본 구분은 상세 해설에 보존한다. 세 기능의 필요성을 보여주는 사례와 각 모듈의 독립적 인과 효과를 입증한 실험은 다르다.
+**화면 1/5 — VLA 정의.** 상단 입력→VLA→행동 흐름만 보인다. “영상과 언어 지시를 받아 로봇 행동을 만드는 모델”로 소개한다. 이 장에서는 VLM을 소개하거나 비교하지 않는다.
+
+**화면 2/5 — 움직임.** 다음 키로 첫 카드를 표시하고 컨베이어 사례와 현재 위치/시간 변화의 차이를 설명한다.
+
+**화면 3/5 — 기억.** 다음 키로 두 번째 카드를 표시하고 숨기기 전 관찰을 이후 선택에 사용하는 상황을 설명한다.
+
+**화면 4/5 — 접촉.** 다음 키로 세 번째 카드를 표시하고 힘·접촉이 영상에서 충분히 드러나지 않는 상황을 설명한다.
+
+**화면 5/5 — 정리.** 다음 키로 세 카드를 함께 강조하고, RLDX-1이 세 능력을 함께 다루려 한다는 다음 장의 질문으로 연결한다.
+
+→/다음 버튼/빈 화면 클릭으로 순차 설명, ←로 역순 설명. 다음 장에서 돌아오면 정리 화면, 페이지 번호 2로 이동하면 정의 화면이다. 연구 동기와 각 모듈의 독립적 효과를 입증한 실험은 구분하며, 모든 기존 VLA에 기억·물리 입력이 전혀 없다고 단정하지 않는다. 기존 상세 공부 기록은 보존한다.
 
 ### 상세 공부 기록
 
