@@ -26,12 +26,14 @@ try{
   await page.evaluate(()=>Promise.all([400,700,800].map(w=>document.fonts.load(`${w} 24px "Nanum Gothic"`,'한글'))));
   const fontFaces=await page.evaluate(()=>[...document.fonts].filter(f=>f.family.includes('Nanum Gothic')).map(f=>({weight:f.weight,status:f.status})));
   assert.equal(fontFaces.length,3);assert(fontFaces.every(f=>f.status==='loaded'));
-  await page.evaluate(()=>window.deckShow(window.deckData.findIndex(s=>s.id==='P006')));
+  await page.goto(pathToFileURL(path.resolve('presentation.html')).href+'?export=1#P006');
   await page.evaluate(()=>document.fonts.ready);
-  assert(await page.locator('.deck-page.active .equation .katex-html').count()>0);
-  assert(await page.locator('.deck-page.active .equation mfrac').count()>0,'loss page derivative must render a true fraction');
+  assert(await page.locator('.deck-page.active .tour-equation .katex-html').count()>0);
+  await page.keyboard.press('ArrowRight');
+  assert(await page.locator('.deck-page.active .tour-equation mfrac').count()>0,'loss page derivative must render a true fraction');
   assert.equal(await page.locator('.katex-error').count(),0);
-  const annotations=await page.locator('.deck-page.active annotation').allTextContents();
+  await page.keyboard.press('ArrowRight');
+  const annotations=await page.locator('.arch-detail-content annotation').allTextContents();
   assert(annotations.some(t=>t.includes('\\lVert')&&t.includes('\\rVert_2^2')),'loss norm and square must remain explicit LaTeX');
   await page.locator('.deck-page.active').screenshot({path:`review/previews/deck-${version}/math-loss-${version}.png`});
   await page.keyboard.press('n');

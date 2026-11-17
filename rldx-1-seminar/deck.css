@@ -204,6 +204,39 @@ body.deck-app { margin: 0; background: #142b40; overflow: hidden; font-family: A
 .cover-system figcaption { padding-top: 14px; font-size: 17px; color: #41696e; text-align: center; }
 .seminar-slide .seminar-body.explorer { top: 166px; height: 434px; }
 .architecture-explorer { position: relative; width: 1152px; height: 434px; }
+.arch-detail-panel:not([hidden]) { display: grid; grid-template-columns: 350px 1fr; gap: 26px; position: absolute; inset: 0 0 auto; height: 390px; }
+.architecture-explorer.has-detail > .arch-viewport,
+.architecture-explorer.has-detail > .arch-connectors,
+.architecture-explorer.has-detail > .arch-annotations { visibility: hidden; }
+.arch-detail-context { border: 1px solid #d5e0e4; border-radius: 8px; background: white; padding: 12px 9px; }
+.seminar-slide .arch-detail-context p { font-size: 17px; color: #526d78; margin: 0 0 5px; text-align: center; }
+.arch-detail-map { position: relative; width: 330px; height: 280px; overflow: hidden; }
+.seminar-slide .arch-detail-map img { position: absolute; top: 0; left: 0; width: 1497px; height: 870px; max-width: none; max-height: none; transform-origin: 0 0; }
+.arch-detail-module { display: block; text-align: center; font-size: 21px; color: #167e7a; font-weight: 700; margin-top: 8px; }
+.arch-detail-content { min-width: 0; font-size: 22px; line-height: 1.5; display: flex; flex-direction: column; justify-content: center; gap: 18px; }
+.seminar-slide .arch-detail-content p { font-size: 22px; line-height: 1.5; margin: 0; }
+.tour-flow { display: flex; align-items: center; gap: 9px; width: 100%; }
+.tour-node { flex: 1; padding: 12px 10px; text-align: center; border: 1px solid #afccca; border-radius: 8px; background: #edf6f4; font-size: 21px; line-height: 1.4; min-width: 0; }
+.tour-flow-arrow { color: #167e7a; font-size: 26px; flex: none; }
+.seminar-slide .tour-callout { border-left: 3px solid #167e7a; padding: 12px 16px; background: #edf4f3; font-size: 21px; }
+.tour-question-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; }
+.tour-question-grid > div { border-top: 3px solid #86aaa8; padding: 12px 10px; background: white; min-width: 0; }
+.seminar-slide .tour-question-grid p { font-size: 20px; margin-top: 8px; }
+.tour-inputs { display: grid; gap: 16px; }
+.tour-inputs > div { display: grid; grid-template-columns: 110px 1fr; gap: 4px 12px; padding: 10px 13px; border-left: 4px solid #167e7a; background: #edf4f3; }
+.tour-inputs small { grid-column: 2; font-size: 18px; color: #526d78; }
+.tour-equation { padding: 12px 10px; text-align: center; background: #edf4f3; border-radius: 8px; font-size: 25px; }
+.tour-equation .katex-display { margin: 8px 0; }
+.tour-token-strip { display: flex; gap: 8px; margin: 12px 0; }
+.tour-token-strip > span { flex: 1; text-align: center; padding: 8px; border: 1px solid #b5ccce; border-radius: 4px; background: #edf4f3; }
+.tour-token-strip .token-c { background: #e3f2ef; }.tour-token-strip .token-a { background: #eeebf6; }.tour-token-strip .token-p { background: #e8f1fa; }
+.tour-axis, .tour-loop { border-left: 3px solid #86aaa8; padding-left: 15px; }
+.tour-axis .tour-flow, .tour-loop .tour-flow { margin-top: 12px; }
+.tour-chunk { display: flex; border: 1px solid #9dbebc; border-radius: 6px; overflow: hidden; font-size: 21px; }
+.tour-chunk > div { width: 50%; padding: 18px 10px; text-align: center; }.chunk-run { background: #d5eee7; }.chunk-rest { background: #edf0f2; color: #526d78; }
+.part-links { position: fixed; top: 8px; right: 12px; display: flex; align-items: center; gap: 12px; z-index: 6; padding: 6px 12px; border-radius: 6px; background: #f8fbfc; font: 14px/1.5 Arial, 'Apple SD Gothic Neo', sans-serif; }
+.part-links a { color: #167e7a; text-decoration: none; }.part-links strong { color: #183d50; }
+body[data-export="true"] .part-links { display: none; }
 .arch-viewport { position: absolute; inset: 0 auto auto 0; width: 740px; height: 390px; overflow: hidden; background: white; border: 1px solid #d5e0e4; border-radius: 3px; }
 .arch-camera { position: absolute; top: 0; left: 0; width: 1497px; height: 870px; transform-origin: 0 0; transform: translate(34.5px,0px) scale(.44827586); transition: transform 750ms cubic-bezier(.22,.68,.16,1); }
 .seminar-slide .arch-source-image { transition: clip-path 750ms cubic-bezier(.22,.68,.16,1); display: block; width: 1497px; height: 870px; max-height: none; max-width: none; }

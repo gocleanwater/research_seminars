@@ -22,8 +22,14 @@ for index, (heading, slide) in enumerate(zip(headings, manifest)):
     assert len(body) >= 150, (slide['id'], 'missing speech')
     sections[slide['id']] = body
 
-states = re.findall(r'^### 단계 (\d{2})/27 · .+$', sections['P032'], re.M)
+states = re.findall(rf'^### 단계 (\d{{2}})/{len(tour["states"])} · .+$', sections['P032'], re.M)
 assert [int(n) for n in states] == list(range(1, len(tour['states']) + 1))
+# The inserted explanation cards and rehearsal speech must remain in sync.
+from section_sources import load_sections, apply_tour_text
+architecture = next(p for p in load_sections(ROOT) if p['id'] == 'P032')
+rendered_tour = apply_tour_text(tour, architecture)
+for panel_id, panel in rendered_tour['panels'].items():
+    assert panel['speech'] in sections['P032'], (panel_id, 'screen-card speech differs from rehearsal script')
 assert text.count('$$') % 2 == 0
 assert len(re.findall(r'^## ', text, re.M)) == len(manifest)
 for placeholder in ['\ufffd', 'TODO', 'TBD', 'PLACEHOLDER']:

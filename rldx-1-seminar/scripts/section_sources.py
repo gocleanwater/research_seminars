@@ -7,7 +7,7 @@ import re
 import shutil
 import subprocess
 
-FIELDS = ['한 문장', '본문', '보충', '요점', '출처', '발표 메모', '상세 공부 기록', '확대 단계', '화살표 설명', '그림 위 표시']
+FIELDS = ['한 문장', '본문', '보충', '요점', '출처', '발표 메모', '상세 공부 기록', '확대 단계', '화살표 설명', '그림 위 표시', '그림 설명 카드']
 KIND_LABELS = {'fact': '원문 설명·결과', 'authors': '저자 해석', 'interpretation': '우리 해석', 'example': '설명용 예시', 'question': '미해결 질문'}
 STUDY_FIELDS = ['한 문장', '본문', '보충', '요점', '출처', '발표 메모']
 NODE_FALLBACK = '/Users/jungsoo_ko/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin/node'
@@ -151,4 +151,12 @@ def apply_tour_text(tour, page):
         raise ValueError('Markdown overlay label IDs do not match tour configuration')
     for match in labels:
         tour['labels'][match[1]]['text'] = match[2].strip()
+    cards = list(re.finditer(r'^#### \[([a-z-]+)\][ \t]+([^\n]+)\n(.*?)(?=^#### \[|\Z)', parts.get('그림 설명 카드', ''), re.M | re.S))
+    if cards:
+        contents = [field_sections(m[3], 5, ['화면', '대본']) for m in cards]
+        rendered = render_markdown(Path(__file__).resolve().parents[1], [c.get('화면', '') for c in contents])
+        tour['panels'] = {m[1]: {'title': m[2].strip(), 'html': html, 'speech': c.get('대본', '')}
+                          for m, c, html in zip(cards, contents, rendered)}
+        if {s['panel_id'] for s in tour['states'] if s.get('panel_id')} != set(tour['panels']):
+            raise ValueError('Architecture panel source and state IDs differ')
     return tour

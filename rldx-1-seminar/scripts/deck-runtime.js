@@ -17,6 +17,31 @@ function renderTour(index) {
   slide.querySelector('h1').textContent = state.title;
   slide.querySelector('.slide-lead').textContent = state.lead;
   slide.querySelector('.takeaway').textContent = state.takeaway;
+  slide.dataset.defaultSource ||= slide.querySelector('.source').textContent;
+  slide.querySelector('.source').textContent = state.source || slide.dataset.defaultSource;
+  const panel = explorer.querySelector('.arch-detail-panel');
+  explorer.classList.toggle('has-detail', !!state.panel_id);
+  panel.hidden = !state.panel_id;
+  explorer.querySelector('.arch-step-counter').textContent = `${tourIndex + 1} / ${ARCH_TOUR.states.length}`;
+  explorer.querySelector('[data-arch-next]').textContent = tourIndex === ARCH_TOUR.states.length - 1 ? '다음 장 →' : '다음 설명 →';
+  if (state.panel_id) {
+    explorer.querySelector('.arch-paths').replaceChildren();
+    explorer.querySelector('.arch-picture-marks').replaceChildren();
+    explorer.querySelector('.arch-annotations').replaceChildren();
+    panel.querySelector('.arch-detail-content').innerHTML = ARCH_TOUR.panels[state.panel_id].html;
+    panel.querySelector('.arch-detail-module').textContent = {vlm:'VLM · 영상과 언어',msat:'MSAT · 행동 생성'}[state.scene] || state.scene;
+    const map = panel.querySelector('.arch-detail-map');
+    map.replaceChildren();
+    const source = explorer.querySelector('.arch-source-image');
+    const image = new Image(); image.src = source.src;
+    image.alt = `원문 Figure 3의 ${state.scene} 영역`;
+    const [x,y,w,h] = state.box, scale = Math.min(330/w,280/h);
+    image.style.transform = `translate(${(330-w*scale)/2-x*scale}px,${(280-h*scale)/2-y*scale}px) scale(${scale})`;
+    const [cx,cy,cw,ch] = state.crop || state.box;
+    image.style.clipPath = state.clip ? `polygon(${state.clip.map(([px,py])=>`${px}px ${py}px`).join(',')})` : `inset(${cy}px ${ARCH_TOUR.width-cx-cw}px ${ARCH_TOUR.height-cy-ch}px ${cx}px)`;
+    map.append(image);
+    return;
+  }
   const [x, y, w, h] = state.box;
   const scale = Math.min(740 / w, 390 / h);
   const tx = (740 - w * scale) / 2 - x * scale;
@@ -263,10 +288,15 @@ document.querySelector('#stage').addEventListener('click', event => {
 const MERGED_SLIDES = {P005:'P032', P007:'P006', P011:'P032', P036:'P032', P012:'P009', P021:'P038', P048:'P032', P049:'P032', P050:'P032', P052:'P032', P053:'P032', P054:'P032', P055:'P032', P056:'P032', P057:'P032', P058:'P032', P059:'P032', P073:'P072', P074:'P015', P045:'P015', P046:'P015', P075:'P028', P076:'P028', P077:'P028', P079:'P040', P080:'P022', P081:'P042', P082:'P041', P083:'P064', P084:'P064', P085:'P067', P086:'P067', P087:'P067', P088:'P067', P089:'P067', P090:'P064', P091:'P022', P092:'P022', P093:'P022', P094:'P022', P078:'P039'};
 function showFromHash() {
   const requested = location.hash.slice(1);
-  const id = MERGED_SLIDES[requested] || requested;
+  let resolved = requested;
+  const seen = new Set();
+  while (MERGED_SLIDES[resolved] && !seen.has(resolved)) { seen.add(resolved); resolved = MERGED_SLIDES[resolved]; }
+  const panelId = ARCH_TOUR.merged_slides?.[resolved];
+  const id = panelId ? 'P032' : resolved;
   const index = DECK.findIndex(s => s.id === id);
   if (index < 0) return false;
   show(index);
+  if (panelId) { renderTour(ARCH_TOUR.states.findIndex(s => s.panel_id === panelId)); return true; }
   if (['P011','P036'].includes(requested)) renderTour(ARCH_TOUR.focus.msat);
   if (['P005','P056','P057','P058'].includes(requested)) renderTour(ARCH_TOUR.focus.memory);
   if (['P048','P049','P050'].includes(requested)) renderTour(ARCH_TOUR.focus.vision);

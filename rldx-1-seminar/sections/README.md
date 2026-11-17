@@ -4,12 +4,16 @@
 
 이 폴더의 아홉 Markdown 파일이 발표 본문과 상세 공부 기록의 **직접 편집 원본(canonical source)**이다. 기존 JSON은 대화에서 정리한 내용과 이전 구성을 보존하는 자료이며, 이후 내용 수정은 이 Markdown에서 한다. HTML과 slides.md는 원본이 아니라 생성 결과다.
 
+## 현재 통합 구조 — v33
+
+기존5–10쪽 P051/P009/P010/P006/P008/P071은 P032 Figure3의40단계 중13개 설명 카드로 통합했다. 별도 페이지는 없으며 원본 상세 기록은 P032에 그대로 보관한다. `### 그림 설명 카드`에서 화면과 대본을 편집한다. 전체46장, Part1 17장(P037까지), Part2 29장(P020부터)이다.
+
 ## 읽는 순서
 
 | 파일 | 섹션 | 본문 장 | 상세 단위 |
 | --- | --- | ---: | ---: |
 | [01-problems.md](01-problems.md) | Problems | 1 | 3 |
-| [02-rldx-1-architecture.md](02-rldx-1-architecture.md) | RLDX-1 Architecture | 8 | 39 |
+| [02-rldx-1-architecture.md](02-rldx-1-architecture.md) | RLDX-1 Architecture | 2 | 39 |
 | [03-training-data.md](03-training-data.md) | Training Data | 7 | 15 |
 | [04-training-procedure.md](04-training-procedure.md) | Training Procedure | 6 | 14 |
 | [05-inference-strategy.md](05-inference-strategy.md) | Inference Strategy | 3 | 10 |
@@ -18,7 +22,7 @@
 | [08-conclusion.md](08-conclusion.md) | Conclusion | 1 | 2 |
 | [09-my-opinions-and-limitation.md](09-my-opinions-and-limitation.md) | My opinions and limitation | 2 | 5 |
 
-표지 S001을 제외한 본문51장과 상세 공부 기록121개를 포함한다(v28). source_ids 기준으로 S002–S122가 각각 정확히 한 번 연결된다. 장 ID는 위치가 바뀌어도 유지한다.
+표지 S001을 제외한 본문45장과 상세 공부 기록121개를 포함한다(v33). source_ids 기준으로 S002–S122가 각각 정확히 한 번 연결된다. 장 ID는 위치가 바뀌어도 유지한다.
 
 퇴역한 P036·P003·P004·P005·P007·P011·P012·P021·P045·P046·P048·P049·P050·P052·P053·P054·P055·P056·P057·P058·P059·P073·P074의 ID를 다른 의미로 재사용하지 않는다.
 

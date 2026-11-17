@@ -12,6 +12,10 @@ def architecture_markup():
   </div>
   <svg class="arch-connectors" viewBox="0 0 1152 390" aria-hidden="true"><defs><marker id="arch-arrow-tip" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 Z" fill="#ce493a"></path></marker><clipPath id="arch-picture-clip"><rect width="740" height="390"></rect></clipPath></defs><g class="arch-picture-marks" clip-path="url(#arch-picture-clip)"></g><g class="arch-paths"></g></svg>
   <aside class="arch-annotations" aria-live="polite"></aside>
+  <div class="arch-detail-panel" hidden>
+    <div class="arch-detail-context"><p>지금 설명하는 위치 · 원문 Fig.3</p><div class="arch-detail-map"></div><span class="arch-detail-module"></span></div>
+    <div class="arch-detail-content"></div>
+  </div>
   <div class="arch-controls">
     <div class="arch-mode-buttons"><button data-arch-reset>전체 그림</button><button data-arch-focus="vision">Vision Encoder</button><button data-arch-focus="vlm">VLM</button><button data-arch-focus="memory">Memory Module</button><button data-arch-focus="msat">MSAT</button></div>
     <div class="arch-step-buttons"><button data-arch-prev>← 이전 설명</button><span class="arch-step-counter"></span><button data-arch-next>다음 설명 →</button></div>

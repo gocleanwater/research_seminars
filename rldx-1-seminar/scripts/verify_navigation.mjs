@@ -19,8 +19,8 @@ try{
   await pageNumber.click();await page.keyboard.type('5');
   assert.equal(await pageNumber.inputValue(),'5','focusing selects the existing number for replacement');
   assert.equal(await active(),'S001','editing alone does not navigate');
-  await page.keyboard.press('Enter');assert.equal(await active(),'P051');
-  assert.equal(new URL(page.url()).hash,'#P051');
+  await page.keyboard.press('Enter');assert.equal(await active(),'P013');
+  assert.equal(new URL(page.url()).hash,'#P013');
   assert.notEqual(await page.evaluate(()=>document.activeElement?.id),'page-number');
   async function jump(value){await pageNumber.fill(value);await pageNumber.press('Enter');}
   await jump('4');assert.equal(await active(),'P032');
@@ -73,7 +73,7 @@ try{
   await page.locator('#stage').click({position:{x:50,y:30}});
   assert.equal(await page.locator('.architecture-explorer').getAttribute('data-state'),'1');
   for(let i=1;i<tourLength;i++)await page.keyboard.press('ArrowRight');
-  assert.equal(await active(),'P051');
+  assert.equal(await active(),'P013');
   await page.keyboard.press('ArrowLeft');assert.equal(await active(),'P032');
   assert.equal(await page.locator('.architecture-explorer').getAttribute('data-state'),String(tourLength-1));
   for(let i=tourLength-2;i>=0;i--){await page.keyboard.press('ArrowLeft');assert.equal(await page.locator('.architecture-explorer').getAttribute('data-state'),String(i));}
@@ -92,18 +92,14 @@ try{
   await page.waitForFunction(()=>!!document.fullscreenElement);
   await page.keyboard.press('Escape');
   await page.waitForFunction(()=>!document.fullscreenElement);
-  // The merged P012 link resolves to inputs; moved study notes remain searchable.
+  // Former inputs links now open the explanation inside Figure 3.
   await page.goto(pathToFileURL(path.resolve('presentation.html')).href+'#P012');
-  assert.equal(await active(),'P009');
+  assert.equal(await active(),'P032');
   await page.keyboard.press('n');
-  assert.match(await page.locator('#notes-text').innerText(),/상세 해설 S037/);
-  assert.match(await page.locator('#notes-text').innerText(),/상세 해설 S038/);
-  await page.keyboard.press('Escape');await page.keyboard.press('ArrowRight');
-  assert.equal(await active(),'P010');await page.keyboard.press('n');
-  assert.match(await page.locator('#notes-text').innerText(),/상세 해설 S039/);
+  for(const unit of ['S037','S038','S039'])assert((await page.locator('#notes-text').innerText()).includes('상세 해설 '+unit));
   await page.keyboard.press('Escape');
   assert.equal(await page.locator('.deck-page[data-id="P012"]').count(),0);
-  for (const [oldId,newId,unit] of [['P005','P032','S016'],['P007','P006','S024'],['P011','P032','S036'],['P036','P032','S058'],['P021','P038','S077'],['P048','P032','S011'],['P049','P032','S012'],['P050','P032','S013'],['P052','P032','S009'],['P053','P032','S010'],['P054','P032','S014'],['P055','P032','S015'],['P056','P032','S017'],['P057','P032','S019'],['P058','P032','S018'],['P074','P015','S051'],['P045','P015','S052'],['P046','P015','S053']]) {
+  for (const [oldId,newId,unit] of [['P005','P032','S016'],['P007','P032','S024'],['P011','P032','S036'],['P036','P032','S058'],['P021','P038','S077'],['P048','P032','S011'],['P049','P032','S012'],['P050','P032','S013'],['P052','P032','S009'],['P053','P032','S010'],['P054','P032','S014'],['P055','P032','S015'],['P056','P032','S017'],['P057','P032','S019'],['P058','P032','S018'],['P074','P015','S051'],['P045','P015','S052'],['P046','P015','S053']]) {
     await page.goto(pathToFileURL(path.resolve('presentation.html')).href+'#'+oldId);
     assert.equal(await active(),newId);
     if(['P052','P053','P054','P055'].includes(oldId)) assert.equal(await page.locator('.architecture-explorer').getAttribute('data-scene'),'vlm');
@@ -125,18 +121,20 @@ try{
   const modelNotes=await page.locator('#notes-text').innerText();
   for(const term of ['Cosmos-Predict2-14B','Cosmos-Predict2.5-2B','2:1:1','LoRA','93 frames','16FPS'])assert(modelNotes.includes(term),term);
   await page.keyboard.press('Escape');
-  // Visual and language representations are explained between the overview and MSAT.
-  await show('P051');
-  for(const id of ['P009']){await page.keyboard.press('ArrowRight');assert.equal(await active(),id);}
-  await show('P032'); await page.keyboard.press('n');
+  // Each retired page opens its specific inline explanation, with intact study notes.
+  const config=JSON.parse(fs.readFileSync('content/architecture-tour.json','utf8'));
+  for(const [id,panelId] of Object.entries(config.merged_slides)){
+    await page.goto(pathToFileURL(path.resolve('presentation.html')).href+'#'+id);
+    assert.equal(await active(),'P032');
+    assert.equal(await page.locator('.architecture-explorer').getAttribute('data-state'),String(config.states.findIndex(s=>s.panel_id===panelId)));
+    assert.equal(await page.locator('.arch-detail-panel:visible').count(),1);
+    assert.equal(await page.locator(`.deck-page[data-id="${id}"]`).count(),0);
+  }
+  await show('P032');await page.keyboard.press('n');
   const scriptText=await page.locator('#notes-text .study-intro').innerText();
-  for(const term of ['Vision Encoder 발표 대본','첫 번째 화살표','STSS','Residual addition','10–27층','VLM 발표 대본','세 종류의 입력','causal 구조','과거 프레임 특징의 압축','cognition 위치 출력','Memory Module 발표 대본','과거 cognition features의 queue','Causal Transformer의 계산','저장 간격과 과거 범위','MSAT 마무리 대본','로봇별 입출력 경로','embodiment-agnostic','256 trajectories'])assert(scriptText.includes(term),term);
+  for(const term of ['STSS','Residual addition','10–27층','과거 프레임 특징의 압축','cognition 위치 출력','과거 cognition features의 queue','Causal Transformer의 계산','저장 간격과 과거 범위','로봇별 입출력 경로','embodiment-agnostic','256 trajectories'])assert(scriptText.includes(term),term);
   await page.keyboard.press('Escape');
-  // Architecture structure precedes its learning/inference equations.
-  await jump('7');assert.equal(await active(),'P010');
-  assert.match(await page.locator('.deck-page.active').innerText(),/RLDX-1 Architecture/);
-  await show('P009');
-  for(const id of ['P010','P006','P008','P071','P013']){await page.keyboard.press('ArrowRight');assert.equal(await active(),id);}
+  await jump('5');assert.equal(await active(),'P013');
   // Public and in-house data come between the overview and synthetic augmentation.
   for(const id of ['P033','P034','P072','P014']){await page.keyboard.press('ArrowRight');assert.equal(await active(),id);}
   // Generated video, simulator rollout, feature comparison, then classifier training.

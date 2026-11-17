@@ -1,6 +1,8 @@
 # 전체 목차
 
-상태: **페이지 수 제한 없음 / 9개 섹션 MD 편집 원본 / v28 Table1 전체·최강 baseline 차이 표시·52장 구성 / 결과물 미승인**
+최신 구성: 기존5–10쪽은4쪽 P032의40개 설명 단계에 통합했다. 기존23쪽 P037이 Part1의 마지막(현재17쪽), P020이 Part2의 첫 장이다. 아래 이전 버전의 배치는 이력이며 최신 대응은 `content/architecture-integration.json`과 `content/part-manifest.json`을 따른다.
+
+상태: **페이지 수 제한 없음 / 9개 섹션 MD 편집 원본 / v33 전체46장·Part1 17장·Part2 29장 / 결과물 미승인**
 업데이트: 2026-11-06
 
 관련 설명을 자연스럽게 연결하되 화살표·단계 설명을 위해 필요한 화면 수를 제한하지 않는다. 본문과 상세 공부 기록은 아홉 `sections/*.md`에서 편집한다. 전체 제작·수정 허가는 개별 장의 결과물 승인과 구분한다.
@@ -32,7 +34,7 @@ Fig.1을 사용하는 표지 뒤에 아래 섹션을 따른다. 섹션명은 영
 | 편집 원본 | 섹션 | 현재 MD에 배치된 ID |
 | --- | --- | --- |
 | [01-problems.md](sections/01-problems.md) | Problems | P002 |
-| [02-rldx-1-architecture.md](sections/02-rldx-1-architecture.md) | RLDX-1 Architecture | P031, P032, P051, P009, P010, P006, P008, P071 |
+| [02-rldx-1-architecture.md](sections/02-rldx-1-architecture.md) | RLDX-1 Architecture | P031, P032 |
 | [03-training-data.md](sections/03-training-data.md) | Training Data | P013, P033, P034, P072, P014, P015, P047 |
 | [04-training-procedure.md](sections/04-training-procedure.md) | Training Procedure | P035, P016, P017, P018, P019, P037 |
 | [05-inference-strategy.md](sections/05-inference-strategy.md) | Inference Strategy | P020, P038, P039 |

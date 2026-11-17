@@ -23,6 +23,10 @@ try{
     assert.equal(await explorer.locator('.arch-paths path').count(),count);
     assert.equal(await explorer.locator('.arch-annotation').count(),count);
     const issues=await explorer.evaluate(root=>{
+      if(root.classList.contains('has-detail')){
+        const content=root.querySelector('.arch-detail-content'), box=content.getBoundingClientRect();
+        return [...content.querySelectorAll('p,.tour-equation,.tour-flow,.tour-input-row,.tour-loops')].flatMap(el=>{const r=el.getBoundingClientRect();return r.left<box.left-2||r.right>box.right+2||r.bottom>box.bottom+2||r.top<box.top-2?[{type:'detail-bounds',text:el.textContent}]:[];});
+      }
       const area=root.querySelector('.arch-annotations').getBoundingClientRect();const found=[];
       const cards=[...root.querySelectorAll('.arch-annotation')];
       for(const [i,card] of cards.entries()){
@@ -40,13 +44,13 @@ try{
       return found;
     });
     assert.deepEqual(issues,[],`state ${index}`);
-    if(index===8){
+    if(state.origin_index===8){
       assert.equal(await explorer.locator('.arch-picture-marks [data-mark-id^="vlm-"]').count(),3);
       for(const id of ['vlm-video','vlm-language','vlm-cognition'])assert.equal(await explorer.locator(`[data-label-id="${id}"]`).count(),1);
       assert.match(await explorer.locator('[data-label-id="vlm-cognition"]').textContent(),/64/);
     }
-    if(index===10)assert.match(await explorer.locator('.arch-annotations').innerText(),/과거.*압축/);
-    if(index===11){const text=await explorer.locator('.arch-annotations').innerText();assert.match(text,/중간층/);assert.match(text,/cognition token 위치/);assert(!text.includes('18층')&&!text.includes('q 위치'));}
+    if(state.origin_index===10)assert.match(await explorer.locator('.arch-annotations').innerText(),/과거.*압축/);
+    if(state.origin_index===11){const text=await explorer.locator('.arch-annotations').innerText();assert.match(text,/중간층/);assert.match(text,/cognition token 위치/);assert(!text.includes('18층')&&!text.includes('q 위치'));}
     if(state.scene==='memory'||state.scene==='overview'){
       assert.equal(await explorer.locator('[data-label-id="concat"],[data-mark-id="concat-replaces-plus"],[data-mark-id="memory-concat"]').count(),0,'keep the original paper symbol visible');
     }
@@ -58,7 +62,7 @@ try{
     await page.locator('.deck-page.active').screenshot({path:path.join(out,`step-${String(index).padStart(2,'0')}.png`)});
     await page.keyboard.press('ArrowRight');
   }
-  assert.equal(await page.locator('.deck-page.active').getAttribute('data-id'),'P051');
+  assert.equal(await page.locator('.deck-page.active').getAttribute('data-id'),'P013');
   await page.keyboard.press('ArrowLeft');assert.equal(await explorer.getAttribute('data-state'),String(tour.states.length-1));
   for(let i=tour.states.length-2;i>=0;i--){await page.keyboard.press('ArrowLeft');assert.equal(await explorer.getAttribute('data-state'),String(i));}
   await page.keyboard.press('ArrowLeft');assert.equal(await page.locator('.deck-page.active').getAttribute('data-id'),'P031');
@@ -68,7 +72,7 @@ try{
     await page.locator(`.arch-${scene}-hotspot`).click();
     assert.equal(await explorer.getAttribute('data-state'),String(tour.focus[scene]));
     assert.equal(await explorer.locator('.arch-paths path').count(),0);
-    await page.locator('[data-arch-next]').click();assert.equal(await explorer.getAttribute('data-step'),'1');
+    await page.locator('[data-arch-next]').click();assert.equal(await explorer.getAttribute('data-state'),String(tour.focus[scene]+1));
     await page.locator('[data-arch-prev]').click();assert.equal(await explorer.getAttribute('data-step'),'0');
     await page.keyboard.press('Escape');assert.equal(await explorer.getAttribute('data-state'),'0');
     await page.locator(`.arch-mode-buttons [data-arch-focus="${scene}"]`).click();assert.equal(await explorer.getAttribute('data-scene'),scene);
