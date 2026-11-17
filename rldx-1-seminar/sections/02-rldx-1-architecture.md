@@ -621,19 +621,13 @@ $$
 설명: 행동과 마찬가지로, 미래 물리 신호에도 노이즈를 섞어 정답 변화율을 학습한다.
 요점: 현재 물리 신호는 조건으로 두고, 미래 물리 신호 예측을 보조 목표로 함께 학습한다.
 
-#### [34] 예측한 행동을 모두 실행할 필요는 없다
+#### [34] Closed-loop 제어
 
 핵심: 행동 묶음 일부를 실행한 뒤 다시 관측해 다음 행동을 생성할 수 있다.
 설명: 행동 묶음 일부를 실행한 뒤 다시 관측해 다음 행동을 생성할 수 있다.
 요점: 40개 생성·20개 실행은 Appendix C의 RL 설정이며 모든 실험의 공통값은 아니다.
 
-#### [35] 행동 생성과 실제 실행은 두 반복이다
-
-핵심: 안쪽에서는 후보를 다듬고, 바깥쪽에서는 로봇을 움직인 뒤 새로 관측한다.
-설명: 안쪽에서는 후보를 다듬고, 바깥쪽에서는 로봇을 움직인 뒤 새로 관측한다.
-요점: 그림의 denoise 반복을 실제 시간의 전진과 구분하면 전체 흐름이 연결된다.
-
-#### [36] RLDX-1 Architecture
+#### [35] RLDX-1 Architecture
 핵심: 영상·언어 → cognition → memory → MSAT → 미래 행동·센서 신호를 연결했다.
 
 설명: Vision Encoder는 움직임, VLM은 행동용 표현, Memory는 긴 이력, MSAT는 조건부 미래 후보 갱신을 담당한다. 네 영역을 눌러 다시 볼 수 있다.
@@ -2610,7 +2604,7 @@ P stream은 이 변화율을 예측하고, 예측값을 정답 변화율과 비�
 
 여기서 현재 측정한 $\mathbf p_t$는 이미 알고 있는 조건이고, 미래 신호 $\mathbf p_f$는 예측 대상입니다. 노이즈를 섞어 다듬는 것은 미래 신호 후보입니다. 이 미래 물리 신호 예측은 센서가 있는 경우에 사용하는 보조 학습 목표로, 행동을 만들 때 물리적 상호작용을 함께 배우도록 합니다.
 
-#### [execute-chunk] 예측한 행동을 모두 실행할 필요는 없다
+#### [execute-chunk] Closed-loop 제어
 
 ##### 화면
 
@@ -2619,13 +2613,3 @@ P stream은 이 변화율을 예측하고, 예측값을 정답 변화율과 비�
 ##### 대본
 
 미래 행동 묶음을 만들었다고 해서 전부 끝까지 실행해야 하는 것은 아닙니다. Appendix C의 RL 설정에서는 40개를 생성하고 앞의 20개만 실행한 뒤 새 관측으로 정책을 다시 호출합니다. 그사이에 환경이 바뀌었을 수 있으므로 남은 계획을 그대로 밀어붙이기보다 새 상황에 맞는 chunk를 만들 기회를 주는 것입니다. 이 40과 20은 해당 설정의 값이고 모든 benchmark에 동일하게 적용되는 규칙은 아닙니다.
-
-#### [two-loops] 행동 생성과 실제 실행은 두 반복이다
-
-##### 화면
-
-<div class="tour-loop"><b>안쪽 반복 · 같은 관측</b><div class="tour-flow"><div class="tour-node">노이즈</div><span class="tour-flow-arrow">→</span><div class="tour-node">MSAT → 갱신</div><span class="tour-flow-arrow">→</span><div class="tour-node">행동 chunk</div></div></div><div class="tour-loop"><b>바깥 반복 · 실제 환경</b><div class="tour-flow"><div class="tour-node">관측</div><span class="tour-flow-arrow">→</span><div class="tour-node">chunk 생성</div><span class="tour-flow-arrow">→</span><div class="tour-node">일부 실행</div><span class="tour-flow-arrow">→</span><div class="tour-node">새 관측</div></div></div>
-
-##### 대본
-
-전체 과정을 두 반복으로 보면 정리됩니다. 안쪽 반복에서는 관측을 고정한 채 MSAT가 변화율을 예측하고 후보를 여러 번 갱신해 행동 chunk를 만듭니다. 바깥 반복에서는 그 행동의 일부를 실제로 실행하고, 바뀐 환경을 다시 관측합니다. 그 새 관측으로 다음 chunk를 생성합니다. 이제 전체 그림으로 돌아가 영상과 언어, 기억, 현재 로봇 상태와 센서가 어떻게 실제 움직임으로 이어지는지 다시 보겠습니다.

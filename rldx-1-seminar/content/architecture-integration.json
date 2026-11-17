@@ -35,7 +35,7 @@
     "23": 25,
     "24": 27,
     "25": 28,
-    "26": 36
+    "26": 35
   },
   "inserted_panels": [
     "vqa-purpose",
@@ -46,8 +46,7 @@
     "flow-loss",
     "euler-update",
     "sensor-future",
-    "execute-chunk",
-    "two-loops"
+    "execute-chunk"
   ],
   "boundary_end_id": "P037",
   "removed_explanations": [
@@ -65,6 +64,11 @@
       "former_step": 28,
       "panel_id": "stream-update",
       "reason": "27번과 같은 핵심을 반복하므로 삭제; 예시는27번 대본에 한 번만 설명"
+    },
+    {
+      "former_step": 36,
+      "panel_id": "two-loops",
+      "reason": "33번 후보 갱신과35번 closed-loop 제어를 다시 요약하는 중복 단계 제외"
     }
   ]
 }
