@@ -343,3 +343,10 @@ body[data-export="true"] .part-links { display: none; }
 .ja-updated { box-shadow:inset 0 -5px 0 #ffffffb0; }
 .arch-detail-content:has(.ja-exchange) { gap:10px; }
 .ja-stream > span { padding:5px 6px; }
+
+.arch-detail-content:has(.flow-policy-intro) { gap:12px; }
+.seminar-slide .flow-policy-intro { font-size:21px; line-height:1.5; }
+
+.arch-detail-content:has(.flow-formula-purpose) { gap:12px; }
+.seminar-slide .flow-formula-purpose { font-size:21px; line-height:1.5; }
+.seminar-slide .flow-condition { font-size:21px; line-height:1.5; }

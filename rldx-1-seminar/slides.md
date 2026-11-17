@@ -320,7 +320,7 @@ layout: none
 </div></div><div class="takeaway">전체 → Vision Encoder → 전체 → VLM → 전체 → Memory Module → 전체 → MSAT</div><footer class="seminar-footer"><span class="source">Fig.3 · PDF p.6; Sec.2.1–2.2 · PDF pp.7–9; 추출 층 비교: Table2(a), pp.24–25</span><span class="slide-id">P032 · 004/47</span></footer></section>
 
 <!--
-그림은 시각적 요약이다. Vision Encoder는27층 중9층 뒤에 motion module을 삽입한다. LLM에서는4층 뒤에 과거 관측을 압축한다. 화면은 중간층이라고 설명하며, 실제18층 선택과 비교 실험은 연결된 상세 해설에 보존한다. Memory는 과거 Qₜ와 현재 hₜ를 concat해 mₜ를 만들고, hₜ·mₜ를 concat한 토큰을 C stream에 제공한다. MSAT는 초반 stream별 residual과 후반 C-A concat을 구분하며, 한 forward의 변화율로 미래 후보를 반복 갱신한다. Vision Encoder·STSS·residual은 이 장의 확대 단계에서 아래 대본으로 설명한다. Cognition tokens·중간층 출력·시간 정보·과거 압축은 아래 VLM 확대 대본에서 설명한다. Memory 구조·계산·시간 범위도 아래 Memory 확대 대본에서 설명한다. 별도 본문은 P051의 로봇 VQA와 P009의 MSAT 입력으로 이어진다. 로봇별 입출력 경로는 아래 MSAT 마무리 대본에서 설명한다. 그 뒤 P009 입력 → P010 내부 연산 → P006–P008 학습·추론 수식으로 연결한다. 공통 projection의 학습 설정은 P016 Pre-training의 설명(N)에서 보충한다. 약30% 깊이의 동기를 모든 설정에서 최적이라는 실험 결과로 과장하지 않는다.
+그림은 시각적 요약이다. Vision Encoder는27층 중9층 뒤에 motion module을 삽입한다. LLM에서는4층 뒤에 과거 관측을 압축한다. 화면은 중간층이라고 설명하며, 실제18층 선택과 비교 실험은 연결된 상세 해설에 보존한다. Memory는 과거 Qₜ와 현재 hₜ를 concat해 mₜ를 만들고, hₜ·mₜ를 concat한 토큰을 C stream에 제공한다. MSAT는 초반 stream별 residual과 후반 C-A concat을 구분하며, 한 forward의 변화율로 미래 후보를 반복 갱신한다. Vision Encoder·STSS·residual은 이 장의 확대 단계에서 아래 대본으로 설명한다. Cognition tokens·중간층 출력·시간 정보·과거 압축은 아래 VLM 확대 대본에서 설명한다. Memory 구조·계산·시간 범위도 아래 Memory 확대 대본에서 설명한다. 별도 본문은 P051의 로봇 VQA와 P009의 MSAT 입력으로 이어진다. 로봇별 입출력 경로는 발표에서 제외하고 아래 선택 참고와 S036·S058 공부 기록에 보존한다. 그 뒤 P009 입력 → P010 내부 연산 → P006–P008 학습·추론 수식으로 연결한다. 공통 projection의 학습 설정은 P016 Pre-training의 설명(N)에서 보충한다. 약30% 깊이의 동기를 모든 설정에서 최적이라는 실험 결과로 과장하지 않는다.
 
 
 
@@ -459,9 +459,9 @@ $$
 발표자 참고·미해결: 본문은 저장 간격을 $H+1$로 설명하지만 Sec.2.1 queue 수식은 $H$ 간격으로 쓴다. 매 timestep의 저장·교체 시점, 시작 시 과거가 부족할 때의 처리, episode 경계의 초기화 규칙은 확인되지 않았다. 임의의 sliding/fixed-grid 예시로 구현을 확정하지 않는다.40개 예측/20개 실행이라는 별도 RL 설정도 이 cache 갱신 규칙까지 해명하지 않는다. 이 명세 부족을 모델이 작동하지 않는다는 주장으로 확대하지 않는다. 출처: Fig.3 · PDF p.6; Sec.2.1 Long-Term Memory · p.7; Sec.2.2 MSAT · p.8; Sec.4.2 · p.13; 질문노트 Q5.
 
 
-#### MSAT 마무리 대본 — 로봇별 입출력 경로
+#### 선택 참고 — 로봇별 입출력 경로 (발표 제외)
 
-**MSAT의 마지막 화살표 설명이 끝난 뒤**
+**참고 자료: 현재 발표 대본에서 읽지 않는다.**
 
 “마지막으로, 로봇마다 관절 수와 제어 형식이 다른데 어떻게 같은 MSAT를 쓸 수 있는지 보겠습니다. 로봇별로 얇은 input·output projection을 둡니다. Input projection은 해당 로봇의 상태와 noisy action을 공유 특징 공간으로 바꾸고, output projection은 MSAT가 예측한 변화율을 해당 로봇의 행동 공간으로 되돌립니다. 서로 다른 입출력 규격을 공유 모델에 연결하는 변환기라고 생각하면 됩니다.”
 

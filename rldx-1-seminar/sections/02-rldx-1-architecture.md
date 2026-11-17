@@ -233,7 +233,7 @@ Fig.3 · PDF p.6; Sec.2.1–2.2 · PDF pp.7–9; 추출 층 비교: Table2(a), p
 
 ### 발표 메모
 
-그림은 시각적 요약이다. Vision Encoder는27층 중9층 뒤에 motion module을 삽입한다. LLM에서는4층 뒤에 과거 관측을 압축한다. 화면은 중간층이라고 설명하며, 실제18층 선택과 비교 실험은 연결된 상세 해설에 보존한다. Memory는 과거 Qₜ와 현재 hₜ를 concat해 mₜ를 만들고, hₜ·mₜ를 concat한 토큰을 C stream에 제공한다. MSAT는 초반 stream별 residual과 후반 C-A concat을 구분하며, 한 forward의 변화율로 미래 후보를 반복 갱신한다. Vision Encoder·STSS·residual은 이 장의 확대 단계에서 아래 대본으로 설명한다. Cognition tokens·중간층 출력·시간 정보·과거 압축은 아래 VLM 확대 대본에서 설명한다. Memory 구조·계산·시간 범위도 아래 Memory 확대 대본에서 설명한다. 별도 본문은 P051의 로봇 VQA와 P009의 MSAT 입력으로 이어진다. 로봇별 입출력 경로는 아래 MSAT 마무리 대본에서 설명한다. 그 뒤 P009 입력 → P010 내부 연산 → P006–P008 학습·추론 수식으로 연결한다. 공통 projection의 학습 설정은 P016 Pre-training의 설명(N)에서 보충한다. 약30% 깊이의 동기를 모든 설정에서 최적이라는 실험 결과로 과장하지 않는다.
+그림은 시각적 요약이다. Vision Encoder는27층 중9층 뒤에 motion module을 삽입한다. LLM에서는4층 뒤에 과거 관측을 압축한다. 화면은 중간층이라고 설명하며, 실제18층 선택과 비교 실험은 연결된 상세 해설에 보존한다. Memory는 과거 Qₜ와 현재 hₜ를 concat해 mₜ를 만들고, hₜ·mₜ를 concat한 토큰을 C stream에 제공한다. MSAT는 초반 stream별 residual과 후반 C-A concat을 구분하며, 한 forward의 변화율로 미래 후보를 반복 갱신한다. Vision Encoder·STSS·residual은 이 장의 확대 단계에서 아래 대본으로 설명한다. Cognition tokens·중간층 출력·시간 정보·과거 압축은 아래 VLM 확대 대본에서 설명한다. Memory 구조·계산·시간 범위도 아래 Memory 확대 대본에서 설명한다. 별도 본문은 P051의 로봇 VQA와 P009의 MSAT 입력으로 이어진다. 로봇별 입출력 경로는 발표에서 제외하고 아래 선택 참고와 S036·S058 공부 기록에 보존한다. 그 뒤 P009 입력 → P010 내부 연산 → P006–P008 학습·추론 수식으로 연결한다. 공통 projection의 학습 설정은 P016 Pre-training의 설명(N)에서 보충한다. 약30% 깊이의 동기를 모든 설정에서 최적이라는 실험 결과로 과장하지 않는다.
 
 
 
@@ -372,9 +372,9 @@ $$
 발표자 참고·미해결: 본문은 저장 간격을 $H+1$로 설명하지만 Sec.2.1 queue 수식은 $H$ 간격으로 쓴다. 매 timestep의 저장·교체 시점, 시작 시 과거가 부족할 때의 처리, episode 경계의 초기화 규칙은 확인되지 않았다. 임의의 sliding/fixed-grid 예시로 구현을 확정하지 않는다.40개 예측/20개 실행이라는 별도 RL 설정도 이 cache 갱신 규칙까지 해명하지 않는다. 이 명세 부족을 모델이 작동하지 않는다는 주장으로 확대하지 않는다. 출처: Fig.3 · PDF p.6; Sec.2.1 Long-Term Memory · p.7; Sec.2.2 MSAT · p.8; Sec.4.2 · p.13; 질문노트 Q5.
 
 
-#### MSAT 마무리 대본 — 로봇별 입출력 경로
+#### 선택 참고 — 로봇별 입출력 경로 (발표 제외)
 
-**MSAT의 마지막 화살표 설명이 끝난 뒤**
+**참고 자료: 현재 발표 대본에서 읽지 않는다.**
 
 “마지막으로, 로봇마다 관절 수와 제어 형식이 다른데 어떻게 같은 MSAT를 쓸 수 있는지 보겠습니다. 로봇별로 얇은 input·output projection을 둡니다. Input projection은 해당 로봇의 상태와 noisy action을 공유 특징 공간으로 바꾸고, output projection은 MSAT가 예측한 변화율을 해당 로봇의 행동 공간으로 되돌립니다. 서로 다른 입출력 규격을 공유 모델에 연결하는 변환기라고 생각하면 됩니다.”
 
@@ -591,29 +591,29 @@ $$
 
 요점: 반복이 끝나면 Future Actions와 Future Signals를 얻는다. 현재 조건은 계속 참조한다.
 
-#### [29] 노이즈에서 행동으로 가는 학습 경로
+#### [29] Flow matching policy의 학습 경로
 
-핵심: 학습할 때는 시연의 정답 행동과 같은 크기의 노이즈를 함께 준비한다.
-설명: 학습할 때는 시연의 정답 행동과 같은 크기의 노이즈를 함께 준비한다.
-요점: 정답 a와 noisy 후보 a^τ는 구분해야 한다.
+핵심: 노이즈와 정답 행동 사이의 경로를 만들고, 그 경로를 따라가도록 학습한다.
+설명: 노이즈와 정답 행동을 섞어 학습 후보를 만드는 보간식이다.
+요점: 이 식으로 학습할 후보를 만들고, 다음 단계에서 정답 변화율을 구한다.
 
-#### [30] MSAT가 배울 정답은 변화율이다
+#### [30] MSAT가 맞힐 정답은 변화율이다
 
-핵심: 노이즈와 정답 사이의 경로를 미분하면 정답 변화율을 계산할 수 있다.
-설명: 노이즈와 정답 사이의 경로를 미분하면 정답 변화율을 계산할 수 있다.
-요점: 모델은 완성된 행동 한 점 대신, 현재 후보를 바꿀 방향과 크기를 예측한다.
+핵심: 앞에서 만든 경로를 따라 후보가 바뀌는 방향과 크기를 정답으로 삼는다.
+설명: 앞에서 만든 경로를 따라 후보가 바뀌는 방향과 크기를 정답으로 삼는다.
+요점: 정답 변화율 a−ε를 계산하고, MSAT가 이 값을 예측하도록 학습한다.
 
-#### [31] 예측 변화율을 정답에 맞춘다
+#### [31] 예측과 정답의 차이를 줄여 학습한다
 
-핵심: 예측과 정답 변화율의 차이가 작아지도록 MSAT의 가중치를 학습한다.
-설명: 예측과 정답 변화율의 차이가 작아지도록 MSAT의 가중치를 학습한다.
-요점: Transformer는 구조, flow matching은 학습 목표, Euler는 생성 방법이다.
+핵심: 모델이 예측한 변화율과 앞에서 구한 정답 변화율을 비교한다.
+설명: 모델이 예측한 변화율과 앞에서 구한 정답 변화율을 비교한다.
+요점: 변화율 예측 오차가 작아지도록 MSAT의 가중치 θ를 학습한다.
 
-#### [32] 추론에서는 후보를 조금씩 갱신한다
+#### [32] 추론은 학습한 변화율로 후보를 갱신한다
 
-핵심: 정답을 모르는 추론에서는 노이즈에서 시작해 예측 변화율로 후보를 바꾼다.
-설명: 정답을 모르는 추론에서는 노이즈에서 시작해 예측 변화율로 후보를 바꾼다.
-요점: 현재 후보 + 진행 간격 × 예측 변화율 = 다음 후보.
+핵심: 정답 행동을 모르는 추론에서는, 노이즈에서 시작해 행동 묶음을 생성한다.
+설명: 정답 행동을 모르는 추론에서는, 노이즈에서 시작해 행동 묶음을 생성한다.
+요점: 현재 후보에 Δτ × 예측 변화율을 더하고, 새 후보로 같은 계산을 반복한다.
 
 #### [33] 현재 센서는 조건, 미래 센서는 예측 대상
 
@@ -2534,45 +2534,63 @@ RTC의 구체적인 overlap/inpainting 알고리즘은 이 보고서 내 설명 
 
 보라색 행동 토큰을 따라가 보겠습니다. C의 장면·기억과 사용 가능한 P의 접촉 정보를 참고하면, 오른쪽의 같은 A 자리에 그 정보가 반영된 특징이 나옵니다. C와 P도 각각 자기 자리에 대응하는 출력을 얻습니다. 유지되는 것은 토큰의 자리와 묶음, 경로별 전용 처리이고, 토큰에 담긴 특징값은 갱신됩니다. 이 특징은 최종 로봇 명령이 아니라 이후 행동 생성에 쓰는 내부 표현입니다.
 
-#### [action-path] 노이즈에서 행동으로 가는 학습 경로
+#### [action-path] Flow matching policy의 학습 경로
 
 ##### 화면
 
-<div class="tour-equation">$$\mathbf a^{\tau}=\tau\mathbf a+(1-\tau)\boldsymbol\epsilon$$</div><div class="tour-flow"><div class="tour-node">$\tau=0$<br>노이즈 $\boldsymbol\epsilon$</div><span class="tour-flow-arrow">→</span><div class="tour-node">$0<\tau<1$<br>noisy 후보 $\mathbf a^\tau$</div><span class="tour-flow-arrow">→</span><div class="tour-node">$\tau=1$<br>정답 $\mathbf a$</div></div><p class="tour-callout">학습에서는 정답 행동을 알고 있으므로, 그 사이의 경로를 직접 만들 수 있다.</p>
+<p class="flow-policy-intro"><strong>이 식은 노이즈와 정답을 섞어 학습할 행동 후보를 만든다.</strong></p><div class="tour-equation">$$\mathbf a^{\tau}=\tau\mathbf a+(1-\tau)\boldsymbol\epsilon$$</div><div class="tour-flow"><div class="tour-node">$\tau=0$<br>노이즈 $\boldsymbol\epsilon$</div><span class="tour-flow-arrow">→</span><div class="tour-node">$0<\tau<1$<br>noisy 후보 $\mathbf a^\tau$</div><span class="tour-flow-arrow">→</span><div class="tour-node">$\tau=1$<br>정답 $\mathbf a$</div></div><p class="tour-callout">정답 행동에 τ, 노이즈에 1−τ를 곱해 더한다.</p>
 
 ##### 대본
 
-그림 위쪽 행동 출력이 무엇을 배우는지 보겠습니다. 여기서 t는 행동의 시점이고, τ는 같은 행동 후보를 다듬는 진행도입니다. 학습할 때는 시연으로 얻은 정답 action chunk a를 알고 있습니다. 같은 shape의 표준 정규 노이즈 epsilon을 뽑고, 화면의 식으로 두 값을 섞습니다. τ가 0이면 노이즈이고 1이면 정답입니다. 따라서 위에 τ가 붙은 a는 생성 중인 noisy 후보이고, τ가 없는 a는 정답입니다. 노이즈와 정답 사이의 직선 경로를 만들어 학습하는 것입니다.
+이제 이 행동 정책을 어떻게 학습하는지 보겠습니다. RLDX-1은 flow matching을 사용해 노이즈에서 행동 묶음을 생성하는 정책입니다. 앞에서 본 MSAT는 이 과정에 필요한 변화율을 예측하는 모델입니다.
 
-#### [velocity-target] MSAT가 배울 정답은 변화율이다
+화면의 식은 노이즈와 정답 행동을 비율에 따라 섞어서, 학습에 사용할 행동 후보를 만드는 식입니다. 먼저 a는 시연에서 얻은 정답 action chunk입니다. epsilon은 이 행동 묶음과 같은 크기로 뽑은 표준 정규 노이즈입니다.
+
+여기서 t는 행동의 시점이고, τ는 후보를 다듬는 denoising 진행도입니다. 학습할 때는 0과 1 사이의 τ를 하나 고르고, 정답 행동에는 τ를, 노이즈에는 1 minus τ를 곱해 더합니다. 그래서 τ가 0이면 노이즈만 남고, 1이면 정답 행동만 남습니다. 그 사이에서는 두 값이 섞인 후보가 만들어집니다. 이 후보가 왼쪽의 a 위에 τ가 붙은 값입니다.
+
+이렇게 노이즈에서 정답 행동까지 이어지는 직선 경로를 준비합니다. 다음에는 이 경로에서 MSAT가 무엇을 정답으로 배우는지 보겠습니다.
+
+#### [velocity-target] MSAT가 맞힐 정답은 변화율이다
 
 ##### 화면
 
-<div class="tour-equation">$$\frac{d\mathbf a^{\tau}}{d\tau}=\mathbf a-\boldsymbol\epsilon=\mathbf v^*$$</div><div class="tour-flow"><div class="tour-node">후보 $\mathbf a^{\tau}$<br>진행도 $\tau$ · 조건</div><span class="tour-flow-arrow">→</span><div class="tour-node">MSAT<br>$\mathbf u_\theta$</div><span class="tour-flow-arrow">→</span><div class="tour-node">chunk 전체의<br>예측 변화율</div></div><p class="tour-callout">정답 변화율은 각 시연·노이즈 쌍에서 계산한다. 모든 입력의 변화율이 상수라는 뜻은 아니다.</p>
+<p class="flow-formula-purpose"><strong>이 식은 학습에 사용할 정답 변화율을 구한다.</strong></p><div class="tour-equation">$$\frac{d\mathbf a^{\tau}}{d\tau}=\mathbf a-\boldsymbol\epsilon=\mathbf v^*$$</div><div class="tour-flow"><div class="tour-node">후보 $\mathbf a^\tau$<br>진행도 $\tau$ · 조건 $\mathbf c_t$</div><span class="tour-flow-arrow">→</span><div class="tour-node">MSAT<br>$\mathbf u_\theta$</div><span class="tour-flow-arrow">→</span><div class="tour-node">변화율 예측<br>정답은 $\mathbf v^*$</div></div><p class="flow-condition">$\mathbf c_t=[\mathbf h_t,\mathbf m_t,\mathbf s_t,\mathbf p_t]$<br>인지 · 기억 · 로봇 상태 · 사용 가능한 센서</p>
 
 ##### 대본
 
-앞의 직선 경로를 τ로 미분하면 a minus epsilon이 나옵니다. 이 값을 정답 변화율 v star로 삼을 수 있습니다. 그림의 MSAT는 현재 후보와 τ, 조건을 받아 chunk 전체의 변화율을 예측하는 신경망 u theta입니다. 함수인 u theta와 그 함수의 출력값을 구분해야 합니다. 한 학습 쌍에서는 정답을 계산할 수 있지만, 모든 상황의 변화율이 같은 상수라는 뜻은 아닙니다.
+학습할 후보를 만들었으니, 이제 MSAT가 무엇을 맞혀야 하는지 보겠습니다. 화면의 식은 앞에서 만든 경로의 정답 변화율을 구하는 식입니다.
 
-#### [flow-loss] 예측 변화율을 정답에 맞춘다
+후보 a 위에 τ가 붙은 값을 τ에 대해 미분하면, 정답 행동 a에서 노이즈 epsilon을 뺀 값이 나옵니다. 이것을 v star, 즉 정답 변화율이라고 부르겠습니다. τ가 조금 바뀔 때 행동 후보를 어느 방향으로 얼마나 바꿔야 하는지 나타내는 값입니다.
+
+아래 흐름처럼 MSAT에는 현재 후보, 진행도 τ, 그리고 조건 c t를 넣습니다. c t는 앞에서 본 현재 인지 특징과 기억, 로봇 상태, 사용 가능한 센서 정보입니다. 모델은 이 입력을 보고 변화율을 예측하고, 우리는 방금 계산한 정답 변화율과 비교해 학습시킬 수 있습니다.
+
+#### [flow-loss] 예측과 정답의 차이를 줄여 학습한다
 
 ##### 화면
 
-<div class="tour-equation">$$\mathcal L=\left\lVert\mathbf u_\theta(\mathbf a^{\tau},\tau,\mathbf c_t)-\mathbf v^*\right\rVert_2^2$$</div><div class="tour-question-grid"><div><b>예측</b><p>MSAT가 계산한<br>변화율</p></div><div><b>정답</b><p>시연과 노이즈에서 구한<br>$\mathbf a-\boldsymbol\epsilon$</p></div><div><b>학습</b><p>차이의 제곱합을<br>줄이도록 가중치 갱신</p></div></div><p>조건 $\mathbf c_t=[\mathbf h_t,\mathbf m_t,\mathbf s_t,\mathbf p_t]$ · 센서는 사용 가능할 때</p>
+<p class="flow-formula-purpose"><strong>이 식은 예측 변화율과 정답 변화율의 오차를 계산한다.</strong></p><div class="tour-equation">$$\mathcal L=\left\lVert\mathbf u_\theta(\mathbf a^{\tau},\tau,\mathbf c_t)-\mathbf v^*\right\rVert_2^2$$</div><div class="tour-question-grid"><div><b>모델의 예측</b><p>$\mathbf u_\theta$<br>MSAT가 낸 변화율</p></div><div><b>계산한 정답</b><p>$\mathbf v^*=\mathbf a-\boldsymbol\epsilon$<br>앞 단계의 정답 변화율</p></div><div><b>학습</b><p>차이의 제곱합 ↓<br>모델 가중치 $\theta$ 갱신</p></div></div><p class="tour-callout">손실을 줄이면서, 상황에 맞는 변화율을 예측하도록 배운다.</p>
 
 ##### 대본
 
-이제 손실은 예측 변화율과 정답 변화율의 차이를 제곱해 합한 값입니다. 이 오차를 줄이도록 가중치를 학습합니다. 조건에는 현재 인지 특징, 기억, 로봇 상태, 사용 가능한 물리 센서 정보가 들어갑니다. MSAT 또는 Transformer는 신경망 구조의 이름이고, flow matching은 지금의 변화율 학습 목표입니다. 다음에 볼 Euler는 학습한 변화율로 후보를 실제로 바꾸는 생성 방법입니다. 이 셋을 별도의 모델이나 순차적인 두 학습 손실로 혼동하지 않겠습니다.
+그렇다면 모델이 정답 변화율을 얼마나 잘 맞혔는지는 어떻게 볼까요? 화면의 식은 그 차이를 계산하는 학습 손실입니다.
 
-#### [euler-update] 추론에서는 후보를 조금씩 갱신한다
+왼쪽 항 u theta는 MSAT가 예측한 변화율이고, v star는 앞에서 구한 a minus epsilon입니다. 두 값의 차이를 구한 뒤, 각 성분의 차이를 제곱해서 더합니다. 식의 노름 기호와 아래의 2, 제곱 표시는 이 계산을 뜻합니다. 예측이 정답에 가까울수록 손실이 작아집니다.
+
+학습할 때는 이 손실이 줄어들도록 모델의 가중치 theta를 바꿉니다. 노이즈와 정답 사이의 경로에서 필요한 변화율을 이렇게 배우는 것이 flow matching입니다. 이제 학습된 모델로 실제 행동을 만들 때를 보겠습니다.
+
+#### [euler-update] 추론은 학습한 변화율로 후보를 갱신한다
 
 ##### 화면
 
-<div class="tour-equation">$$\mathbf a^{\tau_{i+1}}=\mathbf a^{\tau_i}+\Delta\tau_i\,\mathbf u_\theta(\mathbf a^{\tau_i},\tau_i,\mathbf c_t)$$</div><div class="tour-flow"><div class="tour-node">현재 후보</div><span class="tour-flow-arrow">→</span><div class="tour-node">MSAT로 변화율 계산</div><span class="tour-flow-arrow">→</span><div class="tour-node">간격을 곱해 갱신</div><span class="tour-flow-arrow">→</span><div class="tour-node">다시 MSAT</div></div><p>$\Delta\tau_i=\tau_{i+1}-\tau_i$ · 이 갱신을 $\tau=1$까지 반복한다.</p>
+<p class="flow-formula-purpose"><strong>이 식은 현재 후보에서 다음 후보를 만드는 Euler 갱신식이다.</strong></p><div class="tour-equation">$$\mathbf a^{\tau_{i+1}}=\mathbf a^{\tau_i}+\Delta\tau_i\,\mathbf u_\theta(\mathbf a^{\tau_i},\tau_i,\mathbf c_t)$$</div><div class="tour-question-grid"><div><b>현재 후보</b><p>$\mathbf a^{\tau_i}$<br>처음에는 랜덤 노이즈</p></div><div><b>이번에 바꿀 양</b><p>$\Delta\tau_i\times\mathbf u_\theta$<br>진행 간격 × 예측 변화율</p></div><div><b>다음 후보</b><p>$\mathbf a^{\tau_{i+1}}$<br>갱신한 값을 다시 입력</p></div></div><p class="tour-callout">$\Delta\tau_i=\tau_{i+1}-\tau_i$ · $\tau=1$까지 반복해 행동 묶음을 생성한다.</p>
 
 ##### 대본
 
-추론에서는 정답 행동을 모르기 때문에 랜덤 노이즈에서 시작합니다. 현재 후보에서 MSAT가 예측한 변화율에 이번 진행 간격을 곱합니다. 그 값이 이번에 후보를 움직일 양입니다. 이를 현재 후보에 더하고, 갱신된 후보를 다시 모델에 넣어 같은 계산을 반복합니다. 이것이 Euler 방법입니다. 이때 모델 가중치를 다시 학습하는 것이 아니라, 고정된 모델로 후보를 다듬는 것입니다.
+추론할 때는 정답 행동을 모르기 때문에, 랜덤 노이즈를 첫 후보로 놓습니다. 화면의 식은 학습한 변화율을 사용해 다음 행동 후보를 만드는 Euler 갱신식입니다.
+
+오른쪽 첫 항은 지금의 후보입니다. 여기에 MSAT가 예측한 변화율을 바로 더하는 것이 아니라, 이번에 진행할 간격 delta tau를 곱해서 더합니다. delta tau는 다음 진행도와 현재 진행도의 차이입니다. 변화율에 이 간격을 곱한 값이 이번에 후보를 바꿀 양이 되고, 왼쪽 항이 그렇게 얻은 다음 후보입니다.
+
+새 후보를 다시 MSAT에 넣고 같은 계산을 반복해서, 진행도 τ가 1에 도달하면 생성한 행동 묶음을 얻습니다. 한 묶음을 만드는 동안 현재 관측 조건과 모델 가중치는 유지하고, 행동 후보를 갱신합니다. 학습에서는 정답 변화율로 모델을 가르쳤고, 여기서는 학습된 모델의 예측을 사용해 행동을 만드는 것입니다.
 
 #### [sensor-future] 현재 센서는 조건, 미래 센서는 예측 대상
 
