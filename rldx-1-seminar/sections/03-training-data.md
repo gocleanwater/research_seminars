@@ -5,48 +5,58 @@
 ## [P013] 학습 데이터
 
 <!-- slide-meta
-layout: figure balanced
+layout: full
 kind: fact
-source_ids: S041, S043
-figure: fig-04.png
-caption: Figure 4 · 생성 영상에 행동을 붙이고 두 단계로 검사하는 파이프라인
+source_ids: S041, S043, S042
 -->
 
 ### 한 문장
 
-실제 데이터는 공개·자체 수집으로 나뉘며, 합성 데이터는 직접 모으기 어려운 경험을 보완한다.
+공개 시연으로 기본기를, 자체 시연으로 목표 로봇의 경험을, 합성으로 부족한 상황을 보완한다.
 
 ### 본문
 
-#### 공개 실제 데이터
-
-<strong>“다른 로봇들이 이미 해본 경험”</strong><br>
-다양한 몸체의 시연 → 조작의 기본기
-
-#### 자체 실제 데이터
-
-<strong>“목표 로봇으로 직접 모은 경험”</strong><br>
-Franka·ALLEX 시연 → 몸체 제어·물리 피드백
-
-#### 합성 데이터
-
-<strong>“시연을 변형해 늘린 경험”</strong><br>
-새 영상 → IDM 행동 라벨 → 품질·일관성 검증
+<div class="data-role-grid">
+<div><small>Public Real-World Data</small><h3>조작의 기본기</h3><div class="data-role-icon">여러 로봇의 실제 시연</div><p>다양한 몸체·장면·작업 경험</p><span>예: OXE · DROID 등</span></div>
+<div><small>In-house Real-World Data</small><h3>목표 로봇과 새 기능</h3><div class="data-role-icon">ALLEX · Franka 자체 시연</div><p>몸체 적응 + 기억·물리 센싱</p><span>토크 · Franka 촉각 등</span></div>
+<div><small>Synthetic Data</small><h3>수집하기 어려운 경험</h3><div class="data-role-icon">실제 시연 → 새로운 학습 쌍</div><p>작업 지시와 장면을 다양화</p><span>생성 영상 + 추정 행동 · 검증 후 사용</span></div>
+</div>
 
 ### 보충
 
 
+
 ### 요점
 
-공개는 조작의 기본기, 자체는 목표 로봇·센서, 합성은 수집하기 어려운 상황을 보완한다.
+합성 데이터는 특정 작업 전용이 아니라, 부족한 조작 상황을 늘리는 보완 수단이다.
 
 ### 출처
 
-Sec.3–3.3; Fig.4 · PDF pp.9–12
+Sec.3–3.3 · PDF pp.9–12; Sec.4.1–4.2 · pp.12–13
 
 ### 발표 메모
 
-구조에서 데이터로 전환한다. 따옴표 설명은 데이터의 역할을 이해하기 위한 비유이며 성능을 독립 검증한 결과가 아니다. 원문은 실제/합성의 두 큰 범주로 소개하며 실제 데이터를 공개/자체로 나눠 설명한다. Figure 4는 세 공급원 전체가 아니라 합성 데이터의 파이프라인이다. 다음 두 장에서 공개와 자체 실제 데이터를 살펴본 뒤 합성 데이터로 이어진다. 최대64 vision tokens 전처리는 S041에, 센서·원격 조작은 P034/S042에 보존한다.
+모델의 구조를 봤으니, 이제 무엇으로 학습시키는지 보겠습니다. 보고서의 데이터는 공개 실제 데이터, 자체 실제 데이터, 합성 데이터로 나누어 볼 수 있습니다.
+
+공개 실제 데이터는 여러 로봇이 이미 수행한 시연을 모은 것입니다. 다양한 몸체와 작업에서 공통으로 쓰이는 조작의 기본기를 배우는 재료입니다. 자체 실제 데이터는 ALLEX와 Franka로 직접 모은 경험입니다. 목표 로봇에 맞추고, 기억과 토크·촉각 같은 새 기능을 학습시키는 데 사용합니다.
+
+합성 데이터는 직접 많이 모으기 어려운 경험을 늘리는 방법입니다. 실제 시연을 바탕으로 작업 지시와 장면을 바꾸고, 새 영상에 행동 라벨을 붙여 학습 쌍을 만듭니다. 따라서 특정 작업에만 쓰는 데이터라는 뜻은 아닙니다. 실제로 합성 GR-1 데이터는 Pre-training에, 합성 ALLEX 데이터는 Mid-training에도 들어갑니다.
+
+여기까지 공개·자체 데이터의 역할을 짚었고, 다음부터는 합성 데이터를 어떻게 만들고 걸러서 사용하는지 따라가 보겠습니다.
+
+#### 기존 상세 참고 — 발표에서 그대로 읽지 않음
+
+구조에서 데이터로 전환한다. 따옴표 설명은 데이터의 역할을 이해하기 위한 비유이며 성능을 독립 검증한 결과가 아니다. 원문은 실제/합성의 두 큰 범주로 소개하며 실제 데이터를 공개/자체로 나눠 설명한다. Figure 4는 세 공급원 전체가 아니라 합성 데이터의 파이프라인이다. 공개·자체 데이터의 소개는 이 장에서 마치고 다음 장에서 합성 데이터로 이어진다. 최대64 vision tokens 전처리는 S041에, 센서·원격 조작은 이 장의 S042 상세 기록에 보존한다.
+
+#### 통합한 P033의 참고 — 발표 제외
+
+공개 데이터는 인터넷에서 모은 일반 영상이 아니라 실제 로봇 조작 데이터다. 이 장의 기본기·컵 조작 예시는 이해를 위한 설명이며 별도 성능 실험을 뜻하지 않는다. OXE=Open-X-Embodiment, Galaxea=Galaxea Open-World, AgiBot=Agibot World, ActionNet=Fourier ActionNet, Everyday=Humanoid Everyday. 원문에 따르면 OXE는 20 embodiments에서 1M 이상 trajectories를 모은 원 데이터이며 curated mixture를 사용한다. DROID는 92K, Galaxea는100K, Agibot은 원 데이터1M 이상에서275K episodes를 샘플링한다. ActionNet은30K, Humanoid Everyday는10.3K trajectories다. 원 데이터의 총량과 이 논문에서 채택한 데이터 수를 같은 의미로 합산하지 않는다. 일반적인 trajectory 설명이 모든 데이터셋에 같은 센서·action format이 있다는 뜻은 아니다. 자체 데이터의 수집 목적과 센서 구성은 같은 장의 참고와 S042에 보존한다.
+
+#### 통합한 P034의 참고 — 발표 제외
+
+먼저 수집 목적을 설명한다. “목표 로봇에 적응하고, 물리 센싱 등 새로운 기능을 학습시키기 위해 직접 시연 데이터를 수집했습니다. Franka에서는 영상·행동과 촉각·토크를, ALLEX에서는 영상·행동과 전류 기반 토크 추정을 함께 기록합니다.” Sec.3.2는 embodiment-specific integration과 physical modality expansion을 명시한다. Sec.4.2는 자체 데이터가 새 memory·torque·Franka tactile 입력에 대한 유일한 supervision 공급원이라고 설명한다. 이는 memory에 별도의 정답 라벨 파일이 있다는 뜻으로 확대하지 않는다.
+
+Franka·ALLEX라는 사용자 지정 이름을 사용한다. Fig.12(a)는 OpenArm이며 이 장의 자체 수집 설명 대상이 아니므로 (b)(c)만 원문 색·라벨 그대로 발췌했다. 메타 Quest는 Franka의 말단 자세를 지시한다. ALLEX에서는 Meta Quest가 머리·허리, Vive Trackers가 손목, Manus Pro 장갑이 손끝 위치를 기록하며 역기구학으로 팔·손가락 관절각을 구한다. 센서의 구체적 방식과 로봇 사양은 S042에 보존한다. 이 장 자체가 각 센서의 독립 성능 기여를 입증하는 실험은 아니다. 다음은 직접 수집 비용을 보완하는 합성 데이터다.
 
 ### 상세 공부 기록
 
@@ -130,105 +140,6 @@ Fig.4; Sec.3.3 · PDF pp.10–12
 
 원문 파이프라인을 직관적으로 읽는 장이다. IDM은 task text를 직접 수치 행동으로 번역하는 모델로 설명하지 않는다. simulator rollout의 action-consistency와 현실 물리 성공은 동일하지 않다. 그림의 긴 순서는 이후 S044–S055에서 나눠 설명한다.
 
-## [P033] 공개 실제 데이터
-
-<!-- slide-meta
-layout: split
-kind: fact
-source_ids:
--->
-
-### 한 문장
-
-이미 수집된 여러 로봇의 실제 시연에서, 다양한 몸체와 작업에 걸친 조작의 기본기를 배운다.
-
-### 본문
-
-#### 어떤 데이터인가?
-
-| 데이터셋 | 시연의 범위 |
-| --- | --- |
-| OXE | 여러 기관·로봇의 데이터를 모은 묶음 |
-| DROID | Franka의 다양한 현장 조작 |
-| Galaxea | 이동형 양팔 로봇의 조작 |
-| AgiBot | 이동형 휴머노이드의 다양한 작업 |
-| ActionNet | GR-1·GR-2의 양손 조작 |
-| Everyday | H1·G1의 조작·이동·상호작용 |
-
-### 보충
-
-#### 직관적 의미
-
-<p class="callout"><strong>“다른 로봇들이 이미 해본 경험으로 기본기를 쌓는다.”</strong></p>
-
-실제 로봇이 **무엇을 보고 어떻게 움직였는지**가 연결된 시연 기록이다.
-
-**Trajectory**는 한 번의 시연 동안 관측과 행동이 시간순으로 이어진 기록이다.
-
-컵 잡기·옮기기처럼 여러 작업에서 쓰이는 조작 패턴을 배우는 재료다. 논문은 이를 **action prior**라고 설명한다.
-
-### 요점
-
-공개 데이터의 역할은 특정 로봇 한 대를 넘어 다양한 조작 경험을 제공하는 것이다.
-
-### 출처
-
-Sec.3.1 · PDF p.9; OXE의 세부 구성: Table 5 · PDF p.41
-
-### 발표 메모
-
-공개 데이터는 인터넷에서 모은 일반 영상이 아니라 실제 로봇 조작 데이터다. 이 장의 기본기·컵 조작 예시는 이해를 위한 설명이며 별도 성능 실험을 뜻하지 않는다. OXE=Open-X-Embodiment, Galaxea=Galaxea Open-World, AgiBot=Agibot World, ActionNet=Fourier ActionNet, Everyday=Humanoid Everyday. 원문에 따르면 OXE는 20 embodiments에서 1M 이상 trajectories를 모은 원 데이터이며 curated mixture를 사용한다. DROID는 92K, Galaxea는100K, Agibot은 원 데이터1M 이상에서275K episodes를 샘플링한다. ActionNet은30K, Humanoid Everyday는10.3K trajectories다. 원 데이터의 총량과 이 논문에서 채택한 데이터 수를 같은 의미로 합산하지 않는다. 일반적인 trajectory 설명이 모든 데이터셋에 같은 센서·action format이 있다는 뜻은 아니다. 다음은 목표 로봇과 물리 센서를 위해 직접 모은 자체 데이터다.
-
-### 상세 공부 기록
-
-## [P034] 자체 실제 데이터
-
-<!-- slide-meta
-layout: figure balanced
-kind: fact
-source_ids: S042
-figure: fig-12-inhouse.png
-caption: Figure 12 · (b) ALLEX · (c) Franka의 카메라·물리 센서 구성
--->
-
-### 한 문장
-
-목표 로봇 특화와 물리 센싱 등 새 기능 학습을 위해, 자체 시연 데이터를 수집한다.
-
-### 본문
-
-#### Franka — 그리퍼·접촉 정보
-
-영상·행동과 **AnySkin 촉각·관절 토크**를 함께 기록한다.
-
-**Meta Quest VR → 말단 자세 지시 → 로봇 시연**
-
-#### ALLEX — 양팔·다섯 손가락
-
-팔·손·머리·허리를 원격 조작한다. **모터 전류에서 관절 토크를 추정**한다.
-
-**VR·손목 트래커·장갑 → 부위별 원격 조작**
-
-### 보충
-
-<p class="mini">Mid-training에서 새 memory·torque·Franka tactile 입력의 지도 신호는 자체 데이터에서 제공한다.</p>
-
-### 요점
-
-자체 데이터는 ALLEX·Franka 특화와 물리 센싱 등 새 기능 학습을 위한 실제 경험이다.
-
-### 출처
-
-Sec.3.2 · PDF pp.9–10; Sec.4.2 · p.13; Fig.12(b)(c) · p.19
-
-### 발표 메모
-
-먼저 수집 목적을 설명한다. “목표 로봇에 적응하고, 물리 센싱 등 새로운 기능을 학습시키기 위해 직접 시연 데이터를 수집했습니다. Franka에서는 영상·행동과 촉각·토크를, ALLEX에서는 영상·행동과 전류 기반 토크 추정을 함께 기록합니다.” Sec.3.2는 embodiment-specific integration과 physical modality expansion을 명시한다. Sec.4.2는 자체 데이터가 새 memory·torque·Franka tactile 입력에 대한 유일한 supervision 공급원이라고 설명한다. 이는 memory에 별도의 정답 라벨 파일이 있다는 뜻으로 확대하지 않는다.
-
-Franka·ALLEX라는 사용자 지정 이름을 사용한다. Fig.12(a)는 OpenArm이며 이 장의 자체 수집 설명 대상이 아니므로 (b)(c)만 원문 색·라벨 그대로 발췌했다. 메타 Quest는 Franka의 말단 자세를 지시한다. ALLEX에서는 Meta Quest가 머리·허리, Vive Trackers가 손목, Manus Pro 장갑이 손끝 위치를 기록하며 역기구학으로 팔·손가락 관절각을 구한다. 센서의 구체적 방식과 로봇 사양은 S042에 보존한다. 이 장 자체가 각 센서의 독립 성능 기여를 입증하는 실험은 아니다. 다음은 직접 수집 비용을 보완하는 합성 데이터다.
-
-### 상세 공부 기록
-
 #### [S042] Franka·ALLEX 시연 수집
 
 <!-- study-meta
@@ -273,41 +184,47 @@ Sec.3.2 · PDF pp.9–10; Fig.12 · PDF p.19
 
 역기구학은 원하는 말단/손끝 위치·자세에서 관절각을 구하는 계산이라는 배경 풀이이다. Franka의 토크 측정과 ALLEX의 전류 기반 토크 추정을 구별한다. ALLEX 합계는 양팔14+양손30+허리2+목2=48DoF. OpenArm은 이 장의 자체 센서 수집 대상과 구분한다.
 
-## [P072] 로봇 영상 생성 모델
+## [P072] 합성 데이터 생성
 
 <!-- slide-meta
-layout: full
+layout: figure balanced
 kind: fact
 source_ids:
+figure: fig-04.png
+caption: Figure 4 · 위: 영상 생성·행동 라벨링 / 아래: 실행 결과와 비교해 선별
 -->
 
 ### 한 문장
 
-시연 영상으로 합성 데이터를 만들기 위한 로봇 영상 생성 모델을 훈련한다.
+직접 모으기 어려운 조작 경험을, 실제 시연의 변형과 행동 라벨링으로 늘린다.
 
 ### 본문
 
-<div class="flow">
-<div class="node"><h3>실제 로봇 시연</h3><p>로봇의 시점과<br>조작 동작이 담긴 영상</p></div>
-<div class="arrow">→</div>
-<div class="node"><h3>영상 생성 모델 학습</h3><p>시연 영상으로<br>생성 모델을 추가 학습</p></div>
-<div class="arrow">→</div>
-<div class="node"><h3>합성 영상 생성</h3><p>Task·Scene 변형으로<br>다양한 영상 제작</p></div>
-</div>
-
-<p class="callout">시연에서 로봇의 시점·조작 동작을 배운 모델을 합성 데이터 생성에 사용한다.</p>
+<div class="synth-steps"><div><small>1 · 새 영상</small><h3>시연에서 출발</h3><p>시작 장면·지시를 바꿔<br>로봇 영상을 생성</p></div><div><small>2 · 행동 라벨</small><h3>IDM으로 행동 추정</h3><p>영상의 현재·미래 관측에서<br>실행할 행동 묶음을 추정</p></div><div><small>3 · 선별</small><h3>사용할 학습 쌍 선택</h3><p>영상의 타당성과<br>행동의 움직임 일치를 검사</p></div></div>
 
 ### 보충
 
+
+
 ### 요점
 
-합성 영상을 만들기 전에, 영상 생성 모델부터 로봇 시연에 맞게 학습한다.
+영상 생성 → 행동 라벨링 → 검증을 거쳐, 합성 영상·행동 쌍을 학습에 사용한다.
 
 ### 출처
 
-App.B.3 GR-1/ALLEX Video Fine-tuning · PDF p.42
+Sec.3.3 · Fig.4 · PDF pp.10–12; App.B.3 · p.42
 
 ### 발표 메모
+
+합성 데이터를 만드는 이유는 특수한 로봇의 시연을 대량으로 수집하기 어렵기 때문입니다. 보고서는 공개 GR-1 시연과 자체 ALLEX 시연을 바탕으로 경험을 늘립니다.
+
+Figure 4의 위쪽을 먼저 보겠습니다. 실제 시연의 시작 장면과 작업 지시를 바탕으로 새로운 로봇 영상을 만듭니다. 이때 사용하는 영상 생성 모델도 로봇 시연으로 추가 학습해 준비합니다. 이 모델의 학습과, 나중에 이 데이터로 RLDX-1 정책을 학습하는 것은 서로 다른 과정입니다.
+
+새 영상만으로는 로봇을 학습시키기 어렵습니다. 로봇이 어떻게 움직여야 하는지에 해당하는 행동 라벨이 필요하기 때문입니다. 그래서 IDM, 즉 inverse dynamics model이 영상의 현재와 미래 관측에서 행동 묶음을 추정합니다.
+
+아래쪽은 검증 과정입니다. 영상이 그럴듯한지, 추정한 행동을 실제로 재생했을 때 영상과 움직임이 맞는지 확인합니다. 통과한 영상과 행동을 학습 쌍으로 사용합니다. 먼저 위쪽의 Task·Scene 변형부터 보겠습니다.
+
+#### 기존 상세 참고 — 발표에서 그대로 읽지 않음
 
 #### 발표 대본
 
@@ -354,36 +271,44 @@ GR-1 re-caption은 Qwen3-VL8B Instruct, ALLEX는8B 또는30B-A3B Instruct를 사
 ## [P014] Task·Scene Augmentation
 
 <!-- slide-meta
-layout: figure
+layout: figure balanced
 kind: fact
 source_ids: S044, S045, S046, S047, S048, S049, S050
 figure: fig-05.png
-caption: Figure 5 · (a) 원본 (b) 지시 변형 (c) I2I 편집 후 I2V 생성
+caption: Figure 5 · (a) 원본 / (b) 작업 변형 / (c) 장면 변형
 -->
 
 ### 한 문장
 
-Task는 지시를, Scene은 시작 이미지와 영상의 외관을 바꿔 합성 데이터를 다양화한다.
+같은 시연에서 작업 지시와 장면을 바꿔, 새로운 조작 상황을 만든다.
 
 ### 본문
 
-**Task:** 행동·물체·위치·손을 재조합하거나 원본 skill을 조건으로 변형한다. 두 전략의 결과는 겹칠 수 있다.
-
-**Scene:** 시작 이미지를 I2I로 편집 → I2V로 영상 생성. V2V는 생성된 영상의 색·질감을 바꾸며 동작을 유지하려 한다.
+<div class="synth-variants"><div><small>Task · 무엇을 할까?</small><h3>작업 지시의 변형</h3><p>동작·물체·위치·손을 재조합<br>또는 원래 skill을 조건으로 변형</p></div><div><small>Scene · 어떤 장면일까?</small><h3>장면·외관의 변형</h3><p>시작 이미지 편집 → 영상 생성<br>생성 후 색·질감도 변형</p></div></div><p class="synth-guide">Canny 윤곽선은 손·물체·장면의 구조를 따르도록 돕는 안내선이다.</p>
 
 ### 보충
 
-<p class="callout"><strong>Canny edge map = 윤곽선 안내선.</strong><br>I2I·V2V에 컵·손·테이블의 경계를 조건으로 주어, 외관을 바꾸면서도 <strong>대략적인 배치·형태를 따르도록 유도</strong>한다.</p>
+
 
 ### 요점
 
-Scene은 외관의 다양성을 늘리고, Canny 윤곽선은 구조를 따라갈 단서를 제공한다.
+Task는 할 일을, Scene은 보이는 상황을 다양화한다. 실행 가능한 시연인지도 검증한다.
 
 ### 출처
 
-Sec.3.3; Fig.5 · PDF p.11; App.B.3 · PDF p.42
+Sec.3.3 · Fig.5 · PDF p.11
 
 ### 발표 메모
+
+같은 시작 장면과 지시로 영상을 만들면 원래 시연과 너무 비슷한 결과가 나올 수 있습니다. 그래서 두 가지를 바꿉니다. 무엇을 할지 정하는 Task와, 어떤 장면에서 할지 정하는 Scene입니다.
+
+Figure 5의 첫 행은 원본 시연입니다. 두 번째 행은 작업 지시를 바꾼 예입니다. 지시를 동작·물체·놓을 위치·어느 손이라는 요소로 나누어 재조합하거나, 원래의 집기·따르기·밀기 같은 skill을 조건으로 실행 가능한 지시를 만듭니다. 아무 조합이나 가능하다고 가정하는 것은 아닙니다.
+
+세 번째 행은 장면을 바꾼 예입니다. 시작 이미지를 편집하고 그 이미지에서 새 영상을 생성합니다. 테이블, 물체, 조명, 배경 같은 조건을 다양화할 수 있습니다. 생성된 영상의 동작을 유지하면서 색과 질감을 바꾸는 V2V 변형도 사용합니다.
+
+이때 Canny edge map은 경계를 알려 주는 안내선입니다. 외관을 바꾸면서 손과 물체의 구조를 따르도록 돕습니다. 이렇게 변형한 영상이 학습에 쓸 만큼 타당한지, 다음에 검증합니다.
+
+#### 기존 상세 참고 — 발표에서 그대로 읽지 않음
 
 왼쪽 세 행을 원본·task 변형·scene 변형 순으로 읽는다. Canny edge 조건은 Scene Augmentation의 설명이다.
 
@@ -720,31 +645,11 @@ source_ids: S055, S051, S052, S053
 
 ### 한 문장
 
-합성 영상의 품질을 확인하고, 추정 행동의 rollout 영상과 움직임을 비교한다.
+영상이 타당한지 먼저 확인하고, 추정 행동을 재생한 결과와 움직임을 비교한다.
 
 ### 본문
 
-<div class="rollout-diagram" role="img" aria-label="A 합성 영상에서 IDM이 행동을 추정한다. Simulator에서 그 행동을 실행해 B rollout 영상을 만든다. A와 B의 영상 특징을 비교해 학습 쌍을 선별한다.">
-<svg class="rollout-connectors" viewBox="0 0 1152 420" aria-hidden="true">
-<defs><marker id="rollout-arrowhead" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 Z" fill="#167e7a"/></marker></defs>
-<g fill="none" stroke="#167e7a" stroke-width="3" marker-end="url(#rollout-arrowhead)">
-<path d="M200 59 H231"/><path d="M438 59 H469"/><path d="M676 59 H707"/><path d="M914 59 H945"/>
-<path d="M100 118 V230 H361"/><path d="M1052 118 V230 H791"/>
-<path d="M576 282 V307 H278 V326"/><path d="M576 307 H874 V326"/>
-</g></svg>
-<div class="rollout-chain">
-<div class="rollout-card video-a"><strong>A 합성 영상</strong><span>생성 모델의 영상</span></div>
-<div class="rollout-card"><strong>IDM</strong><span>행동을 추정</span></div>
-<div class="rollout-card"><strong>추정 행동</strong><span>로봇 제어값</span></div>
-<div class="rollout-card"><strong>Simulator</strong><span>행동 실행</span></div>
-<div class="rollout-card video-b"><strong>B Rollout 영상</strong><span>실행 결과 영상</span></div>
-</div>
-<div class="rollout-compare"><strong>A·B의 영상 특징 비교</strong><span>두 영상의 움직임이 맞는가?</span></div>
-<div class="rollout-decisions">
-<div><strong>일치 높음</strong><br>합성 영상 + 추정 행동을 학습에 사용</div>
-<div><strong>일치 낮음</strong><br>해당 영상·행동 쌍 제외</div>
-</div>
-</div>
+<div class="synth-filter-grid"><div class="synth-quality"><small>1 · 영상 품질</small><h3>영상 자체의 타당성</h3><p>지시와 맞는 행동인가?</p><p>거리·접촉·움직임이<br>물리적으로 그럴듯한가?</p><div class="synth-quality-pass">통과한 영상<br>→ 행동 일관성 검사</div></div><div class="synth-motion"><small>2 · 행동 일관성</small><div class="synth-replay"><div><b>A · 합성 영상</b><span>검증할 동작</span></div><i>→</i><div><b>IDM</b><span>행동 라벨 추정</span></div><i>→</i><div><b>Simulator</b><span>추정 행동 실행</span></div><i>→</i><div><b>B · 실행 영상</b><span>Rollout 결과</span></div></div><div class="synth-compare"><strong>A와 B의 움직임 비교</strong><span>추정한 행동이 영상 속 동작을 재현하는가?</span></div><div class="synth-decisions"><div>일치 높음<br><b>영상 + 행동을 사용</b></div><div>일치 낮음<br><b>해당 쌍 제외</b></div></div></div></div>
 
 ### 보충
 
@@ -752,13 +657,23 @@ source_ids: S055, S051, S052, S053
 
 ### 요점
 
-Rollout은 추정 행동을 시뮬레이터로 실행해 얻은 영상이다. 원래 합성 영상과 움직임을 비교한다.
+보기 좋은 영상인지와, 그 행동으로 같은 움직임을 만들 수 있는지는 따로 확인한다.
 
 ### 출처
 
-Fig.4 · PDF p.10; Sec.3.3 Motion-Consistency Filtering · PDF p.12; App.B.3 · PDF p.42
+Sec.3.3 · PDF pp.11–12; Fig.4 · p.10
 
 ### 발표 메모
+
+생성된 영상과 IDM의 행동 라벨을 바로 정답으로 쓰지는 않습니다. 두 가지를 확인합니다.
+
+첫 번째는 영상 품질입니다. VLM으로 지시와 실제 영상의 행동이 맞는지, 손의 접근 거리나 물체 접촉이 그럴듯한지 봅니다. 지시와 다르게 움직였으면 관찰된 행동에 맞춰 설명을 고치고, 움직임의 타당성 기준을 통과한 영상을 남깁니다.
+
+두 번째는 행동 일관성입니다. 오른쪽의 A는 합성 영상입니다. IDM이 이 영상에서 행동을 추정하고, 그 행동을 시뮬레이터에서 실행하면 B라는 rollout 영상이 나옵니다. Rollout은 추정 행동을 실행해 얻은 결과 영상입니다.
+
+이제 A와 B의 움직임이 맞는지 비교합니다. 영상은 그럴듯해도 행동 라벨이 틀리면, 같은 동작이 재현되지 않을 수 있습니다. 움직임 일치도가 높은 영상·행동 쌍만 학습에 사용합니다. 다음에는 이 일치 판정 기준을 어떻게 학습하는지 보겠습니다.
+
+#### 기존 상세 참고 — 발표에서 그대로 읽지 않음
 
 #### 발표 도입 — 검사하는 것은 두 가지
 
@@ -970,50 +885,45 @@ Sec.3.3 · PDF p.12; App.B.3 · PDF p.42
 
 logit→probability는 이진 분류 설명을 위한 연결이다. 원문은 alignment logit과 alignment probability 선별을 함께 명시한다. 하나의 learnable query와 단일 cross-attention layer를 유지한다. V-JEPA2 자체를 이 데이터로 전부 fine-tune했다고 쓰지 않는다.
 
-## [P047] 일치 검사기의 학습
+## [P047] 움직임 일치 검사기
 
 <!-- slide-meta
-layout: split
+layout: full
 kind: fact
 source_ids: S054
 -->
 
 ### 한 문장
 
-판정기는 실제 시연과 그 정답 행동을 재생한 영상을 기준으로, 움직임이 맞거나 어긋나는 쌍을 배운다.
+실제 시연과 정답 행동을 기준으로, 두 영상의 움직임이 대응하는지 판정하도록 학습한다.
 
 ### 본문
 
-#### 일치하는 쌍 — Positive
-
-<div class="sequence">
-<div class="step"><strong>실제 시연 영상</strong></div>
-<div class="step"><strong>그 시연의 정답 행동</strong>을 simulator에서 실행한 rollout 영상</div>
-</div>
-
-겉모습이 실제·시뮬레이션으로 달라도 **같은 행동에 대응하는 움직임**을 갖는다.
-
-<p class="mini">Probe 학습:16프레임·256×256·stride4, binary cross-entropy, batch 32·AdamW·학습률 $10^{-4}$. 고정 encoder 위의 작은 판정기를 학습한다.</p>
+<div class="pair-learning-grid"><div><small>Positive · 움직임 일치</small><h3>같은 시연의 정답 행동</h3><p>실제 시연 영상</p><span class="pair-link">↕ 움직임 대응</span><p>그 시연의 정답 행동을<br>재생한 rollout 영상</p></div><div><small>Negative · 움직임 불일치</small><h3>대응을 어긋나게 구성</h3><p>시간 구간을 어긋나게 짝짓기</p><span class="pair-link">또는</span><p>같은 작업 지시를 가진<br>다른 episode와 짝짓기</p></div></div><div class="training-mini-flow"><span>실제 시연으로 판정기 학습</span><b>→</b><span>합성 영상·추정 행동 쌍 선별</span></div>
 
 ### 보충
 
-#### 어긋나는 쌍 — Negative
 
-**같은 episode의 시간 구간을 어긋나게** 짝짓거나,
-
-**같은 task instruction을 가진 다른 episode**의 영상을 짝짓는다.
-
-<p class="callout">같은 작업 이름이어도 구체적인 손·물체의 움직임은 다를 수 있다는 점을 배우게 한다.</p>
 
 ### 요점
 
-실제 시연·정답 행동으로 판정기를 학습하고, 학습된 판정기로 합성 영상·추정 행동 쌍을 선별한다.
+겉모습이나 작업 이름보다, 손과 물체의 구체적인 움직임이 대응하는지 배우게 한다.
 
 ### 출처
 
-Sec.3.3 Motion-Consistency Filtering · PDF p.12; 질문노트 Q2
+Sec.3.3 · Motion-Consistency Filtering · PDF p.12
 
 ### 발표 메모
+
+일치 검사기는 처음부터 합성 영상과 추정 행동을 정답이라고 믿고 배우는 모델이 아닙니다. 실제 시연과 그 정답 행동으로 기준을 만듭니다.
+
+왼쪽은 일치하는 쌍입니다. 실제 시연 영상과, 그 시연의 정답 행동을 시뮬레이터에서 재생한 rollout 영상을 짝짓습니다. 실제와 시뮬레이션의 외관은 달라도 같은 행동에 대응하는 움직임을 갖습니다.
+
+오른쪽은 어긋나는 쌍입니다. 같은 episode에서 시간 구간을 밀어 짝짓거나, 같은 작업 지시를 가진 다른 episode와 짝짓습니다. 작업 이름이 같아도 손과 물체가 움직이는 구체적인 시점과 경로는 다를 수 있다는 점을 배우게 합니다.
+
+영상 특징을 만드는 V-JEPA2는 고정하고, 그 위의 작은 판정기를 학습합니다. 이렇게 실제 시연으로 배운 기준을 앞의 합성 영상·IDM 행동 쌍에 적용합니다. 여기까지가 학습 데이터를 만드는 과정이고, 이제 이 데이터를 사용해 RLDX-1을 어떻게 학습시키는지 보겠습니다.
+
+#### 기존 상세 참고 — 발표에서 그대로 읽지 않음
 
 학습positive는실제clip+그clip의GT-action simulator rollout이다. 합성clip+IDM-action pair는학습된classifier가검사할대상이며정답positive로자동간주하지않는다. Negative는동일episode시간이동또는동일task의다른episode를쓴다. 정확한양/음성pair수/비율/threshold/오탐미탐률은보고서의명시범위를넘어추가하지않는다. 기존S054를그대로보존하고본문에서는입력유래와기준을먼저설명한다.
 

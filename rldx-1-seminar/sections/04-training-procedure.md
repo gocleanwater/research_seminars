@@ -12,16 +12,11 @@ source_ids: S056
 
 ### 한 문장
 
-조작의 기본기 → 목표 로봇·기능 적응 → 실제 작업 적응의 순서로 학습 목적을 구체화한다.
+범용 정책에서 출발해, 목표 로봇과 실제 작업에 차례로 맞춘다.
 
 ### 본문
 
-<div class="flow">
-<div class="node"><h3>Pre-training</h3><strong>“여러 로봇으로 기본기”</strong><p>다양한 몸체·장면·작업에서 범용 조작 정책을 배운다.</p></div>
-<div class="node"><h3>Mid-training</h3><strong>“이 로봇의 몸과 감각”</strong><p>ALLEX·Franka에 특화하고 움직임·기억·센서 기능을 더한다.</p></div>
-<div class="node"><h3>Post-training</h3><strong>“이 작업을 실제로”</strong><p>작업별 시연으로 IL을 수행하고 필요한 고난도 작업에 RL을 보완한다.</p></div>
-</div>
-<p class="callout"><strong>Post의 흐름:</strong> 시연 → IL 정책 → 실행·실패 관찰 → 추가 시연·재학습.<br>정밀한 접촉·고차원 제어로 시연 수집이 어려운 작업에는 RECAP 기반 RL을 추가한다.</p>
+<div class="training-stage-map"><div><small>Pre-training</small><h3>조작의 기본기</h3><p>여러 몸체·작업에서<br>공통 조작 경험 학습</p></div><b>→</b><div><small>Mid-training</small><h3>로봇·기능 적응</h3><p>목표 몸체에 맞추고<br>움직임·기억·센싱 확장</p></div><b>→</b><div><small>Post-training</small><h3>작업 적응</h3><p>실제 작업의 시연으로 학습<br>필요한 경우 RL 보완</p></div></div><p class="callout">데이터 종류는 재료의 구분, 학습 단계는 그 재료로 무엇을 배우는지의 구분이다.</p>
 
 ### 보충
 
@@ -29,13 +24,21 @@ source_ids: S056
 
 ### 요점
 
-세 단계는 학습 목적의 구분이다. Post-training의 기본은 IL이고, RL은 선택적인 보완이다.
+기본기 → 로봇·기능 → 목표 작업으로, 정책의 학습 목적을 구체화한다.
 
 ### 출처
 
 Sec.4–4.3 · PDF pp.12–15
 
 ### 발표 메모
+
+이제 데이터를 준비했으니, 모델을 어떤 순서로 학습시키는지 보겠습니다. 세 단계는 각각 배우는 목적이 다릅니다.
+
+Pre-training은 여러 로봇의 경험에서 범용 조작 정책을 만드는 단계입니다. Mid-training은 그 정책을 ALLEX와 Franka에 맞추고, 움직임·기억·물리 센싱 기능을 더하는 단계입니다. Post-training은 실제로 수행할 목표 작업에 적응하는 단계입니다.
+
+앞의 데이터 종류와 이 단계를 일대일로 대응시키지는 않습니다. 공개·자체·합성은 학습 재료를 구분하는 말이고, 여기서는 재료를 섞어 무엇을 배우는지를 구분합니다. 각 단계가 이전 정책을 어떻게 바꾸는지 차례로 보겠습니다.
+
+#### 기존 상세 참고 — 발표에서 그대로 읽지 않음
 
 따옴표는 함께 공부한 역할을 직관적으로 풀어쓴 설명이다. 모든 benchmark가 동일한 모든 단계와 RL을 필수로 거친다는 뜻은 아니다. 원문은 대부분 실험에 작업별 IL을 채택하고, 어려운 dexterous manipulation에 RL refinement를 보완한다고 설명한다. IL 성능이 특정 수치 아래면 RL로 전환한다는 임계값이나 자동 전환 규칙은 기재하지 않는다.
 
@@ -87,49 +90,40 @@ Sec.4.1–4.3 · PDF pp.12–15
 ## [P016] Pre-training
 
 <!-- slide-meta
-layout: split
+layout: full
 kind: fact
 source_ids: S057, S059
 -->
 
 ### 한 문장
 
-다양한 로봇의 조작 경험에서, 새 로봇·작업 적응의 출발점이 될 범용 정책을 학습한다.
+다양한 로봇의 관측·행동 경험에서, 이후 적응의 출발점이 될 범용 정책을 배운다.
 
 ### 본문
 
-#### Figure 6 읽기
-
-<figure class="optimization-figure"><img src="/figures/fig-06.png" alt="Figure 6: Pre-training sampling 비중과 데이터별 episode pool"></figure>
-
-**원 그래프 = 학습 샘플링 비중**<br>
-**표의 episode 수 = 준비된 데이터 pool**
-
-OXE 870K와 DROID 92K는 보유량이 다르지만,<br>
-학습에서는 <strong>둘 다 25%</strong>씩 뽑는다.
+<div class="learning-pipeline"><div><small>학습 경험</small><h3>여러 몸체·작업의 시연</h3><p>그리퍼 · 양팔 · 다섯 손가락<br>다양한 관측과 정답 행동</p></div><b>→</b><div><small>학습</small><h3>Flow matching</h3><p>관측을 조건으로<br>행동 변화율 예측 학습</p></div><b>→</b><div><small>결과</small><h3>범용 조작 정책</h3><p>새 로봇·작업 적응의<br>출발점 마련</p></div></div><div class="training-detail-grid"><div><h3>경험의 범위</h3><p>여러 몸체의 실제 시연에<br>합성 GR-1 시연도 포함</p></div><div><h3>학습의 초점</h3><p>다양한 상황에서 공통으로 쓰는<br>행동 예측 능력을 확보</p></div></div>
 
 ### 보충
 
-<table class="chunk-symbols" aria-label="Figure 6 학습 데이터별 episode 수와 sampling 비중"><thead><tr><th>데이터</th><th>Episode</th><th>비중</th></tr></thead><tbody>
-<tr><td>OXE</td><td>870K</td><td>25%</td></tr>
-<tr><td>DROID</td><td>92K</td><td>25%</td></tr>
-<tr><td>Galaxea</td><td>114K</td><td>10%</td></tr>
-<tr><td>AgiBot (G)</td><td>239K</td><td>10%</td></tr>
-<tr><td>AgiBot (H)</td><td>36K</td><td>5%</td></tr>
-<tr><td>ActionNet</td><td>30K</td><td>10%</td></tr>
-<tr><td>Everyday</td><td>9K</td><td>5%</td></tr>
-<tr><td>합성 GR-1</td><td>150K</td><td>10%</td></tr>
-</tbody></table>
+
 
 ### 요점
 
-약 1.5M episode의 pool을 정해진 비중으로 sampling한다. 보유량과 학습 비중은 다르다.
+이 단계의 결과는 범용 정책이며, 다음 단계에서 목표 로봇에 맞춘다.
 
 ### 출처
 
-Sec.4.1 · Fig.6 · PDF pp.12–13; G=gripper, H=hand, K=1,000 episodes
+Sec.4.1 · Fig.6 · PDF pp.12–13
 
 ### 발표 메모
+
+Pre-training의 목적은 여러 로봇에서 활용할 수 있는 조작의 기본기를 배우는 것입니다. 왼쪽처럼 그리퍼를 쓰는 로봇, 양팔 로봇, 다섯 손가락 휴머노이드의 다양한 시연을 학습 경험으로 사용합니다. 합성 GR-1 데이터도 이 단계에 포함됩니다.
+
+가운데에서는 앞서 본 flow matching 목표로 학습합니다. 관측과 지시를 조건으로, 시연 행동을 향하는 변화율을 예측하도록 모델을 가르칩니다. 같은 종류의 조작이라도 몸체와 장면이 다양한 경험을 통해 범용적인 행동 예측 능력을 얻으려는 것입니다.
+
+오른쪽의 결과는 다음 적응에 사용할 기본 정책입니다. 이 정책이 바로 ALLEX의 새 센서나 특정 작업을 충분히 잘한다는 뜻은 아닙니다. 다음 Mid-training에서 목표 로봇에 맞추고 새 기능을 통합합니다. 데이터의 보유량과 학습 샘플링 비중 같은 세부 설정은 설명 기록에 보관했습니다.
+
+#### 기존 상세 참고 — 발표에서 그대로 읽지 않음
 
 Fig.6의 색상·범례·표를 원문과 직접 대조했다. OXE25/DROID25/Galaxea10/AgiBotG10/AgiBotH5/ActionNet10/Everyday5/Synthetic10이며 합계100%다. 표에 적힌 pool 크기는870/92/114/239/36/30/9/150K이고 합계1,540K로 그림의 약1.5M과 대응한다. Section3의 원시 데이터셋 규모와 Figure6의 실제 corpus 규모를 섞지 않는다. 합성 GR-1 150K는 휴머노이드 데이터 부족을 보완하기 위해 포함한다. 입출력 구조는4쪽 P032의 MSAT 마무리 대본에서 설명했다. Pre-training에서는 매 batch에서256 trajectories를 무작위로 선택해 공통 encoder–decoder로 보낸다. 전체 학습 데이터가256개라는 뜻은 아니다. 세부 학습 설정은 S059에도 보존한다.
 
@@ -219,31 +213,18 @@ Sec.4.1 · Implementation Details · PDF p.13
 ## [P017] Mid-training
 
 <!-- slide-meta
-layout: figure balanced
+layout: full
 kind: fact
 source_ids: S060, S061, S062, S063, S064
-figure: fig-07.png
-caption: Figure 7 · 목표 로봇별 혼합: ALLEX 실제·합성, Franka DROID·자체
 -->
 
 ### 한 문장
 
-범용 정책을 ALLEX·Franka의 전문가로 적응시키고, 움직임·장기 기억·물리 센싱 기능을 통합한다.
+범용 정책을 목표 로봇의 정책으로 적응시키면서, 새 기능을 함께 통합한다.
 
 ### 본문
 
-#### 왜 추가 학습이 필요한가?
-
-범용 정책을 **목표 로봇·센서에 맞춘다.**
-
-- **Motion:** vision encoder에 STSS 추가
-- **Memory:** 과거 cognition 3묶음 활용
-- **Physics:** ALLEX 토크 / Franka 토크·촉각
-
-**학습 혼합:** ALLEX 실제:합성 **5:5**,<br>
-Franka DROID:자체 **8:2**.
-
-<p class="callout"><strong>첫 2K:</strong> 기존 고정, 새 파라미터만 학습<br><strong>이후:</strong> 전체 파라미터 함께 학습</p>
+<div class="training-mini-flow"><span>범용 정책</span><b>→</b><span>목표 로봇 데이터로 추가 학습</span><b>→</b><span>ALLEX · Franka 전문가 정책</span></div><div class="training-detail-grid"><div><small>목표 1 · 몸체 적응</small><h3>이 로봇의 조작 경험</h3><p>목표 몸체와 제어에 맞춤<br>큰 데이터 공급원도 함께 사용</p></div><div><small>목표 2 · 기능 확장</small><h3>움직임 · 기억 · 물리 센싱</h3><p>STSS · Memory · P stream<br>자체 시연에서 새 기능의 지도 신호 제공</p></div></div><p class="callout">새 파라미터를 먼저 맞춘 뒤, 기존 파라미터와 함께 학습한다.</p>
 
 ### 보충
 
@@ -251,13 +232,23 @@ Franka DROID:자체 **8:2**.
 
 ### 요점
 
-자체 데이터는 새 기능을 가르치고, 큰 데이터 공급원은 기존의 폭넓은 조작 경험을 유지한다.
+몸체 특화와 기능 확장을 함께 수행해, 실제 로봇이 자기 몸과 감각을 활용하도록 한다.
 
 ### 출처
 
-Sec.4.2 · Fig.7 · PDF p.13; 질문노트 Q10·Q11
+Sec.4.2 · Fig.7 · PDF p.13
 
 ### 발표 메모
+
+여러 로봇의 기본 조작을 배웠더라도 ALLEX와 Franka의 몸체와 감각을 제대로 쓰려면 적응이 필요합니다. Mid-training은 위쪽처럼 범용 정책에서 각 로봇의 전문가 정책으로 가는 과정입니다.
+
+배우는 내용은 아래 두 가지입니다. 첫째는 몸체 적응입니다. ALLEX는 자체 시연과 합성 데이터를, Franka는 큰 시연 공급원과 자체 시연을 함께 사용합니다. 목표 로봇에 맞추면서 기존의 넓은 조작 경험도 유지하려고 합니다.
+
+둘째는 새 기능의 통합입니다. Motion Module, Memory Module, 물리 신호 경로를 추가하고 학습합니다. 이때 기억·토크·Franka 촉각 입력을 가르치는 지도 신호는 자체 시연에서 제공합니다.
+
+새 경로를 바로 전체 모델과 함께 학습하기 전에, 기존 파라미터는 고정하고 새 파라미터를 먼저 맞추는 정렬 구간을 둡니다. 그다음 전체를 함께 학습합니다. 이렇게 목표 로봇과 새 기능에 맞춘 정책을, 다음에는 특정 작업에 적응시킵니다.
+
+#### 기존 상세 참고 — 발표에서 그대로 읽지 않음
 
 Mid-training의 두 명시적 목적은 embodiment specialization과 functionality expansion이다. 여러 프레임 입력은 pre-training부터 사용하며 STSS 모듈은 mid-training에서 추가한다. 자체 데이터만이 새 memory·torque·Franka tactile 입력의 supervision을 제공한다. ALLEX는 합성72K와5:5, Franka는 DROID92K와자체8:2다. Figure7의Franka합101 문제는 S061과 미해결 장에 보존한다. Memory40/120·16/48, dropout0.3, physics near-zero 초기화의 설정과 해석은 S060–064에 보존한다. 2K warmup은 mid-training 시작에 prepend하며 매 batch마다 반복하지 않는다. 새 모듈을 기존 표현에 먼저 적응시킨다는 직관과 독립 ablation 근거는 구분한다.
 
@@ -478,48 +469,42 @@ Near-zero가 정확한0이나 특정분산(예$10^{-5}$)이라는 숫자를 만�
 ## [P018] Post-training
 
 <!-- slide-meta
-layout: split
+layout: full
 kind: fact
 source_ids: S065, S066
 -->
 
 ### 한 문장
 
-실제 목표 작업에는 시연 기반 IL을 먼저 적용하고, 어려운 정밀 조작에는 RL로 추가 개선한다.
+목표 작업의 시연으로 정책을 학습하고, 실제 실패 조건을 찾아 보완한다.
 
 ### 본문
 
-#### 기본: 작업별 IL
-
-<strong>“이 작업에서 어떻게 움직이는지”</strong>를 시연으로 가르친다. 논문의 대부분 실험이 이 방식이다.
-
-<div class="sequence">
-<div class="step">작업별 시연 수집 → IL 정책 학습</div>
-<div class="step">실제 실행 → 실패 조건 확인</div>
-<div class="step">부족한 조건의 시연 추가 → 재학습</div>
-</div>
-
-예: 새 물체 위치에서 실패하면 시연의 공간 범위를 넓힌다.
+<div class="post-il-flow"><div><small>1</small><h3>작업별 시연</h3><p>동작 순서는 일관되게<br>물체 위치 등은 다양하게</p></div><b>→</b><div><small>2</small><h3>IL 정책 학습</h3><p>이 작업의 관측과<br>행동을 모방 학습</p></div><b>→</b><div><small>3</small><h3>실제 실행</h3><p>실패하는 상황과<br>부족한 조건 확인</p></div><b>→</b><div><small>4</small><h3>추가 시연·재학습</h3><p>실패 조건의 경험을<br>보강하며 반복</p></div></div><p class="post-refine-return">↶ 실패 조건의 시연을 추가해 정책 학습을 반복</p><div class="post-rl-note"><strong>일부 고난도 정밀 조작</strong><span>시연 기반 학습을 보완하기 위해 RECAP 기반 RL 추가</span></div>
 
 ### 보충
 
-#### 보완: 언제 RL을 쓰는가?
 
-휴머노이드의 **높은 자유도·큰 행동 공간**, 복잡한 물체의 **정밀 접촉**은 좋은 시연을 충분히 모으기 어렵다.
-
-이런 까다로운 dexterous manipulation에서 시연 기반 학습을 넘어 개선하기 위해 **RECAP 기반 RL refinement**를 추가한다.
-
-<p class="callout"><strong>예: ALLEX 전구 돌리기.</strong><br>IL로 기본 동작을 익힌 뒤, 실행 경험과 critic 평가로 추가 개선한다.</p>
 
 ### 요점
 
-IL이 기본이며 실패 조건의 추가 시연을 반복한다. RL은 고난도 작업에 선택적으로 더한다.
+대부분 실험의 기본은 작업별 IL이며, RL은 어려운 일부 작업의 추가 개선에 사용한다.
 
 ### 출처
 
-Sec.4.3 · PDF pp.14–15; ALLEX 전구 RL 사례: Sec.6.5 · PDF pp.25–26
+Sec.4.3 · PDF p.14
 
 ### 발표 메모
+
+목표 로봇에 맞춘 뒤에는 실제로 수행할 작업에 적응시킵니다. Post-training의 기본은 작업별 시연을 이용한 모방학습, IL입니다. 보고서의 거의 모든 실험이 이 방식을 사용합니다.
+
+화면의 첫 단계에서 작업의 기본 동작 순서를 정하고 시연을 모읍니다. 잡는 자세나 실행 순서처럼 일관되게 유지할 요소와, 물체 위치처럼 다양하게 보여 줄 요소를 구분합니다. 그 시연으로 정책을 학습한 다음 실제 작업을 수행시킵니다.
+
+실행에서 실패 조건을 찾으면 그 조건의 시연을 추가해 다시 학습합니다. 예를 들어 특정 물체 위치에서 실패했다면, 그 위치 범위를 포함하도록 시연을 늘립니다. 이 반복은 부족한 작업 경험을 보완하는 과정입니다.
+
+다만 자유도가 높고 접촉이 정밀한 일부 작업은 좋은 시연을 충분히 모으기 어렵습니다. 이런 경우에는 IL을 보완하는 RECAP 기반 RL로 추가 개선합니다. 다음에는 그 RL에서 policy와 critic이 어떤 역할을 하는지 보겠습니다.
+
+#### 기존 상세 참고 — 발표에서 그대로 읽지 않음
 
 Base 수집의 고정/변화 축과 refinement 프로토콜은 S065–066에 보존한다. RL을 모든 Post-training의 필수 단계로 설명하지 않는다. 어떤 특정 상태나 성공률 임계치가 RL 전환을 자동 결정한다고 만들지 않는다. 원문이 제공하는 선택 이유는 고차원 행동 공간·정밀 접촉·고품질 시연 수집의 어려움이다. 추가 teleoperation 시연을 모으는 IL refinement와 policy rollout을 모으는 RECAP을 구별한다.
 
@@ -624,52 +609,42 @@ Sec.4.3 · Adaptive Data Collection · PDF p.14
 ## [P019] RECAP
 
 <!-- slide-meta
-layout: split
+layout: full
 kind: fact
 source_ids: S067, S068, S070
 -->
 
 ### 한 문장
 
-행동을 만드는 policy와 진행을 평가하는 critic을 분리하고, 새 실행 경험으로 반복 개선한다.
+행동을 만드는 policy와 진행을 평가하는 critic을 분리해, 실행 경험으로 정책을 개선한다.
 
 ### 본문
 
-#### 두 모델의 역할
-
-**Policy — RLDX-1**<br>
-관측·지시에서 행동을 생성한다.
-
-**Critic — 별도 Gemma3-4b-it**<br>
-“현재 작업이 얼마나 진행됐는가?”를 **숫자 텍스트 value**로 예측한다.
-
-#### 이 critic은 무엇이 다른가?
-
-**기존 VLM critic:** 새 value 예측 head를 붙여 학습한다.<br>
-**이 보고서:** 기존 텍스트 출력으로 숫자 value를 예측한다.
-
-<p class="mini">평가값 → advantage labels → policy 학습.</p>
+<div class="recap-roles"><div><h3>Policy · RLDX-1</h3><p>관측과 지시에서 행동 생성<br>실제로 실행해 새 경험 수집</p></div><div><h3>Critic · 진행 평가</h3><p>현재 상태의 가치를 예측<br>학습용 advantage 라벨 생성에 사용</p></div></div><div class="recap-cycle"><div><small>준비</small><b>시연으로 critic 학습</b><span>평가에서 advantage 라벨 생성</span></div><i>→</i><div><small>정책 학습</small><b>라벨을 조건으로 policy 학습</b><span>현재 policy로 rollout 수집</span></div><i>→</i><div><small>반복 개선</small><b>새 경험을 데이터에 추가</b><span>성공 경험으로 critic 갱신<br>라벨 재생성 → policy 재학습</span></div></div>
 
 ### 보충
 
-#### 먼저 학습하고, 경험을 추가한다
 
-<div class="sequence">
-<div class="step"><strong>시연으로 critic 학습</strong><br>value → advantage labels → policy 학습</div>
-<div class="step"><strong>현재 policy로 실제 rollout 수집</strong><br>새 경험을 기존 데이터에 합친다.</div>
-<div class="step"><strong>성공 trajectory로 critic 갱신</strong><br>전체 데이터의 labels를 다시 생성한다.</div>
-<div class="step"><strong>새 labels로 policy 재학습</strong></div>
-</div>
 
 ### 요점
 
-Critic이 행동을 직접 내리는 것이 아니라, critic이 만든 학습 신호로 policy를 개선한다.
+Critic은 행동을 지시하는 모델이 아니라, policy 학습에 사용할 평가 신호를 제공한다.
 
 ### 출처
 
-Sec.4.3 · PDF pp.14–15; App.C Algorithm 1 · PDF p.43
+Sec.4.3 · PDF pp.14–15; App.C Algorithm 1 · p.43
 
 ### 발표 메모
+
+RECAP에서는 행동을 만드는 policy와 평가하는 critic의 역할을 나눕니다. Policy는 RLDX-1이고, critic은 현재 작업이 얼마나 진행됐는지 가치로 평가하는 별도 모델입니다.
+
+먼저 시연 데이터로 critic을 학습하고, 그 평가에서 advantage 라벨을 만듭니다. Policy는 이 라벨을 조건으로 시연 데이터를 학습합니다. Critic이 다음 관절 명령을 직접 내려 주는 구조는 아닙니다.
+
+그다음 현재 policy를 실제로 실행해 rollout을 모으고 기존 데이터에 합칩니다. 누적 데이터 중 성공한 경험으로 critic을 갱신하고, 전체 데이터의 라벨을 다시 생성해 policy를 재학습합니다. 이 과정을 반복하며 실행 경험을 추가합니다.
+
+보고서는 이 평가 모델에 기존 VLM의 숫자 텍스트 출력을 활용합니다. 다음 Figure 8에서는 이 critic이 진행과 실패, 회복을 어떻게 평가하는지 보겠습니다.
+
+#### 기존 상세 참고 — 발표에서 그대로 읽지 않음
 
 Algorithm1 초기: Train V on D_l, A←V(D_l), Train π with A. 반복: D_l∪rollout, 누적 중 성공 subset으로 critic 갱신, 전체 advantage 재부여, policy 갱신. Critic은 RLDX-1의 Qwen VLM을 공유하는 모델이 아니며 Gemma3-4b-it 별도 backbone을 사용한다. AppendixC critic은 성공시연만으로1epoch, LoRA r128을 사용한다. Policy40개 생성·앞20개 실행·재호출 설정은 S071에 보존한다. 일반 RL의 Q−V 등을 이 보고서의 실제 label 구현 식으로 추가하지 않는다. 일반 critic 전체가 반드시 새 head를 쓴다는 뜻은 아니다. 원문이 대비한 기존 VLM critic과 Fig.8의 distributional critic을 비교한다. 원문은 새로 초기화한 head의 적응에 큰 학습량이 필요하고 목표 도메인과의 분포 차이로 전이가 제한될 수 있다고 설명한다. 저자의 제안은 기존 VLM의 숫자 토큰을 autoregressive하게 예측하는 인터페이스를 재사용해 적은 데이터의 적응에 내부 지식을 활용하려는 것이다. 새 head를 붙이지 않는 것이 critic을 학습하지 않는다는 뜻은 아니다. Advantage는 행동이 기대보다 얼마나 유리했는지에 대한 배경 직관이며 정확한 label 식은 미기재다. 다음 Fig8은 두 critic의 value가 실제 진행·실패·회복을 읽는지 보는 예시다.
 
@@ -811,7 +786,7 @@ App.C Algorithm1 · PDF p.43; Sec.4.3 · PDF pp.14–15
 
 Algorithm 1의 $D_{\mathrm{succ}}$는 누적 $D_l$에서 $y=\mathrm{success}$인 항목이다. $D_l$에는 rollout이 합쳐지고 critic refinement에는 그중 성공 subset을 쓴다. Policy는 pre-trained RLDX-1을 최대 30K steps(약 3 epochs), global batch128, AdamW $10^{-4}$, cosine schedule+5% linear warmup으로 학습하며 vision encoder는 고정한다. RL과 추가 데이터의 효과 분리 문제는 평가 장으로 연결한다.
 
-## [P037] Critic과 Figure 8
+## [P037] Critic의 진행 평가
 
 <!-- slide-meta
 layout: figure balanced
@@ -823,39 +798,33 @@ caption: Figure 8 · 초록: text prediction critic / 파랑: distributional cri
 
 ### 한 문장
 
-새 value head를 쓰는 critic과 숫자 텍스트로 평가하는 critic의 진행 추정을 비교한다.
+행동을 평가하려면 성공 직전뿐 아니라, 진행·실패·회복의 변화도 읽어야 한다.
 
 ### 본문
 
-#### 두 critic의 차이
-
-**파랑 · Distributional critic**<br>
-새 head로 value 분포를 예측한다.
-
-**초록 · Text prediction critic**<br>
-기존 VLM의 텍스트 출력으로 숫자를 예측한다.
-
-#### (a) 첫 시도에 성공
-
-초록은 진행에 따라 비교적 꾸준히 증가한다.
-
-#### (b) 실패 후 재시도에 성공
-
-초록은 실패 때 하락하고 회복 때 상승한다.
+<div class="critic-reading"><div><small>(a) 첫 시도 성공</small><h3>진행을 따라 값 증가</h3><p>초록 곡선은 성공으로 갈수록<br>비교적 꾸준히 증가</p></div><div><small>(b) 실패 후 재시도</small><h3>실패 때 하락 · 회복 때 상승</h3><p>작업이 어긋났다가 회복되는<br>흐름을 평가에 반영</p></div></div><p class="critic-legend">세로축: 정규화 value · 성공률이 아님</p>
 
 ### 보충
 
-<p class="mini">가로: timestep · 세로: 정규화 value(성공률 아님).</p>
+
 
 ### 요점
 
-좋은 critic은 최종 성공뿐 아니라 중간의 진행·실패·회복도 평가해야 한다는 예시다.
+Figure 8은 critic이 작업 진행을 읽는 정성적 예시이며, 전체 정확도를 증명한 결과는 아니다.
 
 ### 출처
 
-Fig.8 · PDF p.14; Sec.4.3 · PDF p.15; App.C · PDF p.43
+Fig.8 · PDF p.14; Sec.4.3 · p.15
 
 ### 발표 메모
+
+Figure 8은 큐브를 옮기는 두 trajectory에서 critic의 평가가 어떻게 변하는지 보여 줍니다. 파란색은 새 예측 head로 value 분포를 내는 방식이고, 초록색은 이 보고서처럼 기존 VLM의 숫자 텍스트 출력으로 value를 내는 방식입니다.
+
+먼저 왼쪽의 첫 시도 성공 사례를 보겠습니다. 초록 곡선은 작업이 진행될수록 비교적 꾸준히 올라갑니다. 오른쪽은 실패 후 다시 시도해 성공한 사례입니다. 실패할 때 값이 내려갔다가, 작업을 회복하면서 다시 올라가는 모습을 봅니다.
+
+이런 평가가 실제 작업의 진행을 따라가면 앞의 policy 학습에 사용할 신호가 됩니다. 다만 세로축은 정규화한 value이지 성공률이 아니며, 이 두 예시만으로 모든 작업의 critic 정확도를 확정할 수는 없습니다. 여기까지가 데이터를 준비하고 목표 작업의 정책으로 다듬는 과정입니다. 마지막으로 Part 1의 핵심을 정리하겠습니다.
+
+#### 기존 상세 참고 — 발표에서 그대로 읽지 않음
 
 Text critic은 새 예측 head를 처음부터 맞추는 대신 기존 VLM의 숫자 토큰·텍스트 예측 인터페이스를 활용한다. 비교 대상 distributional critic은 값 분포를 예측하는 별도 head 방식이며 구체적인 bin 설계를 본문에 없는 값으로 추가하지 않는다. 그림의 두 trajectory 사례는 저자의 progress 추정 해석을 보여주며 정량적 critic 정확도·정책 성공률을 직접 측정한 결과는 아니다. x축은 물리적 작업 timestep이며 denoising τ가 아니다.
 

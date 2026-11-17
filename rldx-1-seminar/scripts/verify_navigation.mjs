@@ -99,7 +99,7 @@ try{
   for(const unit of ['S037','S038','S039'])assert((await page.locator('#notes-text').innerText()).includes('상세 해설 '+unit));
   await page.keyboard.press('Escape');
   assert.equal(await page.locator('.deck-page[data-id="P012"]').count(),0);
-  for (const [oldId,newId,unit] of [['P005','P032','S016'],['P007','P032','S024'],['P011','P032','S036'],['P036','P032','S058'],['P021','P038','S077'],['P048','P032','S011'],['P049','P032','S012'],['P050','P032','S013'],['P052','P032','S009'],['P053','P032','S010'],['P054','P032','S014'],['P055','P032','S015'],['P056','P032','S017'],['P057','P032','S019'],['P058','P032','S018'],['P074','P015','S051'],['P045','P015','S052'],['P046','P015','S053']]) {
+  for (const [oldId,newId,unit] of [['P033','P013','S041'],['P034','P013','S042'],['P005','P032','S016'],['P007','P032','S024'],['P011','P032','S036'],['P036','P032','S058'],['P021','P038','S077'],['P048','P032','S011'],['P049','P032','S012'],['P050','P032','S013'],['P052','P032','S009'],['P053','P032','S010'],['P054','P032','S014'],['P055','P032','S015'],['P056','P032','S017'],['P057','P032','S019'],['P058','P032','S018'],['P074','P015','S051'],['P045','P015','S052'],['P046','P015','S053']]) {
     await page.goto(pathToFileURL(path.resolve('presentation.html')).href+'#'+oldId);
     assert.equal(await active(),newId);
     if(['P052','P053','P054','P055'].includes(oldId)) assert.equal(await page.locator('.architecture-explorer').getAttribute('data-scene'),'vlm');
@@ -135,8 +135,8 @@ try{
   for(const term of ['STSS','Residual addition','10–27층','과거 프레임 특징의 압축','cognition 위치 출력','과거 cognition features의 queue','Causal Transformer의 계산','저장 간격과 과거 범위','로봇별 입출력 경로','embodiment-agnostic','256 trajectories'])assert(scriptText.includes(term),term);
   await page.keyboard.press('Escape');
   await jump('5');assert.equal(await active(),'P013');
-  // Public and in-house data come between the overview and synthetic augmentation.
-  for(const id of ['P033','P034','P072','P014']){await page.keyboard.press('ArrowRight');assert.equal(await active(),id);}
+  // Public/in-house are introduced once; synthetic detail follows the overview.
+  for(const id of ['P072','P014']){await page.keyboard.press('ArrowRight');assert.equal(await active(),id);}
   // Generated video, simulator rollout, feature comparison, then classifier training.
   for(const id of ['P015','P047','P035']){await page.keyboard.press('ArrowRight');assert.equal(await active(),id);}
   await show('P015'); await page.keyboard.press('n');
