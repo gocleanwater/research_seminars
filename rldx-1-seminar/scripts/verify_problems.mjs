@@ -29,6 +29,17 @@ try {
       assert.equal(await motion.locator('svg[role="img"]').count(),1,'motion problem needs a conveyor illustration');
       assert.equal(await motion.locator('.problem-capability').innerText(),'움직임을 읽는 능력 부족');
     }
+    if(step===2) {
+      const memory=walkthrough.locator('[data-problem-card="2"]');
+      assert.equal(await memory.locator('svg[role="img"]').count(),1,'memory problem needs a shell-game illustration');
+      assert.equal(await memory.locator('.problem-capability').innerText(),'과거를 기억하는 능력 부족');
+    }
+    if(step===3) {
+      const contact=walkthrough.locator('[data-problem-card="3"]');
+      assert.equal(await contact.locator('svg[role="img"]').count(),1,'contact problem needs a grasp-force illustration');
+      assert.equal(await contact.locator('.problem-capability').innerText(),'힘을 조절하는 능력 부족');
+      assert(!visibleText.includes('접촉부가 가려진'),'explain grasp force rather than requiring an occluded contact');
+    }
     const geometry=await page.locator('.deck-page.active .seminar-slide').evaluate(slide=>{
       const body=slide.querySelector('.seminar-body').getBoundingClientRect();
       return [...slide.querySelectorAll('.vla-definition,.problem-card,.problem-step-label')].filter(el=>{

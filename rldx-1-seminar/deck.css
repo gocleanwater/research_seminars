@@ -106,8 +106,10 @@
 .seminar-slide[data-slide-id="P002"] .problem-example { font-size: 19px; font-weight: 700; color: #506574; margin-bottom: 8px; }
 .seminar-slide[data-slide-id="P002"] .problem-card p { font-size: 20px; line-height: 1.45; margin-bottom: 8px; }
 .seminar-slide[data-slide-id="P002"] .problem-capability { margin-top: auto; font-size: 22px; font-weight: 700; color: #167e7a; }
-.seminar-slide[data-slide-id="P002"] .problem-conveyor { display: block; flex: none; width: 100%; height: 144px; }
-.seminar-slide[data-slide-id="P002"] .problem-conveyor text { font: 14px Arial, 'Apple SD Gothic Neo', 'Malgun Gothic', 'Nanum Gothic', sans-serif; }
+.seminar-slide[data-slide-id="P002"] .problem-conveyor,
+.seminar-slide[data-slide-id="P002"] .problem-scene { display: block; flex: none; width: 100%; height: 144px; }
+.seminar-slide[data-slide-id="P002"] .problem-conveyor text,
+.seminar-slide[data-slide-id="P002"] .problem-scene text { font: 14px Arial, 'Apple SD Gothic Neo', 'Malgun Gothic', 'Nanum Gothic', sans-serif; }
 .seminar-slide[data-slide-id="P002"] [data-problem-step="0"] .problem-card,
 .seminar-slide[data-slide-id="P002"] [data-problem-step="1"] .problem-card:nth-child(n+2),
 .seminar-slide[data-slide-id="P002"] [data-problem-step="2"] .problem-card:nth-child(3) { visibility: hidden; }
