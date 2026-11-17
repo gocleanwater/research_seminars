@@ -597,10 +597,10 @@ $$
 설명: 노이즈와 정답 행동을 섞어 학습 후보를 만드는 보간식이다.
 요점: 이 식으로 학습할 후보를 만들고, 다음 단계에서 정답 변화율을 구한다.
 
-#### [30] 왜 이 값이 정답 변화율일까?
+#### [30] 정답 변화율과 MSAT 예측
 
-핵심: 노이즈에서 정답 행동으로 향하는 경로의 변화율을 학습 목표로 삼는다.
-설명: 노이즈에서 정답 행동으로 향하는 경로의 변화율을 학습 목표로 삼는다.
+핵심: 학습 경로를 미분해 정답 변화율을 구하고, MSAT의 예측값과 비교한다.
+설명: 학습 경로를 미분해 정답 변화율을 구하고, MSAT의 예측값과 비교한다.
 요점: MSAT의 예측 변화율과, 학습 경로에서 계산한 정답 변화율을 비교해 학습한다.
 
 #### [31] 예측과 정답의 차이를 줄여 학습한다
@@ -2544,17 +2544,17 @@ RTC의 구체적인 overlap/inpainting 알고리즘은 이 보고서 내 설명 
 
 이렇게 노이즈에서 정답 행동까지 이어지는 직선 경로를 준비합니다. 다음에는 이 경로에서 MSAT가 무엇을 정답으로 배우는지 보겠습니다.
 
-#### [velocity-target] 왜 이 값이 정답 변화율일까?
+#### [velocity-target] 정답 변화율과 MSAT 예측
 
 ##### 화면
 
-<p class="flow-formula-purpose">$\tau$가 $0\rightarrow1$로 커질수록, 후보 $\mathbf a^\tau$는 정답 $\mathbf a$에 가까워진다.</p><div class="tour-equation">$$\frac{d\mathbf a^{\tau}}{d\tau}=\mathbf a-\boldsymbol\epsilon=\mathbf v^*$$</div><div class="tour-flow"><div class="tour-node">입력<br>$\mathbf a^\tau,\ \tau,\ \mathbf c_t$</div><span class="tour-flow-arrow">→</span><div class="tour-node">MSAT<br>함수 $\mathbf u_\theta$</div><span class="tour-flow-arrow">→</span><div class="tour-node">예측 변화율<br>$\widehat{\mathbf v}$</div></div><p class="tour-callout">예측 $\widehat{\mathbf v}=\mathbf u_\theta(\mathbf a^\tau,\tau,\mathbf c_t)$　↔　정답 $\mathbf v^*=\mathbf a-\boldsymbol\epsilon$</p><p class="flow-target-condition">$\mathbf c_t$: 인지 · 기억 · 현재 로봇 상태 · 사용 가능한 센서</p>
+<div class="tour-equation">$$\frac{d\mathbf a^{\tau}}{d\tau}=\mathbf a-\boldsymbol\epsilon=\mathbf v^*$$</div><p class="flow-formula-purpose">$\tau$가 $0\rightarrow1$로 커질수록, 후보 $\mathbf a^\tau$는 정답 $\mathbf a$에 가까워진다.</p><div class="tour-flow"><div class="tour-node">입력<br>$\mathbf a^\tau,\ \tau,\ \mathbf c_t$</div><span class="tour-flow-arrow">→</span><div class="tour-node">MSAT<br>함수 $\mathbf u_\theta$</div><span class="tour-flow-arrow">→</span><div class="tour-node">예측 변화율<br>$\widehat{\mathbf v}$</div></div><p class="tour-callout">예측 $\widehat{\mathbf v}=\mathbf u_\theta(\mathbf a^\tau,\tau,\mathbf c_t)$　↔　정답 $\mathbf v^*=\mathbf a-\boldsymbol\epsilon$</p><p class="flow-target-condition">$\mathbf c_t$: 인지 · 기억 · 현재 로봇 상태 · 사용 가능한 센서</p>
 
 ##### 대본
 
-왜 이 값을 정답 변화율로 쓰는지 보겠습니다. 앞에서 만든 경로에서는 $\tau$가 $0$에서 $1$로 커질수록 노이즈의 비중은 줄고, 정답 행동의 비중은 커집니다. 따라서 후보 $\mathbf a^\tau$는 노이즈에서 정답 행동으로 가까워집니다.
+앞에서 만든 행동 후보의 경로를 이번에는 $\tau$에 대해 미분해 보겠습니다. 화면의 식은 진행도에 따른 행동 후보의 변화율을 구하는 식입니다. 계산하면 $\mathbf a-\boldsymbol\epsilon$이 나오고, 이 값을 정답 변화율 $\mathbf v^*$라고 둡니다.
 
-이 경로를 따라가려면, $\tau$가 변할 때 후보를 어느 방향으로 얼마나 바꿔야 할까요? 그것이 바로 $\mathbf a^\tau$를 $\tau$로 미분한 값입니다. 계산하면 $\mathbf a-\boldsymbol\epsilon$이 나오고, 이 값을 $\mathbf v^*$라고 둡니다. 우리가 정한 경로에서 노이즈를 정답 행동 쪽으로 바꾸는 데 필요한 변화율이므로, MSAT가 맞힐 정답 변화율로 사용하는 것입니다.
+이 값을 학습의 정답으로 쓰는 이유는 앞에서 만든 경로의 성질에 있습니다. $\tau$가 $0$에서 $1$로 커질수록 후보 $\mathbf a^\tau$는 노이즈에서 정답 행동으로 가까워집니다. 따라서 이 경로를 미분한 값은 후보를 정답 행동 쪽으로 어느 방향으로 얼마나 바꿔야 하는지를 나타냅니다. 우리가 정한 경로에서 이 변화율을 계산할 수 있으므로, MSAT가 맞힐 정답으로 사용하는 것입니다.
 
 아래 흐름에서는 MSAT를 함수 $\mathbf u_\theta$로 나타냈습니다. 후보 $\mathbf a^\tau$, 진행도 $\tau$, 조건 $\mathbf c_t$를 넣으면 예측 변화율 $\mathbf u_\theta(\mathbf a^\tau,\tau,\mathbf c_t)$가 나옵니다. 화면에서는 이 예측값을 $\widehat{\mathbf v}$로 표시했습니다. 조건 $\mathbf c_t$는 현재 인지 특징과 기억, 로봇 상태, 사용 가능한 센서 정보입니다.
 
