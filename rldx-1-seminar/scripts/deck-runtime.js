@@ -296,7 +296,7 @@ function showFromHash() {
   const index = DECK.findIndex(s => s.id === id);
   if (index < 0) return false;
   show(index);
-  if (panelId) { renderTour(ARCH_TOUR.states.findIndex(s => s.panel_id === panelId)); return true; }
+  if (panelId) { renderTour(typeof panelId === 'number' ? panelId : ARCH_TOUR.states.findIndex(s => s.panel_id === panelId)); return true; }
   if (['P011','P036'].includes(requested)) renderTour(ARCH_TOUR.focus.msat);
   if (['P005','P056','P057','P058'].includes(requested)) renderTour(ARCH_TOUR.focus.memory);
   if (['P048','P049','P050'].includes(requested)) renderTour(ARCH_TOUR.focus.vision);

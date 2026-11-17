@@ -126,8 +126,8 @@ try{
   for(const [id,panelId] of Object.entries(config.merged_slides)){
     await page.goto(pathToFileURL(path.resolve('presentation.html')).href+'#'+id);
     assert.equal(await active(),'P032');
-    assert.equal(await page.locator('.architecture-explorer').getAttribute('data-state'),String(config.states.findIndex(s=>s.panel_id===panelId)));
-    assert.equal(await page.locator('.arch-detail-panel:visible').count(),1);
+    assert.equal(await page.locator('.architecture-explorer').getAttribute('data-state'),String(typeof panelId==='number'?panelId:config.states.findIndex(s=>s.panel_id===panelId)));
+    assert.equal(await page.locator('.arch-detail-panel:visible').count(),typeof panelId==='number'?0:1);
     assert.equal(await page.locator(`.deck-page[data-id="${id}"]`).count(),0);
   }
   await show('P032');await page.keyboard.press('n');
@@ -145,7 +145,7 @@ try{
   await page.keyboard.press('Escape');
   // Purpose first, then each training stage; graph and fused-kernel explanations stay separate.
   await show('P035');
-  for(const id of ['P016','P017','P018','P019','P037','P020','P038','P039','P040']){await page.keyboard.press('ArrowRight');assert.equal(await active(),id);}
+  for(const id of ['P016','P017','P018','P019','P037','P096','P020','P038','P039','P040']){await page.keyboard.press('ArrowRight');assert.equal(await active(),id);}
   // Benchmarks and real robot/task photos come before their result plots.
   for(const id of ['P022','P095','P041','P042','P023','P043','P024','P044','P025','P026']){await page.keyboard.press('ArrowRight');assert.equal(await active(),id);}
   // Follow the seven ablation topics without skipping their separate conditions and interpretations.

@@ -783,90 +783,6 @@
     },
     {
       "scene": "msat",
-      "step": 0,
-      "title": "MSAT에 들어가는 세 묶음",
-      "lead": "의미를 담은 특징, 현재 로봇 상태, 물리 신호를 서로 다른 경로로 받는다.",
-      "takeaway": "현재 관측은 조건이고, noisy 미래 행동·센서는 모델이 다듬을 후보이다.",
-      "box": [
-        805,
-        335,
-        650,
-        295
-      ],
-      "note": "",
-      "clip": [
-        [
-          805,
-          335
-        ],
-        [
-          1455,
-          335
-        ],
-        [
-          1455,
-          580
-        ],
-        [
-          1210,
-          580
-        ],
-        [
-          1210,
-          615
-        ],
-        [
-          805,
-          615
-        ]
-      ],
-      "source": "Sec.2.2 · PDF pp.8–9",
-      "panel_id": "msat-inputs"
-    },
-    {
-      "scene": "msat",
-      "step": 0,
-      "title": "행동의 시간과 다듬는 단계를 구분한다",
-      "lead": "로봇이 움직일 시간 t와 후보를 다듬는 단계 τ는 다른 축이다.",
-      "takeaway": "τ 토큰은 생성 진행도를, RoPE는 행동 토큰의 위치 순서를 알려준다.",
-      "box": [
-        805,
-        335,
-        650,
-        295
-      ],
-      "note": "",
-      "clip": [
-        [
-          805,
-          335
-        ],
-        [
-          1455,
-          335
-        ],
-        [
-          1455,
-          580
-        ],
-        [
-          1210,
-          580
-        ],
-        [
-          1210,
-          615
-        ],
-        [
-          805,
-          615
-        ]
-      ],
-      "source": "Sec.2.2 · PDF pp.8–9",
-      "panel_id": "time-encoding"
-    },
-    {
-      "scene": "msat",
       "step": 4,
       "title": "MSAT의 블록",
       "lead": "Triple-stream에서 각 stream은 자신의 경로를 유지하며 joint attention으로 정보를 교환한다.",
@@ -1606,7 +1522,7 @@
   },
   "merged_slides": {
     "P051": "vqa-purpose",
-    "P009": "msat-inputs",
+    "P009": 24,
     "P010": "joint-attention",
     "P006": "action-path",
     "P008": "euler-update",

@@ -32,16 +32,14 @@
     "20": 22,
     "21": 23,
     "22": 24,
-    "23": 27,
-    "24": 30,
-    "25": 31,
-    "26": 39
+    "23": 25,
+    "24": 28,
+    "25": 29,
+    "26": 37
   },
   "inserted_panels": [
     "vqa-purpose",
     "vqa-questions",
-    "msat-inputs",
-    "time-encoding",
     "joint-attention",
     "stream-update",
     "action-path",
@@ -52,5 +50,17 @@
     "execute-chunk",
     "two-loops"
   ],
-  "boundary_end_id": "P037"
+  "boundary_end_id": "P037",
+  "removed_explanations": [
+    {
+      "former_step": 26,
+      "panel_id": "msat-inputs",
+      "reason": "25번 설명과 중복되어 사용자 요청으로 화면·대본 제외"
+    },
+    {
+      "former_step": 27,
+      "panel_id": "time-encoding",
+      "reason": "별도 시간 구분 화면·대본 제외; 수식 설명에 한 문장으로 언급"
+    }
+  ]
 }

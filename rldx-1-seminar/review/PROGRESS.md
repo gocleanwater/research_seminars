@@ -299,3 +299,10 @@ AGENTS.md → PROJECT.md → 이 파일 → FEEDBACK.md → sections/README.md �
 - 실제검증: verify_sources.py; verify_deck.mjs(37PNG,넘침/이미지실패/브라우저오류/외부요청0); verify_architecture.mjs(27상태); verify_navigation.mjs(사진소개→결과순서포함); verify_math_font.mjs(실제글리프·전체해설수식); 기본/base빌드; verify_slidev.mjs(37장오류0); package_pages.py; verify_pages.mjs. 소스공백정리전후HTML SHA256동일,세HTML동일성·git diff --check확인.
 - 실제PNG: review/previews/deck-v13/P040-v13.png, P022-v13.png, P041-v13.png, P042-v13.png, P023-v13.png, P043-v13.png, P024-v13.png, P044-v13.png, P025-v13.png를직접확인했다. ALLEX의초기넘침은중복평균문장을하단요점으로옮겨해결했고글꼴크기는줄이지않았다.
 - 사용자결과물검토전이다. 최신자동게시지시에따라본문·기록·생성HTML/ZIP과변경전태그를commit·push한다. Pages실제반영완료는별도확인하지않았다.
+
+## 2026-11-17 / P032 / 중복 입력·시간 구분 화면 제외
+
+- 사용자 요청: 기존26번 MSAT 세 입력 묶음은25번에서 충분하므로 화면과 대본에서 제외. 기존27번 t/τ 별도 구분 화면도 제외하고 관련 설명 때 말할 것.
+- 반영: msat-inputs/time-encoding 두 카드와 해당 독립 대본을 삭제하고38단계로 재번호화했다. t/τ의 의미는 action-path 수식 대본에 한 문장으로만 언급한다. P009/P012 기존 링크는 유지한 세 번째 입력 화살표(25번)로 연결한다.
+- 본문47장·Part1 18장·Part2 29장·121개 공부 기록은 유지한다. 기존 상세 공부 기록은 삭제하지 않는다.
+- 적용 H02/H05/H21/H22/H23. 검증 결과: 소스·38단계 대본 대응 및 실제 Chromium의 설명 정방향/역방향·기존 링크·Part별 탐색 확인. 결과물 사용자 검토 전.
