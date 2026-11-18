@@ -480,7 +480,7 @@ source_ids: S065, S066
 
 ### 본문
 
-<div class="post-il-flow"><div><small>1 · 학습 데이터</small><h3>직접 시연</h3><p>목표 로봇·작업의 시연<br>일관된 동작·다양한 배치</p></div><b>→</b><div><small>2</small><h3>IL policy 학습</h3><p>시연의 관측·행동으로<br>policy 학습</p></div><b>→</b><div><small>3</small><h3>실제 실행</h3><p>실패하는 상황과<br>부족한 조건 확인</p></div><b>→</b><div><small>4</small><h3>추가 시연·재학습</h3><p>실패 조건의 경험을<br>보강하며 반복</p></div></div><p class="post-refine-return">↶ 실패 조건의 직접 시연을 추가해 policy 학습을 반복</p><div class="post-rl-note"><strong>일부 고난도 작업 · RECAP RL</strong><span>실제 로봇 rollout을 추가로 수집해 개선</span></div>
+<div class="post-il-flow"><div><small>1 · 학습 데이터</small><h3>직접 시연</h3><p>목표 로봇·작업의 시연<br>일관된 동작·다양한 배치</p></div><b>→</b><div><small>2</small><h3>IL policy 학습</h3><p>시연의 관측·행동으로<br>policy 학습</p></div><b>→</b><div><small>3</small><h3>실제 실행</h3><p>실패하는 상황과<br>부족한 조건 확인</p></div><b>→</b><div><small>4</small><h3>추가 시연·재학습</h3><p>실패 조건의 경험을<br>보강하며 반복</p></div></div><div class="post-rl-note"><strong>일부 고난도 작업 · RECAP RL</strong><span>실제 로봇 rollout을 추가로 수집해 개선</span></div>
 
 ### 보충
 
