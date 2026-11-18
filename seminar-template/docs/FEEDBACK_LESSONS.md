@@ -188,3 +188,4 @@
 | FEEDBACK.md:678 | 2026-11-18 / 설명 16 / Memory 저장 간격의 위치 |
 | FEEDBACK.md:686 | 2026-11-18 / 설명 27 / Double-stream의 직접 설명 |
 | FEEDBACK.md:693 | 2026-11-18 / 설명 33 / 행동·물리 신호의 대응만 짧게 |
+| FEEDBACK.md:700 | 2026-11-18 / P014·8쪽 / 사진 설명과 Canny edge map의 연결 |

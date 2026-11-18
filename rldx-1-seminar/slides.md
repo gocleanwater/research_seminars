@@ -1581,16 +1581,22 @@ layout: none
 
 <!-- slide-id: P014 | revision: v38 | status: draft -->
 
-<section class="seminar-slide" data-slide-id="P014"><header class="seminar-header"><div class="chapter-label">Training Data</div><h1>Task·Scene Augmentation</h1><p class="slide-lead">같은 시연에서 작업 지시와 장면을 바꿔, 새로운 조작 상황을 만든다.</p></header><div class="seminar-body figure balanced"><figure class="paper-figure"><img src="/figures/fig-05.png" alt="Figure 5 · (a) 원본 / (b) 작업 변형 / (c) 장면 변형" loading="eager"><figcaption>Figure 5 · (a) 원본 / (b) 작업 변형 / (c) 장면 변형</figcaption></figure><div class="body-main"><div class="synth-variants"><div><small>Task · 무엇을 할까?</small><h3>작업 지시의 변형</h3><p>동작·물체·위치·손을 재조합<br>또는 원래 skill을 조건으로 변형</p></div><div><small>Scene · 어떤 장면일까?</small><h3>장면·외관의 변형</h3><p>시작 이미지 편집 → 영상 생성<br>생성 후 색·질감도 변형</p></div></div><p class="synth-guide">Canny 윤곽선은 손·물체·장면의 구조를 따르도록 돕는 안내선이다.</p></div></div><div class="takeaway">Task는 할 일을, Scene은 보이는 상황을 다양화한다. 실행 가능한 시연인지도 검증한다.</div><footer class="seminar-footer"><span class="source">Sec.3.3 · Fig.5 · PDF p.11</span><span class="slide-id">P014 · 008/46</span></footer></section>
+<section class="seminar-slide" data-slide-id="P014"><header class="seminar-header"><div class="chapter-label">Training Data</div><h1>Task·Scene Augmentation</h1><p class="slide-lead">같은 시연에서 작업 지시와 장면을 바꿔, 새로운 조작 상황을 만든다.</p></header><div class="seminar-body figure balanced"><figure class="paper-figure"><img src="/figures/fig-05.png" alt="Figure 5 · (a) 원본 / (b) 작업 변형 / (c) 장면 변형" loading="eager"><figcaption>Figure 5 · (a) 원본 / (b) 작업 변형 / (c) 장면 변형</figcaption></figure><div class="body-main"><div class="synth-variants"><div><small>Task · 무엇을 할까?</small><h3>작업 지시의 변형</h3><p>동작·물체·위치·손을 재조합<br>또는 원래 skill을 조건으로 변형</p></div><div><small>Scene · 어떤 장면일까?</small><h3>장면·외관의 변형</h3><p>시작 이미지 편집 → 영상 생성<br>생성 후 색·질감도 변형</p></div></div><p class="synth-guide">Canny edge map으로 원본 구조를 참고하며 장면·외관을 변형한다.</p></div></div><div class="takeaway">Task는 할 일을, Scene은 보이는 상황을 다양화한다. 실행 가능한 시연인지도 검증한다.</div><footer class="seminar-footer"><span class="source">Sec.3.3 · Fig.5 · PDF p.11</span><span class="slide-id">P014 · 008/46</span></footer></section>
 
 <!--
 같은 시작 장면과 지시로 영상을 만들면 원래 시연과 너무 비슷한 결과가 나올 수 있습니다. 그래서 두 가지를 바꿉니다. 무엇을 할지 정하는 Task와, 어떤 장면에서 할지 정하는 Scene입니다.
 
-Figure 5의 첫 행은 원본 시연입니다. 두 번째 행은 작업 지시를 바꾼 예입니다. 지시를 동작·물체·놓을 위치·어느 손이라는 요소로 나누어 재조합하거나, 원래의 집기·따르기·밀기 같은 skill을 조건으로 실행 가능한 지시를 만듭니다. 아무 조합이나 가능하다고 가정하는 것은 아닙니다.
+Figure 5의 첫 행은 원본 시연입니다.
 
-세 번째 행은 장면을 바꾼 예입니다. 시작 이미지를 편집하고 그 이미지에서 새 영상을 생성합니다. 테이블, 물체, 조명, 배경 같은 조건을 다양화할 수 있습니다. 생성된 영상의 동작을 유지하면서 색과 질감을 바꾸는 V2V 변형도 사용합니다.
+두 번째 행은 작업 지시를 바꾼 예입니다. 지시를 동작·물체·놓을 위치·어느 손이라는 요소로 나누어 재조합하거나, 원래의 집기·따르기·밀기 같은 skill을 조건으로 실행 가능한 지시를 만듭니다. Figure 5를 다시 보시면, 원본의 신라면을 쌓는 동작이 두 번째 행에서는 책상 위 신라면을 트레이로 옮기는 동작으로 바뀐 것을 볼 수 있습니다.
 
-이때 Canny edge map은 경계를 알려 주는 안내선입니다. 외관을 바꾸면서 손과 물체의 구조를 따르도록 돕습니다. 이렇게 변형한 영상이 학습에 쓸 만큼 타당한지, 다음에 검증합니다.
+세 번째 행은 장면을 바꾼 예입니다. 시작 이미지를 편집하고, 그 이미지에서 새 영상을 생성합니다. 테이블, 물체, 조명, 배경 같은 조건을 다양화할 수 있습니다.
+
+이때 원본 장면의 윤곽을 추출한 Canny edge map을 함께 제공합니다. 생성 모델이 손과 물체의 배치 같은 장면 구조를 참고하면서 외관을 바꾸도록 돕는 안내선입니다.
+
+Figure 5의 세 번째 행을 보시면 컵라면이 초록색 컵으로 바뀌었고, 조명의 세기와 책상의 질감·색깔도 달라진 것을 볼 수 있습니다.
+
+이처럼 시작 장면을 바꾸는 방법에 더해, 생성된 영상의 동작을 유지하면서 색과 질감을 바꾸는 V2V 변형도 사용합니다. 이렇게 변형한 영상이 학습에 쓸 만큼 타당한지, 다음에 검증합니다.
 
 #### 기존 상세 참고 — 발표에서 그대로 읽지 않음
 
