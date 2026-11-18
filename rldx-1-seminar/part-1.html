@@ -679,8 +679,8 @@ body[data-export="true"] .part-links { display: none; }
 .evidence-visuals .paper-figure img {width:100%;height:auto;max-height:330px;object-fit:contain;}
 .evidence-visuals .paper-figure figcaption {font-size:17px;line-height:1.5;margin-top:12px;}
 .inference-visual[hidden] {display:none;}
-.config-schematic {width:100%;display:flex;flex-direction:column;gap:22px;}
-.config-group {border:1px solid #aac9cb;background:#f0f5f7;padding:16px 20px;border-radius:8px;}
+.config-schematic {width:100%;display:flex;flex-direction:column;gap:16px;}
+.config-group {border:1px solid #aac9cb;background:#f0f5f7;padding:12px 16px;border-radius:8px;}
 .config-group.fixed {background:#e9f5f2;border-color:#83b7ae;}
 .config-group h3 {font-size:23px;color:#1a5268;margin:0 0 16px;}
 .config-row {display:flex;align-items:center;gap:16px;justify-content:space-between;}
@@ -699,6 +699,16 @@ body[data-export="true"] .part-links { display: none; }
 .feature-intuition {display:flex;align-items:center;gap:24px;justify-content:center;margin:18px 0 8px;}
 .feature-intuition span {background:#e8f3f0;border:1px solid #a9c8c3;border-radius:5px;padding:8px 18px;text-align:center;font-size:21px;line-height:1.4;}
 .feature-intuition b {color:#07847b;}
+
+/* The two boxes compare settings during training and fixed deployment. */
+.config-heading {display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+.config-heading h3 {margin:0;}
+.config-heading>span {font-size:18px;font-weight:700;color:#467082;}
+.fixed .config-heading>span {color:#087f74;}
+.config-group .config-context {font-size:21px;line-height:1.4;margin:0 0 12px;}
+.config-settings {display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.config-settings>span {border:1px solid #b6cbd0;background:#fff9;border-radius:5px;padding:6px 10px;text-align:center;font-size:21px;font-weight:700;color:#204e60;}
+.config-group .config-reuse {font-size:20px;font-weight:700;color:#087f74;margin:12px 0 0;}
 </style></head>
 <body class="deck-app"><main id="stage"><article class="deck-page active" data-id="S001" aria-label="RLDX-1 Technical Report"><div class="cover-slide cover-agenda">
   <main class="cover-copy">

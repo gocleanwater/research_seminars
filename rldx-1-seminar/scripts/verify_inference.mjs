@@ -19,7 +19,7 @@ try {
    assert.equal(await root.locator('.inference-panel:visible').count(),1);
    assert.equal(await root.locator('[data-inference-visual]:visible').count(),1);
    assert.equal(await root.locator('[data-inference-visual]:visible').getAttribute('data-inference-visual'),String(i));
-   const overflow=await root.evaluate(el=>[...el.querySelectorAll('.inference-panel:not([hidden]),.inference-panel:not([hidden]) p,.inference-panel:not([hidden]) h3,.inference-controls')].filter(e=>e.scrollHeight>e.clientHeight+2||e.scrollWidth>e.clientWidth+2||e.getBoundingClientRect().bottom>el.getBoundingClientRect().bottom+2||e.getBoundingClientRect().right>el.getBoundingClientRect().right+2).map(e=>e.textContent));
+   const overflow=await root.evaluate(el=>[...el.querySelectorAll('.inference-panel:not([hidden]),.inference-panel:not([hidden]) p,.inference-panel:not([hidden]) h3,.inference-controls,.config-group,.config-settings>span,.config-context,.config-reuse')].filter(e=>e.getBoundingClientRect().height>0).filter(e=>e.scrollHeight>e.clientHeight+2||e.scrollWidth>e.clientWidth+2||e.getBoundingClientRect().top<el.getBoundingClientRect().top-2||e.getBoundingClientRect().bottom>el.getBoundingClientRect().bottom+2||e.getBoundingClientRect().right>el.getBoundingClientRect().right+2).map(e=>e.textContent));
    assert.deepEqual(overflow,[]);
    await page.locator('.deck-page.active').screenshot({path:`${out}/${id}-${i}.png`});
    await page.keyboard.press('ArrowRight');
