@@ -30,7 +30,7 @@ try{
   await page.locator('.arch-mode-buttons [data-arch-focus="vlm"]').click();await page.keyboard.press('ArrowRight');
   assert.equal(await page.locator('.architecture-explorer').getAttribute('data-state'),'8');
   assert.equal(await page.locator('.arch-paths path').count(),1);
-  await page.keyboard.press('n');assert.equal(await page.locator('#notes[open]').count(),1);
+  await page.keyboard.press('n');assert.equal(await page.locator('#notes').count(),0);
   assert.deepEqual(errors,[]);assert.deepEqual(external,[]);
   fs.writeFileSync('qa/full-deck/pages-report.json',JSON.stringify({path:prefix+'rldx-1-seminar/',landingLink:true,cover:true,fig3:true,notes:true,errors,externalRequests:external},null,2));
   console.log('PASS: repository subfolder URL, landing link, cover, Figure 3, notes; external requests 0.');

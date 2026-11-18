@@ -160,27 +160,6 @@ body.deck-app { margin: 0; background: #142b40; overflow: hidden; font-family: A
 .deck-app #toc-list { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 18px; }
 .deck-app .toc-entry { text-decoration: none; color: #193c51; border-bottom: 1px solid #dce6e8; padding: 9px 4px; font-size: 17px; line-height: 1.5; }
 .deck-app .toc-entry small { color: #167e7a; display: block; font-size: 12px; }
-.deck-app #notes-text { white-space: pre-wrap; font-size: 20px; line-height: 1.8; }
-.deck-app #notes-text.study-notes { white-space: normal; }
-.study-notes .study-intro { color: #4d6876; border-bottom: 1px solid #cadadd; padding-bottom: 18px; }
-.study-notes .study-unit { margin: 28px 0; padding-top: 18px; border-top: 2px solid #9abbba; }
-.study-notes .study-unit h3 { font-size: 27px; line-height: 1.4; color: #173e53; margin: 0 0 16px; }
-.study-notes .study-unit h3 small { display: block; color: #167e7a; font-size: 14px; margin-bottom: 5px; }
-.study-notes .study-unit p { margin: 12px 0; }
-.study-notes .study-unit .study-lead { color: #526d7a; }
-.study-notes figure { margin: 18px 0; }
-.study-notes figure img { display: block; max-width: 100%; max-height: 430px; object-fit: contain; margin: auto; cursor: zoom-in; }
-.study-notes figcaption { font-size: 15px; color: #59727e; text-align: center; }
-.study-notes .equation { background: #edf3f5; border-left: 3px solid #7ca4ab; padding: 14px 19px; font: 26px/1.6 'Cambria Math', 'Times New Roman', serif; margin: 16px 0; }
-.study-notes table { border-collapse: collapse; width: 100%; font-size: 19px; line-height: 1.6; }
-.study-notes td, .study-notes th { border-bottom: 1px solid #cbdadd; text-align: left; padding: 9px 12px; }
-.study-notes th { background: #e8f1f0; }
-.study-notes .study-takeaway { color: #1d6363; font-weight: 700; }
-.study-notes .study-source, .study-notes .study-extra { font-size: 17px; color: #5a6f7b; }
-.study-notes .flow, .study-notes .token-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
-.study-notes .node, .study-notes .step { background: #edf3f5; padding: 12px 16px; margin: 10px 0; }
-.study-notes .token { padding: 5px 9px; background: #e5f1ef; border: 1px solid #97b9b7; }
-.study-notes .label { font-size: 14px; color: #397682; background: #e8f1f0; padding: 3px 7px; }
 .deck-app #image-dialog { width: 92vw; max-width: 92vw; max-height: 92vh; padding: 12px; }
 .deck-app #image-dialog img { display: block; max-width: 100%; max-height: 84vh; margin: auto; }
 .deck-app[data-export] .deck-toolbar { display: none; }
@@ -268,9 +247,8 @@ body[data-export="true"] .part-links { display: none; }
 /* v03: LaTeX math uses KaTeX; Arial text with system Korean fallbacks; math stays KaTeX. */
 .seminar-slide .katex { font-size: 1.03em; }
 .seminar-slide .equation { font-family: Arial, 'Apple SD Gothic Neo', 'Malgun Gothic', 'Nanum Gothic', sans-serif; }
-.seminar-slide .equation .katex, .study-notes .equation .katex { font-size: 1em; }
-.seminar-slide .equation .katex-display, .study-notes .equation .katex-display { margin: .25em 0; }
-.study-notes .katex { font-size: 1.08em; }
+.seminar-slide .equation .katex { font-size: 1em; }
+.seminar-slide .equation .katex-display { margin: .25em 0; }
 .katex .hangul_fallback { font-family: Arial, 'Apple SD Gothic Neo', 'Malgun Gothic', 'Nanum Gothic', sans-serif; }
 
 /* Keep text-column widths and type sizes across font changes. */
@@ -415,9 +393,6 @@ body[data-export="true"] .part-links { display: none; }
 .training-detail-grid + .mid-alignment-flow { margin-top: 22px; }
 
 /* Three quick recap pages before the Part 2 divider. */
-.seminar-slide .recap-figure .paper-figure { max-height:none; }
-.seminar-slide .seminar-body.recap-figure { display:block; }
-.seminar-slide .recap-figure .body-main { display:none; }
 .seminar-slide .recap-data { min-height:260px; }
 .seminar-slide .recap-data .node { padding:22px 18px; }
 .seminar-slide .recap-data h3 { margin-bottom:20px; }
@@ -482,19 +457,7 @@ body[data-export="true"] .part-links { display: none; }
 .config-group {border:1px solid #aac9cb;background:#f0f5f7;padding:12px 16px;border-radius:8px;}
 .config-group.fixed {background:#e9f5f2;border-color:#83b7ae;}
 .config-group h3 {font-size:23px;color:#1a5268;margin:0 0 16px;}
-.config-row {display:flex;align-items:center;gap:16px;justify-content:space-between;}
-.config-input {display:flex;flex-direction:column;gap:5px;font-size:20px;}
-.config-box {font-size:21px;line-height:1.5;text-align:center;}
-.config-arrow {font-size:32px;color:#07837b;}
 .inference-figure .diagram-pointer {fill:none;stroke:#cc5c38;stroke-width:4;}
-.fusion-viewport {width:790px;height:365px;position:relative;overflow:hidden;background:white;}
-.fusion-camera {position:absolute;width:1292px;height:365px;top:0;}
-.fusion-camera img {width:1292px;height:365px;max-width:none;}
-.fusion-side-0 {left:64px;}
-.fusion-side-1 {left:-604px;}
-.fusion-view-label {position:absolute;bottom:0;left:0;right:0;text-align:center;padding:7px;background:#e5f2ef;font-size:21px;font-weight:700;color:#087a75;}
-.fusion-side-0 {clip-path:inset(0 50% 0 0);}
-.fusion-side-1 {clip-path:inset(0 0 0 50%);}
 .feature-intuition {display:flex;align-items:center;gap:24px;justify-content:center;margin:18px 0 8px;}
 .feature-intuition span {background:#e8f3f0;border:1px solid #a9c8c3;border-radius:5px;padding:8px 18px;text-align:center;font-size:21px;line-height:1.4;}
 .feature-intuition b {color:#07847b;}

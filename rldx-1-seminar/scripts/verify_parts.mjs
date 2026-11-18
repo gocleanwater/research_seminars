@@ -33,7 +33,8 @@ try{
       await page.evaluate(n=>window.deckShow(n),i);
       assert.equal(await page.locator('.deck-page.active').getAttribute('data-id'),slide.id);
       assert.match(await page.locator('.deck-page.active .slide-id,.deck-page.active .cover-slide-id').textContent(),new RegExp(`${String(i+1).padStart(3,'0')}/${part.slide_count}$`));
-      await page.evaluate(() => openNotes());assert.equal(await page.locator('#notes[open]').count(),1);await page.keyboard.press('Escape');
+      assert.equal(await page.locator('#notes').count(),0);
+      assert(await page.evaluate(()=>window.deckData.every(s=>!('notes' in s)&&!('notesHtml' in s))));
     }
     await page.keyboard.press('End');await page.keyboard.press('ArrowRight');assert.equal(await page.locator('.deck-page.active').getAttribute('data-id'),part.slides.at(-1).id);
     await page.keyboard.press('Home');assert.equal(await page.locator('.deck-page.active').getAttribute('data-id'),part.slides[0].id);
@@ -48,5 +49,5 @@ try{
   assert.equal(units.length,121);assert.equal(new Set(units).size,121);
   assert.deepEqual(errors,[]);assert.deepEqual(external,[]);
   fs.mkdirSync('qa/full-deck',{recursive:true});fs.writeFileSync('qa/full-deck/parts-report.json',JSON.stringify({counts:parts.map(p=>p.slide_count),boundary:['P098','P099'],localNumbering:true,scriptHeadings:true,studyUnits:units.length,errors,externalRequests:external},null,2));
-  console.log('PASS: Part 1 (21), Part 2 (24), boundary, local numbering, scripts, notes, controls, merged links, all 121 units, offline.');
+  console.log('PASS: Part 1 (21), Part 2 (24), boundary, local numbering, scripts, no explanation UI/data, controls, merged links, all 121 units, offline.');
 }finally{await browser.close();}

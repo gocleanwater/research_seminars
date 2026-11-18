@@ -88,7 +88,7 @@ try{
   await page.waitForTimeout(800);
   await page.emulateMedia({reducedMotion:'reduce'});
   assert.equal(await page.locator('.arch-camera').evaluate(el=>getComputedStyle(el).transitionDuration),'0s');
-  await page.keyboard.press('n');assert.equal(await page.locator('#notes[open]').count(),1);assert.match(await page.locator('#notes-text').innerText(),/S040/);
+  await page.keyboard.press('n');assert.equal(await page.locator('#notes').count(),0);assert(JSON.parse(fs.readFileSync('content/deck-manifest.json','utf8')).find(p=>p.id==='P032').source_ids.includes('S040'));
   await page.keyboard.press('Escape');assert.equal(await page.locator('.header-kind').count(),0);assert.deepEqual(errors,[]);
   fs.writeFileSync('qa/full-deck/architecture-report.json',JSON.stringify({states:tour.states.length,arrows:Object.values(tour.annotations).reduce((n,items)=>n+items.length,0),modules:Object.keys(tour.focus),directTokenLabels:true,concat:true,bounds:true,keyboardReverse:true,hotspots:true,animation:true,reducedMotion:true,errors},null,2));
   console.log(`PASS: ${tour.states.length} states, four module zooms, token labels, concat, forward/reverse, bounds, animation/reduced motion.`);

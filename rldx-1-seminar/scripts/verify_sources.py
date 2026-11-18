@@ -32,7 +32,7 @@ assert 'class="katex"' not in fixtures[3] and '$5' in fixtures[3]
 pages = load_sections(ROOT)
 assert len(list((ROOT / 'sections').glob('[0-9][0-9]-*.md'))) == 9
 for page in pages:
-    for field in ['body', 'aside', 'study_html']:
+    for field in ['body', 'aside']:
         html = page[field]
         assert '\ufffd' not in html, (page['id'], 'corrupt character')
         text = Text(); text.feed(html)

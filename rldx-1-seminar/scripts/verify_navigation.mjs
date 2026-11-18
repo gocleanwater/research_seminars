@@ -11,6 +11,18 @@ const manifest=JSON.parse(fs.readFileSync('content/deck-manifest.json','utf8'));
 const orderOf=id=>String(manifest.findIndex(s=>s.id===id)+1);
 async function active(){return page.locator('.deck-page.active').getAttribute('data-id');}
 async function show(id){await page.evaluate(id=>window.deckShow(window.deckData.findIndex(s=>s.id===id)),id);}
+
+async function retainedStudyText(){
+ const id=await active();
+ for(const file of fs.readdirSync('sections').filter(f=>/^\d\d-.*\.md$/.test(f))){
+  const text=fs.readFileSync(path.join('sections',file),'utf8');
+  const blocks=[...text.matchAll(/^## \[([SP]\d{3})\].*?(?=^## \[|(?![\s\S]))/gms)];
+  const block=blocks.find(m=>m[1]===id);
+  if(block)return block[0].replace(/^#### \[(S\d{3})\]/gm,'상세 해설 $1');
+ }
+ throw new Error('Missing canonical source for '+id);
+}
+
 try{
   await page.goto(pathToFileURL(path.resolve('presentation.html')).href);
   await page.evaluate(()=>document.fonts.ready);
@@ -98,8 +110,8 @@ try{
   // Former inputs links now open the explanation inside Figure 3.
   await page.goto(pathToFileURL(path.resolve('presentation.html')).href+'#P012');
   assert.equal(await active(),'P032');
-  await page.evaluate(() => openNotes());
-  for(const unit of ['S037','S038','S039'])assert((await page.locator('#notes-text').innerText()).includes('상세 해설 '+unit));
+
+  for(const unit of ['S037','S038','S039'])assert((await retainedStudyText()).includes('상세 해설 '+unit));
   await page.keyboard.press('Escape');
   assert.equal(await page.locator('.deck-page[data-id="P012"]').count(),0);
   for (const [oldId,newId,unit] of [['P033','P013','S041'],['P034','P013','S042'],['P005','P032','S016'],['P007','P032','S024'],['P011','P032','S036'],['P036','P032','S058'],['P021','P038','S077'],['P048','P032','S011'],['P049','P032','S012'],['P050','P032','S013'],['P052','P032','S009'],['P053','P032','S010'],['P054','P032','S014'],['P055','P032','S015'],['P056','P032','S017'],['P057','P032','S019'],['P058','P032','S018'],['P074','P015','S051'],['P045','P015','S052'],['P046','P015','S053']]) {
@@ -108,7 +120,7 @@ try{
     if(['P052','P053','P054','P055'].includes(oldId)) assert.equal(await page.locator('.architecture-explorer').getAttribute('data-scene'),'vlm');
     if(['P011','P036'].includes(oldId)) assert.equal(await page.locator('.architecture-explorer').getAttribute('data-scene'),'msat');
     if(['P005','P056','P057','P058'].includes(oldId)) assert.equal(await page.locator('.architecture-explorer').getAttribute('data-scene'),'memory');
-    await page.evaluate(() => openNotes());assert((await page.locator('#notes-text').innerText()).includes('상세 해설 '+unit));
+    assert((await retainedStudyText()).includes('상세 해설 '+unit));
     await page.keyboard.press('Escape');
     assert.equal(await page.locator(`.deck-page[data-id="${oldId}"]`).count(),0);
   }
@@ -120,8 +132,8 @@ try{
   assert.equal(await page.locator('.deck-page[data-id="P073"]').count(),0);
   const modelSlideText=await page.locator('.deck-page.active').innerText();
   assert(!/Cosmos|LoRA|10K|20K|93 frames/.test(modelSlideText),'model settings belong in notes');
-  await page.evaluate(() => openNotes());
-  const modelNotes=await page.locator('#notes-text').innerText();
+
+  const modelNotes=await retainedStudyText();
   for(const term of ['Cosmos-Predict2-14B','Cosmos-Predict2.5-2B','2:1:1','LoRA','93 frames','16FPS'])assert(modelNotes.includes(term),term);
   await page.keyboard.press('Escape');
   // Each retired page opens its specific inline explanation, with intact study notes.
@@ -133,8 +145,8 @@ try{
     assert.equal(await page.locator('.arch-detail-panel:visible').count(),typeof panelId==='number'?0:1);
     assert.equal(await page.locator(`.deck-page[data-id="${id}"]`).count(),0);
   }
-  await show('P032');await page.evaluate(() => openNotes());
-  const scriptText=await page.locator('#notes-text .study-intro').innerText();
+  await show('P032');
+  const scriptText=await retainedStudyText();
   for(const term of ['STSS','Residual addition','10–27층','과거 프레임 특징의 압축','cognition 위치 출력','과거 cognition features의 queue','Causal Transformer의 계산','저장 간격과 과거 범위','로봇별 입출력 경로','embodiment-agnostic','256 trajectories'])assert(scriptText.includes(term),term);
   await page.keyboard.press('Escape');
   await jump(orderOf('P013'));assert.equal(await active(),'P013');
@@ -142,8 +154,8 @@ try{
   for(const id of ['P072','P014']){await page.keyboard.press('ArrowRight');assert.equal(await active(),id);}
   // Generated video, simulator rollout, feature comparison, then classifier training.
   for(const id of ['P015','P047','P107','P035']){await page.keyboard.press('ArrowRight');assert.equal(await active(),id);}
-  await show('P015'); await page.evaluate(() => openNotes());
-  const validationNotes=await page.locator('#notes-text .study-intro').innerText();
+  await show('P015');
+  const validationNotes=await retainedStudyText();
   for(const term of ['영상 품질 검사','IDM','Rollout','Gemini','16프레임','8프레임','V-JEPA2','cross-attention'])assert(validationNotes.includes(term),term);
   await page.keyboard.press('Escape');
   // Purpose first, then each training stage; graph and fused-kernel explanations stay separate.
@@ -167,7 +179,7 @@ try{
     assert.equal(await page.locator(`.deck-page[data-id="${id}"]`).count(),0);
     await page.goto(pathToFileURL(path.resolve('presentation.html')).href+'#'+id);
     assert.equal(await active(),({P067:'P066',P069:'P068',P070:'P066',P029:'P101',P039:'P038',P041:'P023',P042:'P023',P043:'P024',P044:'P025',P026:'P110',P061:'P060',P063:'P064',P065:'P066',P027:'P068'})[target]||target);
-    if(unit){await page.evaluate(() => openNotes());assert((await page.locator('#notes-text').innerText()).includes('상세 해설 '+unit));await page.keyboard.press('Escape');}
+    if(unit){assert((await retainedStudyText()).includes('상세 해설 '+unit));await page.keyboard.press('Escape');}
   }
   await page.goto(pathToFileURL(path.resolve('presentation.html')).href+'#P078');
   assert.equal(await active(),'P038');

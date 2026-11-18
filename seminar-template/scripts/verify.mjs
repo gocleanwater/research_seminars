@@ -1,0 +1,28 @@
+import fs from 'node:fs';import path from 'node:path';import assert from 'node:assert/strict';import {pathToFileURL,fileURLToPath} from 'node:url';import {chromium} from 'playwright-chromium';
+process.chdir(path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..'));
+const manifest=JSON.parse(fs.readFileSync('content/manifest.json','utf8'));const output=path.resolve('review/previews',manifest.fingerprint);fs.mkdirSync(output,{recursive:true});
+const localChrome=process.env.CHROME_PATH||'/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
+const browser=await chromium.launch({headless:true,...(fs.existsSync(localChrome)?{executablePath:localChrome}:{})});
+const page=await browser.newPage({viewport:{width:1280,height:900},reducedMotion:'reduce'});const errors=[],requests=[];
+page.on('pageerror',e=>errors.push(String(e)));page.on('request',r=>{if(/^https?:/.test(r.url()))requests.push(r.url())});
+const main=pathToFileURL(path.resolve('index.html')).href;
+try{
+ await page.goto(main);await page.evaluate(()=>document.fonts.ready);let screens=0;
+ for(const row of manifest.pages){for(let i=0;i<row.frames;i++){
+  await page.evaluate(({id,i})=>window.seminar.go(id,i),{id:row.id,i});
+  const frame=page.locator('.page:not([hidden]) .frame:not([hidden])');
+  await frame.locator('img').evaluateAll(images=>Promise.all(images.map(im=>im.decode())));
+  const overflow=await frame.evaluate(el=>{const area=el.querySelector('.content'),r=area.getBoundingClientRect(),lead=el.querySelector('.lead').getBoundingClientRect();const issues=[];if(area.scrollHeight>area.clientHeight+3||area.scrollWidth>area.clientWidth+3)issues.push('content');if(lead.bottom>r.top-3)issues.push('header');if(el.querySelector('.takeaway').scrollWidth>el.querySelector('.takeaway').clientWidth+3)issues.push('takeaway');return issues;});
+  assert.deepEqual(overflow,[],row.id+' frame '+i);await frame.screenshot({path:path.join(output,`${row.id}-${i}.png`)});screens++;
+ }}
+ const multi=manifest.pages.find(p=>p.frames>1);
+ if(multi){await page.evaluate(id=>window.seminar.go(id,0),multi.id);await page.keyboard.press('ArrowRight');assert.equal(await page.locator('.page:not([hidden]) .frame:not([hidden])').getAttribute('data-frame'),'1');await page.locator('#number').fill(String(manifest.pages.findIndex(p=>p.id===multi.id)+1));await page.locator('#number').press('Enter');assert.equal(await page.locator('.page:not([hidden]) .frame:not([hidden])').getAttribute('data-frame'),'0');await page.keyboard.press('ArrowRight');await page.keyboard.press('ArrowLeft');assert.equal(await page.locator('.page:not([hidden]) .frame:not([hidden])').getAttribute('data-frame'),'0');const n=manifest.pages.findIndex(p=>p.id===multi.id);if(n<manifest.pages.length-1){await page.evaluate(id=>window.seminar.go(id),manifest.pages[n+1].id);await page.keyboard.press('ArrowLeft');assert.equal(await page.locator('.page:not([hidden])').getAttribute('data-id'),multi.id);assert.equal(await page.locator('.page:not([hidden]) .frame:not([hidden])').getAttribute('data-frame'),String(multi.frames-1));}}
+ await page.keyboard.press('g');assert.equal(await page.locator('#toc[open]').count(),1);await page.keyboard.press('Escape');
+ for(const row of manifest.pages){await page.goto(main+'#'+row.id);assert.equal(await page.locator('.page:not([hidden])').getAttribute('data-id'),row.id);}
+ for(const part of [...new Set(manifest.pages.map(p=>p.part))]){const subset=manifest.pages.filter(p=>p.part===part);await page.goto(pathToFileURL(path.resolve(`part-${part}.html`)).href+'#'+subset.at(-1).id);assert.equal(await page.locator('.page:not([hidden])').getAttribute('data-id'),subset.at(-1).id);assert.equal(await page.locator('#number').getAttribute('max'),String(subset.length));}
+ for(const row of manifest.pages){await page.goto(pathToFileURL(path.resolve(`part-${row.part}.html`)).href+'#'+row.id);const links=await page.locator('.page:not([hidden]) a[href^="#"]').evaluateAll(as=>as.map(a=>a.getAttribute('href').slice(1)));const other=links.map(id=>manifest.pages.find(p=>p.id===id)).find(p=>p&&p.part!==row.part);if(other){await page.locator(`.page:not([hidden]) a[href="#${other.id}"]`).first().click();assert.equal(await page.locator('.page:not([hidden])').getAttribute('data-id'),other.id);assert(page.url().includes(`part-${other.part}.html`));break;}}
+ await page.goto(main);const images=page.locator('.page:not([hidden]) .frame:not([hidden]) .content img');if(await images.count()){await images.first().click();assert.equal(await page.locator('#zoom[open]').count(),1);await page.keyboard.press('Escape');assert.equal(await page.locator('#zoom[open]').count(),0);}
+ await page.keyboard.press('n');assert.equal(await page.locator('#notes').count(),0);assert.equal(await page.locator('#open-notes').count(),0);
+ for(const width of [320,390,844]){await page.setViewportSize({width,height:844});await page.evaluate(()=>new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r))));assert(await page.locator('.toolbar').evaluate(el=>{const r=el.getBoundingClientRect();return r.left>=0&&r.right<=innerWidth+1&&r.bottom<=innerHeight;}));}
+ assert.deepEqual(errors,[]);assert.deepEqual(requests,[]);fs.mkdirSync('review',{recursive:true});fs.writeFileSync('review/BROWSER_CHECK.json',JSON.stringify({fingerprint:manifest.fingerprint,pages:manifest.pages.length,screens,errors,externalRequests:requests,meaningAndPaperFacts:'requires human/source review'},null,2));console.log(`PASS: ${screens} screens, deep links, Parts, reverse steps, mobile toolbar, no explanation menu, offline.`);
+}finally{await browser.close();}

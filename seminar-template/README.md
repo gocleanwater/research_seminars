@@ -1,69 +1,72 @@
-# 논문 HTML 슬라이드 제작 틀
+# 논문 공부 → HTML 발표 하네스
 
-현재는 내용 없는 실행 확인 화면만 있다. 논문 내용은 함께 공부한 채팅에서 전체 목차를 정한 뒤 한 장씩 작성한다. Obsidian 설치 없이 사용할 수 있다.
+이 폴더는 특정 논문의 내용을 담지 않은 공통 환경이다. Section 공부 기록을 읽고, 한 원본에서 화면과 대본을 작성한 뒤, 브라우저 검증과 피드백을 반복한다. Obsidian은 필요하지 않다.
 
 ## 시작
 
-Node.js 22.12 이상과 pnpm이 필요하다. 프로젝트 폴더에서:
+Python3.9 이상, Node.js22.12 이상, pnpm이 필요하다. 처음 한 번:
 
 ```sh
-pnpm install --frozen-lockfile
+PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 pnpm install --frozen-lockfile
+pnpm build
+pnpm check
 pnpm dev
 ```
 
-터미널에 표시된 로컬 주소를 브라우저에서 연다. `slides.md`를 수정하면 화면에 반영된다. 키보드 좌우 화살표로 이동한다.
+다른 포트를 쓰려면 `python3 scripts/seminar.py serve --port 4175`를 사용한다. `http://127.0.0.1:4175/index.html`을 연다. Chrome이 없다면 브라우저 검증을 위해 `pnpm exec playwright install chromium`을 한 번 실행한다.
 
-## 실제 화면을 PNG로 검토
+## 매번 반복할 작업
 
-첫 슬라이드의 미리보기:
-
-```sh
-pnpm capture --range 1
-```
-
-브라우저가 없다는 오류가 나오면 한 번만 `pnpm exec playwright install chromium`을 실행한다. macOS에 Chrome이 설치돼 있으면 다운로드 없이 다음 명령을 사용할 수 있다.
-
-```sh
-pnpm capture --range 1 --executable-path '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
-```
-
-결과는 `review/previews/`에 생성된다. `--with-clicks`로 단계별 표시 화면도 함께 내보낸다. 검토 요청 전 해당 결과를 `S001-v01`처럼 장 ID·버전에 맞춰 별도 이름으로 보존하고 `review/PROGRESS.md`에 실제 경로를 기록한다. 다시 내보내기 전 기존 버전 파일이 덮어써지지 않는지 확인한다.
-
-PNG는 실제 슬라이드 화면에서 생성한다. 이미지 생성 모델로 발표 화면을 흉내 내지 않는다.
-
-## 파일의 역할
-
-| 파일 | 역할 |
-| --- | --- |
-| `AGENTS.md` | 다른 공부 채팅이 따라야 할 제작·검토·보존 규칙 |
-| `PROJECT.md` | 원문과 공부 기록 위치, 제작 목적 |
-| `OUTLINE.md` | 사용자와 협의할 전체 목차 |
-| `slides.md` | 브라우저에서 보이는 슬라이드 원본 |
-| `style.css` | 글꼴·색상·여백과 공통 스타일 |
-| `templates/slide.md` | 한 장의 작성 양식 |
-| `SOURCES.md` | 근거와 슬라이드 연결 |
-| `review/PROGRESS.md` | 장별 버전·승인 상태·재개 위치 |
-| `review/FEEDBACK.md` | 사용자 피드백과 수정 이력 |
-| `public/figures/` | 발표에 실제 사용하는 그림 |
-| `deployment/github-pages.yml.example` | 향후 공개할 때 검토할 수동 배포 양식 |
-
-## 빌드 검증
+1. `START_HERE.md`, `AGENTS.md`, 공통 규칙과 기존 피드백을 먼저 읽는다.
+2. 공부한 Section을 `study/`에 기록한다. 기존 중앙 위키를 쓰려면 `seminar.json`의 `study_dir`과 `PROJECT.md`에 실제 경로를 지정한다.
+3. 목차와 대본의 흐름을 먼저 잡는다. `sections/*.md`에서 대본·화면·요점·출처를 함께 작성한다. 단계가 필요하면 `00-start.md`의 그림 설명 카드 형식을 따른다.
+4. 아래 명령으로 생성·검사한다. `SPEAKER_SCRIPT.md`를 직접 고쳤다면 먼저 해당 Section의 대본 필드에 반영한 뒤 빌드한다.
+5. 실제 화면을 보며 원문·의미·중복·자연스러운 연결을 검토한다. `templates/review-checklist.md`를 활용한다.
+6. 수정 요청과 칭찬을 원문대로 기록하고, 좋은 설명은 유지한 채 수정 범위만 고친다. 다시3–5를 진행한다.
 
 ```sh
+python3 scripts/seminar.py study --section 01-introduction --title 'Introduction'
 pnpm build
-pnpm build --base /new-paper-seminar/
+pnpm check
+pnpm verify
+python3 scripts/seminar.py feedback --slide S002 --kind praise --text '이전 방법과 다음 방법을 연결하는 설명이 좋다.'
+python3 scripts/seminar.py feedback --slide S002 --kind correction --text '대본 순서와 그림을 맞춰 달라.'
 ```
 
-빌드 결과는 `dist/`이며 Markdown·Vue·CSS를 정적 HTML/JS/CSS로 변환한다. 공개 빌드는 발표자 노트를 제외하지만, 공개 Git 저장소에 커밋한 소스 자체는 숨기지 않는다.
+브라우저 검증은 `CHROME_PATH`를 지정하거나 설치된 Chrome/Playwright Chromium을 사용한다. 캡처는 `review/previews/<빌드지문>/`, 결과는 `review/BROWSER_CHECK.json`에 저장한다. 자동 검사는 화면·링크·대본 일치 등을 확인하며, 논문 사실과 발표의 자연스러움은 사람이 원문과 함께 확인한다.
 
-## GitHub Pages는 나중에
+## 실제 편집 원본과 출력
 
-현재 원격 저장소와 공개 사이트는 없다. `deployment/`의 양식은 활성 워크플로가 아니며 자동 배포하지 않는다. 공개할 파일과 저장소 이름을 정한 뒤 양식을 `.github/workflows/pages.yml`로 복사하고 GitHub Pages에서 GitHub Actions를 선택한다. 승인 후 수동 실행한다. 저장소 이름을 바꾸면 base 경로와 공개 주소도 확인한다.
+| 위치 | 역할 |
+| --- | --- |
+| `seminar.json` | 논문명·현재 상태·공부 위치·Part 이름·선택적 시간 |
+| `study/` 또는 지정한 중앙 위키 | Section별 실제 공부·질문·수식·정정 |
+| `sections/*.md` | 화면·단계·대본·출처의 유일한 발표 편집 원본 |
+| `templates/` | 한 장·Section 공부·의미 검토 양식 |
+| `index.html`, `presentation.html`, `part-*.html` | 그림·수학 글꼴을 내장한 오프라인 발표 |
+| `SPEAKER_SCRIPT.md` | 원본과 같은 순서로 생성한 대본 |
+| `review/FEEDBACK.md` | 수정 요청·긍정 평가·반영 상태 |
+| `review/PROGRESS.md` | 진행 위치·검증·보류 사항 |
+| `docs/` | 공통 제작 규칙과 이전 피드백 교훈 |
 
-## 보존
+방향키로 단계/장을 넘기고, 뒤로 가면 이전 장의 마지막 단계로 들어간다. 페이지 번호로 이동하면 첫 단계부터 시작한다. 목차 G·전체 화면 F·그림 확대를 지원한다. 설명 메뉴와 N 단축키는 없다. 새 논문에는 RLDX의 모듈·수치·20분·장수·공개 권한을 복사하지 않는다.
 
-공부 기록, 슬라이드 원본, 피드백과 승인 기록을 보존한다. 빌드·PNG 미리보기는 재생성할 수 있다. 이 틀에는 파일을 자동 삭제하는 도구나 예약 작업이 없다.
+## 안전한 정리
 
-## 재발 방지 하네스
+```sh
+python3 scripts/seminar.py clean
+python3 scripts/seminar.py clean --apply
+```
 
-작업 전에 AGENTS.md와 docs/SEMINAR_PLAYBOOK.md·docs/FEEDBACK_LESSONS.md를 읽는다. 이전 피드백에서 얻은 규칙과 적용 범위를 확인하고 프로젝트별 PROGRESS/FEEDBACK 기록으로 이어간다. 기본은 전체 맥락의 초안 후 장별 수정이며 최신 사용자 요청이 우선한다. Section 공부 양식은 templates/study-section.md다.
+첫 명령은 후보만 보여준다. 캐시와 피드백에서 참조하지 않는 구버전 검토 캡처만 정리한다. 최신 캡처·Git 추적 파일·공부·원문·대본·피드백·현재 발표HTML·의존성은 제거하지 않는다. 예약 삭제는 하지 않는다.
+
+## 공개 후보 준비
+
+내용·원문·실제 화면을 검토한 뒤 `seminar.json`의 `status`를 `ready`, 해당 장의 `draft`를 `false`로 갱신한다.
+
+```sh
+python3 scripts/seminar.py check --ready
+python3 scripts/seminar.py package
+```
+
+`dist/`에는 공개 후보HTML만 들어간다. 원문 PDF·공부·피드백·대본은 발표HTML에 넣지 않는다. GitHub 저장소/Pages를 실제 생성·게시하는 것은 별도 작업이다. `deployment/github-pages.yml.example`은 비활성 예시이며 자동 게시하지 않는다.

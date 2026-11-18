@@ -1,6 +1,5 @@
 """Read the nine editable Markdown sections, without rewriting their sources."""
 from pathlib import Path
-from html import escape
 from collections import Counter
 import json
 import re
@@ -8,7 +7,6 @@ import shutil
 import subprocess
 
 FIELDS = ['한 문장', '본문', '보충', '요점', '출처', '발표 메모', '상세 공부 기록', '확대 단계', '화살표 설명', '그림 위 표시', '그림 설명 카드']
-KIND_LABELS = {'fact': '원문 설명·결과', 'authors': '저자 해석', 'interpretation': '우리 해석', 'example': '설명용 예시', 'question': '미해결 질문'}
 STUDY_FIELDS = ['한 문장', '본문', '보충', '요점', '출처', '발표 메모']
 NODE_FALLBACK = '/Users/jungsoo_ko/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin/node'
 
@@ -37,19 +35,6 @@ def metadata(block, label):
             result[key.strip()] = value.strip()
     return result
 
-def paragraph_class(html, name, prefix=''):
-    if not html:
-        return ''
-    return re.sub(r'<p>', f'<p class="{name}">{prefix}', html, count=1)
-
-def study_figure(config):
-    if not config.get('figure'):
-        return ''
-    name = escape(config['figure'], quote=True)
-    caption = escape(config.get('caption', ''))
-    return (f'<figure><img src="/figures/{name}" alt="{caption}">'
-            f'<figcaption>{caption}</figcaption></figure>')
-
 def load_sections(root):
     pages = []
     for file in sorted((root / 'sections').glob('[0-9][0-9]-*.md')):
@@ -66,7 +51,6 @@ def load_sections(root):
             row = dict(id=match[1], title=match[2].strip(), chapter=config.get('chapter', chapter),
                        layout=config.get('layout', 'full'), kind=config.get('kind', 'fact'),
                        lead=parts.get('한 문장', ''), takeaway=parts.get('요점', ''), source=parts.get('출처', ''),
-                       notes=parts.get('발표 메모', ''),
                        source_ids=[s.strip() for s in config.get('source_ids', '').split(',') if s.strip()],
                        markdown_source=str(file.relative_to(root)), _parts=parts)
             if config.get('figure'):
@@ -78,7 +62,7 @@ def load_sections(root):
     work = []
     for row in pages:
         work.extend([row['_parts'].get('본문', ''), row['_parts'].get('보충', ''),
-                     {'text': row['lead'], 'inline': True}, {'text': row['takeaway'], 'inline': True}, row['notes']])
+                     {'text': row['lead'], 'inline': True}, {'text': row['takeaway'], 'inline': True}])
         matches = list(re.finditer(r'^#### \[(S\d{3})\][ \t]+([^\n]+)$', row['_parts'].get('상세 공부 기록', ''), re.M))
         detail = row['_parts'].get('상세 공부 기록', '')
         row['_units'] = []
@@ -88,7 +72,6 @@ def load_sections(root):
                         config=metadata(content, 'study-meta'),
                         parts=field_sections(content, 5, STUDY_FIELDS))
             row['_units'].append(unit)
-            work.extend(unit['parts'].get(field, '') for field in STUDY_FIELDS)
     mapped = Counter(sid for row in pages for sid in row['source_ids'])
     expected = {f'S{i:03}' for i in range(2, 123)}
     if set(mapped) != expected or any(count != 1 for count in mapped.values()):
@@ -99,28 +82,7 @@ def load_sections(root):
         row['aside'] = next(rendered)
         row['lead'] = next(rendered)
         row['takeaway'] = next(rendered)
-        html = '<div class="study-intro">' + next(rendered) + '</div>'
-        note_blocks = []
-        for unit in row['_units']:
-            sid, title, config = unit['id'], unit['title'], unit['config']
-            content = {field: next(rendered) for field in STUDY_FIELDS}
-            # Field headings structure the MD source; show the content with the
-            # established study styles instead of six unstyled label headings.
-            body = re.sub(r'<(/?)h[56]>', r'<\1h3>', content['본문'])
-            aside = re.sub(r'<(/?)h[56]>', r'<\1h3>', content['보충'])
-            html += (f'<section class="study-unit" data-kind="{escape(config.get("kind", "fact"), quote=True)}">'
-                     f'<h3><small>상세 해설 {sid} · {KIND_LABELS[config.get("kind", "fact")]}</small>{escape(title)}</h3>'
-                     + paragraph_class(content['한 문장'], 'study-lead')
-                     + study_figure(config) + body + aside
-                     + paragraph_class(content['요점'], 'study-takeaway')
-                     + paragraph_class(content['출처'], 'study-source', '출처: ')
-                     + paragraph_class(content['발표 메모'], 'study-extra')
-                     + '</section>')
-            note_blocks.append(sid + ' ' + title + '\n' + '\n'.join(
-                unit['parts'].get(field, '') for field in STUDY_FIELDS))
         assert [u['id'] for u in row['_units']] == row['source_ids'], (row['id'], 'detail mapping')
-        row['study_html'] = html
-        row['notes'] += '\n\n' + '\n\n'.join(note_blocks)
     return pages
 
 def apply_tour_text(tour, page):

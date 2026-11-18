@@ -1,7 +1,6 @@
 // No CDN, analytics, or network requests. The deck works from file://.
 const pages = [...document.querySelectorAll('.deck-page')];
 const toc = document.querySelector('#toc');
-const notes = document.querySelector('#notes');
 const imageDialog = document.querySelector('#image-dialog');
 let current = 0;
 const explorer = document.querySelector('.architecture-explorer');
@@ -265,19 +264,6 @@ function show(index, updateHash = true, enterAtLastStep = false) {
   document.querySelector('#prev').disabled = current === 0;
   document.querySelector('#next').disabled = current === pages.length - 1;
   if (updateHash) history.replaceState(null, '', `#${DECK[current].id}`);
-}
-// Retain study-note rendering for internal verification, without a menu or shortcut.
-function openNotes() {
-  document.querySelector('#notes-title').textContent = `${DECK[current].id} · ${DECK[current].title}`;
-  const content = document.querySelector('#notes-text');
-  content.innerHTML = DECK[current].notesHtml || '';
-  content.querySelectorAll('img[data-asset]').forEach(im => im.src = ASSETS[im.dataset.asset]);
-  content.querySelectorAll('figure img').forEach(im => im.onclick = () => {
-    imageDialog.querySelector('img').src = im.src;
-    imageDialog.querySelector('img').alt = im.alt;
-    imageDialog.showModal();
-  });
-  notes.showModal();
 }
 // Jump by presentation order; show() enters interactive slides at their first step.
 document.querySelector('#page-jump').addEventListener('submit', event => {

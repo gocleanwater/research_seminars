@@ -1,0 +1,10 @@
+{
+  "title": "논문명 미정",
+  "status": "scaffold",
+  "study_dir": "study",
+  "parts": {
+    "1": "구조와 학습",
+    "2": "평가와 분석"
+  },
+  "duration_minutes": null
+}

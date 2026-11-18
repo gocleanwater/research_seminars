@@ -21,7 +21,7 @@ class PartOutputsTests(unittest.TestCase):
         self.manifest[0]['source_ids'] = ['S001']
         for i, row in enumerate(self.manifest[1:]):
             row['source_ids'] = [f'S{j:03d}' for j in range(i + 2, 123, 45)]
-        self.data = [dict(id=sid, title=f'Title {sid}', notes='literal ;const ASSETS= and & < >', notesHtml='<p data-x="a&amp;b">원문 &lt;note&gt;</p>') for sid in self.ids]
+        self.data = [dict(id=sid, title=f'Title {sid}', literal='literal ;const ASSETS= and & < >', sampleHtml='<p data-x="a&amp;b">원문 &lt;note&gt;</p>') for sid in self.ids]
         pages = ''.join(f'<article class="deck-page{" active" if i == 0 else ""}" data-id="{sid}"><section><div><p>Keep &amp; &lt;article&gt; {sid}</p></div><footer><span class="source">원문</span><span class="slide-id">{sid} · {i+1:03d}/46</span></footer></section></article>' for i, sid in enumerate(self.ids))
         pages = pages.replace('class="slide-id">S001 · 001/46', 'class="cover-slide-id">S001')
         toc = ''.join(f'<a class="toc-entry" href="#{sid}" data-index="{i}" data-search="A &amp; B"><small>{sid}</small>Title</a>' for i, sid in enumerate(self.ids))

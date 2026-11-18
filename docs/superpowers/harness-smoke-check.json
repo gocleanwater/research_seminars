@@ -1,0 +1,19 @@
+{
+  "projectCreation": true,
+  "build": true,
+  "scriptGuard": true,
+  "staleScreenGuard": true,
+  "studyNoOverwrite": true,
+  "praiseRecorded": true,
+  "cleanProtectedFiles": true,
+  "draftReadyGuard": true,
+  "htmlOnlyPackage": true,
+  "browser": {
+    "fingerprint": "0cf7a9fbd8df",
+    "pages": 3,
+    "screens": 4,
+    "errors": [],
+    "externalRequests": [],
+    "meaningAndPaperFacts": "requires human/source review"
+  }
+}

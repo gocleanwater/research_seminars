@@ -36,23 +36,7 @@ try{
   const annotations=await page.locator('.arch-detail-content annotation').allTextContents();
   assert(annotations.some(t=>t.includes('\\lVert')&&t.includes('\\rVert_2^2')),'loss norm and square must remain explicit LaTeX');
   await page.locator('.deck-page.active').screenshot({path:`review/previews/deck-${version}/math-loss-${version}.png`});
-  await page.evaluate(() => openNotes());
-  assert(await page.locator('#notes-text .katex').count()>0,'detail notes must typeset math');
-  await page.evaluate(()=>document.fonts.ready);
-  const noteOverflow=await page.locator('#notes-text .equation').evaluateAll(elements=>elements.filter(e=>e.scrollWidth>e.clientWidth+3).map(e=>({width:e.clientWidth,scroll:e.scrollWidth,tex:e.querySelector('annotation')?.textContent})));
-  assert.deepEqual(noteOverflow,[],'loss detail math should fit the notes dialog');
-  await page.keyboard.press('Escape');
-  const allNoteOverflows=[];
-  const pageCount=await page.evaluate(()=>window.deckData.length);
-  for(let i=1;i<pageCount;i++){
-    await page.evaluate(n=>window.deckShow(n),i);await page.evaluate(() => openNotes());
-    await page.evaluate(()=>document.fonts.ready);
-    const overflow=await page.locator('#notes-text .equation').evaluateAll(elements=>elements.filter(e=>e.scrollWidth>e.clientWidth+3).map(e=>e.querySelector('annotation')?.textContent));
-    if(overflow.length)allNoteOverflows.push({index:i,formulas:overflow});
-    await page.keyboard.press('Escape');
-  }
-  assert.deepEqual(allNoteOverflows,[],'All detail formula blocks should fit the notes dialog');
   assert.deepEqual(errors,[]);assert.deepEqual(external,[]);
-  fs.writeFileSync('qa/full-deck/math-font-report.json',JSON.stringify({fonts,latinFonts,fontFaces,katexHtml:true,mathml:true,fraction:true,lossNorm:true,detailNotes:true,notePages:pageCount-1,allNoteOverflows,errors,externalRequests:external},null,2));
-  console.log('PASS: Arial Latin / Korean fallback glyphs, embedded Nanum fallback; LaTeX inline/display, true fraction/norm, detail notes; external requests 0.');
+  fs.writeFileSync('qa/full-deck/math-font-report.json',JSON.stringify({fonts,latinFonts,fontFaces,katexHtml:true,mathml:true,fraction:true,lossNorm:true,errors,externalRequests:external},null,2));
+  console.log('PASS: Arial Latin / Korean fallback glyphs, embedded Nanum fallback; LaTeX inline/display, true fraction/norm; external requests 0.');
 }finally{await browser.close();}

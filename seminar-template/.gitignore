@@ -1,7 +1,15 @@
 node_modules/
 dist/
-.slidev/
 .DS_Store
 qa/
 review/previews/
 *.log
+__pycache__/
+*.pyc
+.cache/
+/index.html
+/presentation.html
+/part-*.html
+/SPEAKER_SCRIPT.md
+/content/manifest.json
+/review/BROWSER_CHECK.json
