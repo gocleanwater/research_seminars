@@ -1,5 +1,8 @@
 # v33 — Part 분리와 Figure3 설명 통합
 
+v37 현재: 전체46장 / Part1 18장 / Part2 28장. P099 다음 P101에 짧은 요약, 독립 Conclusion 제외·RL/지연 중복 통합. 상세 검토는 PART2_REVIEW.md. 아래 이전 수치는 이력이다.
+
+
 v36 현재: 전체49장·Part1 18장(S001–P098 Q&A)·Part2 31장(P099 시작–P100 Q&A). 첫 장은 클릭 목차다. 아래 이전 수치는 당시 이력이며, 현재 경계와 링크는 PART_NAVIGATION_REVIEW.md를 따른다.
 
 v35: 공개·자체 데이터 두 장을 P013에 통합해 현재 전체45장·Part1 16장·Part2 29장이다. P032 36단계·P037/P096 경계는 유지한다. 데이터/학습 변경은 DATA_TRAINING_REVIEW.md를 따른다. 아래 수치는 당시 이력이다.

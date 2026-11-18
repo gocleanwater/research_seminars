@@ -17,7 +17,7 @@ source_ids:
 
 ### 본문
 
-<div class="part-boundary-visual"><p>추론 최적화 → 성능 평가 → 설계 분석</p><div><a href="#P020">Part 2 시작 →</a><a href="#S001">전체 목차</a></div></div>
+<div class="part-boundary-visual"><p>추론 최적화 → 성능 평가 → 설계 분석</p><div><a href="#P101">Part 2 시작 →</a><a href="#S001">전체 목차</a></div></div>
 
 ### 보충
 
@@ -33,6 +33,131 @@ Part 2에서는 추론을 어떻게 빠르게 하는지, 실제 평가에서 어
 
 ### 상세 공부 기록
 
+## [P101] Part 1 한눈에 보기
+
+<!-- slide-meta
+layout: full
+kind: interpretation
+source_ids: S116, S117
+-->
+
+### 한 문장
+
+RLDX-1은 보고, 기억하고, 접촉을 느끼며 로봇의 행동을 만든다.
+
+### 본문
+
+<div class="flow ordered-flow"><div class="node"><strong>영상·언어 지시</strong><br>무엇을 해야 할까?</div><div class="node"><strong>조작에 필요한 정보</strong><br>움직임 · 과거 기억 · 물리 신호</div><div class="node"><strong>행동 묶음 생성</strong><br>노이즈 후보를 여러 번 다듬기</div></div>
+
+<p class="callout">생성한 행동을 일부 실행하고, 바뀐 장면을 다시 보며 다음 행동을 만든다.</p>
+
+실제 시연과 합성 경험으로 학습하고, 새 로봇·작업에 맞게 적응시킨다.
+
+### 보충
+
+### 요점
+
+Part 2에서는 얼마나 빠르게 계산하고, 실제로 얼마나 잘 조작하는지 본다.
+
+### 출처
+
+Part 1 요약 · Sec.2–5 · Fig.3 · PDF pp.6–17
+
+### 발표 메모
+
+RLDX-1은 영상과 지시를 보고, 움직임과 과거 기억, 접촉 정보를 활용해 행동을 만듭니다. 노이즈 후보를 여러 번 다듬어 행동 묶음을 얻고, 일부 실행한 뒤 다시 관측합니다. 실제 시연과 합성 경험으로 학습하고 새 로봇과 작업에 맞게 적응시킵니다. Part 2에서는 이 계산을 얼마나 빠르게 하고, 조작은 얼마나 잘하는지 보겠습니다.
+
+#### 기존 상세 참고 — 발표에서 그대로 읽지 않음
+
+#### 통합한 설명의 기존 참고
+
+연결 멘트: “여기까지의 구조·데이터·학습·실행·평가를 한 흐름으로 정리하면 이 논문의 기여가 됩니다. 이어서 이 결과에 대한 해석과 남은 한계를 구분해 말씀드리겠습니다.” 원문 Conclusion은 움직임·장기 기억·물리 센싱을 통합하고 합성 데이터, 세 단계 학습, 추론 최적화를 함께 설계한 점을 정리한다. Simulation 성과는 benchmark별 fine-tuning 이후 full recipe의 결과이고 모든 task에 zero-shot으로 투입했다는 뜻이 아니다. 기능별 평가는 task-relevant module만 활성화하므로 세 기능의 동시 시너지로 확대하지 않는다. Conclusion의 ALLEX around90 vs frontier around40은86.8대39.1/44.8의 혼합 평균에 해당한다. 완전 성공90%로 말하지 않는다. RECAP frames/attempts와 policy latency p50도 성공률이나 end-to-end latency와 구별한다. 기존 Related Work(S116)는 source\_ids 연결과 상세 N 해설에 보존한다. 그 내용은 VLA·영상 생성+IDM·기능별 연구를 통합했다는 저자의 연구 위치 설명이며 현재 SOTA나 최초성을 별도로 검증한 결과가 아니다. S117의 결론 해설도 그대로 유지한다.
+
+### 상세 공부 기록
+#### [S116] Related Work의 세 흐름
+
+<!-- study-meta
+layout: split
+kind: authors
+-->
+
+##### 한 문장
+
+저자는 VLA·영상 합성·기능별 연구를 하나의 실용 시스템으로 통합한 점을 강조한다.
+
+##### 본문
+
+###### VLA의 행동 생성
+
+VLM을 상위 계획기로 쓰는 modular 접근에서 이산 action token 또는 flow action decoder를 쓰는 end-to-end VLA로 이어지는 흐름을 설명한다.
+
+###### 합성 데이터
+
+Simulation rollout뿐 아니라 생성 영상에 IDM으로 행동 라벨을 붙이는 흐름을 검토한다. RLDX-1은 ALLEX의 따르기·전구 같은 구체적 조작으로 확장한다고 주장한다.
+
+##### 보충
+
+###### 세 기능의 기존 연구
+
+Multi-frame·시간 압축, 과거 특징 memory queue, torque·촉각 및 복수 물리 신호 연구를 연결한다.
+
+<span class="label authors">차별점 주장</span> 개별 기능을 넘어 움직임·기억·물리 센싱을 통합 policy로 다루고 합성 데이터·학습·실행 최적화를 함께 설계한다.
+
+이는 저자의 연구 위치 설명이다. 관련 연구를 모두 재현했거나 최초성을 검증했다는 뜻은 아니다.
+
+##### 요점
+
+여러 기능을 실제로 연결한 시스템 기여로 읽는다.
+
+##### 출처
+
+Sec.7 Related Work · PDF p.27
+
+##### 발표 메모
+
+본 slide는 보고서의 Related Work를 정리한 것으로 현재 SOTA나 전 분야 최신 계보를 새로 검색해 주장하는 것이 아니다. 합성 영상 자체에 torque가 없어도 torque-annotated real data와 함께 쓸 때 유용했다는 저자 주장은 결측 modality 처리와 관련된다. 통합 architecture의 주장과 기능별 benchmark에서는 relevant module only였다는 실험 조건을 함께 유지한다.
+
+#### [S117] Conclusion과 검증된 범위
+
+<!-- study-meta
+layout: split
+kind: interpretation
+-->
+
+##### 한 문장
+
+기능 확장·합성 데이터·3단계 학습·추론 최적화를 결합한 시스템이 성과를 보였다.
+
+##### 본문
+
+###### 원문이 제시한 기여
+
+언어 조건 행동 생성에 motion·memory·physical sensing을 통합하고 합성 데이터·pre/mid/post-training·실행 최적화를 연결했다.
+
+Table 1의 여러 benchmark와 OpenArm에서 비교 모델보다 높은 보고값을 얻었다. ALLEX·Franka 기능별 과제와 전구 RECAP에서도 개선이 관측됐다.
+
+##### 보충
+
+###### 성과를 정확히 전달하려면
+
+ALLEX “약 90%”는 86.8의 혼합 지표다. RC365 복합 과제·Franka 접촉 조작에는 낮은 절대 성공률이 남는다.
+
+각 모듈의 독립 기여·세 기능 동시 효과·평가 불확실성·end-to-end tail latency는 더 확인해야 한다.
+
+<span class="label interpretation">우리의 결론</span> 실용 통합의 유망한 결과와 재현·인과 분해의 남은 과제를 함께 보존한다.
+
+##### 요점
+
+구체적인 조건에서 확인된 시스템 성과와 아직 열린 검증을 구분한다.
+
+##### 출처
+
+Sec.8 · PDF p.28; Sec.6 · PDF pp.17–26; App.G · PDF pp.48–55
+
+##### 발표 메모
+
+Conclusion의 ALLEX around90 vs frontier around40은 RLDX86.8과π0.5 39.1/N1.6 44.8의 혼합 평균에 연결된다. 이를 완전 성공90%로 번역하지 않는다. Simulation 우위는 benchmark별 fine-tuning 뒤의 full recipe 비교이며 zero-shot all tasks가 아니다. 물리 입력과 future trajectory 보조 목표의 기여도 별도로 분해해야 한다. Q11–13 및 Table9의 집계 불일치는 곧 모델 결함이라고 해석하지 않는다.
+
 ## [P020] CUDA Graph
 
 <!-- slide-meta
@@ -45,21 +170,17 @@ caption: Figure 9 · 위: 여러 graph launch / 아래: 한 CUDA Graph launch
 
 ### 한 문장
 
-고정된 배포 설정의 RoPE·mask 준비값을 미리 계산해, 반복할 forward를 하나의 그래프로 캡처한다.
+반복할 GPU 작업을 미리 묶어 두고, 한 번의 호출로 실행한다.
 
 ### 본문
 
-#### 왜 설정값이 필요한가?
+#### 실행 전 준비
 
-토큰 수·위치 배치·서로 볼 수 있는 범위에 따라 **RoPE 위치값과 attention mask의 구조**가 정해진다.
+토큰 수·위치·attention mask가 고정된 배포 설정에서는 **RoPE·mask 준비값을 미리 계산해 재사용**한다.
 
-#### 배포 후 고정된 설정이라면?
+<div class="flow"><div class="node"><strong>Figure 9 위</strong><br>나뉜 graph를 각각 호출</div><div class="node"><strong>Figure 9 아래</strong><br>한 forward를 한 graph로 호출</div></div>
 
-같은 설정으로 반복 추론하므로 필요한 준비값도 같다. **사전에 계산해 재사용**할 수 있다.
-
-#### 그래서 Figure 9는?
-
-설정 의존 준비 계산을 forward 밖으로 옮긴다. 쪼개졌던 forward 전체를 **하나의 CUDA Graph**로 캡처해 한 번에 실행한다.
+고정 설정의 준비 계산을 forward 밖으로 옮겨 **graph break와 호출 부담**을 줄인다.
 
 ### 보충
 
@@ -67,7 +188,7 @@ caption: Figure 9 · 위: 여러 graph launch / 아래: 한 CUDA Graph launch
 
 ### 요점
 
-설정이 고정된 준비값을 재사용해 graph break를 줄이고, 반복적인 launch 비용을 줄인다.
+Graph는 GPU 작업을 묶는 실행 계획이다. 영상에 따라 달라지는 계산은 매번 수행한다.
 
 ### 출처
 
@@ -264,21 +385,19 @@ caption: Figure 10 · (a) 중간 결과를 저장·재읽기 / (b) fused kernel 
 
 ### 한 문장
 
-RMSNorm·RoPE·Attention을 하나의 fused GPU kernel 안에서 이어 계산해 중간 메모리 왕복을 줄인다.
+중간 계산값을 메모리에 썼다가 다시 읽는 왕복을 줄인다.
 
 ### 본문
 
-#### (a) 따로 계산하면
+#### Figure 10(a) · 연산을 나눠 실행
 
-RMSNorm 계산 → 결과를 **global memory에 저장** → 다음 kernel이 읽기 → RoPE 계산 → 다시 저장·읽기 → Attention.
+정규화 → **저장·다시 읽기** → 위치 반영 → **저장·다시 읽기** → Attention
 
-#### (b) 하나의 fused kernel이면
+#### Figure 10(b) · 한 kernel 안에서 이어 실행
 
-필요한 입력을 읽고, **중간 결과를 on-chip에서 이어 사용**하며 끝까지 계산한 뒤 최종 출력을 저장한다.
+정규화 → 위치 반영 → Attention
 
-#### 직관
-
-중간 답을 매번 메모리에 적었다가 다시 꺼내는 대신, **한 계산 흐름 안에서 계속 사용하는 방식**이다.
+**중간값은 on-chip에서 이어 사용**하고 마지막 결과를 저장한다.
 
 ### 보충
 
@@ -286,7 +405,7 @@ RMSNorm 계산 → 결과를 **global memory에 저장** → 다음 kernel이 �
 
 ### 요점
 
-한 fused kernel 실행 안에서 연산을 이어 수행한다. 핵심은 중간 결과의 저장·재읽기를 줄이는 것이다.
+CUDA Graph는 호출 부담을, Kernel Fusion은 연산 사이의 메모리 이동을 줄인다.
 
 ### 출처
 

@@ -1,9 +1,14 @@
 # 프로젝트 설정
 
-현재 발표 파일: `part-1.html` 18장(P098 Q&A까지), `part-2.html` 31장(P099 시작–P100 Q&A), `presentation.html` 전체49장. Part별 대본은 `SPEAKER_SCRIPT_PART1.md`/`SPEAKER_SCRIPT_PART2.md`다. 기존5–10쪽은4쪽에서 맥락을 따라 설명하며 독립 페이지는 제외했다. 상세 기록은 보존한다.
+## 현재 Part 2 구성 — v37 / 2026-11-18
+
+전체46장 / Part 1 18장 / Part 2 28장. P099→P101 짧은 Part 1 요약→P020 추론→평가→분석→P028/P030 의견→P100 Q&A. 독립 Conclusion P029는 제외하고 상세 기록을 P101에 보존했다. P070/P067/P069는 각각 P065/P066/P068에 통합했다. 기존121개 공부 단위와 Part 1의 과학 내용·P032 36단계는 유지한다. 아래 과거 버전 표·장수는 이력이며 현재 순서는 content/deck-manifest.json 및 review/SLIDE_INDEX.md를 따른다. 사용자 결과물 검토 전.
+
+
+현재 발표 파일: `part-1.html` 18장(P098 Q&A까지), `part-2.html` 28장(P099 시작–P100 Q&A), `presentation.html` 전체46장. Part별 대본은 `SPEAKER_SCRIPT_PART1.md`/`SPEAKER_SCRIPT_PART2.md`다. 기존5–10쪽은4쪽에서 맥락을 따라 설명하며 독립 페이지는 제외했다. 상세 기록은 보존한다.
 
 - 논문: RLDX-1 Technical Report
-- 상태: v36 / 클릭 목차·Part 시작·Q&A 종료 / 전체49장·상세121단위 유지
+- 상태: v37 / Part 2 개편·짧은 선수 요약 / 전체46장·상세121단위 유지
 - 목적: 전체 맥락의 HTML 발표와 자세한 공부 기록을 함께 유지하고, 사용자 피드백에 따라 장별로 수정
 - 형식: 오프라인 단일 HTML 중심 / Slidev 생성 소스 병행
 - 발표 시간·장수·청중: 별도 제한 없음. 이전 30장 한도는 해제
@@ -13,10 +18,10 @@
 - 이전 자료: `content/main-*.json`과 상세 JSON은 마이그레이션 스냅샷으로 보존. 이후 내용 수정은 MD에서 진행
 - 상세 공부 기록: 기존 S002–S122를 연결한 N 해설로 보존. 본문 장수와 상세 단위 수를 일대일 대응하지 않음
 - 결과물: `presentation.html`·`index.html`(동일한 오프라인/게시용 발표), `slides.md`(Slidev 생성 소스), `review/SLIDE_INDEX.md`(본문·상세 해설 매핑)
-- 발표 대본: `SPEAKER_SCRIPT.md` v09. 현재 v36의49장과 Figure3의36단계에 대응하는 별도 리허설 문서. 검토 기록은 `review/SCRIPT_REVIEW.md`, 확인은 `python3 scripts/verify_speaker_script.py`. HTML N 상세 기록은 유지한다.
+- 발표 대본: `SPEAKER_SCRIPT.md` v10. 현재 v37의46장과 Figure3의36단계에 대응하는 별도 리허설 문서. 검토 기록은 `review/SCRIPT_REVIEW.md`, 확인은 `python3 scripts/verify_speaker_script.py`. HTML N 상세 기록은 유지한다.
 - 페이지 이동: 하단 현재 번호를 입력하고 Enter. 번호로 이동하면 Fig.3 같은 단계형 페이지도 첫 단계로 진입한다. Esc는 입력 취소.
 - 모바일 조작: 좁은 세로 화면에서는 하단 메뉴가 두 줄, 가로 화면에서는 가능한 폭에서 한 줄로 배치된다. 터치 버튼/번호 입력은 최소44px이며 safe area를 반영한다. 슬라이드 크기는 실제 메뉴 높이에 맞춰 조정된다.
-- 발표 구성: 클릭 목차 → Part1 시작 → Problems/Architecture/Data/Training/정리 → Part1 Q&A → Part2 시작 → Inference/Evaluation/Ablation/Conclusion/의견 → Part2 Q&A.
+- 발표 구성: 클릭 목차 → Part1 시작 → Problems/Architecture/Data/Training/정리 → Part1 Q&A → Part2 시작 → 짧은 Part1 요약 → Inference/Evaluation/Ablation/의견 → Part2 Q&A.
 - Figure 3: 전체 그림 → Vision Encoder·VLM·Memory Module·MSAT 네 모듈 확대/복귀와 순차 화살표 설명. 버튼·좌우 방향키와 기존 PPT 조작 유지. 수식은 별도 장에서 설명
 - P032 v05: video·language·cognition(64) 토큰 범위를 그림에 묶음 괄호·화살표로 표시, 과거 프레임 → context 1개에 ‘압축’ 명시. 본문은 ‘중간층’과 ‘cognition token 위치의 출력 특징을 행동 생성을 위해 전달’, 18층 사실은 상세 해설에 보존
 - Memory 최신 정정: `C = concat(h_t, m_t)`로 토큰 축 연결 표시. MSAT velocity 예측과 최종 clean action chunk는 구분해 설명. 원문 대조 및 27개 설명 상태·기본30개 화면 검증 완료

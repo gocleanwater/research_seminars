@@ -13,7 +13,7 @@ try{
   for(const file of ['presentation.html','part-1.html']){
     await page.goto(base(file)+'#S001');await page.evaluate(()=>document.fonts.ready);
     const entries=await page.locator('.cover-part-agenda a').evaluateAll(es=>es.map(e=>({href:e.getAttribute('href'),text:e.textContent})));
-    assert.equal(entries.length,13);
+    assert.equal(entries.length,14);
     const bounds=await page.locator('.cover-agenda').evaluate(root=>{
       const limits=root.getBoundingClientRect(),copy=root.querySelector('.cover-description').getBoundingClientRect(),image=root.querySelector('.cover-system').getBoundingClientRect(),footer=root.querySelector('.cover-footer').getBoundingClientRect();
       const bad=[...root.querySelectorAll('.agenda-part a')].filter(e=>{const b=e.getBoundingClientRect();return b.right>limits.right||b.left<limits.left||b.bottom>footer.top||e.scrollWidth>e.clientWidth+1;}).map(e=>e.textContent);
@@ -24,7 +24,7 @@ try{
       await page.goto(base(file)+'#S001');
       await page.locator(`.cover-part-agenda a[href="${entry.href}"]`).click();
       const id=entry.href.split('#')[1];await page.waitForFunction(id=>document.querySelector('.deck-page.active')?.dataset.id===id,id);assert.equal(await active(),id,entry.text);
-      if(file==='part-1.html'&&['P099','P020','P040','P026','P029','P100'].includes(id))assert.equal(path.basename(new URL(page.url()).pathname),'part-2.html');
+      if(file==='part-1.html'&&['P099','P020','P040','P026','P028','P101','P100'].includes(id))assert.equal(path.basename(new URL(page.url()).pathname),'part-2.html');
       results.push({file,id});
     }
   }
@@ -37,5 +37,5 @@ try{
   await page.locator('.deck-page.active .part-boundary-visual a[href="part-1.html#S001"]').click();await page.waitForFunction(()=>document.querySelector('.deck-page.active')?.dataset.id==='S001');assert.equal(await active(),'S001');
   assert.deepEqual(errors,[]);
   fs.mkdirSync('qa/full-deck',{recursive:true});fs.writeFileSync('qa/full-deck/part-agenda-report.json',JSON.stringify({links:results.length,coverBounds:true,keyboardActivation:true,qaBoundaries:true,crossPartLinks:true,errors},null,2));
-  console.log('PASS:26 topic links, cover bounds, Enter activation, Part dividers, Q&A boundaries, cross-file navigation.');
+  console.log('PASS:28 topic links, cover bounds, Enter activation, Part dividers, Q&A boundaries, cross-file navigation.');
 }finally{await browser.close();}

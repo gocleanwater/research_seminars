@@ -139,7 +139,7 @@ source_ids: S098
 
 ### 한 문장
 
-Table 2(a)는 VLM의 특징을 꺼내는 층을 바꿨을 때 조작 성공률이 어떻게 달라지는지 비교한다.
+행동 생성에 전달할 VLM 특징을 어디에서 꺼내는 것이 좋을까?
 
 ### 본문
 
@@ -157,17 +157,17 @@ Table 2(a)는 VLM의 특징을 꺼내는 층을 바꿨을 때 조작 성공률�
 
 ### 보충
 
-#### 왜 중간층이 유리했을까?
+#### 결과의 의미
 
-<p><span class="label authors">저자 해석</span> 초반층은 의미 정보가 부족하고, 후반층은 세밀한 시각 정보와의 정렬이 약해질 수 있다. 중간층은 <strong>시각적 grounding과 의미적 추상화 사이의 균형</strong>이 더 좋다는 설명이다.</p>
+세 후보 중 **18층 특징**을 사용했을 때 성공률이 가장 높다.
 
-<p class="callout"><span class="label interpretation">우리의 직관</span> “무엇을 조작해야 하는지”와 “손·물체가 정확히 어디에 있는지”를 함께 담은 표현이 행동 생성에 유리할 수 있다.</p>
+저자는 대상의 위치 같은 **시각 정보**와 무엇을 해야 하는지에 대한 **의미 정보**가 중간층에서 더 잘 균형을 이룬다고 해석한다.
 
-<p class="mini">성공률 차이는 관측 결과이고, 의미·시각 정보의 균형은 그 결과에 대한 해석이다.</p>
+<p class="mini">층별 성공률은 관측 결과이고, 정보의 균형은 그 결과에 대한 저자의 해석이다.</p>
 
 ### 요점
 
-언어 생성에 가까운 마지막 층보다, 조작에 필요한 의미와 시각 정보를 함께 담은 중간 표현이 유리할 수 있다.
+이 분석에서는 마지막 층보다 중간층 특징이 조작에 유리했다.
 
 ### 출처
 
@@ -234,7 +234,7 @@ source_ids: S099
 
 ### 한 문장
 
-Table 2(b)는 로봇 관련 VQA로 적응시킨 VLM이 실제 조작 성공률에도 도움이 되는지 확인한다.
+범용 VLM에 로봇 장면을 묻고 답하게 하면, 조작에도 도움이 될까?
 
 ### 본문
 
@@ -251,17 +251,13 @@ Table 2(b)는 로봇 관련 VQA로 적응시킨 VLM이 실제 조작 성공률�
 
 ### 보충
 
-#### 범용 이해를 로봇 조작에 맞추기
+<div class="flow"><div class="node"><strong>로봇 VQA</strong><br>손·물체·작업 관계를 학습</div><div class="node"><strong>VLM 특징</strong><br>조작에 필요한 정보를 전달</div><div class="node"><strong>행동 생성</strong><br>실제 조작 성공률로 평가</div></div>
 
-<p><span class="label authors">저자 해석</span> 로봇 VQA supervision이 VLM 특징을 행동 예측에 더 관련되도록 다듬었다고 설명한다.</p>
-
-<p class="callout"><span class="label interpretation">우리의 직관</span> “컵이 있다”는 이해에서 더 나아가, 손과 컵의 공간 관계·현재 하위 작업·대응 행동을 연결하도록 연습시키는 셈이다.</p>
-
-공간 관계·subtask·low-level action 중 무엇의 기여가 가장 큰지는 이 표에서 따로 비교하지 않는다.
+<p class="mini">공간 관계·하위 작업·행동 설명 중 어떤 질문 유형이 가장 기여했는지는 따로 분리하지 않았다.</p>
 
 ### 요점
 
-VLM이 이미 장면을 잘 이해해도, 로봇 조작에 맞춘 추가 supervision이 행동 성능을 높일 수 있다.
+VQA 정답률을 본 표가 아니다. 로봇 VQA 적응 뒤 조작 성공률이 3.4%p 높아졌다.
 
 ### 출처
 
@@ -333,7 +329,7 @@ caption: Figure 19 · 마지막 prompt token에서 image patch로 향하는 atte
 
 ### 한 문장
 
-Figure 19는 로봇 VQA 전후에 VLM이 영상의 어느 영역을 더 참고하는지 정성적으로 비교한다.
+로봇 VQA 전후, 지시를 처리할 때 참고하는 영상 영역을 비교한다.
 
 ### 본문
 
@@ -349,7 +345,7 @@ Figure 19는 로봇 VQA 전후에 VLM이 영상의 어느 영역을 더 참고�
 
 ### 요점
 
-Table 2(b)의 수치 개선을 보조하는 시각화다. Attention 분포만으로 행동 개선의 원인이 확정되지는 않는다.
+수치 개선 다음에 보는 시각적 단서다. 이 그림만으로 성능 향상의 원인을 입증하지는 않는다.
 
 ### 출처
 
@@ -410,7 +406,7 @@ source_ids: S101
 
 ### 한 문장
 
-Table 3은 실제 데이터를 고정하고 사용 가능한 합성 데이터 pool의 크기를 바꾼 실험이다.
+실제 시연은 그대로 두고, 꺼내 쓸 합성 경험의 종류를 늘린다.
 
 ### 본문
 
@@ -429,20 +425,15 @@ GR-1만 사용하고, <strong>batch 1024·60K steps</strong>의 pre-training 조
 
 ### 보충
 
-#### Pool 크기와 뽑는 비율은 다르다
+<div class="flow"><div class="node"><strong>같은 실제 시연</strong><br>ActionNet 고정</div><div class="node"><strong>더 큰 합성 모음</strong><br>25% → 50% → 100%</div></div>
 
-<p class="callout"><span class="label interpretation">우리의 직관</span> 한 번에 실제·합성을 반씩 공부하더라도, 합성 문제집의 종류가 많아지면 만나는 상황이 더 다양해질 수 있다.</p>
+합성을 쓰는 조건은 모두 **실제:합성 = 1:1**로 뽑는다.
 
-<strong>Pool:</strong> 꺼내 쓸 수 있는 합성 예의 범위.<br>
-<strong>Sampling:</strong> 학습 중 각 출처를 뽑는 비율.
-
-따라서 <strong>100%는 합성 데이터만 학습했다는 뜻이 아니다.</strong> 전체 합성 pool을 사용한 조건이다.
-
-<p class="mini">GR-1 Tabletop 24개 과제에 과제별 1,000개 시연으로 fine-tuning한 뒤 성공률을 평가한다.</p>
+<p class="callout">100%는 합성 데이터 모음 전체를 사용한다는 뜻이다. 합성 데이터만 학습한다는 뜻이 아니다.</p>
 
 ### 요점
 
-Table 3의 25·50·100%는 합성 데이터의 배치 비중이 아니라, 사용할 수 있는 합성 데이터 규모다.
+데이터를 뽑는 비율은 같고, 뽑을 수 있는 합성 경험의 범위가 달라진다.
 
 ### 출처
 
@@ -526,17 +517,17 @@ source_ids: S102, S112, S113
 
 ### 보충
 
-#### 실제 경험의 범위를 넓히는 역할
+#### 결과의 의미
 
-<p><span class="label authors">저자 해석</span> Task·scene augmentation이 조작 상황을 다양화해, 실제 데이터만으로 덮기 어려운 상황의 일반화를 도왔다고 설명한다.</p>
+합성을 쓰는 조건끼리는 뽑는 비율이 같다. **더 다양한 합성 경험을 사용할수록** 이 실험의 성공률이 높아졌다.
 
-<p class="callout"><span class="label interpretation">우리의 직관</span> 같은 실제 시연을 더 반복하는 데서 나아가, 다른 지시·배치·장면의 경험을 더 만나게 하는 보완재로 볼 수 있다.</p>
+저자는 작업·장면 증강이 실제 시연만으로 접하기 어려운 상황을 보완했다고 해석한다.
 
-<p class="mini">Task/scene 증강과 filtering 각각의 독립 효과를 이 표가 분리한 것은 아니다.</p>
+<p class="mini">생성·증강·필터 각각의 독립 효과를 분리한 결과는 아니다.</p>
 
 ### 요점
 
-제안 파이프라인으로 만든 합성 데이터의 규모 효과는 관측된다. 각 생성·필터 단계의 기여는 별도 질문이다.
+같은 실제 데이터에 합성 경험을 보완해, 41.0%에서 50.1%로 9.1%p 높아졌다.
 
 ### 출처
 
@@ -676,7 +667,7 @@ App.G.6 · Table 10 · PDF p.54
 
 GR-1은36.8→53.2→58.7, Kitchen66.9→69.6→70.6, LIBERO97.4→97.8이다. G.6는 큰 batch가 성능을 높인다고 서술하지만 통계적 batch 효과와 총 데이터·계산 예산의 효과를 분해하는 설명이 부족하다. 기본60K steps를 모든 행의 완전한 예산이라고 추정해 보완하지 않는다. Baseline과 같은 steps·batch를 사용해도 전체 사전 학습 예산까지 동일하다는 뜻은 아니다.
 
-## [P065] RL 평가 작업
+## [P065] RL 평가: 전구 비틀기
 
 <!-- slide-meta
 layout: figure
@@ -688,25 +679,27 @@ caption: Figure 20 · ALLEX가 플라스틱 전구를 비틀어 점등하는 작
 
 ### 한 문장
 
-Figure 20은 ALLEX의 Light Bulb Twisting 작업이다. 전구가 켜질 때까지 손가락으로 돌려야 한다.
+전구를 켜는 동작을 배운 뒤, 더 적은 시간과 비틀기로 끝낼 수 있을까?
 
 ### 본문
 
-#### 무엇을 조작하는가?
+#### 목표
 
-ALLEX <strong>오른손의 검지·엄지</strong>로 소켓의 플라스틱 전구를 비튼다. 목표는 전구의 점등이다.
+ALLEX의 오른손 **엄지·검지**로 플라스틱 전구를 비틀어 점등한다.
 
-#### 왜 이 작업에서 RL을 보는가?
+#### 무엇으로 비교하나?
 
-BC로 동작을 배운 뒤, <strong>완료까지의 프레임 수와 비틀기 횟수</strong>를 더 줄일 수 있는지 평가한다.
+**Frames:** 완료까지의 프레임 수
 
-<p class="callout"><span class="label interpretation">우리의 직관</span> 동작을 따라 할 수 있는 것에서, 목표에 도달하는 동작을 더 효율적으로 수행하는 쪽으로 개선하는 실험이다.</p>
+**Attempts:** 한 번의 작업에서 전구를 비튼 횟수
+
+<div class="flow"><div class="node"><strong>BC</strong><br>시연으로 출발</div><div class="node"><strong>RECAP 1 → 2 → 3</strong><br>실행 경험으로 개선</div></div>
 
 ### 보충
 
 ### 요점
 
-이 실험의 관심은 전구 한 작업을 얼마나 적은 시간·비틀기로 마치는가다. 결과는 다음 Figure 21에서 본다.
+두 지표 모두 낮을수록 효율적이다. 다음 그림에서 평균과 시행 간 편차를 함께 본다.
 
 ### 출처
 
@@ -714,9 +707,21 @@ Sec.6.5 · Figure 20 · PDF p.26
 
 ### 발표 메모
 
+이번에는 실제로 실행한 경험이 작업을 더 효율적으로 만드는지 보겠습니다. Figure 20은 ALLEX가 오른손 엄지와 검지로 플라스틱 전구를 비틀어 불을 켜는 작업입니다.
+
+모방학습인 BC로 출발한 뒤, 실행 데이터를 모으고 다시 학습하는 RECAP을 세 번 진행합니다. 평가하는 것은 완료까지의 프레임 수와 한 번의 작업에서 전구를 비튼 횟수입니다. 둘 다 낮을수록 좋습니다. 성공률이나 모델의 denoising 횟수를 측정한 것이 아닙니다. 다음 그림에서 이 두 지표의 변화와 실행마다 결과가 얼마나 일정해졌는지 보겠습니다.
+
+#### 기존 상세 참고 — 발표에서 그대로 읽지 않음
+
 발표자 참고 출처: Sec.6.5 · Figure 20 · PDF p.26; App.C · p.43.
 
 정교한 실제 조작에서 IL 이후 선택적 RL을 적용하는 예다. Fig20 자체가 RL 적용 작업을 자동 선택하는 기준을 제시하는 것은 아니다. 목표는 전구 점등이며 일반적인 plug insertion이나 실제 깨지는 유리 전구 평가로 바꾸지 않는다. 첫 그림은 작업 소개, 다음 그림이 Teleop/BC/RECAP1–3의 비교다.
+
+#### 통합한 설명의 기존 참고
+
+발표자 참고 출처: Sec.6.5 · Figure 21 · PDF p.26; App.C · p.43.
+
+원문의 box-and-whisker plot을 읽는 설명 장이다. 정확한 수염 convention이나 평가 전체 횟수를 임의 지정하지 않는다. Frames는 실제 episode의 프레임 수이며 policy 호출 횟수나 denoising iteration과 구별한다. Attempts는 전구를 비트는 시도 횟수다. S104 상세 공부 기록은 바로 뒤 P066에 보존한다.
 
 ### 상세 공부 기록
 
@@ -759,80 +764,42 @@ Figs.20–21 · Sec.6.5 · PDF p.26; App.C · PDF p.43
 
 Figure20은 작업 사진이며 Figure21은 frames와 attempts의 box-and-whisker plot이다. 이 그림에 대한 성공률 수치를 새로 만들지 않는다. 실패 episode를 timeout으로 기록하는지, 성공한 episode만 요약하는지, 총 평가 episode 수가 얼마인지는 해당 절과 AppendixC에서 충분히 명시되지 않는다. C의 action40개 생성·20개 실행도 denoising 반복과 구별한다.
 
-## [P070] RECAP 결과의 지표
+## [P066] RECAP의 개선 효과
 
 <!-- slide-meta
-layout: split
+layout: figure balanced
 kind: fact
-source_ids:
--->
-
-### 한 문장
-
-Figure 21은 완료 효율을 두 지표로 보고, BC와 연속 RECAP round의 결과 분포를 비교한다.
-
-### 본문
-
-#### 세로축 — 낮을수록 좋은 두 지표
-
-<div class="sequence">
-<div class="step"><strong>(a) Frames:</strong> 작업 완료까지의 episode 길이</div>
-<div class="step"><strong>(b) # attempts:</strong> 한 episode 안에서 전구를 비튼 횟수</div>
-</div>
-
-Frames가 줄면 더 빨리 완료하고, attempts가 줄면 적은 비틀기로 목표에 도달한다.
-
-<p class="callout">완료 성공률과는 다른 지표다. Frames는 denoising step, attempts는 평가 episode 수를 뜻하지 않는다.</p>
-
-### 보충
-
-#### 가로축 — 무엇과 비교하는가?
-
-| 구분 | 의미 |
-| --- | --- |
-| Teleop | 전문가의 원격 조작 시연 |
-| BC | 모방학습으로 학습한 정책 |
-| RECAP1·2·3 | 연속 세 round의 RL refinement |
-
-상자·수염은 시행 간 결과의 분포를 보여준다. 다음 그림에서 <strong>분포의 높이와 퍼짐</strong>을 함께 본다.
-
-### 요점
-
-같은 작업을 얼마나 적은 프레임·비틀기로, 얼마나 일관되게 수행하는지 읽는다.
-
-### 출처
-
-Sec.6.5 · Figure 21 · PDF p.26
-
-### 발표 메모
-
-발표자 참고 출처: Sec.6.5 · Figure 21 · PDF p.26; App.C · p.43.
-
-원문의 box-and-whisker plot을 읽는 설명 장이다. 정확한 수염 convention이나 평가 전체 횟수를 임의 지정하지 않는다. Frames는 실제 episode의 프레임 수이며 policy 호출 횟수나 denoising iteration과 구별한다. Attempts는 전구를 비트는 시도 횟수다. S104 상세 공부 기록은 바로 뒤 P066에 보존한다.
-
-### 상세 공부 기록
-
-## [P066] RECAP 반복 결과
-
-<!-- slide-meta
-layout: widefigure
-kind: fact
-source_ids: S104
+source_ids: S104, S109, S110, S111
 figure: fig-21.png
 caption: Figure 21 · Teleop, BC, RECAP1–3의 완료 프레임 수와 비틀기 횟수 분포
 -->
 
 ### 한 문장
 
-Figure 21에서는 RECAP을 반복할수록 완료에 필요한 프레임과 비틀기 횟수가 줄고, 결과의 편차도 작아진다.
+RECAP을 반복한 뒤, 더 적게 비틀고 더 일정하게 작업을 마쳤다.
 
 ### 본문
 
+#### Figure 21 · 낮아지고 좁아진 분포
+
+왼쪽은 **완료 프레임 수**, 오른쪽은 **비틀기 횟수**다.
+
+| 지표 | BC → RECAP3 |
+| --- | --- |
+| 완료 frames | 1056 ± 326 → **353 ± 22** |
+| 비틀기 횟수 | 12.7 ± 3.0 → **4.1 ± 0.3** |
+
+두 평균 모두 **약 1/3**로 줄고 표준편차도 작아졌다.
+
+<p class="mini">Teleop은 원격 시연, BC는 모방학습, RECAP1–3은 연속 학습 결과다. ±는 본문에 보고한 표준편차다.</p>
+
 ### 보충
+
+
 
 ### 요점
 
-분포가 낮아지는 것은 완료 효율의 개선이고, 퍼짐이 작아지는 것은 반복 시행의 일관성 개선이다.
+이 한 작업의 완료 효율과 일관성이 개선됐다. 추가 실행 데이터와 학습이 함께 진행된 결과다.
 
 ### 출처
 
@@ -840,7 +807,21 @@ Sec.6.5 · Figure 21 · PDF p.26
 
 ### 발표 메모
 
+왼쪽 그래프는 완료까지의 프레임 수, 오른쪽은 전구를 비튼 횟수입니다. Teleop은 전문가의 원격 시연, BC는 모방학습 정책이고, RECAP1부터 3까지는 연속된 추가 학습 결과입니다.
+
+BC에서 RECAP3로 가면 두 분포 모두 낮아지고 퍼짐도 작아집니다. 본문에 보고한 값을 보면 완료 프레임 수는 $1056 \pm 326$에서 $353 \pm 22$로, 비틀기 횟수는 $12.7 \pm 3.0$에서 $4.1 \pm 0.3$으로 줄었습니다. 두 평균이 약 3분의 1 수준이 되고 표준편차도 작아진 것입니다. 더 적은 시간과 비틀기로, 더 일정하게 이 작업을 마쳤다고 읽을 수 있습니다.
+
+이는 전구 한 작업에서 추가 실행 데이터와 RECAP 학습을 함께 반복한 결과입니다. 여기까지는 로봇이 작업을 마치는 효율을 봤고, 다음은 모델이 행동을 계산하는 데 걸리는 시간을 보겠습니다.
+
+#### 기존 상세 참고 — 발표에서 그대로 읽지 않음
+
 Figure21은 box-and-whisker plot이다. 원문이 각 기호/수염 convention을 상세 정의하지 않으므로 min/max·정확한 quantile·x기호의 뜻을 임의 확정하지 않는다. Teleop은 expert teleoperator demonstration, BC는 behavior cloning 정책, RECAP1–3은 연속 RL round다. 본문 보고치는 다음 장에서 별도로 읽으며 중간 round 수치를 그림에서 임의 추출하지 않는다. 성공률과 실패/timeout 집계도 이 그림만으로 새로 만들지 않는다.
+
+#### 통합한 설명의 기존 참고
+
+발표자 참고 출처: Sec.6.5 · Figure 21 · PDF p.26; App.C Algorithm1 · p.43.
+
+1056/353≈2.99,12.7/4.1≈3.10으로 계산했다. ±는 원문이 standard deviation으로 설명하므로 confidence interval로 표시하지 않는다. Critic은 새 성공 데이터로 갱신하고 축적 trajectory의 advantage를 재부여해 policy를 갱신한다. Text critic vs distributional critic을 동일한 학습 예산으로 비교한 성과는 Fig21에 없으며, 추가 rollout만 BC에 더한 통제 비교도 없다. 전체 평가 횟수와 실패/timeout 처리 방식은 검토한 절·부록에서 충분히 명시되지 않는다. 기존 S104 상세 기록은 직전 P066에 보존한다.
 
 ### 상세 공부 기록
 
@@ -882,57 +863,6 @@ Fig.21 · Sec.6.5 · PDF p.26; App.C · PDF p.43; Q3
 ##### 발표 메모
 
 $\frac{1056}{353}\approx2.99$,$\frac{12.7}{4.1}\approx3.10$이다. 본문의 ±는 standard deviation으로 설명하며 confidence interval로 부르지 않는다. Figure21에는 text critic과 distributional critic을 같은 예산으로 비교한 RL 성과가 없다. Figure8의 critic 학습 곡선과 최종 policy 효과를 직접 동일시하지 않는다. Teleop은 특정 로봇 interface에서의 expert demonstration이며 인간 전체의 능력 비교가 아니다. 전체 trial 수와 failure/timeout 처리는 미해결이다.
-
-## [P067] RECAP 개선의 의미
-
-<!-- slide-meta
-layout: split
-kind: fact
-source_ids: S109, S110, S111
--->
-
-### 한 문장
-
-BC에서 RECAP3로 완료 프레임 수와 비틀기 횟수가 약 3배 줄었고, 시행 간 일관성도 좋아졌다.
-
-### 본문
-
-#### 원문이 보고한 BC → RECAP3
-
-| 지표 | BC | RECAP3 |
-| --- | --- | --- |
-| 완료 frames | 1056 ± 326 | 353 ± 22 |
-| 비틀기 attempts | 12.7 ± 3.0 | 4.1 ± 0.3 |
-
-완료 frames는 <strong>약 2.99배</strong>, 비틀기 횟수는 <strong>약 3.10배</strong> 감소한다. ±는 standard deviation이다.
-
-<p class="mini">이 표는 성공률 비교가 아니다. 특정 teleoperation 환경보다 빠르다는 관측을 인간 일반의 능력 비교로 확대하지 않는다.</p>
-
-### 보충
-
-#### 더 짧게, 더 적게, 더 일정하게
-
-<p><span class="label authors">저자 해석</span> 줄어든 frames·attempts와 작은 표준편차는, 어려운 실제 조작에서 RL refinement가 속도와 반복 실행의 일관성을 높였음을 보여준다고 해석한다.</p>
-
-<p class="callout"><span class="label interpretation">우리의 직관</span> 성공 동작을 흉내 내는 출발점에서, 반복 상호작용을 통해 더 효율적인 수행 방식으로 다듬는 과정으로 볼 수 있다.</p>
-
-<p class="mini">Round마다 rollout 데이터와 학습도 추가된다. RL objective만의 독립 효과로 분리한 비교는 아니다.</p>
-
-### 요점
-
-보고된 개선은 한 작업의 완료 효율과 일관성이다. 추가 경험·critic 갱신·policy 학습이 함께 진행된다.
-
-### 출처
-
-Sec.6.5 · Figure 21 · PDF p.26
-
-### 발표 메모
-
-발표자 참고 출처: Sec.6.5 · Figure 21 · PDF p.26; App.C Algorithm1 · p.43.
-
-1056/353≈2.99,12.7/4.1≈3.10으로 계산했다. ±는 원문이 standard deviation으로 설명하므로 confidence interval로 표시하지 않는다. Critic은 새 성공 데이터로 갱신하고 축적 trajectory의 advantage를 재부여해 policy를 갱신한다. Text critic vs distributional critic을 동일한 학습 예산으로 비교한 성과는 Fig21에 없으며, 추가 rollout만 BC에 더한 통제 비교도 없다. 전체 평가 횟수와 실패/timeout 처리 방식은 검토한 절·부록에서 충분히 명시되지 않는다. 기존 S104 상세 기록은 직전 P066에 보존한다.
-
-### 상세 공부 기록
 
 #### [S109] Best-of-N과 별도 Q critic
 
@@ -1149,7 +1079,7 @@ Table 4 · Sec.6.5 · PDF p.26; Table 8 · PDF p.49
 
 All-modality 최종43.7ms를 전체 로봇 제어 지연이나 제어 주파수 보장으로 바꾸지 않는다. Policy 호출1회는 action chunk를 생성하므로$\frac{1}{0.0437}$을 로봇 motor 제어Hz와 같다고 쓸 수 없다. 100회 warmup/300회 median은 tail jitter를 보여주지 않는다. WidowX와 RoboCasa Kitchen은 Table8에서 denoising10회다.
 
-## [P068] 추론 최적화의 단계별 효과
+## [P068] 추론 최적화의 효과
 
 <!-- slide-meta
 layout: full
@@ -1159,7 +1089,7 @@ source_ids: S106
 
 ### 한 문장
 
-Graph·static conversion·kernel 최적화를 누적하면, All-modality 모델의 p50 지연은 71.2ms에서 43.7ms로 줄어든다.
+같은 입력·장비에서 실행 방식을 바꿔, 71.2ms → 43.7ms로 줄였다.
 
 ### 본문
 
@@ -1182,7 +1112,7 @@ Graph·static conversion·kernel 최적화를 누적하면, All-modality 모델�
 
 ### 요점
 
-같은 기준으로 누적 효과를 읽는다. 1.19×·1.46×·1.63×를 서로 곱하지 않는다.
+All-modality 기준 지연 약 38.6% 감소 · 배수는 모두 첫 행 대비 누적값이며 서로 곱하지 않는다.
 
 ### 출처
 
@@ -1190,7 +1120,21 @@ Sec.6.5 · Table 4 · PDF p.26; 감소 시간은 원문 수치의 차이로 계�
 
 ### 발표 메모
 
+오른쪽 All-modality 열을 따라가겠습니다. 기본 실행인 PyTorch Eager는 71.2ms입니다. CUDA Graph와 Torch Compile을 적용하면 59.6ms가 됩니다. 실행을 한 forward 전체의 graph로 묶는 static conversion까지 적용하면 48.9ms, kernel 최적화로 연산 사이의 메모리 왕복을 줄이면 43.7ms로 내려갑니다.
+
+아래 세 상자는 직전 단계보다 각각 얼마나 더 줄었는지 보여줍니다. 전체로는 71.2ms에서 43.7ms로, 지연이 약 38.6% 줄었습니다. 표의 1.19배, 1.46배, 1.63배는 모두 첫 행과 비교한 누적 배수이므로 서로 곱하지 않습니다.
+
+Physics와 memory를 제외한 왼쪽 열도 67.0ms에서 41.6ms로 비슷한 개선을 보입니다. 같은 계산이라도 실행 호출과 중간 메모리 이동을 줄이는 일이 실제 속도에 중요하다는 결과입니다. 이 수치는 앞 장의 장비와 입력 조건에서 측정한 policy 추론 중앙값으로 보겠습니다.
+
+#### 기존 상세 참고 — 발표에서 그대로 읽지 않음
+
 All-modality71.2−59.6=11.6,59.6−48.9=10.7,48.9−43.7=5.2ms다. 원문 첫 단계는 CUDA Graph+Torch Compile이지만 아직 fragmented subgraphs다. 다음 static graph conversion이 forward를 단일 CUDA Graph로 캡처한다. 각 단계는 누적 변경이므로 서로 독립된 방법의 절대 기여나 시행 순서 무관한 효과로 해석하지 않는다. 두 열은 지연 비교이며 기능 모듈의 정확도 ablation이 아니다.
+
+#### 통합한 설명의 기존 참고
+
+발표자 참고 출처: Sec.6.5 Table 4 · PDF p.26; 최적화 원리: Sec.5 · pp.15–17; App.F · p.47.
+
+71.2/43.7≈1.6293,48.9/43.7≈1.1190,(71.2−43.7)/71.2≈38.6%다. 두 최종 열의2.1ms 차이는 physics와memory를 함께 포함할 때의 차이이며 각 모듈의 독립 비용으로 나누지 않는다. 두 variant의1.61/1.63 유사 배수는 이 측정 범위의 관측이다. p95/p99·end-to-end 지연은 Table4에 없고 latency 개선이 정확도 향상 실험을 뜻하지 않는다. 기존 상세 S105–S106은 P027/P068에 보존한다.
 
 ### 상세 공부 기록
 
@@ -1235,55 +1179,3 @@ Table 4 · Sec.6.5 · PDF p.26
 ##### 발표 메모
 
 직전 대비$\frac{71.2}{59.6}\approx1.1946$,$\frac{59.6}{48.9}\approx1.2188$,$\frac{48.9}{43.7}\approx1.1190$이다. 최종$\frac{71.2}{43.7}\approx1.6293$이며 latency 감소는11.6,10.7,5.2ms다. 원문 첫 단계는 CUDA Graph+Torch.Compile이고 다음 full static graph conversion에서 fragmented subgraph를 단일 그래프로 바꾼다. Physics·memory 제외의 최종1.61배와 all-modality1.63배가 비슷하다는 설명도 이 두 설정 안의 관측이다.
-
-## [P069] 추론 최적화의 해석
-
-<!-- slide-meta
-layout: split
-kind: fact
-source_ids:
--->
-
-### 한 문장
-
-Static graph는 실행 분할을 줄이고, kernel 최적화는 연산 경계와 중간 메모리 이동을 더 줄인다.
-
-### 본문
-
-#### 전체 개선과 마지막 단계의 개선
-
-$$
-\text{전체 speedup}=\frac{71.2}{43.7}\approx1.63\times
-$$
-
-$$
-\text{Kernel 추가 효과}=\frac{48.9}{43.7}\approx1.12\times
-$$
-
-전체 지연 감소는 <strong>약 38.6%</strong>다. 마지막 kernel 단계만으로 1.63배가 된 것은 아니다.
-
-최종 두 모델의 지연 차이는 <strong>43.7−41.6=2.1ms</strong>다. 이 하드웨어·입력 설정에서 관측한 차이다.
-
-### 보충
-
-#### 왜 Graph와 Kernel이 모두 필요한가?
-
-<p><span class="label authors">저자 해석</span> Compile만으로는 subgraph 분할과 일부 operator fusion의 한계가 남는다. 단일 graph 캡처가 실행 호출 부담을 줄이고, 추가 fusion이 kernel 경계와 HBM 왕복을 더 줄인다고 설명한다.</p>
-
-<p class="callout"><span class="label interpretation">우리의 직관</span> 같은 일을 하더라도 실행 준비를 반복하고 중간 결과를 메모리에 넣었다 꺼내는 비용을 줄이면 더 빨리 끝낼 수 있다.</p>
-
-### 요점
-
-두 모델 모두 비슷한 누적 배수를 보였지만, 다른 GPU·입력 크기나 전체 로봇 지연까지 보장하는 결과는 아니다.
-
-### 출처
-
-Sec.6.5 Table 4 · PDF p.26; 최적화 원리: Sec.5 · pp.15–17
-
-### 발표 메모
-
-발표자 참고 출처: Sec.6.5 Table 4 · PDF p.26; 최적화 원리: Sec.5 · pp.15–17; App.F · p.47.
-
-71.2/43.7≈1.6293,48.9/43.7≈1.1190,(71.2−43.7)/71.2≈38.6%다. 두 최종 열의2.1ms 차이는 physics와memory를 함께 포함할 때의 차이이며 각 모듈의 독립 비용으로 나누지 않는다. 두 variant의1.61/1.63 유사 배수는 이 측정 범위의 관측이다. p95/p99·end-to-end 지연은 Table4에 없고 latency 개선이 정확도 향상 실험을 뜻하지 않는다. 기존 상세 S105–S106은 P027/P068에 보존한다.
-
-### 상세 공부 기록

@@ -1,4 +1,4 @@
-# 슬라이드 색인 — v36
+# 슬라이드 색인 — v37
 
 MD 원본 → HTML. 전체 도식 확대 단계는 P032 안에서 방향키로 이동한다. 개별 결과물은 사용자 검토 전이다.
 
@@ -23,33 +23,30 @@ MD 원본 → HTML. 전체 도식 확대 단계는 P032 안에서 방향키로 �
 | 17 | P096 | Training Procedure | Part 1 최종 정리 | sections/04-training-procedure.md |  |
 | 18 | P098 | Seminar | Q&A | sections/04-training-procedure.md |  |
 | 19 | P099 | Seminar | Part 2 | sections/05-inference-strategy.md |  |
-| 20 | P020 | Inference Strategy | CUDA Graph | sections/05-inference-strategy.md | S072, S073, S074, S075 |
-| 21 | P038 | Inference Strategy | Kernel Fusion | sections/05-inference-strategy.md | S076, S077, S078, S079, S081 |
-| 22 | P039 | Inference Strategy | Kernel Fusion의 계산 | sections/05-inference-strategy.md | S080 |
-| 23 | P040 | Evaluation and Analysis | 시뮬레이션 벤치마크 | sections/06-evaluation-and-analysis.md | S082 |
-| 24 | P022 | Evaluation and Analysis | Simulation 결과 (a) | sections/06-evaluation-and-analysis.md | S083, S084, S085, S086, S087, S114, S115 |
-| 25 | P095 | Evaluation and Analysis | Simulation 결과 (b) | sections/06-evaluation-and-analysis.md |  |
-| 26 | P041 | Evaluation and Analysis | 실제 로봇 | sections/06-evaluation-and-analysis.md |  |
-| 27 | P042 | Evaluation and Analysis | OpenArm 과제 | sections/06-evaluation-and-analysis.md | S088 |
-| 28 | P023 | Evaluation and Analysis | OpenArm 결과 | sections/06-evaluation-and-analysis.md | S089 |
-| 29 | P043 | Evaluation and Analysis | ALLEX 과제 | sections/06-evaluation-and-analysis.md | S090, S091 |
-| 30 | P024 | Evaluation and Analysis | ALLEX 결과 | sections/06-evaluation-and-analysis.md | S092 |
-| 31 | P044 | Evaluation and Analysis | Franka 과제 | sections/06-evaluation-and-analysis.md | S093, S094 |
-| 32 | P025 | Evaluation and Analysis | Franka 결과 | sections/06-evaluation-and-analysis.md | S095, S096 |
-| 33 | P026 | Ablation and Analysis | Ablation and Analysis | sections/07-ablation-and-analysis.md | S097, S107 |
-| 34 | P060 | Ablation and Analysis | VLM의 특징 추출 층 | sections/07-ablation-and-analysis.md | S098 |
-| 35 | P061 | Ablation and Analysis | 로봇 VQA의 효과 | sections/07-ablation-and-analysis.md | S099 |
-| 36 | P062 | Ablation and Analysis | VQA 전후의 Attention | sections/07-ablation-and-analysis.md | S100 |
-| 37 | P063 | Ablation and Analysis | 합성 데이터 규모 실험 | sections/07-ablation-and-analysis.md | S101 |
-| 38 | P064 | Ablation and Analysis | 합성 데이터의 성능 효과 | sections/07-ablation-and-analysis.md | S102, S112, S113 |
-| 39 | P065 | Ablation and Analysis | RL 평가 작업 | sections/07-ablation-and-analysis.md | S103 |
-| 40 | P070 | Ablation and Analysis | RECAP 결과의 지표 | sections/07-ablation-and-analysis.md |  |
-| 41 | P066 | Ablation and Analysis | RECAP 반복 결과 | sections/07-ablation-and-analysis.md | S104 |
-| 42 | P067 | Ablation and Analysis | RECAP 개선의 의미 | sections/07-ablation-and-analysis.md | S109, S110, S111 |
-| 43 | P027 | Ablation and Analysis | 추론 지연 측정 | sections/07-ablation-and-analysis.md | S105 |
-| 44 | P068 | Ablation and Analysis | 추론 최적화의 단계별 효과 | sections/07-ablation-and-analysis.md | S106 |
-| 45 | P069 | Ablation and Analysis | 추론 최적화의 해석 | sections/07-ablation-and-analysis.md |  |
-| 46 | P029 | Conclusion | Conclusion | sections/08-conclusion.md | S116, S117 |
-| 47 | P028 | My opinions and limitation | 나의 의견 | sections/09-my-opinions-and-limitation.md | S108 |
-| 48 | P030 | My opinions and limitation | 한계와 미해결 질문 | sections/09-my-opinions-and-limitation.md | S118, S119, S120, S121 |
-| 49 | P100 | Seminar | Q&A | sections/09-my-opinions-and-limitation.md |  |
+| 20 | P101 | Inference Strategy | Part 1 한눈에 보기 | sections/05-inference-strategy.md | S116, S117 |
+| 21 | P020 | Inference Strategy | CUDA Graph | sections/05-inference-strategy.md | S072, S073, S074, S075 |
+| 22 | P038 | Inference Strategy | Kernel Fusion | sections/05-inference-strategy.md | S076, S077, S078, S079, S081 |
+| 23 | P039 | Inference Strategy | Kernel Fusion의 계산 | sections/05-inference-strategy.md | S080 |
+| 24 | P040 | Evaluation and Analysis | 시뮬레이션 벤치마크 | sections/06-evaluation-and-analysis.md | S082 |
+| 25 | P022 | Evaluation and Analysis | Simulation 결과 (a) | sections/06-evaluation-and-analysis.md | S083, S084, S085, S086, S087, S114, S115 |
+| 26 | P095 | Evaluation and Analysis | Simulation 결과 (b) | sections/06-evaluation-and-analysis.md |  |
+| 27 | P041 | Evaluation and Analysis | 실제 로봇 | sections/06-evaluation-and-analysis.md |  |
+| 28 | P042 | Evaluation and Analysis | OpenArm 과제 | sections/06-evaluation-and-analysis.md | S088 |
+| 29 | P023 | Evaluation and Analysis | OpenArm 결과 | sections/06-evaluation-and-analysis.md | S089 |
+| 30 | P043 | Evaluation and Analysis | ALLEX 과제 | sections/06-evaluation-and-analysis.md | S090, S091 |
+| 31 | P024 | Evaluation and Analysis | ALLEX 결과 | sections/06-evaluation-and-analysis.md | S092 |
+| 32 | P044 | Evaluation and Analysis | Franka 과제 | sections/06-evaluation-and-analysis.md | S093, S094 |
+| 33 | P025 | Evaluation and Analysis | Franka 결과 | sections/06-evaluation-and-analysis.md | S095, S096 |
+| 34 | P026 | Ablation and Analysis | Ablation and Analysis | sections/07-ablation-and-analysis.md | S097, S107 |
+| 35 | P060 | Ablation and Analysis | VLM의 특징 추출 층 | sections/07-ablation-and-analysis.md | S098 |
+| 36 | P061 | Ablation and Analysis | 로봇 VQA의 효과 | sections/07-ablation-and-analysis.md | S099 |
+| 37 | P062 | Ablation and Analysis | VQA 전후의 Attention | sections/07-ablation-and-analysis.md | S100 |
+| 38 | P063 | Ablation and Analysis | 합성 데이터 규모 실험 | sections/07-ablation-and-analysis.md | S101 |
+| 39 | P064 | Ablation and Analysis | 합성 데이터의 성능 효과 | sections/07-ablation-and-analysis.md | S102, S112, S113 |
+| 40 | P065 | Ablation and Analysis | RL 평가: 전구 비틀기 | sections/07-ablation-and-analysis.md | S103 |
+| 41 | P066 | Ablation and Analysis | RECAP의 개선 효과 | sections/07-ablation-and-analysis.md | S104, S109, S110, S111 |
+| 42 | P027 | Ablation and Analysis | 추론 지연 측정 | sections/07-ablation-and-analysis.md | S105 |
+| 43 | P068 | Ablation and Analysis | 추론 최적화의 효과 | sections/07-ablation-and-analysis.md | S106 |
+| 44 | P028 | My opinions and limitation | 나의 의견: 복잡한 조작 | sections/09-my-opinions-and-limitation.md | S108 |
+| 45 | P030 | My opinions and limitation | 나의 의견: 반복 생성의 비용 | sections/09-my-opinions-and-limitation.md | S118, S119, S120, S121 |
+| 46 | P100 | Seminar | Q&A | sections/09-my-opinions-and-limitation.md |  |

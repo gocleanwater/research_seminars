@@ -80,5 +80,28 @@ class PartOutputsTests(unittest.TestCase):
                 self.assertFalse((self.root / 'part-1.html').exists())
 
 
+    def marked_fixture(self, ids):
+        manifest = [dict(order=i+1, id=sid, title=sid, source_ids=[]) for i,sid in enumerate(ids)]
+        data = [dict(id=sid) for sid in ids]
+        pages = ''.join(f'<article class="deck-page" data-id="{sid}"><span class="slide-id">{sid}</span></article>' for sid in ids)
+        toc = ''.join(f'<a class="toc-entry" href="#{sid}" data-index="{i}">{sid}</a>' for i,sid in enumerate(ids))
+        html = '<html><head><title>Test</title></head><body><main id="stage">'+pages+'</main><div id="toc-list">'+toc+'</div><script>const DECK='+json.dumps(data)+';</script></body></html>'
+        return html,manifest,data
+
+    def test_marked_parts_allow_only_optional_recap_before_inference(self):
+        for recap in ([], ['P101']):
+            ids = ['S001','P097','P037','P096','P098','P099']+recap+['P020','P100']
+            with self.subTest(recap=recap):
+                result = write_part_outputs(self.root,*self.marked_fixture(ids))
+                self.assertEqual([p['slides'][0]['id'] for p in result['parts']],['S001','P099'])
+                self.assertEqual(result['parts'][1]['slide_count'],len(recap)+3)
+
+    def test_marked_parts_reject_inference_before_part_two(self):
+        ids = ['S001','P097','P020','P037','P096','P098','P099','P101','P100']
+        with self.assertRaisesRegex(ValueError,'Each Part requires'):
+            write_part_outputs(self.root,*self.marked_fixture(ids))
+        self.assertFalse((self.root/'part-1.html').exists())
+
+
 if __name__ == '__main__':
     unittest.main()

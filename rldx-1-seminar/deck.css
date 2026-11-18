@@ -407,3 +407,8 @@ body[data-export="true"] .part-links { display: none; }
 .part-boundary-visual a:hover { background:#cfe8de; }.part-boundary-visual a:focus-visible { outline:3px solid #167e7a; outline-offset:4px; }
 .cover-agenda .cover-system { top:355px; height:250px; }.cover-agenda .cover-system img { height:213px; }
 .seminar-slide:has(.part-boundary-visual) .takeaway { display:none; }
+
+/* Ordered Part 2 flows: arrows connect input, processing, and output. */
+.seminar-slide .flow.ordered-flow { gap: 30px; }
+.seminar-slide .ordered-flow > .node { position: relative; }
+.seminar-slide .ordered-flow > .node:not(:last-child)::after { content: '→'; position: absolute; right: -27px; top: 50%; transform: translateY(-50%); color: #167e7a; font-size: 27px; }

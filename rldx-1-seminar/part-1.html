@@ -607,6 +607,11 @@ body[data-export="true"] .part-links { display: none; }
 .part-boundary-visual a:hover { background:#cfe8de; }.part-boundary-visual a:focus-visible { outline:3px solid #167e7a; outline-offset:4px; }
 .cover-agenda .cover-system { top:355px; height:250px; }.cover-agenda .cover-system img { height:213px; }
 .seminar-slide:has(.part-boundary-visual) .takeaway { display:none; }
+
+/* Ordered Part 2 flows: arrows connect input, processing, and output. */
+.seminar-slide .flow.ordered-flow { gap: 30px; }
+.seminar-slide .ordered-flow > .node { position: relative; }
+.seminar-slide .ordered-flow > .node:not(:last-child)::after { content: '→'; position: absolute; right: -27px; top: 50%; transform: translateY(-50%); color: #167e7a; font-size: 27px; }
 </style></head>
 <body class="deck-app"><main id="stage"><article class="deck-page active" data-id="S001" aria-label="RLDX-1 Technical Report"><div class="cover-slide cover-agenda">
   <main class="cover-copy">
@@ -630,8 +635,8 @@ body[data-export="true"] .part-links { display: none; }
         <a href="part-2.html#P020">추론 최적화 <span>→</span></a>
         <a href="part-2.html#P040">성능 평가 <span>→</span></a>
         <a href="part-2.html#P026">Ablation·설계 분석 <span>→</span></a>
-        <a href="part-2.html#P029">결론·의견·한계 <span>→</span></a>
-        <div class="agenda-ending"><a href="part-2.html#P100">Q&A</a></div>
+        <a href="part-2.html#P028">나의 의견 <span>→</span></a>
+        <div class="agenda-ending"><a href="part-2.html#P101">모델 요약</a><a href="part-2.html#P100">Q&A</a></div>
       </section>
     </div>
   </nav>
@@ -1040,7 +1045,7 @@ document.querySelector('#stage').addEventListener('click', event => {
   advance();
 });
 // Preserve links to explanations that were merged during the slide review.
-const MERGED_SLIDES = {P033:'P013', P034:'P013', P005:'P032', P007:'P006', P011:'P032', P036:'P032', P012:'P009', P021:'P038', P048:'P032', P049:'P032', P050:'P032', P052:'P032', P053:'P032', P054:'P032', P055:'P032', P056:'P032', P057:'P032', P058:'P032', P059:'P032', P073:'P072', P074:'P015', P045:'P015', P046:'P015', P075:'P028', P076:'P028', P077:'P028', P079:'P040', P080:'P022', P081:'P042', P082:'P041', P083:'P064', P084:'P064', P085:'P067', P086:'P067', P087:'P067', P088:'P067', P089:'P067', P090:'P064', P091:'P022', P092:'P022', P093:'P022', P094:'P022', P078:'P039'};
+const MERGED_SLIDES = {P029:'P101', P070:'P065', P067:'P066', P069:'P068', P033:'P013', P034:'P013', P005:'P032', P007:'P006', P011:'P032', P036:'P032', P012:'P009', P021:'P038', P048:'P032', P049:'P032', P050:'P032', P052:'P032', P053:'P032', P054:'P032', P055:'P032', P056:'P032', P057:'P032', P058:'P032', P059:'P032', P073:'P072', P074:'P015', P045:'P015', P046:'P015', P075:'P028', P076:'P028', P077:'P028', P079:'P040', P080:'P022', P081:'P042', P082:'P041', P083:'P064', P084:'P064', P085:'P067', P086:'P067', P087:'P067', P088:'P067', P089:'P067', P090:'P064', P091:'P022', P092:'P022', P093:'P022', P094:'P022', P078:'P039'};
 function showFromHash() {
   const requested = location.hash.slice(1);
   let resolved = requested;
