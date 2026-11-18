@@ -191,7 +191,7 @@ A stream에는 현재 로봇 상태와 noisy action chunk가 들어갑니다. �
 
 ### 단계 27/35 · 다섯 번째 화살표: Double-stream blocks
 
-뒤쪽에서는 C와 A의 토큰 시퀀스를 합쳐 한 경로로 처리합니다. P 경로는 별도로 유지하면서 합쳐진 C-A와 정보를 교환합니다. 초반 attention 결과를 나누어 갱신하는 것과, 이 뒤쪽 단계에서 C와 A를 통합하는 것은 구분해야 합니다.
+뒤쪽 Double-stream blocks에서는 C와 A의 token sequence를 concat해 하나의 stream으로 처리합니다. P stream은 별도로 유지하며, 합쳐진 C-A stream과 attention으로 정보를 주고받습니다.
 
 ### 단계 28/35 · 여섯 번째 화살표: 변화율과 반복 갱신
 

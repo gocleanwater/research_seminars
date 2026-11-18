@@ -186,3 +186,4 @@
 | FEEDBACK.md:662 | 2026-11-18 / 설명 11 / DeepStack 직관과 압축 시점의 이유 |
 | FEEDBACK.md:670 | 2026-11-18 / 학술 용어의 영어 명칭 유지 |
 | FEEDBACK.md:678 | 2026-11-18 / 설명 16 / Memory 저장 간격의 위치 |
+| FEEDBACK.md:686 | 2026-11-18 / 설명 27 / Double-stream의 직접 설명 |
