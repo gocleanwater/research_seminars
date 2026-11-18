@@ -1,5 +1,10 @@
 # 전체 목차
 
+## 현재 구성 — v41 / 2026-11-18
+
+전체54장 / Part1 21장 / Part2 33장. P020 CUDA Graph는 설정 의존성→고정 배포·사전 계산→Figure9 분할 graph→한 graph의4단계, P038 Kernel Fusion은 Figure10의 저장·재읽기→on-chip 재사용2단계다. 방향키와 화면 버튼이 그림 강조·화살표·대본 순서에 맞춰 움직인다. 독립 수식 장P039는 제외하고 S080 원본을P038에 보존했으며 이전 링크도P038로 연결한다. 아래 버전 표기는 이력이다.
+
+
 ## 현재 구성 — v40 / 2026-11-18
 
 Part1의 P031 Overview는 발표에서 제외하고4개 상세 단위를 P032에 보존했다. 각 큰 섹션 앞에 P104–P111 제목 전용8장을 추가했다. 현재 전체55장 / Part1 21장 / Part2 34장이다. Part2는 시작→Figure2 요약6상태→데이터·학습 요약→Inference Strategy 제목(P108)→CUDA(P020) 순서다. 아래 v39 이하 설명은 변경 이력이며, 현재 목차는 manifest와 SLIDE_INDEX.md를 따른다.
@@ -24,7 +29,7 @@ Part1의 P031 Overview는 발표에서 제외하고4개 상세 단위를 P032에
 
 최신 구성:1쪽S001은 Part1/2 주제별 클릭 목차,2쪽P097은 Part1 시작이다. P096 정리 뒤P098 Q&A로Part1을 마치고, P099에서Part2를 시작해P100 Q&A로마친다. 기존 데이터/학습 구성과 P032의36단계는 유지한다. 아래 이전 배치는 이력이며 현재 순서는manifest·canonical MD를 따른다.
 
-상태: **페이지 수 제한 없음 / 9개 섹션 MD 편집 원본 / v40 전체55장·Part1 21장·Part2 34장 / 결과물 미승인**
+상태: **페이지 수 제한 없음 / 9개 섹션 MD 편집 원본 / v41 전체54장·Part1 21장·Part2 33장 / 결과물 미승인**
 업데이트: 2026-11-18
 
 관련 설명을 자연스럽게 연결하되 화살표·단계 설명을 위해 필요한 화면 수를 제한하지 않는다. 본문과 상세 공부 기록은 아홉 `sections/*.md`에서 편집한다. 전체 제작·수정 허가는 개별 장의 결과물 승인과 구분한다.
@@ -39,7 +44,7 @@ v20에서는 직전80장 버전의6–8쪽(P056–P058)을4쪽 Memory 확대 대
 
 P022의 오른쪽 LIBERO 설명을 본문에서 제외하고 Table1(a)/(b)를 P022/P095의 큰 표 두 장으로 표시한다. 평가를 행으로 전치해5개 baseline·RLDX-1·최강 대비 차이(%p)를 함께 표시한다.13개 평가·78개 원문 칸을 모두 유지한다.
 
-실제 Fused Kernels(P078) 페이지를 제외했다. Kernel Fusion의 계산(P039) 뒤에는 시뮬레이션 벤치마크(P040)가 바로 이어진다. 기존 P078 링크는 P039로 연결한다.
+실제 Fused Kernels(P078) 페이지를 제외했다. P039는 P038의 그림 설명에 통합했다. Kernel Fusion(P038) 뒤에는 평가 제목(P109)과 벤치마크(P040)가 이어진다. 기존 P078·P039 링크는 P038로 연결한다.
 
 최신 요청으로 부록 실험·세부 평가 설정19장을 제외했다. PEFT·BoN·Batch Size·실제 ALLEX 합성 추가 실험·부록 과제별 결과와 설정은 발표 화면에서 빼고, 본문의 Table1/Fig.14·16·18과 Table2–4/Fig.19–21을 중심으로 읽는다. 구현 설명용 부록 근거는 기존 위치에 유지한다. 제외 목록과 기록 위치는 review/APPENDIX_REMOVAL.md를 따른다. 아래 v17 배치 기록은 변경 전 이력이다.
 
@@ -59,7 +64,7 @@ Fig.1을 사용하는 표지 뒤에 아래 섹션을 따른다. 섹션명은 영
 | [02-rldx-1-architecture.md](sections/02-rldx-1-architecture.md) | RLDX-1 Architecture | P105, P032 |
 | [03-training-data.md](sections/03-training-data.md) | Training Data | P106, P013, P072, P014, P015, P047 |
 | [04-training-procedure.md](sections/04-training-procedure.md) | Training Procedure | P107, P035, P016, P017, P018, P019, P037, P096, P098 |
-| [05-inference-strategy.md](sections/05-inference-strategy.md) | Inference Strategy | P099, P101, P102, P103, P108, P020, P038, P039 |
+| [05-inference-strategy.md](sections/05-inference-strategy.md) | Inference Strategy | P099, P101, P102, P103, P108, P020, P038 |
 | [06-evaluation-and-analysis.md](sections/06-evaluation-and-analysis.md) | Evaluation and Analysis | P109, P040, P022, P095, P041, P042, P023, P043, P024, P044, P025 |
 | [07-ablation-and-analysis.md](sections/07-ablation-and-analysis.md) | Ablation and Analysis | P110, P026, P060, P061, P062, P063, P064, P065, P066, P027, P068 |
 | [08-conclusion.md](sections/08-conclusion.md) | Conclusion | 발표 제외 |

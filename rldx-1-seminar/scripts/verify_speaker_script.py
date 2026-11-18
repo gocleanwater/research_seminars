@@ -86,3 +86,14 @@ output = ROOT / 'qa/full-deck/speaker-script-report.json'
 output.parent.mkdir(parents=True, exist_ok=True)
 output.write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n')
 print(json.dumps(report, ensure_ascii=False))
+
+# Inference tours use the same section-owned speech in full and Part 2 scripts.
+from inference_markup import inference_panels
+part2 = (ROOT / 'SPEAKER_SCRIPT_PART2.md').read_text()
+for page in load_sections(ROOT):
+    if page['id'] in {'P020','P038'}:
+        panels = inference_panels(page)
+        for i,panel in enumerate(panels,1):
+            marker = f"**화면 {i}/{len(panels)} · {panel['title']}**"
+            assert marker in sections[page['id']] and marker in part2
+            assert panel['대본'] in sections[page['id']] and panel['대본'] in part2

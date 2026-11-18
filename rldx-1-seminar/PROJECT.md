@@ -1,5 +1,10 @@
 # 프로젝트 설정
 
+## 현재 구성 — v41 / 2026-11-18
+
+전체54장 / Part1 21장 / Part2 33장. P020 CUDA Graph는 설정 의존성→고정 배포·사전 계산→Figure9 분할 graph→한 graph의4단계, P038 Kernel Fusion은 Figure10의 저장·재읽기→on-chip 재사용2단계다. 방향키와 화면 버튼이 그림 강조·화살표·대본 순서에 맞춰 움직인다. 독립 수식 장P039는 제외하고 S080 원본을P038에 보존했으며 이전 링크도P038로 연결한다. 아래 버전 표기는 이력이다.
+
+
 ## 현재 구성 — v40 / 2026-11-18
 
 Part1의 P031 Overview는 발표에서 제외하고4개 상세 단위를 P032에 보존했다. 각 큰 섹션 앞에 P104–P111 제목 전용8장을 추가했다. 현재 전체55장 / Part1 21장 / Part2 34장이다. Part2는 시작→Figure2 요약6상태→데이터·학습 요약→Inference Strategy 제목(P108)→CUDA(P020) 순서다. 아래 v39 이하 설명은 변경 이력이며, 현재 목차는 manifest와 SLIDE_INDEX.md를 따른다.
@@ -22,10 +27,10 @@ Part1의 P031 Overview는 발표에서 제외하고4개 상세 단위를 P032에
 전체46장 / Part 1 18장 / Part 2 28장. P099→P101 짧은 Part 1 요약→P020 추론→평가→분석→P028/P030 의견→P100 Q&A. 독립 Conclusion P029는 제외하고 상세 기록을 P101에 보존했다. P070/P067/P069는 각각 P065/P066/P068에 통합했다. 기존121개 공부 단위와 Part 1의 과학 내용·P032 36단계는 유지한다. 아래 과거 버전 표·장수는 이력이며 현재 순서는 content/deck-manifest.json 및 review/SLIDE_INDEX.md를 따른다. 사용자 결과물 검토 전.
 
 
-현재 발표 파일: `part-1.html` 21장(P098 Q&A까지), `part-2.html` 34장(P099 시작–P100 Q&A), `presentation.html` 전체55장. Part별 대본은 `SPEAKER_SCRIPT_PART1.md`/`SPEAKER_SCRIPT_PART2.md`다. 기존 별도 설명은 P032 Figure3의 단계 설명에 통합돼 있다. 상세 기록은 보존한다.
+현재 발표 파일: `part-1.html` 21장(P098 Q&A까지), `part-2.html` 33장(P099 시작–P100 Q&A), `presentation.html` 전체54장. Part별 대본은 `SPEAKER_SCRIPT_PART1.md`/`SPEAKER_SCRIPT_PART2.md`다. 기존 별도 설명은 P032 Figure3의 단계 설명에 통합돼 있다. 상세 기록은 보존한다.
 
 - 논문: RLDX-1 Technical Report
-- 상태: v40 / 섹션 제목 페이지·Overview 제외 / 전체55장·상세121단위 유지
+- 상태: v41 / 추론 그림 단계 설명 / 전체54장·상세121단위 유지
 - 목적: 전체 맥락의 HTML 발표와 자세한 공부 기록을 함께 유지하고, 사용자 피드백에 따라 장별로 수정
 - 형식: 오프라인 단일 HTML 중심 / Slidev 생성 소스 병행
 - 발표 시간·장수·청중: 별도 제한 없음. 이전 30장 한도는 해제

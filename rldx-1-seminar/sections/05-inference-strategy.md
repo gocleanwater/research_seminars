@@ -413,26 +413,16 @@ Part 1 요약을 마쳤으니, 이제 본격적으로 Part 2를 시작하겠습�
 ## [P020] CUDA Graph
 
 <!-- slide-meta
-layout: figure balanced
+layout: inference
 kind: fact
 source_ids: S072, S073, S074, S075
-figure: fig-09.png
-caption: Figure 9 · 위: 여러 graph launch / 아래: 한 CUDA Graph launch
 -->
 
 ### 한 문장
 
-반복할 GPU 작업을 미리 묶어 두고, 한 번의 호출로 실행한다.
+RoPE와 attention mask는 토큰 구성에 맞춰 준비한다.
 
 ### 본문
-
-#### 실행 전 준비
-
-토큰 수·위치·attention mask가 고정된 배포 설정에서는 **RoPE·mask 준비값을 미리 계산해 재사용**한다.
-
-<div class="flow"><div class="node"><strong>Figure 9 위</strong><br>나뉜 graph를 각각 호출</div><div class="node"><strong>Figure 9 아래</strong><br>한 forward를 한 graph로 호출</div></div>
-
-고정 설정의 준비 계산을 forward 밖으로 옮겨 **graph break와 호출 부담**을 줄인다.
 
 ### 보충
 
@@ -448,17 +438,21 @@ Sec.5.1 · Fig.9 · PDF pp.15–16; 공부 기록 S074–S075
 
 ### 발표 메모
 
-먼저 CUDA Graph입니다. 반복해서 실행할 GPU 작업을 미리 묶어 두고, 한 번의 호출로 실행하는 방식입니다.
+**화면 1/4 · 입력 구성과 준비 계산**
 
-RoPE의 위치 관련 준비값과 attention mask 구조는 토큰 수, 위치 배치, 어느 정보를 읽을 수 있는지 같은 설정에 의존합니다. 그런데 배포 설정을 고정해 반복 추론한다면 같은 준비값을 매번 만들 필요가 없습니다. 저자들은 이 설정 의존 준비 계산을 forward 밖으로 옮겨 사전 계산하고 재사용합니다.
+먼저 CUDA Graph입니다. 반복해서 실행할 GPU 작업을 미리 묶어 두고, 한 번의 호출로 실행하는 방식입니다. 그 전에 어떤 계산을 미리 해 둘 수 있는지 보겠습니다. RoPE는 Attention에 토큰의 위치 정보를 반영하고, attention mask는 각 토큰이 어느 정보를 읽을 수 있는지 정합니다. 이때 필요한 준비값은 토큰 수와 위치 배치, 읽기를 허용할 관계에 따라 달라집니다. 학습 데이터를 묶거나 입력을 구성하는 방식이 바뀌면, 그에 맞춰 준비값도 달라질 수 있습니다.
 
-이렇게 실행 분할을 줄이고 한 forward 전체를 하나의 CUDA Graph로 캡처합니다. Figure 9의 위쪽은 여러 graph를 실행하며 호출 부담이 반복되고, 아래쪽은 한 graph로 실행해 그 부담을 줄이는 모습입니다. 관측에 따라 바뀌는 Q·K와 attention 결과는 계속 계산합니다. 재사용하는 것은 고정 설정의 준비값과 실행 구조입니다.
+**화면 2/4 · 고정 배포 설정**
 
-하나의 CUDA Graph 안에도 여러 GPU kernel이 들어갈 수 있습니다. 다음의 kernel fusion은 그 연산 경계 안쪽을 더 최적화하는 방법입니다.
+배포할 때 입력 구성을 고정해 반복 추론한다면, 이 준비값도 매번 같습니다. 따라서 RoPE의 위치 관련 준비값과 attention mask를 실행 전에 한 번 계산해 두고, 이후 추론에서 재사용할 수 있습니다. 저자들은 이렇게 설정에 의존하는 준비 계산을 forward 밖으로 옮겼습니다.
 
-#### 기존 상세 참고 — 발표에서 그대로 읽지 않음
+**화면 3/4 · 분할된 graph**
 
-사용자 정정에 따라 왜 고정할 수 있는지부터 설명한다. 토큰 수·위치·허용 관계는 configuration 의존성을 이해하기 위한 구체적 풀이이며 모든 모델의 모든 배포에서 항상 동일하다는 뜻은 아니다. 이 보고서에서는 고정 배포 설정의 일부 RoPE·mask 준비가 Torch Compile에서 완전히 정리되지 않아 graph가 분할된다고 서술한다. 사전 준비값과 관측에 따라 바뀌는 hidden states·Q/K·attention 결과는 다르다. CUDA Graph 하나에 여러 kernel이 들어갈 수 있으며 한 graph로 캡처한다는 것을 전체 denoising 반복을 한 arithmetic 연산으로 바꾼 것으로 설명하지 않는다.
+이제 Figure 9의 위쪽을 보겠습니다. Launch Graph 1로 A와 B를 실행한 뒤, graph가 끊어져 C와 D를 실행하려면 Launch Graph 2를 다시 호출합니다. 보고서에서는 설정에 의존하는 준비 계산이 compile 과정에서 완전히 정리되지 않아 이런 분할이 남았다고 설명합니다. graph가 나뉘면 호출에 드는 부담도 반복됩니다.
+
+**화면 4/4 · 한 CUDA Graph로 실행**
+
+준비 계산을 밖으로 옮기고 나면, 아래쪽처럼 한 forward 전체를 하나의 CUDA Graph로 캡처할 수 있습니다. 한 번의 호출로 A부터 D까지 이어 실행하므로, 위쪽에서 반복되던 호출 부담을 줄입니다. 오른쪽 Speed Up은 그만큼 실행이 빨리 끝나는 모습을 보여줍니다. 다음은 호출한 작업 안에서 중간값을 옮기는 비용을 줄이는 Kernel Fusion입니다.
 
 ### 상세 공부 기록
 
@@ -635,31 +629,117 @@ Fig.9; Sec.5.1 · PDF pp.15–16
 
 원문의 한 forward pass를 single CUDA Graph로 capture하고 추론 step마다 한 번 호출한다는 서술을 유지한다. 이 그림만으로 denoising loop 전체의 포착 범위를 확대 해석하지 않는다. Kernel 내부 메모리 이동 최적화는 다음 절의 별도 과제다. 그림의 빈 간격은 수치 계산량보다 실행 제출 과정의 비효율에 초점을 둔다.
 
+### 그림 설명 카드
+
+#### [configuration] 입력 구성과 준비 계산
+
+##### 핵심
+
+RoPE와 attention mask는 토큰 구성에 맞춰 준비한다.
+
+##### 화면
+
+**RoPE (Rotary Position Embedding)** · 토큰의 위치 정보
+
+**Attention mask** · 각 토큰이 읽을 수 있는 범위
+
+토큰 수·위치·허용 관계<br>↓ 필요한 준비값
+
+##### 대본
+
+먼저 CUDA Graph입니다. 반복해서 실행할 GPU 작업을 미리 묶어 두고, 한 번의 호출로 실행하는 방식입니다. 그 전에 어떤 계산을 미리 해 둘 수 있는지 보겠습니다. RoPE는 Attention에 토큰의 위치 정보를 반영하고, attention mask는 각 토큰이 어느 정보를 읽을 수 있는지 정합니다. 이때 필요한 준비값은 토큰 수와 위치 배치, 읽기를 허용할 관계에 따라 달라집니다. 학습 데이터를 묶거나 입력을 구성하는 방식이 바뀌면, 그에 맞춰 준비값도 달라질 수 있습니다.
+
+##### 요점
+
+입력 구성 → RoPE의 위치 관련 준비값·attention mask
+
+#### [prepare] 고정 배포 설정
+
+##### 핵심
+
+배포할 입력 구성을 고정하면, 같은 준비값을 재사용할 수 있다.
+
+##### 화면
+
+입력 구성 고정
+
+↓
+
+RoPE 위치값·mask를 **미리 계산**
+
+↓
+
+forward 밖에 두고 **재사용**
+
+##### 대본
+
+배포할 때 입력 구성을 고정해 반복 추론한다면, 이 준비값도 매번 같습니다. 따라서 RoPE의 위치 관련 준비값과 attention mask를 실행 전에 한 번 계산해 두고, 이후 추론에서 재사용할 수 있습니다. 저자들은 이렇게 설정에 의존하는 준비 계산을 forward 밖으로 옮겼습니다.
+
+##### 요점
+
+고정된 입력 구성 → 사전 계산 → 반복 추론에서 재사용
+
+#### [fragment] 분할된 graph
+
+##### 핵심
+
+Figure 9 위쪽 · graph를 나눠 호출할 때마다 부담이 생긴다.
+
+##### 화면
+
+**위쪽 화살표를 따라갑니다.**
+
+Graph 1 호출 → A·B 실행
+
+Graph break
+
+Graph 2 호출 → C·D 실행
+
+##### 대본
+
+이제 Figure 9의 위쪽을 보겠습니다. Launch Graph 1로 A와 B를 실행한 뒤, graph가 끊어져 C와 D를 실행하려면 Launch Graph 2를 다시 호출합니다. 보고서에서는 설정에 의존하는 준비 계산이 compile 과정에서 완전히 정리되지 않아 이런 분할이 남았다고 설명합니다. graph가 나뉘면 호출에 드는 부담도 반복됩니다.
+
+##### 요점
+
+나뉜 graph → 반복되는 launch overhead
+
+#### [single] 한 CUDA Graph로 실행
+
+##### 핵심
+
+Figure 9 아래쪽 · 한 forward를 한 graph로 캡처해 호출한다.
+
+##### 화면
+
+**아래쪽 화살표를 따라갑니다.**
+
+한 번 호출 → A → B → C → D
+
+**호출 부담 감소**
+
+오른쪽 Speed Up으로 실행 시간 비교
+
+##### 대본
+
+준비 계산을 밖으로 옮기고 나면, 아래쪽처럼 한 forward 전체를 하나의 CUDA Graph로 캡처할 수 있습니다. 한 번의 호출로 A부터 D까지 이어 실행하므로, 위쪽에서 반복되던 호출 부담을 줄입니다. 오른쪽 Speed Up은 그만큼 실행이 빨리 끝나는 모습을 보여줍니다. 다음은 호출한 작업 안에서 중간값을 옮기는 비용을 줄이는 Kernel Fusion입니다.
+
+##### 요점
+
+CUDA Graph · 여러 GPU 작업을 묶어 호출 부담을 줄인다.
+
 ## [P038] Kernel Fusion
 
 <!-- slide-meta
-layout: figure balanced
+layout: inference
 kind: fact
-source_ids: S076, S077, S078, S079, S081
-figure: fig-10.png
-caption: Figure 10 · (a) 중간 결과를 저장·재읽기 / (b) fused kernel 안에서 계산
+source_ids: S076, S077, S078, S079, S081, S080
 -->
 
 ### 한 문장
 
-중간 계산값을 메모리에 썼다가 다시 읽는 왕복을 줄인다.
+Figure 10 왼쪽 · 중간 결과를 저장하고 다음 kernel이 다시 읽는다.
 
 ### 본문
-
-#### Figure 10(a) · 연산을 나눠 실행
-
-RMSNorm → **저장·다시 읽기** → RoPE → **저장·다시 읽기** → Attention
-
-#### Figure 10(b) · 한 kernel 안에서 이어 실행
-
-RMSNorm → RoPE → Attention
-
-**중간값은 on-chip에서 이어 사용**하고 마지막 결과를 저장한다.
 
 ### 보충
 
@@ -675,7 +755,13 @@ Sec.5.2 · Fig.10 · PDF pp.16–17; App.F Table7 · PDF p.47
 
 ### 발표 메모
 
-사용자가 지적한 공부 당시의 저장·재읽기와 합성함수 직관을 복원했다. 수학적 함수가 같다는 것과 물리적 실행 경로가 달라진다는 것을 다음 수식 장에서 비교한다. Figure10은 fusion 대상 block의 입력 load/최종 store를 말하며 전체 모델의 모든 메모리를 한 번만 읽는다는 뜻은 아니다. 중간값은 없어지는 것이 아니라 on-chip에서 재사용한다. 보고서는 compute ordering과 on-chip reuse도 함께 설계하며 실제 custom kernel 목록은 S081에 보존한다. Kernel fusion과 CUDA Graph capture를 같은 의미로 쓰지 않는다.
+**화면 1/2 · 별도 kernel의 메모리 왕복**
+
+CUDA Graph가 작업을 호출하는 부담을 줄였다면, Kernel Fusion은 연산 사이에서 중간값을 옮기는 부담을 줄입니다. Figure 10의 왼쪽을 보겠습니다. RMSNorm이 계산한 중간값을 global memory에 저장하고, 다음 kernel이 다시 읽어 RoPE를 계산합니다. 그 결과도 저장한 뒤 Attention이 다시 읽습니다. 왼쪽의 왕복 화살표가 이렇게 중간값을 쓰고 읽는 과정을 보여줍니다. 이런 메모리 이동이 계산 속도를 제한할 때 memory-bound라고 합니다.
+
+**화면 2/2 · 한 fused kernel에서 이어 계산**
+
+오른쪽에서는 RMSNorm, RoPE, Attention을 하나의 fused kernel 안에서 이어 계산합니다. 입력을 읽은 뒤 중간값을 on-chip에서 바로 다음 연산에 사용하고, 마지막 결과를 global memory에 저장합니다. 같은 계산을 수행하면서도 왼쪽처럼 중간값을 여러 번 내보냈다가 다시 읽는 왕복을 줄이는 것입니다. CUDA Graph는 호출 부담을, Kernel Fusion은 연산 사이의 메모리 이동을 줄입니다. 이어서 이렇게 구성한 모델의 성능을 살펴보겠습니다.
 
 ### 상세 공부 기록
 
@@ -898,61 +984,6 @@ Sec.5.2 · PDF pp.16–17; App.F Table7 · PDF p.47
 
 Table 7의 총 8개 kernel을 모두 반영했다. $h_{\mathrm{ds}}$가 더해지는 add3는 별도의 세 번째 입력으로만 설명하고 그 의미를 추가 확정하지 않는다. grouped\_swiglu는 $y_1=\operatorname{SwiGLU}(z_1)$, $y_2=\operatorname{SwiGLU}(z_2)$를 함께 처리한다. fused\_mlp\_swiglu의 표는 SwiGLU를 수동 kernel로 실행함을 나타낸다. 개별 kernel의 속도 배수는 이 표에 없다.
 
-## [P039] Kernel Fusion의 계산
-
-<!-- slide-meta
-layout: split
-kind: fact
-source_ids: S080
--->
-
-### 한 문장
-
-N=RMSNorm, R=RoPE로 두면, 같은 계산을 중간 결과 저장 방식에 따라 다르게 실행할 수 있다.
-
-### 본문
-
-#### 별도 kernel로 단계마다 계산
-
-$$
-\begin{aligned}
-\mathbf q_N&=N(\mathbf q),\quad \mathbf k_N=N(\mathbf k)\\
-\mathbf q_R&=R(\mathbf q_N),\quad \mathbf k_R=R(\mathbf k_N)\\
-\mathbf o&=\operatorname{Attn}(\mathbf q_R,\mathbf k_R,\mathbf v)
-\end{aligned}
-$$
-
-**첫 줄 계산 → 저장·재읽기 → 둘째 줄 계산 → 저장·재읽기 → 셋째 줄 계산**
-
-수학 문제의 중간 답을 매번 적어두고 다음 단계에서 다시 꺼내 쓰는 것과 같다.
-
-### 보충
-
-#### 한 fused kernel에서 합성함수처럼
-
-$$
-\mathbf o=\operatorname{Attn}
-\bigl(R(N(\mathbf q)),R(N(\mathbf k)),\mathbf v\bigr)
-$$
-
-입력을 읽은 뒤 **RMSNorm → RoPE → Attention**을 한 kernel 안에서 이어 계산한다.
-
-<p class="callout">중간 답을 global memory에 따로 내보내지 않고, kernel 안에서 이어 사용한 뒤 최종 답을 저장한다.</p>
-
-### 요점
-
-계산할 수학적 값은 같고, 중간값을 global memory에 저장·다시 읽는 실행 방식이 달라진다.
-
-### 출처
-
-Fig.10 · PDF p.16; N·R 약자와 합성함수 비교는 공부 내용을 풀어쓴 설명
-
-### 발표 메모
-
-N(x)=RMSNorm(x), R(x)=RoPE(x)이며 q/k에 각각 적용한다. 이 수식은 Fig10의 의미를 읽기 위한 비교이고, 수식을 중첩해 적기만 하면 compiler가 자동으로 fused kernel을 보장한다는 뜻은 아니다. 실제로는 보고서가 설계한 custom kernel이 on-chip reuse와 compute ordering으로 같은 계산을 수행한다. RoPE의 위치 인자는 간결함을 위해 생략했다.
-
-### 상세 공부 기록
-
 #### [S080] Kernel fusion: 중간 메모리 왕복 줄이기
 
 <!-- study-meta
@@ -991,3 +1022,55 @@ Fig.10; Sec.5.2 · PDF pp.16–17
 ##### 발표 메모
 
 원문은 on-chip reuse와 compute ordering도 함께 설계한다고 설명한다. 입력 한 번·출력 한 번이라는 그림은 fusion 대상 block 기준이다. Cache·메모리 트래픽의 정확한 계측값을 새로 주장하지 않는다. RMSNorm·RoPE·attention 결합은 Table 7의 fused\_llm\_attention에 연결한다.
+
+### 그림 설명 카드
+
+#### [separate] 별도 kernel의 메모리 왕복
+
+##### 핵심
+
+Figure 10 왼쪽 · 중간 결과를 저장하고 다음 kernel이 다시 읽는다.
+
+##### 화면
+
+**왼쪽 왕복 화살표**
+
+RMSNorm → 저장·재읽기
+
+RoPE → 저장·재읽기
+
+Attention → 결과 저장
+
+##### 대본
+
+CUDA Graph가 작업을 호출하는 부담을 줄였다면, Kernel Fusion은 연산 사이에서 중간값을 옮기는 부담을 줄입니다. Figure 10의 왼쪽을 보겠습니다. RMSNorm이 계산한 중간값을 global memory에 저장하고, 다음 kernel이 다시 읽어 RoPE를 계산합니다. 그 결과도 저장한 뒤 Attention이 다시 읽습니다. 왼쪽의 왕복 화살표가 이렇게 중간값을 쓰고 읽는 과정을 보여줍니다. 이런 메모리 이동이 계산 속도를 제한할 때 memory-bound라고 합니다.
+
+##### 요점
+
+별도 kernel → 중간값의 global memory 저장·재읽기
+
+#### [fused] 한 fused kernel에서 이어 계산
+
+##### 핵심
+
+Figure 10 오른쪽 · 중간값을 on-chip에서 이어 사용한다.
+
+##### 화면
+
+**오른쪽 화살표**
+
+입력 읽기
+
+RMSNorm → RoPE → Attention
+
+**중간값은 on-chip에서 재사용**
+
+최종 결과 저장
+
+##### 대본
+
+오른쪽에서는 RMSNorm, RoPE, Attention을 하나의 fused kernel 안에서 이어 계산합니다. 입력을 읽은 뒤 중간값을 on-chip에서 바로 다음 연산에 사용하고, 마지막 결과를 global memory에 저장합니다. 같은 계산을 수행하면서도 왼쪽처럼 중간값을 여러 번 내보냈다가 다시 읽는 왕복을 줄이는 것입니다. CUDA Graph는 호출 부담을, Kernel Fusion은 연산 사이의 메모리 이동을 줄입니다. 이어서 이렇게 구성한 모델의 성능을 살펴보겠습니다.
+
+##### 요점
+
+Kernel Fusion · 중간값의 메모리 왕복을 줄인다.

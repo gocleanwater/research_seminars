@@ -1,5 +1,10 @@
 # 섹션 Markdown 편집 안내
 
+## 현재 구성 — v41 / 2026-11-18
+
+전체54장 / Part1 21장 / Part2 33장. P020 CUDA Graph는 설정 의존성→고정 배포·사전 계산→Figure9 분할 graph→한 graph의4단계, P038 Kernel Fusion은 Figure10의 저장·재읽기→on-chip 재사용2단계다. 방향키와 화면 버튼이 그림 강조·화살표·대본 순서에 맞춰 움직인다. 독립 수식 장P039는 제외하고 S080 원본을P038에 보존했으며 이전 링크도P038로 연결한다. 아래 버전 표기는 이력이다.
+
+
 ## 현재 구성 — v40 / 2026-11-18
 
 Part1의 P031 Overview는 발표에서 제외하고4개 상세 단위를 P032에 보존했다. 각 큰 섹션 앞에 P104–P111 제목 전용8장을 추가했다. 현재 전체55장 / Part1 21장 / Part2 34장이다. Part2는 시작→Figure2 요약6상태→데이터·학습 요약→Inference Strategy 제목(P108)→CUDA(P020) 순서다. 아래 v39 이하 설명은 변경 이력이며, 현재 목차는 manifest와 SLIDE_INDEX.md를 따른다.
@@ -28,7 +33,7 @@ Part1의 P031 Overview는 발표에서 제외하고4개 상세 단위를 P032에
 
 ## 현재 통합 구조 — v36
 
-기존5–10쪽 P051/P009/P010/P006/P008/P071은 P032 Figure3의36단계 중9개 설명 카드로 통합했다. 별도 페이지는 없으며 원본 상세 기록은 P032에 그대로 보관한다. `### 그림 설명 카드`에서 화면과 대본을 편집한다. 전체55장, Part1 21장(P098 Q&A까지), Part2 34장(P099 시작–P100 Q&A)이다.
+기존5–10쪽 P051/P009/P010/P006/P008/P071은 P032 Figure3의36단계 중9개 설명 카드로 통합했다. 별도 페이지는 없으며 원본 상세 기록은 P032에 그대로 보관한다. `### 그림 설명 카드`에서 화면과 대본을 편집한다. 전체54장, Part1 21장(P098 Q&A까지), Part2 33장(P099 시작–P100 Q&A)이다.
 
 구분·질의응답4장(P097–P100)은 새 공부 단위를 만들지 않는다. S001 목차의 링크는 고정ID로 연결하며, Part exporter가 다른 Part 파일로의 링크를 조정한다.
 
@@ -40,7 +45,7 @@ Part1의 P031 Overview는 발표에서 제외하고4개 상세 단위를 P032에
 | [02-rldx-1-architecture.md](02-rldx-1-architecture.md) | RLDX-1 Architecture | 2 | 39 |
 | [03-training-data.md](03-training-data.md) | Training Data | 6 | 15 |
 | [04-training-procedure.md](04-training-procedure.md) | Training Procedure | 9 | 14 |
-| [05-inference-strategy.md](05-inference-strategy.md) | Inference Strategy | 8 | 12 |
+| [05-inference-strategy.md](05-inference-strategy.md) | Inference Strategy | 7 | 12 |
 | [06-evaluation-and-analysis.md](06-evaluation-and-analysis.md) | Evaluation and Analysis | 11 | 17 |
 | [07-ablation-and-analysis.md](07-ablation-and-analysis.md) | Ablation and Analysis | 11 | 16 |
 | [08-conclusion.md](08-conclusion.md) | Conclusion | 0 | 0 |
@@ -107,4 +112,4 @@ P036 입출력 경로 본문은 제외하고4쪽 P032의 MSAT 마지막 대본�
 
 부록 실험·설정19장(P075–P077, P079–P094)을 본문에서 제외했다. 상세121개는 보존하며 제외 장의 원본/기존 링크 대응은 review/versions/before-appendix-removal-v26/에 기록한다.
 
-P078 실제 Fused Kernels 페이지는 제외했다. 기존 링크는 P039 Kernel Fusion의 계산으로 연결하며 원본은 review/versions/before-kernel-table-removal-v27/P078.md에 보존한다.
+P078 실제 Fused Kernels 페이지는 제외했다. 기존 링크는 P038 Kernel Fusion으로 연결하며 원본은 review/versions/before-kernel-table-removal-v27/P078.md에 보존한다.

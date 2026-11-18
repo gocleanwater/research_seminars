@@ -7,6 +7,7 @@ import re
 from font_assets import prepare_typography, inline_fonts
 from architecture_markup import architecture_markup
 from overview_markup import overview_markup
+from inference_markup import inference_markup
 from parts_output import write_part_outputs
 from section_sources import load_sections, apply_tour_text
 
@@ -34,6 +35,8 @@ def slide_markup(s, order, total):
         body = architecture_markup()
     if s.get("layout") == "overview":
         body = overview_markup(s)
+    if s.get("layout") == "inference":
+        body = inference_markup(s)
     footer = f'<footer class="seminar-footer"><span class="source">{escape(s["source"])}</span><span class="slide-id">{s["id"]} · {order:03d}/{total}</span></footer>'
     return f'<section class="seminar-slide" data-slide-id="{s["id"]}">{header}<div class="seminar-body {s.get("layout", "full")}">{body}</div><div class="takeaway">{s["takeaway"]}</div>{footer}</section>'
 
@@ -53,11 +56,11 @@ def main():
     cover = (ROOT / 'content/cover.html').read_text()
     total = len(content) + 1
     slides = [('S001', 'RLDX-1 Technical Report', cover, '표지와 클릭 목차. Part1은 모델 구조·데이터·학습, Part2는 추론·평가·설계 분석을 다룬다. 각 주제를 눌러 해당 페이지로 이동한다. 원문 Fig.1을 사용한다.', '<p>Figure 1은 데이터·아키텍처·학습·추론·평가를 연결하는 전체 시스템 개요다. 원문 PDF p.1.</p>')]
-    markdown = '---' + frontmatter + '---\n\n<!-- slide-id: S001 | revision: v40 | status: draft -->\n\n' + cover + '\n'
+    markdown = '---' + frontmatter + '---\n\n<!-- slide-id: S001 | revision: v41 | status: draft -->\n\n' + cover + '\n'
     for i, s in enumerate(content, 2):
         markup = slide_markup(s, i, total)
         notes = s.get('notes', '')
-        markdown += f'\n---\nlayout: none\n---\n\n<!-- slide-id: {s["id"]} | revision: v40 | status: draft -->\n\n{markup}\n\n<!--\n{notes.replace("-->", "→")}\n-->\n'
+        markdown += f'\n---\nlayout: none\n---\n\n<!-- slide-id: {s["id"]} | revision: v41 | status: draft -->\n\n{markup}\n\n<!--\n{notes.replace("-->", "→")}\n-->\n'
         slides.append((s['id'], s['title'], markup, notes, s['study_html']))
     (ROOT / 'slides.md').write_text(markdown)
 
@@ -90,8 +93,8 @@ def main():
     (ROOT / 'presentation.html').write_text(html)
     # Keep the manually published Pages entry in sync with the generated deck.
     (ROOT / 'index.html').write_text(html)
-    (ROOT / 'content/deck-manifest.json').write_text(json.dumps([{'order': i + 1, 'id': sid, 'title': title, 'chapter': chapter(sid), 'version': 'v40', 'status': '전체 초안 / 미승인', 'source_ids': next((s['source_ids'] for s in content if s['id'] == sid), ['S001'])} for i, (sid, title, _, _, _) in enumerate(slides)], ensure_ascii=False, indent=2))
-    index = ['# 슬라이드 색인 — v40', '', 'MD 원본 → HTML. 전체 도식 확대 단계는 P032 안에서 방향키로 이동한다. 개별 결과물은 사용자 검토 전이다.', '', '| 순서 | ID | 섹션 | 제목 | MD 원본 | 상세 단위 |', '| --- | --- | --- | --- | --- | --- |']
+    (ROOT / 'content/deck-manifest.json').write_text(json.dumps([{'order': i + 1, 'id': sid, 'title': title, 'chapter': chapter(sid), 'version': 'v41', 'status': '전체 초안 / 미승인', 'source_ids': next((s['source_ids'] for s in content if s['id'] == sid), ['S001'])} for i, (sid, title, _, _, _) in enumerate(slides)], ensure_ascii=False, indent=2))
+    index = ['# 슬라이드 색인 — v41', '', 'MD 원본 → HTML. 전체 도식 확대 단계는 P032 안에서 방향키로 이동한다. 개별 결과물은 사용자 검토 전이다.', '', '| 순서 | ID | 섹션 | 제목 | MD 원본 | 상세 단위 |', '| --- | --- | --- | --- | --- | --- |']
     index.append('| 1 | S001 | 표지 | RLDX-1 Technical Report | content/cover.html | — |')
     for i, s in enumerate(content, 2):
         index.append(f"| {i} | {s['id']} | {s['chapter']} | {s['title']} | {s['markdown_source']} | {', '.join(s['source_ids'])} |")

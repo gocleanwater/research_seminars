@@ -148,7 +148,7 @@ try{
   await page.keyboard.press('Escape');
   // Purpose first, then each training stage; graph and fused-kernel explanations stay separate.
   await show('P035');
-  for(const id of ['P016','P017','P018','P019','P037','P096','P098','P099','P101','P102','P103','P108','P020','P038','P039','P109','P040']){await page.keyboard.press('ArrowRight');assert.equal(await active(),id);if(id==='P101'){for(let step=1;step<6;step++){await page.keyboard.press('ArrowRight');assert.equal(await active(),'P101');}}}
+  for(const id of ['P016','P017','P018','P019','P037','P096','P098','P099','P101','P102','P103','P108','P020','P038','P109','P040']){await page.keyboard.press('ArrowRight');assert.equal(await active(),id);if(['P101','P020','P038'].includes(id)){for(let step=1;step<({P101:6,P020:4,P038:2})[id];step++){await page.keyboard.press('ArrowRight');assert.equal(await active(),id);}}}
   // Benchmarks and real robot/task photos come before their result plots.
   for(const id of ['P022','P095','P041','P042','P023','P043','P024','P044','P025','P110','P026']){await page.keyboard.press('ArrowRight');assert.equal(await active(),id);}
   // Follow the seven ablation topics without skipping their separate conditions and interpretations.
@@ -166,11 +166,11 @@ try{
   for(const {id,target,unit} of JSON.parse(fs.readFileSync('review/versions/before-appendix-removal-v26/mapping.json','utf8'))){
     assert.equal(await page.locator(`.deck-page[data-id="${id}"]`).count(),0);
     await page.goto(pathToFileURL(path.resolve('presentation.html')).href+'#'+id);
-    assert.equal(await active(),({P067:'P066',P069:'P068',P070:'P065',P029:'P101'})[target]||target);
+    assert.equal(await active(),({P067:'P066',P069:'P068',P070:'P065',P029:'P101',P039:'P038'})[target]||target);
     if(unit){await page.keyboard.press('n');assert((await page.locator('#notes-text').innerText()).includes('상세 해설 '+unit));await page.keyboard.press('Escape');}
   }
   await page.goto(pathToFileURL(path.resolve('presentation.html')).href+'#P078');
-  assert.equal(await active(),'P039');
+  assert.equal(await active(),'P038');
   assert.equal(await page.locator('.deck-page[data-id="P078"]').count(),0);
   assert.deepEqual(errors,[]);
   fs.writeFileSync('qa/full-deck/navigation-report.json',JSON.stringify({pageJump:true,pageJumpResetsTour:true,pageJumpValidation:true,pageJumpEscape:true,arrows:true,enterBackspace:true,spaceShiftSpace:true,upDownPageKeys:true,homeEnd:true,canvasClick:true,imageZoom:true,buttonFocus:true,tourReverseBoundary:true,dialogsAndModifiers:true,fullscreenEscape:true,mergedP012Link:true,allMergedLinks:true,movedStudyNotes:true,errors},null,2));

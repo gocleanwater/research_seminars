@@ -190,13 +190,36 @@ function renderProblems(index) {
   });
 }
 function inTour() { return pages[current]?.contains(explorer); }
+
+function inferenceRoot() { return pages[current]?.querySelector('.inference-tour'); }
+function renderInference(index) {
+ const root=inferenceRoot(); if(!root)return;
+ const panels=[...root.querySelectorAll('[data-inference-panel]')];
+ index=Math.max(0,Math.min(panels.length-1,index));root.dataset.state=index;
+ panels.forEach((p,i)=>p.hidden=i!==index);
+ root.querySelectorAll('[data-inference-mark]').forEach(g=>g.toggleAttribute('hidden',Number(g.dataset.inferenceMark)!==index));
+ root.querySelectorAll('[data-inference-go]').forEach(b=>b.setAttribute('aria-pressed',String(Number(b.dataset.inferenceGo)===index)));
+ root.querySelector('.inference-counter').textContent=`${index+1} / ${panels.length}`;
+ root.querySelector('[data-inference-next]').textContent=index===panels.length-1?'다음 장 →':'다음 설명 →';
+ const slide=root.closest('.seminar-slide');slide.querySelector('.slide-lead').textContent=panels[index].dataset.lead;slide.querySelector('.takeaway').textContent=panels[index].dataset.takeaway;
+}
+document.querySelectorAll('.inference-tour').forEach(root=>{
+ root.querySelectorAll('[data-inference-go]').forEach(b=>b.onclick=()=>renderInference(Number(b.dataset.inferenceGo)));
+ root.querySelector('[data-inference-next]').onclick=()=>advance();
+ root.querySelector('[data-inference-prev]').onclick=()=>retreat();
+});
+
 function advance() {
+  const inf=inferenceRoot();
+  if(inf && Number(inf.dataset.state)<inf.querySelectorAll("[data-inference-panel]").length-1) {renderInference(Number(inf.dataset.state)+1);return;}
   if (inRecap() && recapIndex < recapPanels.length - 1) renderRecap(recapIndex + 1);
   else if (inProblems() && problemIndex < problemStages.length - 1) renderProblems(problemIndex + 1);
   else if (inTour() && tourIndex < ARCH_TOUR.states.length - 1) renderTour(tourIndex + 1);
   else show(current + 1);
 }
 function retreat() {
+  const inf=inferenceRoot();
+  if(inf && Number(inf.dataset.state)>0) {renderInference(Number(inf.dataset.state)-1);return;}
   if (inRecap() && recapIndex > 0) renderRecap(recapIndex - 1);
   else if (inProblems() && problemIndex > 0) renderProblems(problemIndex - 1);
   else if (inTour() && tourIndex > 0) renderTour(tourIndex - 1);
@@ -233,6 +256,7 @@ function show(index, updateHash = true, enterAtLastStep = false) {
   if (inRecap()) renderRecap(enterAtLastStep ? recapPanels.length - 1 : 0);
   if (inTour()) renderTour(enterAtLastStep ? ARCH_TOUR.states.length - 1 : 0);
   if (inProblems()) renderProblems(enterAtLastStep ? problemStages.length - 1 : 0);
+  if(inferenceRoot()) renderInference(enterAtLastStep ? inferenceRoot().querySelectorAll("[data-inference-panel]").length-1 : 0);
   hydrate(current);
   if (current + 1 < pages.length) hydrate(current + 1);
   pageNumber.value = String(current + 1);
@@ -322,11 +346,11 @@ document.querySelector('#stage').addEventListener('click', event => {
   const target = event.target instanceof Element ? event.target : null;
   if (event.button !== 0 || event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
   if (document.querySelector('dialog[open]') || window.getSelection()?.isCollapsed === false) return;
-  if (target?.closest('button,a,input,textarea,select,[contenteditable="true"],figure,img,canvas,svg,.architecture-explorer,.recap-explorer')) return;
+  if (target?.closest('button,a,input,textarea,select,[contenteditable="true"],figure,img,canvas,svg,.architecture-explorer,.recap-explorer,.inference-tour')) return;
   advance();
 });
 // Preserve links to explanations that were merged during the slide review.
-const MERGED_SLIDES = {P031:'P032', P029:'P101', P070:'P065', P067:'P066', P069:'P068', P033:'P013', P034:'P013', P005:'P032', P007:'P006', P011:'P032', P036:'P032', P012:'P009', P021:'P038', P048:'P032', P049:'P032', P050:'P032', P052:'P032', P053:'P032', P054:'P032', P055:'P032', P056:'P032', P057:'P032', P058:'P032', P059:'P032', P073:'P072', P074:'P015', P045:'P015', P046:'P015', P075:'P028', P076:'P028', P077:'P028', P079:'P040', P080:'P022', P081:'P042', P082:'P041', P083:'P064', P084:'P064', P085:'P067', P086:'P067', P087:'P067', P088:'P067', P089:'P067', P090:'P064', P091:'P022', P092:'P022', P093:'P022', P094:'P022', P078:'P039'};
+const MERGED_SLIDES = {P039:'P038', P031:'P032', P029:'P101', P070:'P065', P067:'P066', P069:'P068', P033:'P013', P034:'P013', P005:'P032', P007:'P006', P011:'P032', P036:'P032', P012:'P009', P021:'P038', P048:'P032', P049:'P032', P050:'P032', P052:'P032', P053:'P032', P054:'P032', P055:'P032', P056:'P032', P057:'P032', P058:'P032', P059:'P032', P073:'P072', P074:'P015', P045:'P015', P046:'P015', P075:'P028', P076:'P028', P077:'P028', P079:'P040', P080:'P022', P081:'P042', P082:'P041', P083:'P064', P084:'P064', P085:'P067', P086:'P067', P087:'P067', P088:'P067', P089:'P067', P090:'P064', P091:'P022', P092:'P022', P093:'P022', P094:'P022', P078:'P039'};
 function showFromHash() {
   const requested = location.hash.slice(1);
   let resolved = requested;

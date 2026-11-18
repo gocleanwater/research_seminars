@@ -452,3 +452,23 @@ body[data-export="true"] .part-links { display: none; }
 .seminar-slide:has(.section-title-page) .slide-lead { font-size:28px; margin:24px auto 0; }
 .seminar-slide .seminar-body.section-title { top:440px; height:130px; }
 .seminar-slide:has(.section-title-page) .takeaway { display:none; }
+
+/* Inference diagrams follow the same arrow-key narration as the architecture. */
+.inference-tour {display:grid;grid-template-columns:790px minmax(0,1fr);grid-template-rows:365px 40px;gap:15px 24px;height:420px;}
+.inference-diagram {display:flex;align-items:center;min-width:0;}
+.inference-figure {position:relative;width:100%;background:white;}
+.inference-figure img {display:block;width:100%;height:100%;}
+.inference-figure svg {position:absolute;inset:0;width:100%;height:100%;overflow:visible;}
+.inference-figure g[hidden],.inference-panel[hidden] {display:none;}
+.inference-figure rect {fill:#0c847b;fill-opacity:.07;stroke:#0c847b;stroke-width:4;}
+.inference-figure g path {fill:none;stroke:#cb5c38;stroke-width:7;}
+.inference-figure circle {fill:#fff;stroke:#cb5c38;stroke-width:5;}
+.inference-panel h3 {font-size:23px;margin:0 0 17px;color:#087f7b;}
+.inference-panel p {font-size:21px;line-height:1.4;margin:12px 0;}
+.inference-controls {grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:12px;}
+.inference-controls button {font:inherit;font-size:17px;padding:6px 12px;border:1px solid #82afb1;border-radius:3px;background:#edf6f5;color:#185267;cursor:pointer;}
+.inference-controls button[aria-pressed="true"] {background:#0b807a;color:white;}
+.inference-controls>div {display:flex;gap:8px;}
+.inference-counter {font-size:17px;color:#516c7c;}
+.inference-tour aside {min-width:0;}
+.inference-panel p {overflow-wrap:anywhere;}
