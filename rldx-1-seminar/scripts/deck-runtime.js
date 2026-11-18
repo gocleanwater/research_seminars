@@ -287,13 +287,19 @@ pageNumber.addEventListener('keydown', event => {
 });
 document.querySelector('#prev').onclick = retreat;
 document.querySelector('#next').onclick = advance;
-document.querySelector('#open-toc').onclick = () => { toc.showModal(); document.querySelector('#toc-search').focus(); };
+document.querySelector('#open-toc').onclick = () => { const search=document.querySelector('#toc-search'); search.value=''; search.dispatchEvent(new Event('input')); toc.showModal(); search.focus(); };
 document.querySelector('#fullscreen').onclick = () => { if (document.fullscreenElement) document.exitFullscreen(); else document.documentElement.requestFullscreen?.(); };
 document.querySelectorAll('dialog .dialog-close').forEach(button => button.onclick = () => button.closest('dialog').close());
 document.querySelectorAll('.toc-entry').forEach(a => a.onclick = event => { event.preventDefault(); show(Number(a.dataset.index)); toc.close(); });
 document.querySelector('#toc-search').oninput = event => {
   const query = event.target.value.trim().toLowerCase();
-  document.querySelectorAll('.toc-entry').forEach(a => a.style.display = a.dataset.search.toLowerCase().includes(query) ? '' : 'none');
+  document.querySelectorAll('.toc-group').forEach(group => {
+    const partMatches = group.dataset.label.toLowerCase().replace(/\s+/g,'').includes(query.replace(/\s+/g,''));
+    const entries = [...group.querySelectorAll('.toc-entry')];
+    entries.forEach(a => a.style.display = partMatches || a.dataset.search.toLowerCase().includes(query) ? '' : 'none');
+    const sibling = group.querySelector('.toc-part-link');
+    group.hidden = !entries.some(a=>a.style.display!=='none') && !(sibling && partMatches);
+  });
 };
 document.querySelectorAll('.paper-figure img, .cover-system img').forEach(im => im.onclick = () => {
   imageDialog.querySelector('img').src = im.src;
@@ -324,7 +330,7 @@ document.addEventListener('keydown', event => {
   }
   if (event.key === 'Home') { event.preventDefault(); show(0); }
   if (event.key === 'End') { event.preventDefault(); show(pages.length - 1); }
-  if (event.key.toLowerCase() === 'g') document.querySelector('#open-toc').click();
+  if (event.key.toLowerCase() === 'g') { event.preventDefault(); document.querySelector('#open-toc').click(); }
   if (event.key.toLowerCase() === 'f') document.querySelector('#fullscreen').click();
 });
 document.querySelector('#stage').addEventListener('click', event => {

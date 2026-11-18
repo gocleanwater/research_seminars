@@ -8,7 +8,7 @@ from font_assets import prepare_typography, inline_fonts
 from architecture_markup import architecture_markup
 from overview_markup import overview_markup
 from inference_markup import inference_markup
-from parts_output import write_part_outputs
+from parts_output import write_part_outputs, grouped_toc
 from section_sources import load_sections, apply_tour_text
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -76,6 +76,8 @@ def main():
         pages.append(f'<article class="deck-page{(" active" if i == 0 else "")}" data-id="{sid}" aria-label="{escape(title, quote=True)}">{markup}</article>')
         terms = next((" ".join(s['source_ids'] + [library[x]['title'] for x in s['source_ids']]) for s in content if s['id'] == sid), '')
         entries.append(f'<a class="toc-entry" href="#{sid}" data-index="{i}" data-search="{escape(sid + " " + title + " " + terms, quote=True)}"><small>{sid} · {chapter(sid)}</small>{escape(title)}</a>')
+    part_split = next(i for i, row in enumerate(slides) if row[0] == 'P099')
+    toc_html = grouped_toc([(1, entries[:part_split]), (2, entries[part_split:])])
     css = typography + '\n' + (ROOT / 'style.css').read_text().replace("@import './deck.css';", '').replace("@import './typography.css';", '') + '\n' + (ROOT / 'deck.css').read_text()
     css = inline_fonts(css, ROOT)
     data = json.dumps([{'id': sid, 'title': title} for sid, title, _ in slides], ensure_ascii=False).replace('<', '\\u003c')
@@ -84,7 +86,7 @@ def main():
 <html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>RLDX-1 · 상세 논문 세미나</title><style>{css}</style></head>
 <body class="deck-app"><main id="stage">{''.join(pages)}</main>
 <nav class="deck-toolbar" aria-label="발표 탐색"><button id="prev" aria-label="이전 장">←</button><form id="page-jump" aria-label="페이지 바로 이동"><input id="page-number" type="number" min="1" step="1" required inputmode="numeric" enterkeyhint="go" autocomplete="off" aria-label="현재 페이지 번호" title="페이지 번호를 입력하고 Enter"><span id="counter" aria-live="polite"></span></form><button id="next" aria-label="다음 장">→</button><button id="open-toc">목차<span class="shortcut"> G</span></button><button id="fullscreen">전체 화면<span class="shortcut"> F</span></button></nav>
-<dialog id="toc"><button class="dialog-close" aria-label="닫기">×</button><h2>전체 목차</h2><input id="toc-search" type="search" placeholder="장 ID·제목·주제 검색" aria-label="목차 검색"><div id="toc-list">{''.join(entries)}</div></dialog>
+<dialog id="toc"><button class="dialog-close" aria-label="닫기">×</button><h2>전체 목차</h2><input id="toc-search" type="search" placeholder="장 ID·제목·주제 검색" aria-label="목차 검색"><div id="toc-list">{toc_html}</div></dialog>
 <dialog id="image-dialog"><button class="dialog-close" aria-label="닫기">×</button><img alt="확대한 원문 그림"></dialog>
 <script>const DECK={data};const ASSETS={json.dumps(assets)};const ARCH_TOUR={json.dumps(tour, ensure_ascii=False).replace(chr(60), chr(92) + "u003c")};{script}</script></body></html>'''
     (ROOT / 'presentation.html').write_text(html)

@@ -480,3 +480,12 @@ body[data-export="true"] .part-links { display: none; }
 .fusion-single {display:flex;align-items:center;justify-content:space-around;gap:12px;border:2px solid #7eb7aa;background:#fff9;border-radius:6px;padding:18px 14px;margin-top:16px;}
 .fusion-single>span {font-size:23px;font-weight:700;color:#155b59;}
 .fusion-comparison .config-reuse {font-size:19px;}
+
+/* The menu separates Part 1 and Part 2 without changing slide order. */
+.toc-group {min-width:0;}
+.toc-group[hidden] {display:none;}
+.toc-group h3 {margin:0 0 5px;color:#087f78;font-size:25px;}
+.toc-part-topic {font-size:17px;color:#526d7f;margin:0 0 12px;}
+.toc-entries {display:flex;flex-direction:column;}
+.toc-part-link {color:#087f78;display:block;border:1px solid #9cbdba;border-radius:4px;padding:12px;text-decoration:none;font-size:18px;}
+@media(max-width:640px){.deck-app #toc-list {grid-template-columns:1fr;gap:24px;}}

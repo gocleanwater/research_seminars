@@ -98,7 +98,14 @@ def build():
         chosen={p['id'] for p in selected}
         data=json.dumps({'pages':[p for p in public if p['id'] in chosen],'all':public,'parts':config()['parts']},ensure_ascii=False).replace('<','\\u003c')
         links='<a href="index.html">전체</a>'+''.join(f'<a href="part-{escape(k)}.html">Part {escape(k)}</a>' for k in dict.fromkeys(p['part'] for p in pages))
-        html='<!doctype html><html lang="ko"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>'+escape(config()['title'])+'</title><style>'+css+'</style><body><nav class="parts">'+links+'</nav><main id="stage">'+''.join(markup[p['id']] for p in selected)+'</main><nav class="toolbar"><button id="prev" aria-label="이전">←</button><form id="jump"><input id="number" type="number" min="1" aria-label="현재 페이지"><span id="counter"></span></form><button id="next" aria-label="다음">→</button><button id="toc-button">목차 G</button><button id="full">전체 화면 F</button></nav><dialog id="toc"><button data-close>닫기</button><h2>목차</h2>'+''.join(f'<p><a href="#{p["id"]}">{escape(p["title"])}</a></p>' for p in selected)+'</dialog><dialog id="zoom"><button data-close>닫기</button><img alt="확대한 원문 그림"></dialog><script>const DATA='+data+';'+runtime+'</script></body></html>'
+        toc=[]
+        for part in dict.fromkeys(p['part'] for p in pages):
+            local=[p for p in selected if p['part']==part]
+            label='Part '+part+' · '+config()['parts'].get(part,part)
+            items=''.join(f'<p><a href="#{p["id"]}">{escape(p["title"])}</a></p>' for p in local)
+            if not local:items=f'<p><a href="part-{escape(part)}.html">Part {escape(part)}로 이동 →</a></p>'
+            toc.append(f'<section class="toc-group" data-part="{escape(part)}"><h3>{escape(label)}</h3>{items}</section>')
+        html='<!doctype html><html lang="ko"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>'+escape(config()['title'])+'</title><style>'+css+'</style><body><nav class="parts">'+links+'</nav><main id="stage">'+''.join(markup[p['id']] for p in selected)+'</main><nav class="toolbar"><button id="prev" aria-label="이전">←</button><form id="jump"><input id="number" type="number" min="1" aria-label="현재 페이지"><span id="counter"></span></form><button id="next" aria-label="다음">→</button><button id="toc-button">목차 G</button><button id="full">전체 화면 F</button></nav><dialog id="toc"><button data-close>닫기</button><h2>목차</h2>'+'<div class="toc-groups">'+''.join(toc)+'</div></dialog><dialog id="zoom"><button data-close>닫기</button><img alt="확대한 원문 그림"></dialog><script>const DATA='+data+';'+runtime+'</script></body></html>'
         (ROOT/name).write_text(html)
     write('index.html',pages);shutil.copy2(ROOT/'index.html',ROOT/'presentation.html')
     for part in dict.fromkeys(p['part'] for p in pages):

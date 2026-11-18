@@ -7,6 +7,24 @@ from pathlib import Path
 import re
 
 
+PART_TOPICS = {1: '모델 구조와 학습', 2: '추론·실험·분석'}
+
+def grouped_toc(groups, sibling_links=None):
+    """Keep local entry indices intact while separating the two presentation Parts."""
+    sibling_links = sibling_links or {}
+    html = []
+    for number, entries in groups:
+        label = f'Part {number}'
+        topic = PART_TOPICS[number]
+        link = sibling_links.get(number)
+        content = ''.join(entries)
+        if not content and link:
+            content = f'<a class="toc-part-link" href="{escape(link, quote=True)}">{label}로 이동 →</a>'
+        if content:
+            html.append(f'<section class="toc-group" data-toc-part="{number}" data-label="{label} {topic}"><h3>{label}</h3><p class="toc-part-topic">{topic}</p><div class="toc-entries">{content}</div></section>')
+    return ''.join(html)
+
+
 @dataclass
 class _Element:
     tag: str
@@ -176,7 +194,7 @@ def write_part_outputs(root: Path, full_html: str, manifest: list[dict],
         html = _replace(full_html, [
             (stage.inner, stage.close, page_html),
             (stage.end, stage.end, links),
-            (toc.inner, toc.close, ''.join(toc_html)),
+            (toc.inner, toc.close, grouped_toc([(n, toc_html if n == number else []) for n in (1, 2)], {3-number: f'part-{3-number}.html#{ids[0] if number == 2 else ids[split]}'})),
             (title.inner, title.close, full_html[title.inner:title.close] + f' · {label}'),
             (deck_start, deck_start + consumed, data),
         ])
