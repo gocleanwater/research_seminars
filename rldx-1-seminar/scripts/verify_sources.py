@@ -38,8 +38,12 @@ for page in pages:
         text = Text(); text.feed(html)
         assert '**' not in ''.join(text.parts), (page['id'], 'literal emphasis markers')
 tour = apply_tour_text(json.loads((ROOT / 'content/architecture-tour.json').read_text()), next(p for p in pages if p['layout'] == 'explorer'))
-assert len(tour['states']) == 36
-assert len(tour['panels']) == 9
+assert len(tour['states']) == 35
+assert len(tour['panels']) == 8
+assert 'vqa-questions' not in tour['panels']
+assert [s.get('panel_id') for s in tour['states']].count('vqa-purpose') == 1
 assert set(tour['focus']) == {'vision','vlm','memory','msat'}
 assert sum(map(len, tour['annotations'].values())) == 18
-print(f'PASS: 9 MD sections, {len(pages)} pages, 121 study units; UTF-8, inline markup, 36 tour states/9 explanation cards/18 arrows.')
+for scene, index in tour['focus'].items():
+    assert tour['states'][index]['scene'] == scene and tour['states'][index]['step'] == 0, (scene, 'module focus shifted')
+print(f'PASS: 9 MD sections, {len(pages)} pages, 121 study units; UTF-8, inline markup, 35 tour states/8 explanation cards/18 arrows.')

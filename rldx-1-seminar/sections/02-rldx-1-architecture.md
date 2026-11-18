@@ -448,186 +448,180 @@ $$
 
 요점: 다음 설명을 누르면 토큰 입력부터 특징 추출까지 표시된다.
 
-#### [8] 장면을 이해하는 것에서 조작을 이해하는 것으로
+#### [8] 로봇 VQA
 
-핵심: 컵을 알아보는 것과, 손을 어디로 움직일지 아는 것은 다르다.
-설명: 컵을 알아보는 것과, 손을 어디로 움직일지 아는 것은 다르다.
-요점: 로봇 VQA는 영상의 이해를 로봇의 공간·작업·행동과 연결하는 학습이다.
+핵심: 로봇 조작에 필요한 위치·작업·동작을 질문과 답으로 학습한다.
+설명: 물체를 알아보는 데서 더 나아가, 조작에 필요한 정보를 연결해 이해하도록 VLM을 추가 학습한다.
+요점: 로봇 VQA로 추가 학습한 RLDX-1-VLM에서 행동에 필요한 특징을 얻는다.
 
-#### [9] 로봇에게 필요한 세 가지 질문
-
-핵심: 공간 관계, 중간 작업, 현재 관측의 행동을 함께 배운다.
-설명: 공간 관계, 중간 작업, 현재 관측의 행동을 함께 배운다.
-요점: 이렇게 준비한 RLDX-1-VLM이 다음 단계에서 영상·언어 특징을 만든다.
-
-#### [10] VLM
+#### [9] VLM
 핵심: 세 구간의 색과 이름을 구분하고, 이 토큰들을 이어 붙여 VLM에 입력한다.
 
 설명:
 
 요점: 보라색: 영상 토큰 · 연한 초록색: 언어 토큰 · 청록색: cognition tokens 64개
 
-#### [11] VLM
+#### [10] VLM
 핵심: 초반 1–4층은 여러 프레임을 함께 처리하며 시간 맥락을 모은다.
 
 설명:
 
 요점: 초기 4층의 DeepStack 시각 특징 주입을 활용한 뒤 과거 토큰을 압축한다.
 
-#### [12] VLM
+#### [11] VLM
 핵심: 4층 뒤에서 과거 프레임 특징을 평균내어 context token 하나로 압축한다.
 
 설명:
 
 요점: 과거 프레임 특징만 하나로 압축하고, 현재 관측·언어·cognition 토큰은 유지한다.
 
-#### [13] VLM
+#### [12] VLM
 핵심: 중간층에서 cognition token 위치의 출력 특징 hₜ를 얻어 행동 생성에 전달한다.
 
 설명:
 
 요점: cognition token 위치의 출력이 행동 생성에 사용할 cognition features hₜ다.
 
-#### [14] RLDX-1 Architecture
+#### [13] RLDX-1 Architecture
 핵심: 현재 cognition features hₜ에 더 긴 과거 이력을 연결하는 Memory Module을 살펴본다.
 
 설명: VLM 안의 과거 프레임 압축과, 이전 로봇 시점의 cognition features를 저장하는 장기 기억을 구분한다.
 
 요점: 다음 설명을 누르면 Memory Module을 확대한다.
 
-#### [15] Memory Module
+#### [14] Memory Module
 핵심: 이전 시점의 cognition features와 현재 특징으로 긴 이력을 반영한다.
 
 설명: 과거 시점의 cognition features를 저장하고, 현재 특징이 이 이력을 읽는다. 화살표를 한 단계씩 따라간다.
 
 요점: 과거 Qₜ → 현재 hₜ와 concat → memory mₜ → hₜ·mₜ concat 순서다.
 
-#### [16] Memory Module
+#### [15] Memory Module
 핵심: 과거 cognition features를 queue Qₜ에 시점별로 저장한다.
 
 설명:
 
 요점: 저장하는 것은 원본 영상이 아니라 이전 VLM이 계산한 cognition features다.
 
-#### [17] Memory Module
+#### [16] Memory Module
 핵심: 과거 queue Qₜ와 현재 cognition features hₜ를 토큰 방향으로 concat한다.
 
 설명:
 
 요점: 과거 기록을 담은 Qₜ와 현재 입력 hₜ를 구분한다.
 
-#### [18] Memory Module
+#### [17] Memory Module
 핵심: 현재 특징이 causal attention으로 과거 이력을 읽어 memory features mₜ를 만든다.
 
 설명:
 
 요점: 미래 시점의 정보를 보지 않으며, 과거·현재의 특징을 처리한다.
 
-#### [19] Memory Module
+#### [18] Memory Module
 핵심: 현재 hₜ와 memory mₜ를 concat해 MSAT의 C stream으로 전달한다.
 
 설명:
 
 요점: hₜ·mₜ를 이어 붙인 cognition·memory 토큰이 C stream의 입력이 된다.
 
-#### [20] RLDX-1 Architecture
+#### [19] RLDX-1 Architecture
 핵심: 이제 cognition·memory와 로봇 상태·센서를 처리하는 MSAT를 살펴본다.
 
 설명: 입력 P/C/A를 먼저 구분하고, Triple-stream → Double-stream → Denoising 순서로 따라간다.
 
 요점: 다음 설명을 누르면 MSAT를 확대한다.
 
-#### [21] MSAT
+#### [20] MSAT
 핵심: 현재 조건과 noisy 미래 후보를 구분하고, stream 사이의 정보 교환을 살펴본다.
 
 설명: 그림은 물리 센서가 있는 경우다. 초반에는 P/C/A, 후반에는 P와 C-A의 두 경로를 사용한다.
 
 요점: P/C/A 입력 → Triple-stream → C-A/P Double-stream → 변화율·반복 갱신
 
-#### [22] MSAT의 입력
+#### [21] MSAT의 입력
 핵심: P stream은 현재 센서값과 noisy 미래 센서 후보를 함께 입력받는다.
 
 설명:
 
 요점: 현재 센서값은 조건이고, noisy 미래 센서 신호는 생성할 후보다.
 
-#### [23] MSAT의 입력
+#### [22] MSAT의 입력
 핵심: C stream은 hₜ와 mₜ를 토큰 방향으로 concat한 cognition·memory 입력이다.
 
 설명:
 
 요점: C stream의 concat(hₜ,mₜ)는 현재 장면과 긴 이력을 함께 제공한다.
 
-#### [24] MSAT의 입력
+#### [23] MSAT의 입력
 핵심: A stream은 현재 로봇 상태와 noisy action chunk를 입력받는다.
 
 설명:
 
 요점: 그림에 생략된 denoising timestep τ도 A stream 앞의 토큰으로 전달된다.
 
-#### [25] 초반 블록은 세 경로로 처리한다
+#### [24] 초반 블록은 세 경로로 처리한다
 
 핵심: C·A·P는 각자의 경로를 두고, joint attention에서 서로의 정보를 참고한다.
 설명: C·A·P는 각자의 경로를 두고, joint attention에서 서로의 정보를 참고한다.
 요점: 세 경로의 정보 교환을 다음 그림에서 따라가 보자.
 
-#### [26] 서로 참고하되, 각자의 자리는 유지한다
+#### [25] 서로 참고하되, 각자의 자리는 유지한다
 
 핵심: Joint attention은 다른 경로의 정보를 반영해 각 토큰의 특징을 갱신한다.
 설명: Joint attention은 다른 경로의 정보를 반영해 각 토큰의 특징을 갱신한다.
 요점: 토큰의 자리와 묶음은 유지되고, 그 자리에 담긴 특징값은 바뀐다.
 
-#### [27] MSAT의 블록
+#### [26] MSAT의 블록
 핵심: 후반에는 C와 A를 토큰 방향으로 concat하고, P와 C-A의 Double-stream으로 처리한다.
 
 설명:
 
 요점: 초반 residual 덧셈과 후반 C-A concat은 서로 다른 연산이다.
 
-#### [28] MSAT의 행동 생성
+#### [27] MSAT의 행동 생성
 핵심: 한 forward에서 예측한 변화율로 미래 후보를 갱신하고 denoising을 반복한다.
 
 설명:
 
 요점: 반복이 끝나면 Future Actions와 Future Signals를 얻는다. 현재 조건은 계속 참조한다.
 
-#### [29] Flow matching policy의 학습 경로
+#### [28] Flow matching policy의 학습 경로
 
 핵심: 노이즈와 정답 행동 사이의 경로를 만들고, 그 경로를 따라가도록 학습한다.
 설명: 노이즈와 정답 행동을 섞어 학습 후보를 만드는 보간식이다.
 요점: 이 식으로 학습할 후보를 만들고, 다음 단계에서 정답 변화율을 구한다.
 
-#### [30] 정답 변화율과 MSAT 예측
+#### [29] 정답 변화율과 MSAT 예측
 
 핵심: 학습 경로를 미분해 정답 변화율을 구하고, MSAT의 예측값과 비교한다.
 설명: 학습 경로를 미분해 정답 변화율을 구하고, MSAT의 예측값과 비교한다.
 요점: MSAT의 예측 변화율과, 학습 경로에서 계산한 정답 변화율을 비교해 학습한다.
 
-#### [31] 예측과 정답의 차이를 줄여 학습한다
+#### [30] 예측과 정답의 차이를 줄여 학습한다
 
 핵심: 모델이 예측한 변화율과 앞에서 구한 정답 변화율을 비교한다.
 설명: 모델이 예측한 변화율과 앞에서 구한 정답 변화율을 비교한다.
 요점: 변화율 예측 오차가 작아지도록 MSAT의 가중치 θ를 학습한다.
 
-#### [32] 추론은 학습한 변화율로 후보를 갱신한다
+#### [31] 추론은 학습한 변화율로 후보를 갱신한다
 
 핵심: 정답 행동을 모르는 추론에서는, 노이즈에서 시작해 행동 묶음을 생성한다.
 설명: 정답 행동을 모르는 추론에서는, 노이즈에서 시작해 행동 묶음을 생성한다.
 요점: 현재 후보에 Δτ × 예측 변화율을 더하고, 새 후보로 같은 계산을 반복한다.
 
-#### [33] 미래 물리 신호도 같은 방식으로 학습한다
+#### [32] 미래 물리 신호도 같은 방식으로 학습한다
 
 핵심: 행동과 마찬가지로, 미래 물리 신호에도 노이즈를 섞어 정답 변화율을 학습한다.
 설명: 행동과 마찬가지로, 미래 물리 신호에도 노이즈를 섞어 정답 변화율을 학습한다.
 요점: 현재 물리 신호는 조건으로 두고, 미래 물리 신호 예측을 보조 목표로 함께 학습한다.
 
-#### [34] Closed-loop 제어
+#### [33] Closed-loop 제어
 
 핵심: 행동 묶음 일부를 실행한 뒤 다시 관측해 다음 행동을 생성할 수 있다.
 설명: 행동 묶음 일부를 실행한 뒤 다시 관측해 다음 행동을 생성할 수 있다.
 요점: 40개 생성·20개 실행은 Appendix C의 RL 설정이며 모든 실험의 공통값은 아니다.
 
-#### [35] RLDX-1 Architecture
+#### [34] RLDX-1 Architecture
 핵심: 영상·언어 → cognition → memory → MSAT → 미래 행동·센서 신호를 연결했다.
 
 설명: Vision Encoder는 움직임, VLM은 행동용 표현, Memory는 긴 이력, MSAT는 조건부 미래 후보 갱신을 담당한다. 네 영역을 눌러 다시 볼 수 있다.
@@ -2496,27 +2490,17 @@ RTC의 구체적인 overlap/inpainting 알고리즘은 이 보고서 내 설명 
 
 ### 그림 설명 카드
 
-#### [vqa-purpose] 장면을 이해하는 것에서 조작을 이해하는 것으로
+#### [vqa-purpose] 로봇 VQA
 
 ##### 화면
 
-<div class="tour-flow"><div class="tour-node">컵이 보인다</div><span class="tour-flow-arrow">→</span><div class="tour-node">로봇 손과 컵의<br>위치 관계는?</div><span class="tour-flow-arrow">→</span><div class="tour-node">다음에 무엇을 해야 하나?</div></div><p class="tour-callout">이 그림의 VLM은 이미 로봇 관련 질문·답으로 추가 학습한 모델이다.</p>
+<p class="tour-callout">로봇 조작에는 물체를 알아보는 것에 더해, 위치·작업·동작에 대한 이해가 필요하다.</p><div class="tour-question-grid"><div><b>공간 관계</b><p>손끝과 물체의<br>위치 관계는?</p></div><div><b>중간 작업</b><p>목표를 위해<br>지금 할 작업은?</p></div><div><b>로봇 동작</b><p>이 장면에서<br>로봇이 하는 동작은?</p></div></div><div class="tour-flow"><div class="tour-node">Qwen3-VL 8B</div><span class="tour-flow-arrow">→</span><div class="tour-node">로봇 VQA로 추가 학습</div><span class="tour-flow-arrow">→</span><div class="tour-node">RLDX-1-VLM</div></div>
 
 ##### 대본
 
-이번에는 VLM을 로봇 조작에 맞게 추가 학습하는 과정을 보겠습니다. 컵이 있다는 것을 알아보는 것과, 로봇 손과 컵의 위치 관계를 파악하고 다음에 무엇을 해야 하는지 아는 것은 다릅니다. 저자들은 이 연결을 보완하려고 로봇 관측으로 질문과 답을 만들어 추가 학습합니다. 이것이 로봇 VQA입니다. 그림에 별도 VQA 블록이 없는 것은 지금 우리가 보는 그림이 학습 결과인 모델의 처리 경로이기 때문입니다.
+컵을 알아보는 데서 더 나아가, 로봇이 조작하려면 물체와 손의 위치, 지금 할 작업, 구체적인 동작을 함께 이해해야 합니다. 저자들은 이런 내용을 질문과 답으로 만들어 VLM을 추가 학습합니다. 이것이 로봇 VQA입니다.
 
-#### [vqa-questions] 로봇에게 필요한 세 가지 질문
-
-##### 화면
-
-<div class="tour-question-grid"><div><b>공간 관계</b><p>손끝과 컵은<br>어떤 위치 관계인가?</p></div><div><b>중간 작업</b><p>목표를 위해<br>지금 무엇을 해야 하나?</p></div><div><b>행동 연결</b><p>이 관측에 대응하는<br>제어 행동은 무엇인가?</p></div></div><div class="tour-flow"><div class="tour-node">Qwen3-VL 8B</div><span class="tour-flow-arrow">→</span><div class="tour-node">로봇 VQA로 추가 학습</div><span class="tour-flow-arrow">→</span><div class="tour-node">RLDX-1-VLM</div></div>
-
-##### 대본
-
-로봇 VQA에서 다루는 질문은 화면의 세 가지입니다.
-
-먼저 손끝과 물체가 어떤 위치 관계에 있는지 묻습니다. 그다음에는 목표를 이루기 위해 지금 해야 할 작업을 묻습니다. 마지막으로는 그 장면에서 로봇이 어떤 동작을 하는지 묻습니다. 이렇게 위치와 작업, 동작을 연결해 이해하도록 학습합니다.
+화면 왼쪽부터 보면, 손끝과 물체가 어떤 위치 관계에 있는지 묻습니다. 그다음에는 목표를 이루기 위해 지금 해야 할 작업을 묻고, 마지막으로는 그 장면에서 로봇이 어떤 동작을 하는지 묻습니다.
 
 이런 질문과 답으로 Qwen3-VL 8B를 추가 학습한 모델이 RLDX-1-VLM입니다. 이 모델에서 조작에 필요한 특징을 뽑아 행동 모델에 전달합니다. 다음에는 그 특징을 만들 때 어떤 토큰을 입력하는지 보겠습니다.
 

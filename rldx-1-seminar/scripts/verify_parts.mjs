@@ -36,7 +36,7 @@ try{
     await page.keyboard.press('Home');assert.equal(await page.locator('.deck-page.active').getAttribute('data-id'),part.slides[0].id);
     if(part.id==='part-1'){
       await page.goto(pathToFileURL(path.resolve(part.file)).href+'#P008');
-      assert.equal(await page.locator('.architecture-explorer').getAttribute('data-state'),'32');
+      assert.equal(await page.locator('.architecture-explorer').getAttribute('data-state'),String(JSON.parse(fs.readFileSync('content/architecture-tour.json','utf8')).states.findIndex(s=>s.panel_id==='euler-update')));
       assert.equal(await page.locator('.arch-detail-panel:visible').count(),1);
     }
   }
