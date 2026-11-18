@@ -249,7 +249,7 @@ Fig.3 · PDF p.6; Sec.2.1–2.2 · PDF pp.7–9; 추출 층 비교: Table2(a), p
 
 **두 번째 화살표 · Motion Extractor와 STSS**
 
-“여기서 STSS는 Space-Time Self-Similarity, 즉 시공간 자기 유사성입니다. 앞쪽 ViT가 만든 각 특징과 주변 시공간 이웃의 correlation을 계산하고, 그 결과인 STSS tensor를 encoder가 읽어서 움직임 특징을 만듭니다. Space는 주변 위치, Time은 프레임 사이의 관계입니다.”
+“여기서 STSS는 Space-Time Self-Similarity입니다. 앞쪽 ViT가 만든 각 특징과 주변 시공간 이웃의 correlation을 계산하고, 그 결과인 STSS tensor를 encoder가 읽어서 움직임 특징을 만듭니다. Space는 주변 위치, Time은 프레임 사이의 관계입니다.”
 
 “직관을 위한 예로, 공이 지금 화면 중앙에 있더라도 이전에 왼쪽에 있었는지 오른쪽에 있었는지에 따라 이동 방향이 다르겠죠. 이전 공 특징과 다음 프레임의 오른쪽 이웃이 비슷하다면, 그 유사성의 배치가 오른쪽 이동의 단서가 될 수 있습니다. 이것은 설명용 상황이며, 모듈이 정확한 공의 속도나 optical flow를 직접 출력한다는 뜻은 아닙니다. 이웃 범위·상관 함수·tensor shape도 이 설명만으로 확정하지 않습니다.”
 
@@ -296,13 +296,13 @@ $$
 
 “초반 1–4층에서는 여러 프레임을 함께 처리하며 시간 맥락을 모읍니다. 이때 Qwen3-VL의 DeepStack 구조를 활용합니다.
 
-DeepStack은 시각 인코더의 여러 층에서 뽑은 정보를 LLM의 초반층에 나누어 전달하는 구조입니다. LLM이 장면을 해석하는 동안, 이미지에서 얻은 정보를 처리 단계마다 더해 주는 셈입니다.
+DeepStack은 Vision Encoder의 여러 층에서 뽑은 정보를 LLM의 초반층에 나누어 전달하는 구조입니다. LLM이 장면을 해석하는 동안, 이미지에서 얻은 정보를 처리 단계마다 더해 주는 셈입니다.
 
 저자들은 각 프레임에 이 시각 정보를 반영할 수 있도록, 초반 4층까지는 과거 프레임을 그대로 유지합니다. 이 과정을 거친 다음 과거 프레임 정보를 하나로 압축해, 이후 층의 계산량을 줄입니다. 화면 아래처럼 시각 특징 반영, 과거 프레임 압축, 적은 토큰으로 계산하는 순서입니다. 다음은 이 압축을 어떻게 하는지 보겠습니다.”
 
 **세 번째 화살표 · 과거 프레임 특징의 압축**
 
-“4층 뒤에서는 과거 관측 위치의 hidden states만 평균 풀링해 context token 하나로 압축합니다. 개념적으로 다음 평균입니다.”
+“4층 뒤에서는 과거 관측 위치의 hidden states만 Average Pooling해 context token 하나로 압축합니다. 개념적으로 다음 평균입니다.”
 
 $$
 \mathrm{context}
@@ -441,7 +441,7 @@ $$
 #### [6] RLDX-1 Architecture
 핵심: 이제 VLM을 누르거나 오른쪽 방향키로 영상·언어·cognition의 흐름을 살펴본다.
 
-설명: 시각 인코더가 만든 특징은 언어 지시와 cognition tokens에 연결된다. VLM에서 이 표현을 어떻게 모으고 압축하는지 살펴본다.
+설명: Vision Encoder가 만든 특징은 언어 지시와 cognition tokens에 연결된다. VLM에서 이 표현을 어떻게 모으고 압축하는지 살펴본다.
 
 요점: 다음은 VLM: 입력 토큰 → 초반 4층 → 과거 압축 → cognition features.
 
@@ -468,7 +468,7 @@ $$
 #### [10] VLM
 핵심: 각 프레임에 시각 정보를 반영할 때까지 유지하고, 4층 뒤에서 과거 프레임을 압축한다.
 
-설명: DeepStack은 시각 인코더 여러 층에서 얻은 정보를 LLM 초반층에 나누어 전달한다. 저자는 각 프레임에 이 과정을 적용한 뒤 과거 프레임을 압축하도록 구성했다.
+설명: DeepStack은 Vision Encoder 여러 층에서 얻은 정보를 LLM 초반층에 나누어 전달한다. 저자는 각 프레임에 이 과정을 적용한 뒤 과거 프레임을 압축하도록 구성했다.
 
 요점: DeepStack: 시각 특징 반영(1–4층) → 과거 프레임 압축(4층 뒤) → 이후 계산량 감소
 
@@ -656,7 +656,7 @@ $$
 
 #### [vlm-2] 초반 1–4층 · DeepStack
 
-설명: 시각 인코더의 여러 층에서 얻은 정보를 LLM 초반층마다 더해 준다.
+설명: Vision Encoder의 여러 층에서 얻은 정보를 LLM 초반층마다 더해 준다.
 
 #### [vlm-3] 4층 뒤 · 과거 프레임 압축
 
@@ -744,7 +744,7 @@ $$
 
 #### Fig.3에는 왜 VQA가 보이지 않는가?
 
-확인한 사실: 원문 Fig.3에는 VQA 데이터·질문·답변·학습 손실이 별도 블록으로 표시되지 않고, 학습 결과인 RLDX-1-VLM이 표시된다. VQA 학습은 Sec.2.1 본문이 설명한다. 그림을 읽는 관점에서는 VQA를 VLM을 적응시키는 학습 과정으로, Fig.3을 모델의 입력·특징·행동 처리 경로로 구별하면 된다. 저자가 VQA 블록을 그리지 않은 의도를 직접 밝혔다고 주장하지 않는다.
+확인한 사실: 원문 Fig.3에는 VQA 데이터·질문·답변·학습 loss가 별도 블록으로 표시되지 않고, 학습 결과인 RLDX-1-VLM이 표시된다. VQA 학습은 Sec.2.1 본문이 설명한다. 그림을 읽는 관점에서는 VQA를 VLM을 적응시키는 학습 과정으로, Fig.3을 모델의 입력·특징·행동 처리 경로로 구별하면 된다. 저자가 VQA 블록을 그리지 않은 의도를 직접 밝혔다고 주장하지 않는다.
 
 VQA 답변을 추론 때마다 별도 생성해 action decoder에 넣는 경로를 새로 만들지 않는다. 실제 행동 chunk는 Action Model이 생성한다. 정확한 VQA prompt·답변 형식·데이터 크기도 원문에 없는 값으로 채우지 않는다.
 
@@ -755,7 +755,7 @@ Fig.3 뒤에 먼저 세 stream의 입력을 설명한다. Noisy chunk는 노이�
 P032에서 본 Triple/Double-stream 안의 한 연산 흐름을 확대한다. 그림의 stage 수나 전체 residual·norm 위치를 재구성한 구현도는 아니다. Δ는 residual 보정의 개념 표기다. 후반 C-A concat의 위치는 P032에서 이미 설명했으며 여기서는 반복하지 않는다. Physical Sensing 마지막 noisy actions in C 표기 불일치는 S034와 마지막 미해결 장에 보존한다. RMSNorm/SwiGLU 상세 S039도 유지한다.
 
 #### 통합한 P006의 원본 메모
-P006과 P007을 통합했다. Transformer/DiT는 구조, flow matching은 목표, Euler는 추론 갱신이며 고전 diffusion 손실과 순차 적용하는 두 단계가 아니다. S020–026/S028의 유도·수식·용어·shape 해설을 모두 유지한다. 개별 정답 쌍의 직선 target이 상수라는 것과 학습한 vector field가 모든 입력에서 상수라는 것은 다르다. 현재 조건의 센서는 사용 가능할 때 포함한다. Sec.1.1의 c_t는 지시지만 여기서는 Sec.2.2의 전체 조건 정의다. τ의 정확한 샘플링 분포·구현상 loss reduction을 임의 확정하지 않는다. P006 Browser Comment1–4 후속: 본문에서 t/τ 재설명과 c_t 정의·숫자 예시를 빼고 기호 표와 손실 항 해석으로 바꿨다. 원문은 noisy action chunk라고 명시한다. 좌표 j는 action chunk의 시간·행동 차원 전체를 펼쳐 읽기 위한 설명용 인덱스이며 추가 평균/reduction 구현을 확정하지 않는다. 기존 숫자 예시와 시간/조건 설명은 S021/S022/S023/S026 해설에 그대로 보존한다. 최신 annotation 요청: u_θ 자체는 파라미터 θ를 학습하는 neural vector field이며 구현은 MSAT다. u_θ(a^τ,τ,c_t)는 그 함수를 평가해 얻은 예측 변화율이다. 둘을 구분해 u_θ에 직접 underbrace를 연결하고 같은 색의 모델 주석으로 설명한다. 좌표별 손실 전개는 상세 해설에 유지한다. 2026-11-06 최신 요청에 따라 Sec.2.2 p.8의 조건 입력 c_t=[h_t,m_t,s_t,p_t]를 본문에 다시 명시한다. h_t는 인지 특징, m_t는 기억 특징, s_t는 현재 로봇 상태, p_t는 사용 가능할 때의 현재 물리 센서 신호다.
+P006과 P007을 통합했다. Transformer/DiT는 구조, flow matching은 목표, Euler는 추론 갱신이며 고전 diffusion loss과 순차 적용하는 두 단계가 아니다. S020–026/S028의 유도·수식·용어·shape 해설을 모두 유지한다. 개별 정답 쌍의 직선 target이 상수라는 것과 학습한 vector field가 모든 입력에서 상수라는 것은 다르다. 현재 조건의 센서는 사용 가능할 때 포함한다. Sec.1.1의 c_t는 지시지만 여기서는 Sec.2.2의 전체 조건 정의다. τ의 정확한 샘플링 분포·구현상 loss reduction을 임의 확정하지 않는다. P006 Browser Comment1–4 후속: 본문에서 t/τ 재설명과 c_t 정의·숫자 예시를 빼고 기호 표와 loss 항 해석으로 바꿨다. 원문은 noisy action chunk라고 명시한다. 좌표 j는 action chunk의 시간·행동 차원 전체를 펼쳐 읽기 위한 설명용 인덱스이며 추가 평균/reduction 구현을 확정하지 않는다. 기존 숫자 예시와 시간/조건 설명은 S021/S022/S023/S026 해설에 그대로 보존한다. 최신 annotation 요청: u_θ 자체는 파라미터 θ를 학습하는 neural vector field이며 구현은 MSAT다. u_θ(a^τ,τ,c_t)는 그 함수를 평가해 얻은 예측 변화율이다. 둘을 구분해 u_θ에 직접 underbrace를 연결하고 같은 색의 모델 주석으로 설명한다. 좌표별 loss 전개는 상세 해설에 유지한다. 2026-11-06 최신 요청에 따라 Sec.2.2 p.8의 조건 입력 c_t=[h_t,m_t,s_t,p_t]를 본문에 다시 명시한다. h_t는 인지 특징, m_t는 기억 특징, s_t는 현재 로봇 상태, p_t는 사용 가능할 때의 현재 물리 센서 신호다.
 
 #### 통합한 P008의 원본 메모
 미래 물리 신호 길이 L은 mid-training에서 H+1로 둔다. 추론은 정답 미래 센서를 알지 못한다. 조건 특징의 실제 caching 구현은 단정하지 않는다. 생성 후 행동을 일부 실행하고 재관측하는 바깥 loop는 별도다. 최신 사용자 요청에 따라 본문의 한 좌표 숫자 예시를 제거하고 Euler식의 현재 chunk·예측 변화율·간격을 곱한 갱신량·다음 chunk를 기호 표로 설명한다. 이전 설명용 예시(현재0, 변화율4, 간격0.25 → 다음1)는 N 해설에만 보존한다. 한 forward가 chunk 전체를 다룬다는 설명은 S029에도 유지한다.
@@ -2550,21 +2550,21 @@ RTC의 구체적인 overlap/inpainting 알고리즘은 이 보고서 내 설명 
 
 아래 흐름에서는 MSAT를 함수 $\mathbf u_\theta$로 나타냈습니다. 후보 $\mathbf a^\tau$, 진행도 $\tau$, 조건 $\mathbf c_t$를 넣으면 예측 변화율 $\mathbf u_\theta(\mathbf a^\tau,\tau,\mathbf c_t)$가 나옵니다. 화면에서는 이 예측값을 $\widehat{\mathbf v}$로 표시했습니다. 조건 $\mathbf c_t$는 현재 인지 특징과 기억, 로봇 상태, 사용 가능한 센서 정보입니다.
 
-학습에서는 이 예측 변화율 $\widehat{\mathbf v}$를 방금 계산한 정답 변화율 $\mathbf v^*$와 비교합니다. 다음에는 두 값의 차이를 어떤 손실로 계산하는지 보겠습니다.
+학습에서는 이 예측 변화율 $\widehat{\mathbf v}$를 방금 계산한 정답 변화율 $\mathbf v^*$와 비교합니다. 다음에는 두 값의 차이를 어떤 loss로 계산하는지 보겠습니다.
 
 #### [flow-loss] 예측과 정답의 차이를 줄여 학습한다
 
 ##### 화면
 
-<p class="flow-formula-purpose"><strong>이 식은 예측 변화율과 정답 변화율의 오차를 계산한다.</strong></p><div class="tour-equation">$$\mathcal L=\left\lVert\mathbf u_\theta(\mathbf a^{\tau},\tau,\mathbf c_t)-\mathbf v^*\right\rVert_2^2$$</div><div class="tour-question-grid"><div><b>모델의 예측</b><p>$\mathbf u_\theta$<br>MSAT가 낸 변화율</p></div><div><b>계산한 정답</b><p>$\mathbf v^*=\mathbf a-\boldsymbol\epsilon$<br>앞 단계의 정답 변화율</p></div><div><b>학습</b><p>차이의 제곱합 ↓<br>모델 가중치 $\theta$ 갱신</p></div></div><p class="tour-callout">손실을 줄이면서, 상황에 맞는 변화율을 예측하도록 배운다.</p>
+<p class="flow-formula-purpose"><strong>이 식은 예측 변화율과 정답 변화율의 오차를 계산한다.</strong></p><div class="tour-equation">$$\mathcal L=\left\lVert\mathbf u_\theta(\mathbf a^{\tau},\tau,\mathbf c_t)-\mathbf v^*\right\rVert_2^2$$</div><div class="tour-question-grid"><div><b>모델의 예측</b><p>$\mathbf u_\theta$<br>MSAT가 낸 변화율</p></div><div><b>계산한 정답</b><p>$\mathbf v^*=\mathbf a-\boldsymbol\epsilon$<br>앞 단계의 정답 변화율</p></div><div><b>학습</b><p>차이의 제곱합 ↓<br>모델 가중치 $\theta$ 갱신</p></div></div><p class="tour-callout">loss를 줄이면서, 상황에 맞는 변화율을 예측하도록 배운다.</p>
 
 ##### 대본
 
-그렇다면 모델이 정답 변화율을 얼마나 잘 맞혔는지는 어떻게 볼까요? 화면의 식은 그 차이를 계산하는 학습 손실입니다.
+그렇다면 모델이 정답 변화율을 얼마나 잘 맞혔는지는 어떻게 볼까요? 화면의 식은 그 차이를 계산하는 학습 loss입니다.
 
-왼쪽 항 $\mathbf u_\theta(\mathbf a^\tau,\tau,\mathbf c_t)$는 MSAT가 예측한 변화율이고, $\mathbf v^*$는 앞에서 구한 $\mathbf a-\boldsymbol\epsilon$입니다. 두 값의 차이를 구한 뒤, 각 성분의 차이를 제곱해서 더합니다. 식의 $\lVert\cdot\rVert_2^2$는 이 계산을 뜻합니다. 예측이 정답에 가까울수록 손실이 작아집니다.
+왼쪽 항 $\mathbf u_\theta(\mathbf a^\tau,\tau,\mathbf c_t)$는 MSAT가 예측한 변화율이고, $\mathbf v^*$는 앞에서 구한 $\mathbf a-\boldsymbol\epsilon$입니다. 두 값의 차이를 구한 뒤, 각 성분의 차이를 제곱해서 더합니다. 식의 $\lVert\cdot\rVert_2^2$는 이 계산을 뜻합니다. 예측이 정답에 가까울수록 loss가 작아집니다.
 
-학습할 때는 이 손실이 줄어들도록 모델의 가중치 $\theta$를 바꿉니다. 노이즈와 정답 사이의 경로에서 필요한 변화율을 이렇게 배우는 것이 flow matching입니다. 이제 학습된 모델로 실제 행동을 만들 때를 보겠습니다.
+학습할 때는 이 loss가 줄어들도록 모델의 가중치 $\theta$를 바꿉니다. 노이즈와 정답 사이의 경로에서 필요한 변화율을 이렇게 배우는 것이 flow matching입니다. 이제 학습된 모델로 실제 행동을 만들 때를 보겠습니다.
 
 #### [euler-update] 추론은 학습한 변화율로 후보를 갱신한다
 

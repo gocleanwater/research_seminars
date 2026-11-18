@@ -391,11 +391,11 @@ caption: Figure 10 · (a) 중간 결과를 저장·재읽기 / (b) fused kernel 
 
 #### Figure 10(a) · 연산을 나눠 실행
 
-정규화 → **저장·다시 읽기** → 위치 반영 → **저장·다시 읽기** → Attention
+RMSNorm → **저장·다시 읽기** → RoPE → **저장·다시 읽기** → Attention
 
 #### Figure 10(b) · 한 kernel 안에서 이어 실행
 
-정규화 → 위치 반영 → Attention
+RMSNorm → RoPE → Attention
 
 **중간값은 on-chip에서 이어 사용**하고 마지막 결과를 저장한다.
 
@@ -673,7 +673,7 @@ $$
 \bigl(R(N(\mathbf q)),R(N(\mathbf k)),\mathbf v\bigr)
 $$
 
-입력을 읽은 뒤 **정규화 → 위치 회전 → Attention**을 한 kernel 안에서 이어 계산한다.
+입력을 읽은 뒤 **RMSNorm → RoPE → Attention**을 한 kernel 안에서 이어 계산한다.
 
 <p class="callout">중간 답을 global memory에 따로 내보내지 않고, kernel 안에서 이어 사용한 뒤 최종 답을 저장한다.</p>
 

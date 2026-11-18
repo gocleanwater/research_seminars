@@ -480,7 +480,7 @@ source_ids: S065, S066
 
 ### 본문
 
-<div class="post-il-flow"><div><small>1</small><h3>작업별 시연</h3><p>동작 순서는 일관되게<br>물체 위치 등은 다양하게</p></div><b>→</b><div><small>2</small><h3>IL 정책 학습</h3><p>이 작업의 관측과<br>행동을 모방 학습</p></div><b>→</b><div><small>3</small><h3>실제 실행</h3><p>실패하는 상황과<br>부족한 조건 확인</p></div><b>→</b><div><small>4</small><h3>추가 시연·재학습</h3><p>실패 조건의 경험을<br>보강하며 반복</p></div></div><p class="post-refine-return">↶ 실패 조건의 시연을 추가해 정책 학습을 반복</p><div class="post-rl-note"><strong>일부 고난도 정밀 조작</strong><span>시연 기반 학습을 보완하기 위해 RECAP 기반 RL 추가</span></div>
+<div class="post-il-flow"><div><small>1</small><h3>작업별 시연</h3><p>동작 순서는 일관되게<br>물체 위치 등은 다양하게</p></div><b>→</b><div><small>2</small><h3>IL 정책 학습</h3><p>이 작업의 관측과<br>행동을 Imitation Learning</p></div><b>→</b><div><small>3</small><h3>실제 실행</h3><p>실패하는 상황과<br>부족한 조건 확인</p></div><b>→</b><div><small>4</small><h3>추가 시연·재학습</h3><p>실패 조건의 경험을<br>보강하며 반복</p></div></div><p class="post-refine-return">↶ 실패 조건의 시연을 추가해 정책 학습을 반복</p><div class="post-rl-note"><strong>일부 고난도 정밀 조작</strong><span>시연 기반 학습을 보완하기 위해 RECAP 기반 RL 추가</span></div>
 
 ### 보충
 
@@ -496,7 +496,7 @@ Sec.4.3 · PDF p.14
 
 ### 발표 메모
 
-목표 로봇에 맞춘 뒤에는 실제로 수행할 작업에 적응시킵니다. Post-training의 기본은 작업별 시연을 이용한 모방학습, IL입니다. 보고서의 거의 모든 실험이 이 방식을 사용합니다.
+목표 로봇에 맞춘 뒤에는 실제로 수행할 작업에 적응시킵니다. Post-training의 기본은 작업별 시연을 이용한 Imitation Learning, IL입니다. 보고서의 거의 모든 실험이 이 방식을 사용합니다.
 
 화면의 첫 단계에서 작업의 기본 동작 순서를 정하고 시연을 모읍니다. 잡는 자세나 실행 순서처럼 일관되게 유지할 요소와, 물체 위치처럼 다양하게 보여 줄 요소를 구분합니다. 그 시연으로 정책을 학습한 다음 실제 작업을 수행시킵니다.
 
@@ -802,7 +802,7 @@ caption: Figure 8 · 초록: text prediction critic / 파랑: distributional cri
 
 ### 본문
 
-<div class="critic-reading"><div><small>(a) 첫 시도 성공</small><h3>진행을 따라 값 증가</h3><p>초록 곡선은 성공으로 갈수록<br>비교적 꾸준히 증가</p></div><div><small>(b) 실패 후 재시도</small><h3>실패 때 하락 · 회복 때 상승</h3><p>작업이 어긋났다가 회복되는<br>흐름을 평가에 반영</p></div></div><p class="critic-legend">세로축: 정규화 value · 성공률이 아님</p>
+<div class="critic-reading"><div><small>(a) 첫 시도 성공</small><h3>진행을 따라 값 증가</h3><p>초록 곡선은 성공으로 갈수록<br>비교적 꾸준히 증가</p></div><div><small>(b) 실패 후 재시도</small><h3>실패 때 하락 · 회복 때 상승</h3><p>작업이 어긋났다가 회복되는<br>흐름을 평가에 반영</p></div></div><p class="critic-legend">세로축: normalized value · 성공률이 아님</p>
 
 ### 보충
 
@@ -822,7 +822,7 @@ Figure 8은 큐브를 옮기는 두 trajectory에서 critic의 평가가 어떻�
 
 먼저 왼쪽의 첫 시도 성공 사례를 보겠습니다. 초록 곡선은 작업이 진행될수록 비교적 꾸준히 올라갑니다. 오른쪽은 실패 후 다시 시도해 성공한 사례입니다. 실패할 때 값이 내려갔다가, 작업을 회복하면서 다시 올라가는 모습을 봅니다.
 
-이런 평가가 실제 작업의 진행을 따라가면 앞의 policy 학습에 사용할 신호가 됩니다. 다만 세로축은 정규화한 value이지 성공률이 아니며, 이 두 예시만으로 모든 작업의 critic 정확도를 확정할 수는 없습니다. 여기까지가 데이터를 준비하고 목표 작업의 정책으로 다듬는 과정입니다. 마지막으로 Part 1의 핵심을 정리하겠습니다.
+이런 평가가 실제 작업의 진행을 따라가면 앞의 policy 학습에 사용할 신호가 됩니다. 다만 세로축은 normalized value이지 성공률이 아니며, 이 두 예시만으로 모든 작업의 critic 정확도를 확정할 수는 없습니다. 여기까지가 데이터를 준비하고 목표 작업의 정책으로 다듬는 과정입니다. 마지막으로 Part 1의 핵심을 정리하겠습니다.
 
 #### 기존 상세 참고 — 발표에서 그대로 읽지 않음
 

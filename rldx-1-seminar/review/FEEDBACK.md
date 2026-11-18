@@ -666,3 +666,11 @@
 
 - 검증: 대본·원본 검사와 Architecture35상태 렌더·넘침·정역방향·모듈 버튼 통과. 설명11 화면 직접 확인.
 - 사용자가 직접 수정한 대본도 함께 커밋하도록 명시. Part1 설명17의 concat 문장 수정도 현재 파일 그대로 포함한다.
+
+## 2026-11-18 / 학술 용어의 영어 명칭 유지
+
+- 사용자 요청: 학계 용어를 굳이 한국어로 번역하지 않고 Average Pooling처럼 통용 영어 명칭을 사용할 것. 사용자가 직접 수정한 대본은 보존하며 화면·나머지 대본도 확인.
+- 현재 화면/해설 필드·전체/Part 대본에서 Average Pooling, Space-Time Self-Similarity, Vision Encoder, RMSNorm/RoPE, Imitation Learning/Behavior Cloning, Backpropagation 등으로 표기 통일. 용어의 역할을 설명하는 한국어 문장은 유지.
+- 이전121개 상세 공부 기록·보존 버전은 소급 변환하지 않았다. Part1 설명19의 사용자 수정도 보존.
+
+- Loss·correlation 표기도 통일하고 영어 명칭 뒤 한국어 조사를 확인했다. 대본·소스 및 전체46장/Architecture35상태 실제 렌더·넘침 검사 통과.

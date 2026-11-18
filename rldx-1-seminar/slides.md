@@ -362,7 +362,7 @@ layout: none
 
 **두 번째 화살표 · Motion Extractor와 STSS**
 
-“여기서 STSS는 Space-Time Self-Similarity, 즉 시공간 자기 유사성입니다. 앞쪽 ViT가 만든 각 특징과 주변 시공간 이웃의 correlation을 계산하고, 그 결과인 STSS tensor를 encoder가 읽어서 움직임 특징을 만듭니다. Space는 주변 위치, Time은 프레임 사이의 관계입니다.”
+“여기서 STSS는 Space-Time Self-Similarity입니다. 앞쪽 ViT가 만든 각 특징과 주변 시공간 이웃의 correlation을 계산하고, 그 결과인 STSS tensor를 encoder가 읽어서 움직임 특징을 만듭니다. Space는 주변 위치, Time은 프레임 사이의 관계입니다.”
 
 “직관을 위한 예로, 공이 지금 화면 중앙에 있더라도 이전에 왼쪽에 있었는지 오른쪽에 있었는지에 따라 이동 방향이 다르겠죠. 이전 공 특징과 다음 프레임의 오른쪽 이웃이 비슷하다면, 그 유사성의 배치가 오른쪽 이동의 단서가 될 수 있습니다. 이것은 설명용 상황이며, 모듈이 정확한 공의 속도나 optical flow를 직접 출력한다는 뜻은 아닙니다. 이웃 범위·상관 함수·tensor shape도 이 설명만으로 확정하지 않습니다.”
 
@@ -409,13 +409,13 @@ $$
 
 “초반 1–4층에서는 여러 프레임을 함께 처리하며 시간 맥락을 모읍니다. 이때 Qwen3-VL의 DeepStack 구조를 활용합니다.
 
-DeepStack은 시각 인코더의 여러 층에서 뽑은 정보를 LLM의 초반층에 나누어 전달하는 구조입니다. LLM이 장면을 해석하는 동안, 이미지에서 얻은 정보를 처리 단계마다 더해 주는 셈입니다.
+DeepStack은 Vision Encoder의 여러 층에서 뽑은 정보를 LLM의 초반층에 나누어 전달하는 구조입니다. LLM이 장면을 해석하는 동안, 이미지에서 얻은 정보를 처리 단계마다 더해 주는 셈입니다.
 
 저자들은 각 프레임에 이 시각 정보를 반영할 수 있도록, 초반 4층까지는 과거 프레임을 그대로 유지합니다. 이 과정을 거친 다음 과거 프레임 정보를 하나로 압축해, 이후 층의 계산량을 줄입니다. 화면 아래처럼 시각 특징 반영, 과거 프레임 압축, 적은 토큰으로 계산하는 순서입니다. 다음은 이 압축을 어떻게 하는지 보겠습니다.”
 
 **세 번째 화살표 · 과거 프레임 특징의 압축**
 
-“4층 뒤에서는 과거 관측 위치의 hidden states만 평균 풀링해 context token 하나로 압축합니다. 개념적으로 다음 평균입니다.”
+“4층 뒤에서는 과거 관측 위치의 hidden states만 Average Pooling해 context token 하나로 압축합니다. 개념적으로 다음 평균입니다.”
 
 $$
 \mathrm{context}
@@ -2152,10 +2152,10 @@ layout: none
 
 <!-- slide-id: P018 | revision: v38 | status: draft -->
 
-<section class="seminar-slide" data-slide-id="P018"><header class="seminar-header"><div class="chapter-label">Training Procedure</div><h1>Post-training</h1><p class="slide-lead">목표 작업의 시연으로 정책을 학습하고, 실제 실패 조건을 찾아 보완한다.</p></header><div class="seminar-body full"><div class="body-main"><div class="post-il-flow"><div><small>1</small><h3>작업별 시연</h3><p>동작 순서는 일관되게<br>물체 위치 등은 다양하게</p></div><b>→</b><div><small>2</small><h3>IL 정책 학습</h3><p>이 작업의 관측과<br>행동을 모방 학습</p></div><b>→</b><div><small>3</small><h3>실제 실행</h3><p>실패하는 상황과<br>부족한 조건 확인</p></div><b>→</b><div><small>4</small><h3>추가 시연·재학습</h3><p>실패 조건의 경험을<br>보강하며 반복</p></div></div><p class="post-refine-return">↶ 실패 조건의 시연을 추가해 정책 학습을 반복</p><div class="post-rl-note"><strong>일부 고난도 정밀 조작</strong><span>시연 기반 학습을 보완하기 위해 RECAP 기반 RL 추가</span></div></div></div><div class="takeaway">대부분 실험의 기본은 작업별 IL이며, RL은 어려운 일부 작업의 추가 개선에 사용한다.</div><footer class="seminar-footer"><span class="source">Sec.4.3 · PDF p.14</span><span class="slide-id">P018 · 014/46</span></footer></section>
+<section class="seminar-slide" data-slide-id="P018"><header class="seminar-header"><div class="chapter-label">Training Procedure</div><h1>Post-training</h1><p class="slide-lead">목표 작업의 시연으로 정책을 학습하고, 실제 실패 조건을 찾아 보완한다.</p></header><div class="seminar-body full"><div class="body-main"><div class="post-il-flow"><div><small>1</small><h3>작업별 시연</h3><p>동작 순서는 일관되게<br>물체 위치 등은 다양하게</p></div><b>→</b><div><small>2</small><h3>IL 정책 학습</h3><p>이 작업의 관측과<br>행동을 Imitation Learning</p></div><b>→</b><div><small>3</small><h3>실제 실행</h3><p>실패하는 상황과<br>부족한 조건 확인</p></div><b>→</b><div><small>4</small><h3>추가 시연·재학습</h3><p>실패 조건의 경험을<br>보강하며 반복</p></div></div><p class="post-refine-return">↶ 실패 조건의 시연을 추가해 정책 학습을 반복</p><div class="post-rl-note"><strong>일부 고난도 정밀 조작</strong><span>시연 기반 학습을 보완하기 위해 RECAP 기반 RL 추가</span></div></div></div><div class="takeaway">대부분 실험의 기본은 작업별 IL이며, RL은 어려운 일부 작업의 추가 개선에 사용한다.</div><footer class="seminar-footer"><span class="source">Sec.4.3 · PDF p.14</span><span class="slide-id">P018 · 014/46</span></footer></section>
 
 <!--
-목표 로봇에 맞춘 뒤에는 실제로 수행할 작업에 적응시킵니다. Post-training의 기본은 작업별 시연을 이용한 모방학습, IL입니다. 보고서의 거의 모든 실험이 이 방식을 사용합니다.
+목표 로봇에 맞춘 뒤에는 실제로 수행할 작업에 적응시킵니다. Post-training의 기본은 작업별 시연을 이용한 Imitation Learning, IL입니다. 보고서의 거의 모든 실험이 이 방식을 사용합니다.
 
 화면의 첫 단계에서 작업의 기본 동작 순서를 정하고 시연을 모읍니다. 잡는 자세나 실행 순서처럼 일관되게 유지할 요소와, 물체 위치처럼 다양하게 보여 줄 요소를 구분합니다. 그 시연으로 정책을 학습한 다음 실제 작업을 수행시킵니다.
 
@@ -2313,14 +2313,14 @@ layout: none
 
 <!-- slide-id: P037 | revision: v38 | status: draft -->
 
-<section class="seminar-slide" data-slide-id="P037"><header class="seminar-header"><div class="chapter-label">Training Procedure</div><h1>Critic의 진행 평가</h1><p class="slide-lead">행동을 평가하려면 성공 직전뿐 아니라, 진행·실패·회복의 변화도 읽어야 한다.</p></header><div class="seminar-body figure balanced"><figure class="paper-figure"><img src="/figures/fig-08.png" alt="Figure 8 · 초록: text prediction critic / 파랑: distributional critic" loading="eager"><figcaption>Figure 8 · 초록: text prediction critic / 파랑: distributional critic</figcaption></figure><div class="body-main"><div class="critic-reading"><div><small>(a) 첫 시도 성공</small><h3>진행을 따라 값 증가</h3><p>초록 곡선은 성공으로 갈수록<br>비교적 꾸준히 증가</p></div><div><small>(b) 실패 후 재시도</small><h3>실패 때 하락 · 회복 때 상승</h3><p>작업이 어긋났다가 회복되는<br>흐름을 평가에 반영</p></div></div><p class="critic-legend">세로축: 정규화 value · 성공률이 아님</p></div></div><div class="takeaway">Figure 8은 critic이 작업 진행을 읽는 정성적 예시이며, 전체 정확도를 증명한 결과는 아니다.</div><footer class="seminar-footer"><span class="source">Fig.8 · PDF p.14; Sec.4.3 · p.15</span><span class="slide-id">P037 · 016/46</span></footer></section>
+<section class="seminar-slide" data-slide-id="P037"><header class="seminar-header"><div class="chapter-label">Training Procedure</div><h1>Critic의 진행 평가</h1><p class="slide-lead">행동을 평가하려면 성공 직전뿐 아니라, 진행·실패·회복의 변화도 읽어야 한다.</p></header><div class="seminar-body figure balanced"><figure class="paper-figure"><img src="/figures/fig-08.png" alt="Figure 8 · 초록: text prediction critic / 파랑: distributional critic" loading="eager"><figcaption>Figure 8 · 초록: text prediction critic / 파랑: distributional critic</figcaption></figure><div class="body-main"><div class="critic-reading"><div><small>(a) 첫 시도 성공</small><h3>진행을 따라 값 증가</h3><p>초록 곡선은 성공으로 갈수록<br>비교적 꾸준히 증가</p></div><div><small>(b) 실패 후 재시도</small><h3>실패 때 하락 · 회복 때 상승</h3><p>작업이 어긋났다가 회복되는<br>흐름을 평가에 반영</p></div></div><p class="critic-legend">세로축: normalized value · 성공률이 아님</p></div></div><div class="takeaway">Figure 8은 critic이 작업 진행을 읽는 정성적 예시이며, 전체 정확도를 증명한 결과는 아니다.</div><footer class="seminar-footer"><span class="source">Fig.8 · PDF p.14; Sec.4.3 · p.15</span><span class="slide-id">P037 · 016/46</span></footer></section>
 
 <!--
 Figure 8은 큐브를 옮기는 두 trajectory에서 critic의 평가가 어떻게 변하는지 보여 줍니다. 파란색은 새 예측 head로 value 분포를 내는 방식이고, 초록색은 이 보고서처럼 기존 VLM의 숫자 텍스트 출력으로 value를 내는 방식입니다.
 
 먼저 왼쪽의 첫 시도 성공 사례를 보겠습니다. 초록 곡선은 작업이 진행될수록 비교적 꾸준히 올라갑니다. 오른쪽은 실패 후 다시 시도해 성공한 사례입니다. 실패할 때 값이 내려갔다가, 작업을 회복하면서 다시 올라가는 모습을 봅니다.
 
-이런 평가가 실제 작업의 진행을 따라가면 앞의 policy 학습에 사용할 신호가 됩니다. 다만 세로축은 정규화한 value이지 성공률이 아니며, 이 두 예시만으로 모든 작업의 critic 정확도를 확정할 수는 없습니다. 여기까지가 데이터를 준비하고 목표 작업의 정책으로 다듬는 과정입니다. 마지막으로 Part 1의 핵심을 정리하겠습니다.
+이런 평가가 실제 작업의 진행을 따라가면 앞의 policy 학습에 사용할 신호가 됩니다. 다만 세로축은 normalized value이지 성공률이 아니며, 이 두 예시만으로 모든 작업의 critic 정확도를 확정할 수는 없습니다. 여기까지가 데이터를 준비하고 목표 작업의 정책으로 다듬는 과정입니다. 마지막으로 Part 1의 핵심을 정리하겠습니다.
 
 #### 기존 상세 참고 — 발표에서 그대로 읽지 않음
 
@@ -2564,9 +2564,9 @@ layout: none
 <!-- slide-id: P038 | revision: v38 | status: draft -->
 
 <section class="seminar-slide" data-slide-id="P038"><header class="seminar-header"><div class="chapter-label">Inference Strategy</div><h1>Kernel Fusion</h1><p class="slide-lead">중간 계산값을 메모리에 썼다가 다시 읽는 왕복을 줄인다.</p></header><div class="seminar-body figure balanced"><figure class="paper-figure"><img src="/figures/fig-10.png" alt="Figure 10 · (a) 중간 결과를 저장·재읽기 / (b) fused kernel 안에서 계산" loading="eager"><figcaption>Figure 10 · (a) 중간 결과를 저장·재읽기 / (b) fused kernel 안에서 계산</figcaption></figure><div class="body-main"><h3>Figure 10(a) · 연산을 나눠 실행</h3>
-<p>정규화 → <strong>저장·다시 읽기</strong> → 위치 반영 → <strong>저장·다시 읽기</strong> → Attention</p>
+<p>RMSNorm → <strong>저장·다시 읽기</strong> → RoPE → <strong>저장·다시 읽기</strong> → Attention</p>
 <h3>Figure 10(b) · 한 kernel 안에서 이어 실행</h3>
-<p>정규화 → 위치 반영 → Attention</p>
+<p>RMSNorm → RoPE → Attention</p>
 <p><strong>중간값은 on-chip에서 이어 사용</strong>하고 마지막 결과를 저장한다.</p>
 </div></div><div class="takeaway">CUDA Graph는 호출 부담을, Kernel Fusion은 연산 사이의 메모리 이동을 줄인다.</div><footer class="seminar-footer"><span class="source">Sec.5.2 · Fig.10 · PDF pp.16–17; App.F Table7 · PDF p.47</span><span class="slide-id">P038 · 022/46</span></footer></section>
 
@@ -2695,7 +2695,7 @@ layout: none
 </div><div class="body-aside"><h3>한 fused kernel에서 합성함수처럼</h3>
 <div class="equation"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi mathvariant="bold">o</mi><mo>=</mo><mi mathvariant="normal">Attn</mi><mo>⁡</mo><mo fence="true" stretchy="true" minsize="1.2em" maxsize="1.2em">(</mo><mi>R</mi><mo stretchy="false">(</mo><mi>N</mi><mo stretchy="false">(</mo><mi mathvariant="bold">q</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo><mo separator="true">,</mo><mi>R</mi><mo stretchy="false">(</mo><mi>N</mi><mo stretchy="false">(</mo><mi mathvariant="bold">k</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo><mo separator="true">,</mo><mi mathvariant="bold">v</mi><mo fence="true" stretchy="true" minsize="1.2em" maxsize="1.2em">)</mo></mrow><annotation encoding="application/x-tex">\mathbf o=\operatorname{Attn}
 \bigl(R(N(\mathbf q)),R(N(\mathbf k)),\mathbf v\bigr)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.4444em;"></span><span class="mord mathbf">o</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:1.2em;vertical-align:-0.35em;"></span><span class="mop"><span class="mord mathrm">Attn</span></span><span class="mopen"><span class="delimsizing size1">(</span></span><span class="mord mathnormal" style="margin-right:0.0077em;">R</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.109em;">N</span><span class="mopen">(</span><span class="mord mathbf">q</span><span class="mclose">))</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.0077em;">R</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.109em;">N</span><span class="mopen">(</span><span class="mord mathbf">k</span><span class="mclose">))</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathbf" style="margin-right:0.016em;">v</span><span class="mclose"><span class="delimsizing size1">)</span></span></span></span></span></span></div>
-<p>입력을 읽은 뒤 <strong>정규화 → 위치 회전 → Attention</strong>을 한 kernel 안에서 이어 계산한다.</p>
+<p>입력을 읽은 뒤 <strong>RMSNorm → RoPE → Attention</strong>을 한 kernel 안에서 이어 계산한다.</p>
 <p class="callout">중간 답을 global memory에 따로 내보내지 않고, kernel 안에서 이어 사용한 뒤 최종 답을 저장한다.</p></div></div><div class="takeaway">계산할 수학적 값은 같고, 중간값을 global memory에 저장·다시 읽는 실행 방식이 달라진다.</div><footer class="seminar-footer"><span class="source">Fig.10 · PDF p.16; N·R 약자와 합성함수 비교는 공부 내용을 풀어쓴 설명</span><span class="slide-id">P039 · 023/46</span></footer></section>
 
 <!--
@@ -3464,7 +3464,7 @@ layout: none
 <p class="callout"><span class="label interpretation">우리의 직관</span> 조작할 물체만 아니라, 그 물체와 상호작용하는 로봇도 함께 참고하도록 표현이 바뀐 사례로 읽을 수 있다.</p></div></div><div class="takeaway">수치 개선 다음에 보는 시각적 단서다. 이 그림만으로 성능 향상의 원인을 입증하지는 않는다.</div><footer class="seminar-footer"><span class="source">Sec.6.5 · Figure 19 · PDF p.25</span><span class="slide-id">P062 · 037/46</span></footer></section>
 
 <!--
-그림은 마지막 prompt token→image patch self-attention이다. 64개 cognition token 전체, memory 또는 MSAT attention이라고 바꿔 부르지 않는다. 색상의 정확한 정규화·임계값·전체 장면의 통계는 임의 지정하지 않는다. 그림과 저자 서술에서 집중 경향을 읽지만 attention 개입을 통한 인과 실험은 아니다. 같은 입력의 네 사례를 위/가운데/아래로 비교한다.
+그림은 마지막 prompt token→image patch self-attention이다. 64개 cognition token 전체, memory 또는 MSAT attention이라고 바꿔 부르지 않는다. 색상의 정확한 normalization·임계값·전체 장면의 통계는 임의 지정하지 않는다. 그림과 저자 서술에서 집중 경향을 읽지만 attention 개입을 통한 인과 실험은 아니다. 같은 입력의 네 사례를 위/가운데/아래로 비교한다.
 
 S100 Figure 19의 attention은 무엇을 보여주나?
 마지막 prompt token→image patch의 정성 예이며 cognition token 전체를 직접 본 그림은 아니다.
@@ -3677,7 +3677,7 @@ layout: none
 <!--
 이번에는 실제로 실행한 경험이 작업을 더 효율적으로 만드는지 보겠습니다. Figure 20은 ALLEX가 오른손 엄지와 검지로 플라스틱 전구를 비틀어 불을 켜는 작업입니다.
 
-모방학습인 BC로 출발한 뒤, 실행 데이터를 모으고 다시 학습하는 RECAP을 세 번 진행합니다. 평가하는 것은 완료까지의 프레임 수와 한 번의 작업에서 전구를 비튼 횟수입니다. 둘 다 낮을수록 좋습니다. 성공률이나 모델의 denoising 횟수를 측정한 것이 아닙니다. 다음 그림에서 이 두 지표의 변화와 실행마다 결과가 얼마나 일정해졌는지 보겠습니다.
+Behavior Cloning(BC)로 출발한 뒤, 실행 데이터를 모으고 다시 학습하는 RECAP을 세 번 진행합니다. 평가하는 것은 완료까지의 프레임 수와 한 번의 작업에서 전구를 비튼 횟수입니다. 둘 다 낮을수록 좋습니다. 성공률이나 모델의 denoising 횟수를 측정한 것이 아닙니다. 다음 그림에서 이 두 지표의 변화와 실행마다 결과가 얼마나 일정해졌는지 보겠습니다.
 
 #### 기존 상세 참고 — 발표에서 그대로 읽지 않음
 
@@ -3735,10 +3735,10 @@ layout: none
 </tbody>
 </table>
 <p>두 평균 모두 <strong>약 1/3</strong>로 줄고 표준편차도 작아졌다.</p>
-<p class="mini">Teleop은 원격 시연, BC는 모방학습, RECAP1–3은 연속 학습 결과다. ±는 본문에 보고한 표준편차다.</p></div></div><div class="takeaway">이 한 작업의 완료 효율과 일관성이 개선됐다. 추가 실행 데이터와 학습이 함께 진행된 결과다.</div><footer class="seminar-footer"><span class="source">Sec.6.5 · Figure 21 · PDF p.26</span><span class="slide-id">P066 · 041/46</span></footer></section>
+<p class="mini">Teleop은 원격 시연, BC는 Behavior Cloning, RECAP1–3은 연속 학습 결과다. ±는 본문에 보고한 표준편차다.</p></div></div><div class="takeaway">이 한 작업의 완료 효율과 일관성이 개선됐다. 추가 실행 데이터와 학습이 함께 진행된 결과다.</div><footer class="seminar-footer"><span class="source">Sec.6.5 · Figure 21 · PDF p.26</span><span class="slide-id">P066 · 041/46</span></footer></section>
 
 <!--
-왼쪽 그래프는 완료까지의 프레임 수, 오른쪽은 전구를 비튼 횟수입니다. Teleop은 전문가의 원격 시연, BC는 모방학습 정책이고, RECAP1부터 3까지는 연속된 추가 학습 결과입니다.
+왼쪽 그래프는 완료까지의 프레임 수, 오른쪽은 전구를 비튼 횟수입니다. Teleop은 전문가의 원격 시연, BC는 Behavior Cloning 정책이고, RECAP1부터 3까지는 연속된 추가 학습 결과입니다.
 
 BC에서 RECAP3로 가면 두 분포 모두 낮아지고 퍼짐도 작아집니다. 본문에 보고한 값을 보면 완료 프레임 수는 $1056 \pm 326$에서 $353 \pm 22$로, 비틀기 횟수는 $12.7 \pm 3.0$에서 $4.1 \pm 0.3$으로 줄었습니다. 두 평균이 약 3분의 1 수준이 되고 표준편차도 작아진 것입니다. 더 적은 시간과 비틀기로, 더 일정하게 이 작업을 마쳤다고 읽을 수 있습니다.
 
