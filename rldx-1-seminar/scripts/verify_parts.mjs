@@ -15,6 +15,9 @@ try{
   assert.equal(parts[0].slides.at(-1).id,'P098');assert.equal(parts[1].slides[0].id,'P099');
   await page.goto(pathToFileURL(path.resolve('presentation.html')).href+'#P032');
   assert.equal(await page.locator('body > .part-links').count(),1);
+    assert.equal(await page.locator('#open-notes').count(),0);
+    await page.keyboard.press('n');await page.keyboard.press('N');
+    assert.equal(await page.locator('#notes[open]').count(),0);
   assert.equal(await page.locator('.part-links:visible').count(),1);
   for(const part of parts){
     const script=fs.readFileSync(`SPEAKER_SCRIPT_${part.id==='part-1'?'PART1':'PART2'}.md`,'utf8');
@@ -30,7 +33,7 @@ try{
       await page.evaluate(n=>window.deckShow(n),i);
       assert.equal(await page.locator('.deck-page.active').getAttribute('data-id'),slide.id);
       assert.match(await page.locator('.deck-page.active .slide-id,.deck-page.active .cover-slide-id').textContent(),new RegExp(`${String(i+1).padStart(3,'0')}/${part.slide_count}$`));
-      await page.keyboard.press('n');assert.equal(await page.locator('#notes[open]').count(),1);await page.keyboard.press('Escape');
+      await page.evaluate(() => openNotes());assert.equal(await page.locator('#notes[open]').count(),1);await page.keyboard.press('Escape');
     }
     await page.keyboard.press('End');await page.keyboard.press('ArrowRight');assert.equal(await page.locator('.deck-page.active').getAttribute('data-id'),part.slides.at(-1).id);
     await page.keyboard.press('Home');assert.equal(await page.locator('.deck-page.active').getAttribute('data-id'),part.slides[0].id);

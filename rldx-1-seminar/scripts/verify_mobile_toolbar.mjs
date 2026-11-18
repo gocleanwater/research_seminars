@@ -60,10 +60,12 @@ try {
   assert.equal(await page.locator('.architecture-explorer').getAttribute('data-state'), '1');
   await page.locator('#page-number').fill(String(JSON.parse(fs.readFileSync('content/deck-manifest.json','utf8')).find(s=>s.id==='P032').order)); await page.locator('#page-number').press('Enter');
   assert.equal(await page.locator('.architecture-explorer').getAttribute('data-state'), '0');
-  for (const [button, dialog] of [['#open-toc','#toc'],['#open-notes','#notes']]) {
+  for (const [button, dialog] of [['#open-toc','#toc']]) {
     await page.locator(button).tap(); assert.equal(await page.locator(`${dialog}[open]`).count(), 1);
     await page.locator(`${dialog} .dialog-close`).tap();
   }
+  assert.equal(await page.locator('#open-notes').count(),0);
+  await page.keyboard.press('n');assert.equal(await page.locator('#notes[open]').count(),0);
   assert.deepEqual(errors, []);
   fs.writeFileSync('qa/full-deck/mobile-toolbar-report.json', JSON.stringify({ results, touchNavigation:true, pageJumpResetsTour:true, dialogs:true, errors }, null, 2));
   console.log(`PASS: ${results.length} phone/tablet layouts, 44px touch targets, rotation, touch navigation, page jump, dialogs.`);

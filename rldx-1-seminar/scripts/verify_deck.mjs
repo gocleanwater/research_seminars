@@ -49,7 +49,7 @@ for (let i = 0; i < count; i++) {
   results.push(result);
   if ((i + 1) % 20 === 0 || result.overflow.length) console.log(`${i + 1}/${count} ${result.id}${result.overflow.length ? ' overflow=' + JSON.stringify(result.overflow) : ' OK'}`);
 }
-// Exercise controls, search, notes, and image expansion with actual DOM events.
+// Exercise visible controls, then independently verify retained study data.
 await page.evaluate(() => window.deckShow(0));
 await page.keyboard.press('ArrowRight');
 const keyboardPassed = (await page.locator('.deck-page.active').getAttribute('data-id')) === 'P097';
@@ -57,20 +57,22 @@ await page.keyboard.press('g');
 await page.locator('#toc-search').fill('S053');
 await page.locator('.toc-entry:visible').click();
 const searchPassed = (await page.locator('.deck-page.active').getAttribute('data-id')) === 'P015';
-await page.keyboard.press('n');
-const notesPassed = await page.locator('#notes[open]').count() === 1 && (await page.locator('#notes-text').innerText()).includes('상세 해설 S053');
+await page.keyboard.press('n');await page.keyboard.press('N');
+const notesMenuRemoved = await page.locator('#open-notes').count() === 0 && await page.locator('#notes[open]').count() === 0;
+await page.evaluate(() => openNotes());
+const studyNotesPassed = await page.locator('#notes[open]').count() === 1 && (await page.locator('#notes-text').innerText()).includes('상세 해설 S053');
 await page.keyboard.press('Escape');
 await page.evaluate(() => window.deckShow(0));
 await page.locator('.cover-system img').click();
 const zoomPassed = await page.locator('#image-dialog[open]').count() === 1;
 await page.keyboard.press('Escape');
 await page.evaluate(() => window.deckShow(window.deckData.findIndex(s=>s.id==='P032')));
-await page.keyboard.press('n');
+await page.evaluate(() => openNotes());
 const detailImagesPassed = await page.locator('#notes-text img').count() > 0;
 const distinctionPassed = /원문 설명·결과/.test(await page.locator('#notes-text').innerText()) && /우리 해석/.test(await page.locator('#notes-text').innerText());
 await page.keyboard.press('Escape');
 const studyUnits = await page.evaluate(() => window.deckData.reduce((n, s) => n + (s.notesHtml.match(/class="study-unit"/g)?.length || 0), 0));
-const report = { count, studyUnits, errors, networkRequests: requests, controls: { keyboardPassed, searchPassed, notesPassed, zoomPassed, detailImagesPassed, distinctionPassed }, results };
+const report = { count, studyUnits, errors, networkRequests: requests, controls: { keyboardPassed, searchPassed, notesMenuRemoved, studyNotesPassed, zoomPassed, detailImagesPassed, distinctionPassed }, results };
 fs.writeFileSync('qa/full-deck/render-report.json', JSON.stringify(report, null, 2));
 console.log(JSON.stringify({ count, errors, networkRequests: requests.length, controls: report.controls, overflowSlides: results.filter(x => x.overflow.length).map(x => x.id) }, null, 2));
 await browser.close();

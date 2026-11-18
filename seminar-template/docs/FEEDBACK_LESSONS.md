@@ -236,3 +236,4 @@
 | FEEDBACK.md:823 | v42 후속 · Simulation(b)의 어려운 task와 한계 |
 | FEEDBACK.md:827 | v42 후속 · 의견의 자연스러운 마무리 |
 | FEEDBACK.md:831 | 2026-11-18 / 폴더 정리·좋았던 방식까지 재사용 기록 |
+| FEEDBACK.md:843 | 2026-11-18 / 발표 메뉴의 설명 제거 |

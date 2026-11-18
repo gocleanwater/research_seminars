@@ -36,7 +36,7 @@ try{
   const annotations=await page.locator('.arch-detail-content annotation').allTextContents();
   assert(annotations.some(t=>t.includes('\\lVert')&&t.includes('\\rVert_2^2')),'loss norm and square must remain explicit LaTeX');
   await page.locator('.deck-page.active').screenshot({path:`review/previews/deck-${version}/math-loss-${version}.png`});
-  await page.keyboard.press('n');
+  await page.evaluate(() => openNotes());
   assert(await page.locator('#notes-text .katex').count()>0,'detail notes must typeset math');
   await page.evaluate(()=>document.fonts.ready);
   const noteOverflow=await page.locator('#notes-text .equation').evaluateAll(elements=>elements.filter(e=>e.scrollWidth>e.clientWidth+3).map(e=>({width:e.clientWidth,scroll:e.scrollWidth,tex:e.querySelector('annotation')?.textContent})));
@@ -45,7 +45,7 @@ try{
   const allNoteOverflows=[];
   const pageCount=await page.evaluate(()=>window.deckData.length);
   for(let i=1;i<pageCount;i++){
-    await page.evaluate(n=>window.deckShow(n),i);await page.keyboard.press('n');
+    await page.evaluate(n=>window.deckShow(n),i);await page.evaluate(() => openNotes());
     await page.evaluate(()=>document.fonts.ready);
     const overflow=await page.locator('#notes-text .equation').evaluateAll(elements=>elements.filter(e=>e.scrollWidth>e.clientWidth+3).map(e=>e.querySelector('annotation')?.textContent));
     if(overflow.length)allNoteOverflows.push({index:i,formulas:overflow});

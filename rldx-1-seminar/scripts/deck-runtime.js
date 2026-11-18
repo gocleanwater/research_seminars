@@ -266,6 +266,7 @@ function show(index, updateHash = true, enterAtLastStep = false) {
   document.querySelector('#next').disabled = current === pages.length - 1;
   if (updateHash) history.replaceState(null, '', `#${DECK[current].id}`);
 }
+// Retain study-note rendering for internal verification, without a menu or shortcut.
 function openNotes() {
   document.querySelector('#notes-title').textContent = `${DECK[current].id} · ${DECK[current].title}`;
   const content = document.querySelector('#notes-text');
@@ -301,7 +302,6 @@ pageNumber.addEventListener('keydown', event => {
 document.querySelector('#prev').onclick = retreat;
 document.querySelector('#next').onclick = advance;
 document.querySelector('#open-toc').onclick = () => { toc.showModal(); document.querySelector('#toc-search').focus(); };
-document.querySelector('#open-notes').onclick = openNotes;
 document.querySelector('#fullscreen').onclick = () => { if (document.fullscreenElement) document.exitFullscreen(); else document.documentElement.requestFullscreen?.(); };
 document.querySelectorAll('dialog .dialog-close').forEach(button => button.onclick = () => button.closest('dialog').close());
 document.querySelectorAll('.toc-entry').forEach(a => a.onclick = event => { event.preventDefault(); show(Number(a.dataset.index)); toc.close(); });
@@ -339,7 +339,6 @@ document.addEventListener('keydown', event => {
   if (event.key === 'Home') { event.preventDefault(); show(0); }
   if (event.key === 'End') { event.preventDefault(); show(pages.length - 1); }
   if (event.key.toLowerCase() === 'g') document.querySelector('#open-toc').click();
-  if (event.key.toLowerCase() === 'n') openNotes();
   if (event.key.toLowerCase() === 'f') document.querySelector('#fullscreen').click();
 });
 document.querySelector('#stage').addEventListener('click', event => {
