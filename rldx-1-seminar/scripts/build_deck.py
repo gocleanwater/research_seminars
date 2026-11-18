@@ -6,6 +6,7 @@ import json
 import re
 from font_assets import prepare_typography, inline_fonts
 from architecture_markup import architecture_markup
+from overview_markup import overview_markup
 from parts_output import write_part_outputs
 from section_sources import load_sections, apply_tour_text
 
@@ -31,6 +32,8 @@ def slide_markup(s, order, total):
         body += f'<div class="body-aside">{s["aside"]}</div>'
     if s.get("layout") == "explorer":
         body = architecture_markup()
+    if s.get("layout") == "overview":
+        body = overview_markup(s)
     footer = f'<footer class="seminar-footer"><span class="source">{escape(s["source"])}</span><span class="slide-id">{s["id"]} · {order:03d}/{total}</span></footer>'
     return f'<section class="seminar-slide" data-slide-id="{s["id"]}">{header}<div class="seminar-body {s.get("layout", "full")}">{body}</div><div class="takeaway">{s["takeaway"]}</div>{footer}</section>'
 

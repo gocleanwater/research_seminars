@@ -2387,12 +2387,26 @@ layout: none
 
 <!-- slide-id: P098 | revision: v39 | status: draft -->
 
-<section class="seminar-slide" data-slide-id="P098"><header class="seminar-header"><div class="chapter-label">Seminar</div><h1>Q&amp;A</h1><p class="slide-lead">Part 1 · 모델 구조와 학습</p></header><div class="seminar-body boundary"><div class="body-main"><div class="part-boundary-visual"><p>Part 1을 마칩니다.<br>질문과 의견을 나눠주세요.</p><div><a href="#S001">전체 목차</a><a href="#P101">Part 2로 이동 →</a></div></div></div></div><div class="takeaway"></div><footer class="seminar-footer"><span class="source">세미나 구성 · Q&amp;A</span><span class="slide-id">P098 · 018/48</span></footer></section>
+<section class="seminar-slide" data-slide-id="P098"><header class="seminar-header"><div class="chapter-label">Seminar</div><h1>Q&amp;A</h1><p class="slide-lead">Part 1 · 모델 구조와 학습</p></header><div class="seminar-body boundary"><div class="body-main"><div class="part-boundary-visual"><p>Part 1을 마칩니다.<br>질문과 의견을 나눠주세요.</p><div><a href="#S001">전체 목차</a><a href="#P099">Part 2로 이동 →</a></div></div></div></div><div class="takeaway"></div><footer class="seminar-footer"><span class="source">세미나 구성 · Q&amp;A</span><span class="slide-id">P098 · 018/48</span></footer></section>
 
 <!--
 여기까지 Part 1이었습니다. 모델 구조, 데이터, 학습 과정에 관해 질문이나 의견을 나누겠습니다.
 
-> 조작: 질의응답을 마친 뒤 다음으로 넘기면 Part 2의 Part 1 요약으로 이동한다.
+> 조작: 질의응답을 마친 뒤 다음으로 넘기면 Part 2 시작 화면이 나온다.
+
+
+-->
+
+---
+layout: none
+---
+
+<!-- slide-id: P099 | revision: v39 | status: draft -->
+
+<section class="seminar-slide" data-slide-id="P099"><header class="seminar-header"><div class="chapter-label">Seminar</div><h1>Part 2</h1><p class="slide-lead">추론·실험·분석</p></header><div class="seminar-body boundary"><div class="body-main"><div class="part-boundary-visual"><p>추론 최적화 → 성능 평가 → 설계 분석</p><div><a href="#P101">Part 2 시작 →</a><a href="#S001">전체 목차</a></div></div></div></div><div class="takeaway"></div><footer class="seminar-footer"><span class="source">세미나 구성 · Part 2</span><span class="slide-id">P099 · 019/48</span></footer></section>
+
+<!--
+Part 2에서는 먼저 Part 1을 세 장으로 짧게 정리한 뒤, 추론 최적화와 성능 평가, 설계 분석을 살펴보겠습니다.
 
 
 -->
@@ -2403,18 +2417,41 @@ layout: none
 
 <!-- slide-id: P101 | revision: v39 | status: draft -->
 
-<section class="seminar-slide" data-slide-id="P101"><header class="seminar-header"><div class="chapter-label">Part 1 Recap</div><h1>Part 1 한눈에 보기</h1><p class="slide-lead">① 전체 구조 · 영상 관측과 언어 지시에서 미래 action chunk까지</p></header><div class="seminar-body widefigure recap-figure"><figure class="paper-figure"><img src="/figures/fig-02.png" alt="Figure 2 · RLDX-1 전체 구조" loading="eager"><figcaption>Figure 2 · RLDX-1 전체 구조</figcaption></figure><div class="body-main"></div></div><div class="takeaway">움직임을 읽고 → 상황·지시를 이해하고 → 과거를 참고해 → 다음 action을 생성한다.</div><footer class="seminar-footer"><span class="source">Part 1 요약 · Fig.2 PDF p.5 · Sec.2 PDF pp.6–9</span><span class="slide-id">P101 · 019/48</span></footer></section>
+<section class="seminar-slide" data-slide-id="P101"><header class="seminar-header"><div class="chapter-label">Part 1 Recap</div><h1>Part 1 한눈에 보기</h1><p class="slide-lead">① 전체 구조 · 영상 관측과 언어 지시에서 미래 action chunk까지</p></header><div class="seminar-body overview"><div class="recap-explorer" data-state="0"><div class="recap-viewport"><div class="recap-camera"><img class="recap-source-image" src="/figures/fig-02.png" width="1497" height="631" alt="원문 Figure 2 RLDX-1 전체 구조"><svg class="recap-mark" width="1497" height="631" aria-hidden="true"><rect hidden fill="none" stroke="#167e7a" stroke-width="3" vector-effect="non-scaling-stroke"/></svg><button type="button" class="recap-hotspot" data-recap-go="1" aria-label="Motion Module 확대" style="left:133px;top:249px;width:234px;height:58px"></button><button type="button" class="recap-hotspot" data-recap-go="2" aria-label="VLM 확대" style="left:124px;top:308px;width:518px;height:157px"></button><button type="button" class="recap-hotspot" data-recap-go="3" aria-label="Memory Module 확대" style="left:400px;top:467px;width:231px;height:54px"></button><button type="button" class="recap-hotspot" data-recap-go="4" aria-label="MSAT 확대" style="left:658px;top:231px;width:697px;height:249px"></button></div></div><aside class="recap-detail" aria-live="polite"><section class="recap-panel" data-recap-panel="0" data-box="[50, 35, 1370, 585]" data-crop="null" data-highlight="null" data-lead="① 전체 구조 · Figure 2의 모듈을 순서대로 따라간다." data-takeaway="전체 그림 → Motion Module → VLM → Memory Module → MSAT"><h3>RLDX-1 전체 구조</h3><p>영상 관측과 언어 지시에서 미래 action chunk까지 이어지는 경로를 봅니다.</p>
+</section><section class="recap-panel" data-recap-panel="1" data-box="[100, 30, 310, 295]" data-crop="[118, 48, 262, 259]" data-highlight="[133, 249, 234, 58]" data-lead="영상의 프레임 사이 변화를 읽어 움직임 정보를 더한다." data-takeaway="Motion Module · 시각 특징에 움직임 정보를 더한다." hidden><h3>Motion Module</h3><p>관측 프레임의 변화를 읽고, 시각 특징에 <strong>움직임 정보</strong>를 더합니다.</p>
+</section><section class="recap-panel" data-recap-panel="2" data-box="[110, 172, 540, 305]" data-crop="[[380, 172], [643, 172], [643, 465], [110, 465], [110, 307], [380, 307]]" data-highlight="[124, 308, 518, 157]" data-lead="시각 정보와 언어 지시를 함께 이해한다." data-takeaway="VLM · 상황과 지시를 이해해 행동 생성에 쓸 정보를 만든다." hidden><h3>VLM</h3><p>시각 정보와 지시를 함께 읽어, <strong>행동 생성에 필요한 특징</strong>을 만듭니다.</p>
+</section><section class="recap-panel" data-recap-panel="3" data-box="[365, 440, 300, 110]" data-crop="[398, 466, 236, 57]" data-highlight="[400, 467, 231, 54]" data-lead="이전 특징을 저장하고, 현재 판단에 과거 정보를 활용한다." data-takeaway="Memory Module · 과거의 정보를 현재 행동에 연결한다." hidden><h3>Memory Module</h3><p>이전에 얻은 특징을 저장해 두었다가, <strong>현재 특징과 함께 읽습니다.</strong></p>
+</section><section class="recap-panel" data-recap-panel="4" data-box="[645, 115, 735, 495]" data-crop="[650, 122, 730, 471]" data-highlight="[658, 231, 697, 249]" data-lead="후보를 바꿀 변화율을 예측하고, 노이즈에서 action chunk를 만든다." data-takeaway="MSAT · 변화율을 학습하고, denoising으로 미래 action chunk를 생성한다." hidden><h3>MSAT</h3><p><strong>학습:</strong> 예측 변화율을 정답 변화율에 맞춥니다.</p>
+<p><strong>추론:</strong> 노이즈 후보를 denoising하며 미래 action chunk를 얻습니다.</p>
+</section><section class="recap-panel" data-recap-panel="5" data-box="[50, 35, 1370, 585]" data-crop="null" data-highlight="null" data-lead="장면의 이해에 움직임과 기억을 더해 다음 행동을 만든다." data-takeaway="움직임을 읽고 → 상황·지시를 이해하고 → 과거를 참고해 → 다음 action을 생성한다." hidden><h3>전체 흐름 정리</h3><p>장면·지시의 이해와 과거 경험을 조건으로, 다음 행동을 생성합니다.</p>
+</section></aside><nav class="recap-controls" aria-label="Figure 2 단계 탐색"><div class="recap-modes"><button type="button" data-recap-go="0" aria-pressed="true">전체 그림</button><button type="button" data-recap-go="1" aria-pressed="false">Motion Module</button><button type="button" data-recap-go="2" aria-pressed="false">VLM</button><button type="button" data-recap-go="3" aria-pressed="false">Memory Module</button><button type="button" data-recap-go="4" aria-pressed="false">MSAT</button><button type="button" data-recap-go="5" aria-pressed="false">전체 정리</button></div><div class="recap-directions"><button type="button" data-recap-prev>← 이전 설명</button><span class="recap-counter">1 / 6</span><button type="button" data-recap-next>다음 설명 →</button></div></nav></div></div><div class="takeaway">움직임을 읽고 → 상황·지시를 이해하고 → 과거를 참고해 → 다음 action을 생성한다.</div><footer class="seminar-footer"><span class="source">Part 1 요약 · Fig.2 PDF p.5 · Sec.2 PDF pp.6–9</span><span class="slide-id">P101 · 020/48</span></footer></section>
 
 <!--
+> 조작: 이 장은 Figure 2의 6개 화면 상태를 →/←로 넘기며 설명한다.
+
+**화면 1/6 · RLDX-1 전체 구조**
+
 먼저 Part 1을 빠르게 요약하겠습니다. Figure 2는 RLDX-1의 전체 구조입니다.
 
-왼쪽 위의 Motion Module은 영상의 프레임 사이 변화를 읽어, 시각 특징에 움직임 정보를 더합니다. VLM은 이 시각 정보와 언어 지시를 함께 이해하고, 행동 생성에 필요한 특징을 만듭니다.
+**화면 2/6 · Motion Module**
 
-Memory Module은 이전에 얻은 특징을 저장해 두었다가 현재 특징과 함께 읽습니다. 지금 화면에 보이지 않는 과거의 정보도 행동을 정할 때 활용하는 것입니다.
+왼쪽 위의 Motion Module은 영상의 프레임 사이 변화를 읽어, 시각 특징에 움직임 정보를 더합니다.
+
+**화면 3/6 · VLM**
+
+다음은 VLM입니다. 앞에서 얻은 시각 정보와 언어 지시를 함께 이해하고, 행동 생성에 필요한 특징을 만듭니다.
+
+**화면 4/6 · Memory Module**
+
+다음은 Memory Module입니다. 이전에 얻은 특징을 저장해 두었다가 현재 특징과 함께 읽습니다. 지금 화면에 보이지 않는 과거의 정보도 행동을 정할 때 활용하는 것입니다.
+
+**화면 5/6 · MSAT**
 
 오른쪽의 MSAT는 이 특징과 로봇 상태, 물리 신호를 참고해 행동 후보를 어느 방향으로 얼마나 바꿀지 나타내는 변화율을 예측합니다. 학습할 때는 예측 변화율을 정답 변화율에 맞추는 flow matching을 사용합니다. 추론할 때는 노이즈에서 출발해 예측한 변화율로 후보를 여러 번 다듬습니다. 이 denoising 과정을 거쳐 미래 action chunk를 얻습니다.
 
-즉, 장면과 지시에 대한 이해에 움직임과 과거 경험을 더해 다음 행동을 만드는 구조입니다.
+**화면 6/6 · 전체 흐름 정리**
+
+즉, 장면과 지시에 대한 이해에 움직임과 과거 경험을 더해 다음 행동을 만드는 구조입니다. 이어서 이 모델에 사용한 데이터와 학습 단계를 짧게 정리하겠습니다.
 
 S116 Related Work의 세 흐름
 저자는 VLA·영상 합성·기능별 연구를 하나의 실용 시스템으로 통합한 점을 강조한다.
@@ -2461,7 +2498,7 @@ layout: none
 
 <!-- slide-id: P102 | revision: v39 | status: draft -->
 
-<section class="seminar-slide" data-slide-id="P102"><header class="seminar-header"><div class="chapter-label">Part 1 Recap</div><h1>Part 1 한눈에 보기</h1><p class="slide-lead">② 학습 데이터 · 서로 다른 세 종류의 경험을 함께 활용한다.</p></header><div class="seminar-body full"><div class="body-main"><div class="flow recap-data"><div class="node"><h3>Public Real-World</h3><p>여러 로봇의 공개 시연</p><p><strong>조작의 기본기</strong>를<br>다양한 몸체·작업에서 학습</p></div><div class="node"><h3>In-house Real-World</h3><p>목표 로봇으로 직접 모은 시연</p><p><strong>로봇의 특성과 새 입력</strong>에<br>맞춰 학습</p></div><div class="node"><h3>Synthetic</h3><p>실제 시연을 보완하는 합성 경험</p><p><strong>직접 모으기 어려운 상황</strong>을<br>늘려 경험의 범위를 확장</p></div></div></div></div><div class="takeaway">여러 로봇의 기본기, 목표 로봇의 특성, 더 다양한 경험을 서로 보완한다.</div><footer class="seminar-footer"><span class="source">Part 1 요약 · Sec.3 PDF pp.9–12</span><span class="slide-id">P102 · 020/48</span></footer></section>
+<section class="seminar-slide" data-slide-id="P102"><header class="seminar-header"><div class="chapter-label">Part 1 Recap</div><h1>Part 1 한눈에 보기</h1><p class="slide-lead">② 학습 데이터 · 서로 다른 세 종류의 경험을 함께 활용한다.</p></header><div class="seminar-body full"><div class="body-main"><div class="flow recap-data"><div class="node"><h3>Public Real-World</h3><p>여러 로봇의 공개 시연</p><p><strong>조작의 기본기</strong>를<br>다양한 몸체·작업에서 학습</p></div><div class="node"><h3>In-house Real-World</h3><p>목표 로봇으로 직접 모은 시연</p><p><strong>로봇의 특성과 새 입력</strong>에<br>맞춰 학습</p></div><div class="node"><h3>Synthetic</h3><p>실제 시연을 보완하는 합성 경험</p><p><strong>직접 모으기 어려운 상황</strong>을<br>늘려 경험의 범위를 확장</p></div></div></div></div><div class="takeaway">여러 로봇의 기본기, 목표 로봇의 특성, 더 다양한 경험을 서로 보완한다.</div><footer class="seminar-footer"><span class="source">Part 1 요약 · Sec.3 PDF pp.9–12</span><span class="slide-id">P102 · 021/48</span></footer></section>
 
 <!--
 학습 데이터는 세 종류입니다.
@@ -2481,7 +2518,7 @@ layout: none
 
 <!-- slide-id: P103 | revision: v39 | status: draft -->
 
-<section class="seminar-slide" data-slide-id="P103"><header class="seminar-header"><div class="chapter-label">Part 1 Recap</div><h1>Part 1 한눈에 보기</h1><p class="slide-lead">③ 학습 단계 · 기본기 → 로봇 적응 → 작업 적응</p></header><div class="seminar-body full"><div class="body-main"><div class="learning-pipeline"><div><small>기본기</small><h3>Pre-training</h3><p>여러 로봇의 경험으로<br>범용 policy 학습</p></div><b>→</b><div><small>로봇 적응</small><h3>Mid-training</h3><p>ALLEX·Franka에 맞추기<br>움직임·기억·물리 센싱 추가</p></div><b>→</b><div><small>작업 적응</small><h3>Post-training</h3><p>목표 작업의 시연으로 IL<br>필요한 경우 RL로 보완</p></div></div></div></div><div class="takeaway">기본기를 배우고 → 로봇에 맞추고 → 수행할 작업에 맞춘다.</div><footer class="seminar-footer"><span class="source">Part 1 요약 · Sec.4 PDF pp.12–14</span><span class="slide-id">P103 · 021/48</span></footer></section>
+<section class="seminar-slide" data-slide-id="P103"><header class="seminar-header"><div class="chapter-label">Part 1 Recap</div><h1>Part 1 한눈에 보기</h1><p class="slide-lead">③ 학습 단계 · 기본기 → 로봇 적응 → 작업 적응</p></header><div class="seminar-body full"><div class="body-main"><div class="learning-pipeline"><div><small>기본기</small><h3>Pre-training</h3><p>여러 로봇의 경험으로<br>범용 policy 학습</p></div><b>→</b><div><small>로봇 적응</small><h3>Mid-training</h3><p>ALLEX·Franka에 맞추기<br>움직임·기억·물리 센싱 추가</p></div><b>→</b><div><small>작업 적응</small><h3>Post-training</h3><p>목표 작업의 시연으로 IL<br>필요한 경우 RL로 보완</p></div></div></div></div><div class="takeaway">기본기를 배우고 → 로봇에 맞추고 → 수행할 작업에 맞춘다.</div><footer class="seminar-footer"><span class="source">Part 1 요약 · Sec.4 PDF pp.12–14</span><span class="slide-id">P103 · 022/48</span></footer></section>
 
 <!--
 학습도 세 단계로 진행합니다.
@@ -2490,21 +2527,7 @@ Pre-training에서는 여러 로봇의 경험으로 조작의 기본기를 배�
 
 Post-training에서는 실제로 수행할 목표 작업의 시연으로 policy를 학습합니다. 일부 어려운 작업에는 RL을 더해 개선합니다.
 
-기본기를 배우고, 로봇에 맞추고, 마지막으로 작업에 맞추는 흐름입니다. Part 1 요약은 여기까지입니다.
-
-
--->
-
----
-layout: none
----
-
-<!-- slide-id: P099 | revision: v39 | status: draft -->
-
-<section class="seminar-slide" data-slide-id="P099"><header class="seminar-header"><div class="chapter-label">Seminar</div><h1>Part 2</h1><p class="slide-lead">추론·실험·분석</p></header><div class="seminar-body boundary"><div class="body-main"><div class="part-boundary-visual"><p>추론 최적화 → 성능 평가 → 설계 분석</p><div><a href="#P020">Part 2 시작 →</a><a href="#S001">전체 목차</a></div></div></div></div><div class="takeaway"></div><footer class="seminar-footer"><span class="source">세미나 구성 · Part 2</span><span class="slide-id">P099 · 022/48</span></footer></section>
-
-<!--
-이제 Part 2에서는 추론을 어떻게 빠르게 하는지, 실제 평가에서 어떤 성능을 보였는지, 설계 요소별 실험이 무엇을 보여 주는지 살펴보겠습니다.
+기본기를 배우고, 로봇에 맞추고, 마지막으로 작업에 맞추는 흐름입니다. 이제 이 모델의 추론을 어떻게 빠르게 하는지 보겠습니다.
 
 
 -->

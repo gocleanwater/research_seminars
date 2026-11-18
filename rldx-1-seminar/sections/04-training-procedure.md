@@ -934,7 +934,7 @@ Part 1 · 모델 구조와 학습
 
 ### 본문
 
-<div class="part-boundary-visual"><p>Part 1을 마칩니다.<br>질문과 의견을 나눠주세요.</p><div><a href="#S001">전체 목차</a><a href="#P101">Part 2로 이동 →</a></div></div>
+<div class="part-boundary-visual"><p>Part 1을 마칩니다.<br>질문과 의견을 나눠주세요.</p><div><a href="#S001">전체 목차</a><a href="#P099">Part 2로 이동 →</a></div></div>
 
 ### 보충
 
@@ -948,6 +948,6 @@ Part 1 · 모델 구조와 학습
 
 여기까지 Part 1이었습니다. 모델 구조, 데이터, 학습 과정에 관해 질문이나 의견을 나누겠습니다.
 
-> 조작: 질의응답을 마친 뒤 다음으로 넘기면 Part 2의 Part 1 요약으로 이동한다.
+> 조작: 질의응답을 마친 뒤 다음으로 넘기면 Part 2 시작 화면이 나온다.
 
 ### 상세 공부 기록

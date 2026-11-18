@@ -5,6 +5,40 @@ const notes = document.querySelector('#notes');
 const imageDialog = document.querySelector('#image-dialog');
 let current = 0;
 const explorer = document.querySelector('.architecture-explorer');
+const recapExplorer = document.querySelector('.recap-explorer');
+const recapPanels = [...(recapExplorer?.querySelectorAll('[data-recap-panel]') || [])];
+let recapIndex = 0;
+function inRecap() { return !!recapExplorer && pages[current]?.contains(recapExplorer); }
+function renderRecap(index) {
+  if (!recapExplorer) return;
+  recapIndex = Math.max(0, Math.min(recapPanels.length - 1,index));
+  const panel = recapPanels[recapIndex];
+  recapExplorer.dataset.state = recapIndex;
+  recapPanels.forEach((p,i)=>p.hidden=i!==recapIndex);
+  const [x,y,w,h] = JSON.parse(panel.dataset.box);
+  const scale = Math.min(736/w,360/h,2);
+  recapExplorer.querySelector('.recap-camera').style.transform = `translate(${(740-w*scale)/2-x*scale}px,${(365-h*scale)/2-y*scale}px) scale(${scale})`;
+  const image = recapExplorer.querySelector('.recap-source-image');
+  const crop = JSON.parse(panel.dataset.crop);
+  image.style.clipPath = !crop ? 'none' : Array.isArray(crop[0]) ? `polygon(${crop.map(([a,b])=>`${a}px ${b}px`).join(',')})` : `inset(${crop[1]}px ${1497-crop[0]-crop[2]}px ${631-crop[1]-crop[3]}px ${crop[0]}px)`;
+  const mark = recapExplorer.querySelector('.recap-mark rect');
+  const box = JSON.parse(panel.dataset.highlight);
+  mark.toggleAttribute('hidden',!box);
+  if(box) ['x','y','width','height'].forEach((key,i)=>mark.setAttribute(key,box[i]));
+  const slide = recapExplorer.closest('.seminar-slide');
+  slide.querySelector('.slide-lead').textContent = panel.dataset.lead;
+  slide.querySelector('.takeaway').textContent = panel.dataset.takeaway;
+  recapExplorer.querySelector('.recap-counter').textContent = `${recapIndex+1} / ${recapPanels.length}`;
+  recapExplorer.querySelector('[data-recap-next]').textContent = recapIndex===recapPanels.length-1 ? '다음 장 →' : '다음 설명 →';
+  recapExplorer.querySelectorAll('.recap-modes [data-recap-go]').forEach(button=>button.setAttribute('aria-pressed',String(Number(button.dataset.recapGo)===recapIndex)));
+  const wholeFigure = recapIndex===0 || recapIndex===recapPanels.length-1;
+  const hotspotHadFocus = document.activeElement?.classList.contains('recap-hotspot');
+  recapExplorer.querySelectorAll('.recap-hotspot').forEach(button=>{button.hidden=!wholeFigure;button.tabIndex=wholeFigure?0:-1;});
+  if (!wholeFigure && hotspotHadFocus) recapExplorer.querySelector(`.recap-modes [data-recap-go="${recapIndex}"]`).focus({preventScroll:true});
+  const viewport = recapExplorer.querySelector('.recap-viewport');
+  viewport.scrollLeft=0;viewport.scrollTop=0;
+}
+
 let tourIndex = 0;
 function renderTour(index) {
   if (!explorer) return;
@@ -157,12 +191,14 @@ function renderProblems(index) {
 }
 function inTour() { return pages[current]?.contains(explorer); }
 function advance() {
-  if (inProblems() && problemIndex < problemStages.length - 1) renderProblems(problemIndex + 1);
+  if (inRecap() && recapIndex < recapPanels.length - 1) renderRecap(recapIndex + 1);
+  else if (inProblems() && problemIndex < problemStages.length - 1) renderProblems(problemIndex + 1);
   else if (inTour() && tourIndex < ARCH_TOUR.states.length - 1) renderTour(tourIndex + 1);
   else show(current + 1);
 }
 function retreat() {
-  if (inProblems() && problemIndex > 0) renderProblems(problemIndex - 1);
+  if (inRecap() && recapIndex > 0) renderRecap(recapIndex - 1);
+  else if (inProblems() && problemIndex > 0) renderProblems(problemIndex - 1);
   else if (inTour() && tourIndex > 0) renderTour(tourIndex - 1);
   else show(current - 1, true, true);
 }
@@ -170,6 +206,9 @@ explorer?.querySelectorAll('[data-arch-focus]').forEach(button => button.onclick
 explorer?.querySelector('[data-arch-reset]').addEventListener('click', () => renderTour(0));
 explorer?.querySelector('[data-arch-next]').addEventListener('click', advance);
 explorer?.querySelector('[data-arch-prev]').addEventListener('click', retreat);
+recapExplorer?.querySelectorAll('[data-recap-go]').forEach(button=>button.onclick=()=>renderRecap(Number(button.dataset.recapGo)));
+recapExplorer?.querySelector('[data-recap-next]').addEventListener('click',advance);
+recapExplorer?.querySelector('[data-recap-prev]').addEventListener('click',retreat);
 const pageNumber = document.querySelector('#page-number');
 pageNumber.max = String(pages.length);
 const exportMode = new URLSearchParams(location.search).has('export');
@@ -191,6 +230,7 @@ function hydrate(index) {
 function show(index, updateHash = true, enterAtLastStep = false) {
   current = Math.max(0, Math.min(pages.length - 1, index));
   pages.forEach((p, i) => { p.classList.toggle('active', i === current); p.setAttribute('aria-hidden', String(i !== current)); });
+  if (inRecap()) renderRecap(enterAtLastStep ? recapPanels.length - 1 : 0);
   if (inTour()) renderTour(enterAtLastStep ? ARCH_TOUR.states.length - 1 : 0);
   if (inProblems()) renderProblems(enterAtLastStep ? problemStages.length - 1 : 0);
   hydrate(current);
@@ -268,6 +308,7 @@ document.addEventListener('keydown', event => {
   if (['ArrowLeft', 'ArrowUp', 'PageUp', 'Backspace'].includes(event.key)) { event.preventDefault(); retreat(); return; }
   if (event.key === 'Escape') {
     if (document.fullscreenElement) document.exitFullscreen();
+    else if (inRecap()) renderRecap(0);
     else if (inTour()) renderTour(0);
     return;
   }
@@ -281,7 +322,7 @@ document.querySelector('#stage').addEventListener('click', event => {
   const target = event.target instanceof Element ? event.target : null;
   if (event.button !== 0 || event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
   if (document.querySelector('dialog[open]') || window.getSelection()?.isCollapsed === false) return;
-  if (target?.closest('button,a,input,textarea,select,[contenteditable="true"],figure,img,canvas,svg,.architecture-explorer')) return;
+  if (target?.closest('button,a,input,textarea,select,[contenteditable="true"],figure,img,canvas,svg,.architecture-explorer,.recap-explorer')) return;
   advance();
 });
 // Preserve links to explanations that were merged during the slide review.

@@ -16,3 +16,7 @@ Task 1:
 Review focus: VLM outputs action-relevant features; memory uses past features; training velocity differs from inference action chunk. No synthetic generation or training hyperparameter lecture in recap; same large title on all3 pages.
 
 Status: content, export ordering, tests and independent review complete; final commit/push follows.
+
+Latest user correction: Part2 divider BEFORE three recap pages. Figure2 must be presented by module, matching the provided script. P101 now has6 internal zoom/focus states; title remains fixed. Added overview_markup.py, runtime next/previous integration, keyboard-focus regression test, and screen/speech checks.
+
+Final steering implemented and verified: Part2 starts at divider; Figure2 has6 module-aligned states. Independent review and visual-review findings fixed with regressions. Commit/push follows.

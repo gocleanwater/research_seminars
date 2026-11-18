@@ -12,7 +12,7 @@ const errors=[],external=[];page.on('pageerror',e=>errors.push(String(e)));page.
 const seen=[];
 try{
   assert.equal(manifest.length,48);assert.deepEqual(parts.map(p=>p.slide_count),[18,30]);
-  assert.equal(parts[0].slides.at(-1).id,'P098');assert.equal(parts[1].slides[0].id,'P101');
+  assert.equal(parts[0].slides.at(-1).id,'P098');assert.equal(parts[1].slides[0].id,'P099');
   await page.goto(pathToFileURL(path.resolve('presentation.html')).href+'#P032');
   assert.equal(await page.locator('body > .part-links').count(),1);
   assert.equal(await page.locator('.part-links:visible').count(),1);
@@ -44,6 +44,6 @@ try{
   const units=parts.flatMap(p=>p.slides).filter(s=>s.id!=='S001').flatMap(s=>s.source_ids);
   assert.equal(units.length,121);assert.equal(new Set(units).size,121);
   assert.deepEqual(errors,[]);assert.deepEqual(external,[]);
-  fs.mkdirSync('qa/full-deck',{recursive:true});fs.writeFileSync('qa/full-deck/parts-report.json',JSON.stringify({counts:parts.map(p=>p.slide_count),boundary:['P098','P101'],localNumbering:true,scriptHeadings:true,studyUnits:units.length,errors,externalRequests:external},null,2));
+  fs.mkdirSync('qa/full-deck',{recursive:true});fs.writeFileSync('qa/full-deck/parts-report.json',JSON.stringify({counts:parts.map(p=>p.slide_count),boundary:['P098','P099'],localNumbering:true,scriptHeadings:true,studyUnits:units.length,errors,externalRequests:external},null,2));
   console.log('PASS: Part 1 (18), Part 2 (30), boundary, local numbering, scripts, notes, controls, merged links, all 121 units, offline.');
 }finally{await browser.close();}

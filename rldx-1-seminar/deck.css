@@ -423,3 +423,24 @@ body[data-export="true"] .part-links { display: none; }
 .seminar-slide .recap-data .node { padding:22px 18px; }
 .seminar-slide .recap-data h3 { margin-bottom:20px; }
 .seminar-slide .recap-data p + p { margin-top:22px; }
+
+/* Figure 2 overview: source image, focused modules and matching speech stages. */
+.recap-explorer { display:grid; grid-template-columns:740px 1fr; grid-template-rows:365px 40px; gap:15px 24px; height:420px; }
+.recap-viewport { position:relative; width:740px; height:365px; overflow:hidden; border:1px solid #cfdddd; background:white; }
+.recap-camera { position:absolute; width:1497px; height:631px; transform-origin:0 0; transition:transform .35s ease; }
+.recap-source-image { position:absolute; left:0; top:0; width:1497px; height:631px; max-width:none; }
+.recap-mark { position:absolute; left:0; top:0; pointer-events:none; }
+.recap-hotspot { position:absolute; background:transparent; border:0; cursor:zoom-in; }
+.recap-hotspot:hover,.recap-hotspot:focus-visible { outline:3px solid #167e7a; outline-offset:3px; }
+.recap-detail { display:flex; align-items:center; min-width:0; }
+.recap-panel[hidden] { display:none; }
+.seminar-slide .recap-panel h3 { font-size:28px; margin-bottom:20px; }
+.seminar-slide .recap-panel p { font-size:23px; line-height:1.55; }
+.recap-controls { grid-column:1/-1; display:flex; justify-content:space-between; align-items:center; gap:12px; }
+.recap-controls button { border:1px solid #a8c6c4; background:#e7f1ef; color:#275565; font:17px Arial,'Apple SD Gothic Neo',sans-serif; padding:8px 10px; border-radius:3px; cursor:pointer; }
+.recap-modes,.recap-directions { display:flex; align-items:center; gap:7px; }
+.recap-modes button[aria-pressed=true] { background:#167e7a; color:white; }
+.recap-counter { min-width:60px; text-align:center; color:#526d78; font-size:17px; }
+@media (prefers-reduced-motion:reduce) { .recap-camera { transition:none; } }
+
+.recap-mark rect[hidden] { display:none; }

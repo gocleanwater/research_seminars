@@ -22,10 +22,10 @@ MD 원본 → HTML. 전체 도식 확대 단계는 P032 안에서 방향키로 �
 | 16 | P037 | Training Procedure | Critic의 진행 평가 | sections/04-training-procedure.md | S069 |
 | 17 | P096 | Training Procedure | Part 1 최종 정리 | sections/04-training-procedure.md |  |
 | 18 | P098 | Seminar | Q&A | sections/04-training-procedure.md |  |
-| 19 | P101 | Part 1 Recap | Part 1 한눈에 보기 | sections/05-inference-strategy.md | S116, S117 |
-| 20 | P102 | Part 1 Recap | Part 1 한눈에 보기 | sections/05-inference-strategy.md |  |
-| 21 | P103 | Part 1 Recap | Part 1 한눈에 보기 | sections/05-inference-strategy.md |  |
-| 22 | P099 | Seminar | Part 2 | sections/05-inference-strategy.md |  |
+| 19 | P099 | Seminar | Part 2 | sections/05-inference-strategy.md |  |
+| 20 | P101 | Part 1 Recap | Part 1 한눈에 보기 | sections/05-inference-strategy.md | S116, S117 |
+| 21 | P102 | Part 1 Recap | Part 1 한눈에 보기 | sections/05-inference-strategy.md |  |
+| 22 | P103 | Part 1 Recap | Part 1 한눈에 보기 | sections/05-inference-strategy.md |  |
 | 23 | P020 | Inference Strategy | CUDA Graph | sections/05-inference-strategy.md | S072, S073, S074, S075 |
 | 24 | P038 | Inference Strategy | Kernel Fusion | sections/05-inference-strategy.md | S076, S077, S078, S079, S081 |
 | 25 | P039 | Inference Strategy | Kernel Fusion의 계산 | sections/05-inference-strategy.md | S080 |

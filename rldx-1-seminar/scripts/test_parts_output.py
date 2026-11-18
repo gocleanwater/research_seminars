@@ -103,8 +103,8 @@ class PartOutputsTests(unittest.TestCase):
         self.assertFalse((self.root/'part-1.html').exists())
 
 
-    def test_three_recaps_belong_to_part_two_before_its_divider(self):
-        ids = ['S001','P097','P037','P096','P098','P101','P102','P103','P099','P020','P100']
+    def test_three_recaps_follow_part_two_divider(self):
+        ids = ['S001','P097','P037','P096','P098','P099','P101','P102','P103','P020','P100']
         result = write_part_outputs(self.root,*self.marked_fixture(ids))
         self.assertEqual([s['id'] for s in result['parts'][0]['slides']],ids[:5])
         self.assertEqual([s['id'] for s in result['parts'][1]['slides']],ids[5:])
@@ -112,9 +112,15 @@ class PartOutputsTests(unittest.TestCase):
 
     def test_three_recaps_require_the_complete_ordered_group(self):
         for recap in (['P101','P102'], ['P101','P103','P102']):
-            ids = ['S001','P097','P037','P096','P098']+recap+['P099','P020','P100']
+            ids = ['S001','P097','P037','P096','P098','P099']+recap+['P020','P100']
             with self.subTest(recap=recap), self.assertRaises(ValueError):
                 write_part_outputs(self.root,*self.marked_fixture(ids))
+
+
+    def test_recaps_cannot_precede_the_part_two_start(self):
+        ids = ['S001','P097','P037','P096','P098','P101','P102','P103','P099','P020','P100']
+        with self.assertRaises(ValueError):
+            write_part_outputs(self.root,*self.marked_fixture(ids))
 
 
 if __name__ == '__main__':

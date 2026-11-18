@@ -1,6 +1,12 @@
 # 전체 목차
 
-현재 v39: Part2 파일은 P101(Fig.2 구조)→P102(세 데이터)→P103(세 학습 단계)의 Part1 요약부터 시작한 뒤 P099 Part2 시작→P020 CUDA Graph로 이어진다. 요약 세 장의 대제목은 모두 “Part 1 한눈에 보기”다. 전체48장/Part1 18장/Part2 30장, P032 35단계·121개 상세 기록 유지. 아래 이전 단일 요약·장수는 이력이다.
+현재 Figure2 요약은 P101 안에서 전체→Motion→VLM→Memory→MSAT→전체 정리6단계로 확대·강조하며 진행한다. 대제목은 Part1 한눈에 보기로 유지한다. 현재 순서는 P099 Part2 시작→P101 구조→P102 데이터→P103 학습→P020 CUDA다. 기존 P032의35단계와121개 원본 상세 단위는 유지.
+
+
+최신 순서 정정: **Part 2 시작(P099) → Part 1 한눈에 보기 3장(P101/P102/P103) → CUDA Graph(P020)**. Part2 파일도 P099부터 시작한다. 앞선 “요약 뒤 divider” 기록은 사용자 지시를 잘못 해석한 당시 이력이다.
+
+
+현재 v39: Part2 파일은 P099 Part2 시작→P101(Fig.2 구조)→P102(세 데이터)→P103(세 학습 단계)→P020 CUDA Graph로 이어진다. 요약 세 장의 대제목은 모두 “Part 1 한눈에 보기”다. 전체48장/Part1 18장/Part2 30장, P032 35단계·121개 상세 기록 유지. 아래 이전 단일 요약·장수는 이력이다.
 
 
 현재 v38: 설명9·10의 VQA 필요성과 세 질문을 한 화면·한 대본으로 통합했다. P032는35단계·설명 카드8개이며 이후 단계 번호를 맞췄다. 전체46장/Part1 18장/Part2 28장과121개 원본 상세 기록은 그대로다. 이전 단계 수는 아래 이력이다.
@@ -48,7 +54,7 @@ Fig.1을 사용하는 표지 뒤에 아래 섹션을 따른다. 섹션명은 영
 | [02-rldx-1-architecture.md](sections/02-rldx-1-architecture.md) | RLDX-1 Architecture | P031, P032 |
 | [03-training-data.md](sections/03-training-data.md) | Training Data | P013, P072, P014, P015, P047 |
 | [04-training-procedure.md](sections/04-training-procedure.md) | Training Procedure | P035, P016, P017, P018, P019, P037, P096, P098 |
-| [05-inference-strategy.md](sections/05-inference-strategy.md) | Inference Strategy | P101, P102, P103, P099, P020, P038, P039 |
+| [05-inference-strategy.md](sections/05-inference-strategy.md) | Inference Strategy | P099, P101, P102, P103, P020, P038, P039 |
 | [06-evaluation-and-analysis.md](sections/06-evaluation-and-analysis.md) | Evaluation and Analysis | P040, P022, P095, P041, P042, P023, P043, P024, P044, P025 |
 | [07-ablation-and-analysis.md](sections/07-ablation-and-analysis.md) | Ablation and Analysis | P026, P060–P064, P065, P066, P027, P068 |
 | [08-conclusion.md](sections/08-conclusion.md) | Conclusion | 발표 제외·S116/S117은 P101에 보존 |

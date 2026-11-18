@@ -30,6 +30,13 @@ architecture = next(p for p in load_sections(ROOT) if p['id'] == 'P032')
 rendered_tour = apply_tour_text(tour, architecture)
 for panel_id, panel in rendered_tour['panels'].items():
     assert panel['speech'] in sections['P032'], (panel_id, 'screen-card speech differs from rehearsal script')
+# Figure 2 overview speech follows the six screen stages.
+from overview_markup import overview_panels
+overview = next(p for p in load_sections(ROOT) if p['id'] == 'P101')
+for panel in overview_panels(overview):
+    assert panel['대본'] in sections['P101'], (panel['id'], 'Figure2 speech mismatch')
+assert re.findall(r'^\*\*화면 (\d)/6', sections['P101'], re.M) == list('123456')
+
 # Speaker-script symbols must remain formulas, including in the Part 1 copy.
 for filename in ['SPEAKER_SCRIPT.md', 'SPEAKER_SCRIPT_PART1.md']:
     script_text = (ROOT / filename).read_text()

@@ -147,7 +147,7 @@ try{
   await page.keyboard.press('Escape');
   // Purpose first, then each training stage; graph and fused-kernel explanations stay separate.
   await show('P035');
-  for(const id of ['P016','P017','P018','P019','P037','P096','P098','P101','P102','P103','P099','P020','P038','P039','P040']){await page.keyboard.press('ArrowRight');assert.equal(await active(),id);}
+  for(const id of ['P016','P017','P018','P019','P037','P096','P098','P099','P101','P102','P103','P020','P038','P039','P040']){await page.keyboard.press('ArrowRight');assert.equal(await active(),id);if(id==='P101'){for(let step=1;step<6;step++){await page.keyboard.press('ArrowRight');assert.equal(await active(),'P101');}}}
   // Benchmarks and real robot/task photos come before their result plots.
   for(const id of ['P022','P095','P041','P042','P023','P043','P024','P044','P025','P026']){await page.keyboard.press('ArrowRight');assert.equal(await active(),id);}
   // Follow the seven ablation topics without skipping their separate conditions and interpretations.
