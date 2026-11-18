@@ -2596,14 +2596,14 @@ layout: none
 <!-- slide-id: P020 | revision: v42 | status: draft -->
 
 <section class="seminar-slide" data-slide-id="P020"><header class="seminar-header"><div class="chapter-label">Inference Strategy</div><h1>CUDA Graph</h1><p class="slide-lead">고정된 설정의 준비값을 미리 계산해 재사용하고, 반복되는 graph launch 부담을 줄인다.</p></header><div class="seminar-body inference"><div class="inference-tour" data-state="0"><div class="inference-diagram"><div class="inference-visual config-schematic" data-inference-visual="0">
-<div class="config-group"><h3>학습·입력 구성에 따라</h3><div class="config-row"><div class="config-input"><span>토큰 수</span><span>위치 배치</span><span>읽을 수 있는 범위</span></div><b class="config-arrow">→</b><div class="config-box">Attention에 필요한<br>설정 변경</div></div></div>
+<div class="config-group"><h3>학습·입력 구성에 따라</h3><div class="config-row"><div class="config-input"><span>토큰 수</span><span>위치 배치</span><span>읽을 수 있는 범위</span></div><b class="config-arrow">→</b><div class="config-box"><strong>RoPE 위치 준비값</strong><br><strong>Attention mask 구조</strong></div></div></div>
 <div class="config-group fixed"><h3>고정된 입력 구성으로 추론하면</h3><div class="config-row"><div class="config-box">입력 구성 고정</div><b class="config-arrow">→</b><div class="config-box">준비값<br><strong>한 번 계산</strong></div><b class="config-arrow">→</b><div class="config-box">한 graph로 묶어<br><strong>launch 부담 감소</strong></div></div></div></div>
-<div class="inference-visual inference-figure" data-inference-visual="1" hidden style="aspect-ratio:1497/594"><img src="/figures/fig-09.png" alt="Figure9 위: 여러 graph 호출, 아래: 한 CUDA Graph 호출"><svg viewBox="0 0 1497 594" aria-hidden="true"><defs><marker id="cuda-pointer" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#cc5c38"/></marker></defs><rect x="94" y="70" width="1040" height="190" rx="10"/><rect x="94" y="360" width="700" height="185" rx="10"/><path class="diagram-pointer" d="M950 288 L830 235" marker-end="url(#cuda-pointer)"/><path class="diagram-pointer" d="M470 567 L335 520" marker-end="url(#cuda-pointer)"/></svg></div></div><aside aria-live="polite"><section class="inference-panel" data-inference-panel="0" data-lead="고정된 설정의 준비값을 미리 계산해 재사용하고, 반복되는 graph launch 부담을 줄인다." data-takeaway="설정 고정 → 준비값 재사용 → 한 CUDA Graph → 반복 launch 부담 감소"><h3>설정 고정과 한 graph로 통합</h3><p><strong>학습</strong></p>
-<p>입력 구성에 따라 설정 변경 가능</p>
+<div class="inference-visual inference-figure" data-inference-visual="1" hidden style="aspect-ratio:1497/594"><img src="/figures/fig-09.png" alt="Figure9 위: 여러 graph 호출, 아래: 한 CUDA Graph 호출"><svg viewBox="0 0 1497 594" aria-hidden="true"><defs><marker id="cuda-pointer" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#cc5c38"/></marker></defs><rect x="94" y="70" width="1040" height="190" rx="10"/><rect x="94" y="360" width="700" height="185" rx="10"/><path class="diagram-pointer" d="M950 288 L830 235" marker-end="url(#cuda-pointer)"/><path class="diagram-pointer" d="M470 567 L335 520" marker-end="url(#cuda-pointer)"/></svg></div></div><aside aria-live="polite"><section class="inference-panel" data-inference-panel="0" data-lead="고정된 설정의 준비값을 미리 계산해 재사용하고, 반복되는 graph launch 부담을 줄인다." data-takeaway="설정 고정 → 준비값 재사용 → 한 CUDA Graph → 반복 launch 부담 감소"><h3>설정 고정과 한 graph로 통합</h3><p><strong>Attention에 필요한 설정</strong></p>
+<p>RoPE의 위치 관련 준비값<br>attention mask 구조</p>
+<p><strong>학습</strong></p>
+<p>입력 구성에 따라 변경 가능</p>
 <p><strong>배포</strong></p>
-<p>고정된 입력 구성으로 추론 반복</p>
-<p><strong>설정 준비는 한 번</strong></p>
-<p>한 graph로 묶어 launch 부담 감소</p>
+<p>입력 구성을 고정해 추론 반복<br>같은 준비값을 재사용</p>
 </section><section class="inference-panel" data-inference-panel="1" data-lead="여러 graph를 각각 launch하던 작업을, 한 번의 launch로 실행한다." data-takeaway="CUDA Graph를 여러 번 launch할 때마다 드는 시간을 줄인다." hidden><h3>CUDA Graph 실행 비교</h3><p><strong>위 · 두 번 launch</strong></p>
 <p>Launch 1 → A·B → Launch 2 → C·D</p>
 <p><strong>아래 · 한 번 launch</strong></p>
@@ -2613,7 +2613,7 @@ layout: none
 <!--
 **화면 1/2 · 설정 고정과 한 graph로 통합**
 
-학습할 때는 입력 데이터의 구성에 따라 Attention에 필요한 설정이 달라질 수 있습니다. 반면 배포할 때는 정해진 입력 구성으로 추론을 반복하므로, 이 설정을 고정할 수 있습니다. 그러면 같은 준비값을 매번 다시 계산할 필요가 없습니다.
+여기서 말하는 Attention 설정은 RoPE의 위치 관련 준비값과 attention mask 구조입니다. 이 값들은 토큰 수와 위치 배치, 어느 정보를 읽을 수 있는지에 따라 달라집니다. 학습할 때는 입력 데이터의 구성에 따라 이런 설정도 달라질 수 있습니다. 반면 배포할 때는 정해진 입력 구성으로 추론을 반복하므로, 이 설정을 고정할 수 있습니다. 그러면 같은 준비값을 매번 다시 계산할 필요가 없습니다.
 
 저자들은 추론할 때마다 하던 준비 계산을 미리 해 두고 재사용하도록 했습니다. 이렇게 하면 나뉘어 있던 GPU 작업을 하나의 CUDA Graph로 묶을 수 있고, 여러 번 launch할 때마다 드는 시간을 줄일 수 있습니다.
 
