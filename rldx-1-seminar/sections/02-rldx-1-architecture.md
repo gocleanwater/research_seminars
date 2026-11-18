@@ -2500,11 +2500,11 @@ RTC의 구체적인 overlap/inpainting 알고리즘은 이 보고서 내 설명 
 
 ##### 화면
 
-<div class="tour-flow"><div class="tour-node">컵이 보인다</div><span class="tour-flow-arrow">→</span><div class="tour-node">손은 컵의 어느 쪽인가?</div><span class="tour-flow-arrow">→</span><div class="tour-node">다음에 무엇을 해야 하나?</div></div><p class="tour-callout">이 그림의 VLM은 이미 로봇 관련 질문·답으로 추가 학습한 모델이다.</p>
+<div class="tour-flow"><div class="tour-node">컵이 보인다</div><span class="tour-flow-arrow">→</span><div class="tour-node">로봇 손과 컵의<br>위치 관계는?</div><span class="tour-flow-arrow">→</span><div class="tour-node">다음에 무엇을 해야 하나?</div></div><p class="tour-callout">이 그림의 VLM은 이미 로봇 관련 질문·답으로 추가 학습한 모델이다.</p>
 
 ##### 대본
 
-이번에는 VLM을 로봇 조작에 맞게 추가 학습하는 과정을 보겠습니다. 컵이 있다는 것을 알아보는 것과, 로봇 손이 컵에 비해 어디 있고 다음에 무엇을 해야 하는지 아는 것은 다릅니다. 저자들은 이 연결을 보완하려고 로봇 관측으로 질문과 답을 만들어 추가 학습합니다. 이것이 로봇 VQA입니다. 그림에 별도 VQA 블록이 없는 것은 지금 우리가 보는 그림이 학습 결과인 모델의 처리 경로이기 때문입니다.
+이번에는 VLM을 로봇 조작에 맞게 추가 학습하는 과정을 보겠습니다. 컵이 있다는 것을 알아보는 것과, 로봇 손과 컵의 위치 관계를 파악하고 다음에 무엇을 해야 하는지 아는 것은 다릅니다. 저자들은 이 연결을 보완하려고 로봇 관측으로 질문과 답을 만들어 추가 학습합니다. 이것이 로봇 VQA입니다. 그림에 별도 VQA 블록이 없는 것은 지금 우리가 보는 그림이 학습 결과인 모델의 처리 경로이기 때문입니다.
 
 #### [vqa-questions] 로봇에게 필요한 세 가지 질문
 
