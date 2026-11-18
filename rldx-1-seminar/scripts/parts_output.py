@@ -110,9 +110,18 @@ def write_part_outputs(root: Path, full_html: str, manifest: list[dict],
     if boundary_ids.intersection(ids):
         if not boundary_ids.issubset(ids):
             raise ValueError('Part divider/Q&A pages must be present as a complete set')
-        split = ids.index('P099')
+        recap_ids = {'P101', 'P102', 'P103'}
+        if {'P102', 'P103'}.intersection(ids):
+            if not recap_ids.issubset(ids):
+                raise ValueError('The three-page recap must be complete')
+            split = ids.index('P101')
+            valid_start = ids[split:split + 5] == ['P101', 'P102', 'P103', 'P099', 'P020']
+        else:
+            split = ids.index('P099')
+            valid_start = (ids[split + 1] == 'P020'
+                           or ids[split + 1:split + 3] == ['P101', 'P020'])
         if (ids[:2] != ['S001', 'P097'] or ids[split - 1] != 'P098'
-                or (ids[split + 1] != 'P020' and ids[split + 1:split + 3] != ['P101', 'P020']) or ids[-1] != 'P100'
+                or not valid_start or ids[-1] != 'P100'
                 or ids[ids.index('P037') + 1:split] != ['P096', 'P098']):
             raise ValueError('Each Part requires its start divider and ending Q&A in order')
     else:

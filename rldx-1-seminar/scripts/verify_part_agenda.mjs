@@ -30,9 +30,9 @@ try{
   }
   await page.goto(base('presentation.html'));await page.locator('a.agenda-part-heading').first().focus();await page.keyboard.press('Enter');await page.waitForFunction(()=>document.querySelector('.deck-page.active')?.dataset.id==='P097');assert.equal(await active(),'P097');
   await page.keyboard.press('ArrowRight');assert.equal(await active(),'P002');
-  await page.goto(base('presentation.html')+'#P098');await page.keyboard.press('ArrowRight');assert.equal(await active(),'P099');await page.keyboard.press('ArrowLeft');assert.equal(await active(),'P098');
+  await page.goto(base('presentation.html')+'#P098');await page.keyboard.press('ArrowRight');assert.equal(await active(),'P101');await page.keyboard.press('ArrowLeft');assert.equal(await active(),'P098');
   await page.goto(base('part-1.html')+'#P098');await page.keyboard.press('ArrowRight');assert.equal(await active(),'P098');
-  await page.locator('.deck-page.active .part-boundary-visual a[href="part-2.html#P099"]').click();await page.waitForFunction(()=>document.querySelector('.deck-page.active')?.dataset.id==='P099');assert.equal(await active(),'P099');
+  await page.locator('.deck-page.active .part-boundary-visual a[href="part-2.html#P101"]').click();await page.waitForFunction(()=>document.querySelector('.deck-page.active')?.dataset.id==='P101');assert.equal(await active(),'P101');
   await page.goto(base('part-2.html')+'#P100');await page.keyboard.press('ArrowRight');assert.equal(await active(),'P100');
   await page.locator('.deck-page.active .part-boundary-visual a[href="part-1.html#S001"]').click();await page.waitForFunction(()=>document.querySelector('.deck-page.active')?.dataset.id==='S001');assert.equal(await active(),'S001');
   assert.deepEqual(errors,[]);

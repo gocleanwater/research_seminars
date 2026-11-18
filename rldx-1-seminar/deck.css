@@ -414,3 +414,12 @@ body[data-export="true"] .part-links { display: none; }
 .seminar-slide .ordered-flow > .node:not(:last-child)::after { content: '→'; position: absolute; right: -27px; top: 50%; transform: translateY(-50%); color: #167e7a; font-size: 27px; }
 
 .training-detail-grid + .mid-alignment-flow { margin-top: 22px; }
+
+/* Three quick recap pages before the Part 2 divider. */
+.seminar-slide .recap-figure .paper-figure { max-height:none; }
+.seminar-slide .seminar-body.recap-figure { display:block; }
+.seminar-slide .recap-figure .body-main { display:none; }
+.seminar-slide .recap-data { min-height:260px; }
+.seminar-slide .recap-data .node { padding:22px 18px; }
+.seminar-slide .recap-data h3 { margin-bottom:20px; }
+.seminar-slide .recap-data p + p { margin-top:22px; }

@@ -1,5 +1,8 @@
 # 섹션 Markdown 편집 안내
 
+현재 v39: Part2 파일은 P101(Fig.2 구조)→P102(세 데이터)→P103(세 학습 단계)의 Part1 요약부터 시작한 뒤 P099 Part2 시작→P020 CUDA Graph로 이어진다. 요약 세 장의 대제목은 모두 “Part 1 한눈에 보기”다. 전체48장/Part1 18장/Part2 30장, P032 35단계·121개 상세 기록 유지. 아래 이전 단일 요약·장수는 이력이다.
+
+
 현재 v38: 설명9·10의 VQA 필요성과 세 질문을 한 화면·한 대본으로 통합했다. P032는35단계·설명 카드8개이며 이후 단계 번호를 맞췄다. 전체46장/Part1 18장/Part2 28장과121개 원본 상세 기록은 그대로다. 이전 단계 수는 아래 이력이다.
 
 
@@ -14,7 +17,7 @@
 
 ## 현재 통합 구조 — v36
 
-기존5–10쪽 P051/P009/P010/P006/P008/P071은 P032 Figure3의36단계 중9개 설명 카드로 통합했다. 별도 페이지는 없으며 원본 상세 기록은 P032에 그대로 보관한다. `### 그림 설명 카드`에서 화면과 대본을 편집한다. 전체46장, Part1 18장(P098 Q&A까지), Part2 28장(P099 시작–P100 Q&A)이다.
+기존5–10쪽 P051/P009/P010/P006/P008/P071은 P032 Figure3의36단계 중9개 설명 카드로 통합했다. 별도 페이지는 없으며 원본 상세 기록은 P032에 그대로 보관한다. `### 그림 설명 카드`에서 화면과 대본을 편집한다. 전체48장, Part1 18장(P098 Q&A까지), Part2 30장(P099 시작–P100 Q&A)이다.
 
 구분·질의응답4장(P097–P100)은 새 공부 단위를 만들지 않는다. S001 목차의 링크는 고정ID로 연결하며, Part exporter가 다른 Part 파일로의 링크를 조정한다.
 
@@ -26,13 +29,13 @@
 | [02-rldx-1-architecture.md](02-rldx-1-architecture.md) | RLDX-1 Architecture | 2 | 39 |
 | [03-training-data.md](03-training-data.md) | Training Data | 5 | 15 |
 | [04-training-procedure.md](04-training-procedure.md) | Training Procedure | 8 | 14 |
-| [05-inference-strategy.md](05-inference-strategy.md) | Inference Strategy | 5 | 12 |
+| [05-inference-strategy.md](05-inference-strategy.md) | Inference Strategy | 7 | 12 |
 | [06-evaluation-and-analysis.md](06-evaluation-and-analysis.md) | Evaluation and Analysis | 10 | 17 |
 | [07-ablation-and-analysis.md](07-ablation-and-analysis.md) | Ablation and Analysis | 10 | 16 |
 | [08-conclusion.md](08-conclusion.md) | Conclusion | 0 | 0 |
 | [09-my-opinions-and-limitation.md](09-my-opinions-and-limitation.md) | My opinions and limitation | 3 | 5 |
 
-표지 S001을 제외한 본문45장과 상세 공부 기록121개를 포함한다(v37). source_ids 기준으로 S002–S122가 각각 정확히 한 번 연결된다. 장 ID는 위치가 바뀌어도 유지한다.
+표지 S001을 제외한 본문47장과 상세 공부 기록121개를 포함한다(v39). source_ids 기준으로 S002–S122가 각각 정확히 한 번 연결된다. 장 ID는 위치가 바뀌어도 유지한다.
 
 퇴역한 P033·P034·P036·P003·P004·P005·P007·P011·P012·P021·P045·P046·P048·P049·P050·P052·P053·P054·P055·P056·P057·P058·P059·P073·P074의 ID를 다른 의미로 재사용하지 않는다.
 

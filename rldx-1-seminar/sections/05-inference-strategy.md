@@ -2,76 +2,48 @@
 
 원문의 설명·실험 결과, 저자의 해석, 우리의 해석·설명용 예시, 미해결 질문을 구분한다. 저자의 설계 의도나 주장과 실험으로 확인된 결과를 동일시하지 않으며, 미확인 사항과 문서의 표기 불일치는 근거와 함께 남긴다.
 
-## [P099] Part 2
-
-<!-- slide-meta
-layout: boundary
-kind: interpretation
-chapter: Seminar
-source_ids:
--->
-
-### 한 문장
-
-추론·실험·분석
-
-### 본문
-
-<div class="part-boundary-visual"><p>추론 최적화 → 성능 평가 → 설계 분석</p><div><a href="#P101">Part 2 시작 →</a><a href="#S001">전체 목차</a></div></div>
-
-### 보충
-
-### 요점
-
-### 출처
-
-세미나 구성 · Part 2
-
-### 발표 메모
-
-Part 2에서는 추론을 어떻게 빠르게 하는지, 실제 평가에서 어떤 성능을 보였는지, 설계 요소별 실험이 무엇을 보여 주는지 살펴보겠습니다.
-
-### 상세 공부 기록
-
 ## [P101] Part 1 한눈에 보기
 
 <!-- slide-meta
-layout: full
+layout: widefigure recap-figure
 kind: interpretation
+chapter: Part 1 Recap
+figure: fig-02.png
+caption: Figure 2 · RLDX-1 전체 구조
 source_ids: S116, S117
 -->
 
 ### 한 문장
 
-RLDX-1은 보고, 기억하고, 접촉을 느끼며 로봇의 행동을 만든다.
+① 전체 구조 · 영상 관측과 언어 지시에서 미래 action chunk까지
 
 ### 본문
 
-<div class="flow ordered-flow"><div class="node"><strong>영상·언어 지시</strong><br>무엇을 해야 할까?</div><div class="node"><strong>조작에 필요한 정보</strong><br>움직임 · 과거 기억 · 물리 신호</div><div class="node"><strong>행동 묶음 생성</strong><br>노이즈 후보를 여러 번 다듬기</div></div>
 
-<p class="callout">생성한 행동을 일부 실행하고, 바뀐 장면을 다시 보며 다음 행동을 만든다.</p>
-
-실제 시연과 합성 경험으로 학습하고, 새 로봇·작업에 맞게 적응시킨다.
 
 ### 보충
 
+
+
 ### 요점
 
-Part 2에서는 얼마나 빠르게 계산하고, 실제로 얼마나 잘 조작하는지 본다.
+움직임을 읽고 → 상황·지시를 이해하고 → 과거를 참고해 → 다음 action을 생성한다.
 
 ### 출처
 
-Part 1 요약 · Sec.2–5 · Fig.3 · PDF pp.6–17
+Part 1 요약 · Fig.2 PDF p.5 · Sec.2 PDF pp.6–9
 
 ### 발표 메모
 
-RLDX-1은 영상과 지시를 보고, 움직임과 과거 기억, 접촉 정보를 활용해 행동을 만듭니다. 노이즈 후보를 여러 번 다듬어 행동 묶음을 얻고, 일부 실행한 뒤 다시 관측합니다. 실제 시연과 합성 경험으로 학습하고 새 로봇과 작업에 맞게 적응시킵니다. Part 2에서는 이 계산을 얼마나 빠르게 하고, 조작은 얼마나 잘하는지 보겠습니다.
+먼저 Part 1을 빠르게 요약하겠습니다. Figure 2는 RLDX-1의 전체 구조입니다.
 
-#### 기존 상세 참고 — 발표에서 그대로 읽지 않음
+왼쪽 위의 Motion Module은 영상의 프레임 사이 변화를 읽어, 시각 특징에 움직임 정보를 더합니다. VLM은 이 시각 정보와 언어 지시를 함께 이해하고, 행동 생성에 필요한 특징을 만듭니다.
 
-#### 통합한 설명의 기존 참고
+Memory Module은 이전에 얻은 특징을 저장해 두었다가 현재 특징과 함께 읽습니다. 지금 화면에 보이지 않는 과거의 정보도 행동을 정할 때 활용하는 것입니다.
 
-연결 멘트: “여기까지의 구조·데이터·학습·실행·평가를 한 흐름으로 정리하면 이 논문의 기여가 됩니다. 이어서 이 결과에 대한 해석과 남은 한계를 구분해 말씀드리겠습니다.” 원문 Conclusion은 움직임·장기 기억·물리 센싱을 통합하고 합성 데이터, 세 단계 학습, 추론 최적화를 함께 설계한 점을 정리한다. Simulation 성과는 benchmark별 fine-tuning 이후 full recipe의 결과이고 모든 task에 zero-shot으로 투입했다는 뜻이 아니다. 기능별 평가는 task-relevant module만 활성화하므로 세 기능의 동시 시너지로 확대하지 않는다. Conclusion의 ALLEX around90 vs frontier around40은86.8대39.1/44.8의 혼합 평균에 해당한다. 완전 성공90%로 말하지 않는다. RECAP frames/attempts와 policy latency p50도 성공률이나 end-to-end latency와 구별한다. 기존 Related Work(S116)는 source\_ids 연결과 상세 N 해설에 보존한다. 그 내용은 VLA·영상 생성+IDM·기능별 연구를 통합했다는 저자의 연구 위치 설명이며 현재 SOTA나 최초성을 별도로 검증한 결과가 아니다. S117의 결론 해설도 그대로 유지한다.
+오른쪽의 MSAT는 이 특징과 로봇 상태, 물리 신호를 참고해 행동 후보를 어느 방향으로 얼마나 바꿀지 나타내는 변화율을 예측합니다. 학습할 때는 예측 변화율을 정답 변화율에 맞추는 flow matching을 사용합니다. 추론할 때는 노이즈에서 출발해 예측한 변화율로 후보를 여러 번 다듬습니다. 이 denoising 과정을 거쳐 미래 action chunk를 얻습니다.
+
+즉, 장면과 지시에 대한 이해에 움직임과 과거 경험을 더해 다음 행동을 만드는 구조입니다.
 
 ### 상세 공부 기록
 #### [S116] Related Work의 세 흐름
@@ -157,6 +129,119 @@ Sec.8 · PDF p.28; Sec.6 · PDF pp.17–26; App.G · PDF pp.48–55
 ##### 발표 메모
 
 Conclusion의 ALLEX around90 vs frontier around40은 RLDX86.8과π0.5 39.1/N1.6 44.8의 혼합 평균에 연결된다. 이를 완전 성공90%로 번역하지 않는다. Simulation 우위는 benchmark별 fine-tuning 뒤의 full recipe 비교이며 zero-shot all tasks가 아니다. 물리 입력과 future trajectory 보조 목표의 기여도 별도로 분해해야 한다. Q11–13 및 Table9의 집계 불일치는 곧 모델 결함이라고 해석하지 않는다.
+
+## [P102] Part 1 한눈에 보기
+
+<!-- slide-meta
+layout: full
+kind: interpretation
+chapter: Part 1 Recap
+source_ids:
+-->
+
+### 한 문장
+
+② 학습 데이터 · 서로 다른 세 종류의 경험을 함께 활용한다.
+
+### 본문
+
+<div class="flow recap-data"><div class="node"><h3>Public Real-World</h3><p>여러 로봇의 공개 시연</p><p><strong>조작의 기본기</strong>를<br>다양한 몸체·작업에서 학습</p></div><div class="node"><h3>In-house Real-World</h3><p>목표 로봇으로 직접 모은 시연</p><p><strong>로봇의 특성과 새 입력</strong>에<br>맞춰 학습</p></div><div class="node"><h3>Synthetic</h3><p>실제 시연을 보완하는 합성 경험</p><p><strong>직접 모으기 어려운 상황</strong>을<br>늘려 경험의 범위를 확장</p></div></div>
+
+### 보충
+
+
+
+### 요점
+
+여러 로봇의 기본기, 목표 로봇의 특성, 더 다양한 경험을 서로 보완한다.
+
+### 출처
+
+Part 1 요약 · Sec.3 PDF pp.9–12
+
+### 발표 메모
+
+학습 데이터는 세 종류입니다.
+
+Public Real-World Data는 여러 로봇의 공개 시연입니다. 다양한 로봇과 작업에서 공통으로 쓰이는 조작의 기본기를 배우는 재료입니다.
+
+In-house Real-World Data는 ALLEX와 Franka로 직접 모은 시연입니다. 목표 로봇의 몸체와 제어에 맞추고, memory나 물리 신호 같은 새 입력을 활용하도록 학습하는 데 사용합니다.
+
+Synthetic Data는 실제 시연을 보완하는 합성 경험입니다. 직접 많이 모으기 어려운 상황을 늘려 더 다양한 조작 경험을 제공합니다.
+
+### 상세 공부 기록
+
+## [P103] Part 1 한눈에 보기
+
+<!-- slide-meta
+layout: full
+kind: interpretation
+chapter: Part 1 Recap
+source_ids:
+-->
+
+### 한 문장
+
+③ 학습 단계 · 기본기 → 로봇 적응 → 작업 적응
+
+### 본문
+
+<div class="learning-pipeline"><div><small>기본기</small><h3>Pre-training</h3><p>여러 로봇의 경험으로<br>범용 policy 학습</p></div><b>→</b><div><small>로봇 적응</small><h3>Mid-training</h3><p>ALLEX·Franka에 맞추기<br>움직임·기억·물리 센싱 추가</p></div><b>→</b><div><small>작업 적응</small><h3>Post-training</h3><p>목표 작업의 시연으로 IL<br>필요한 경우 RL로 보완</p></div></div>
+
+### 보충
+
+
+
+### 요점
+
+기본기를 배우고 → 로봇에 맞추고 → 수행할 작업에 맞춘다.
+
+### 출처
+
+Part 1 요약 · Sec.4 PDF pp.12–14
+
+### 발표 메모
+
+학습도 세 단계로 진행합니다.
+
+Pre-training에서는 여러 로봇의 경험으로 조작의 기본기를 배우고 범용 policy를 만듭니다. Mid-training에서는 이를 ALLEX와 Franka에 맞추면서 움직임·기억·물리 센싱 기능을 더합니다.
+
+Post-training에서는 실제로 수행할 목표 작업의 시연으로 policy를 학습합니다. 일부 어려운 작업에는 RL을 더해 개선합니다.
+
+기본기를 배우고, 로봇에 맞추고, 마지막으로 작업에 맞추는 흐름입니다. Part 1 요약은 여기까지입니다.
+
+### 상세 공부 기록
+
+## [P099] Part 2
+
+<!-- slide-meta
+layout: boundary
+kind: interpretation
+chapter: Seminar
+source_ids:
+-->
+
+### 한 문장
+
+추론·실험·분석
+
+### 본문
+
+<div class="part-boundary-visual"><p>추론 최적화 → 성능 평가 → 설계 분석</p><div><a href="#P020">Part 2 시작 →</a><a href="#S001">전체 목차</a></div></div>
+
+### 보충
+
+### 요점
+
+### 출처
+
+세미나 구성 · Part 2
+
+### 발표 메모
+
+이제 Part 2에서는 추론을 어떻게 빠르게 하는지, 실제 평가에서 어떤 성능을 보였는지, 설계 요소별 실험이 무엇을 보여 주는지 살펴보겠습니다.
+
+### 상세 공부 기록
 
 ## [P020] CUDA Graph
 
