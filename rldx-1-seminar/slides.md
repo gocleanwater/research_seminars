@@ -3069,17 +3069,21 @@ layout: none
 
 <!-- slide-id: P095 | revision: v42 | status: draft -->
 
-<section class="seminar-slide" data-slide-id="P095"><header class="seminar-header"><div class="chapter-label">Evaluation and Analysis</div><h1>Simulation 결과 (b)</h1><p class="slide-lead">Table 1(b) 전체 · 성공률(%) · S: Seen / U: Unseen · RC365: RoboCasa365</p></header><div class="seminar-body full"><div class="body-main"><table class="table-one" aria-label="Table 1(b) 전체 성공률과 최강 baseline 대비 차이"><colgroup><col style="width:25%"><col span="7" style="width:10.7142857%"></colgroup><thead><tr><th scope="col">평가</th><th scope="col">π0-FAST</th><th scope="col">π0</th><th scope="col">π0.5</th><th scope="col">GR00T<br>N1.5</th><th scope="col">GR00T<br>N1.6</th><th scope="col">RLDX-1</th><th scope="col">Δ (%p)</th></tr></thead><tbody>
+<section class="seminar-slide" data-slide-id="P095"><header class="seminar-header"><div class="chapter-label">Evaluation and Analysis</div><h1>Simulation 결과 (b)</h1><p class="slide-lead">어려운 조작·복합 작업 벤치마크 · 성공률(%) · S: Seen / U: Unseen</p></header><div class="seminar-body full"><div class="body-main"><table class="table-one" aria-label="Table 1(b) 전체 성공률과 최강 baseline 대비 차이"><colgroup><col style="width:25%"><col span="7" style="width:10.7142857%"></colgroup><thead><tr><th scope="col">평가</th><th scope="col">π0-FAST</th><th scope="col">π0</th><th scope="col">π0.5</th><th scope="col">GR00T<br>N1.5</th><th scope="col">GR00T<br>N1.6</th><th scope="col">RLDX-1</th><th scope="col">Δ (%p)</th></tr></thead><tbody>
 <tr data-benchmark="RoboCasa Kitchen"><th scope="row">RoboCasa Kitchen</th><td>63.6</td><td>62.5</td><td>62.1</td><td>65.7</td><td class="best-baseline">66.2</td><td class="ours">70.6</td><td class="delta">+4.4</td></tr>
 <tr data-benchmark="GR-1 Tabletop"><th scope="row">GR-1 Tabletop</th><td>—</td><td>13.6</td><td>15.4</td><td class="best-baseline">48.0</td><td>47.6</td><td class="ours">58.7</td><td class="delta">+10.7</td></tr>
 <tr class="group-start" data-benchmark="RC365 · Atomic-S"><th scope="row">RC365 · Atomic-S</th><td>51.7</td><td>34.6</td><td>39.6</td><td>43.0</td><td class="best-baseline">61.1</td><td class="ours">67.3</td><td class="delta">+6.2</td></tr>
 <tr data-benchmark="RC365 · Comp.-S"><th scope="row">RC365 · Comp.-S</th><td>8.0</td><td>6.1</td><td>7.1</td><td>9.6</td><td class="best-baseline">12.6</td><td class="ours">19.0</td><td class="delta">+6.4</td></tr>
 <tr data-benchmark="RC365 · Comp.-U"><th scope="row">RC365 · Comp.-U</th><td>1.8</td><td>1.1</td><td>1.2</td><td class="best-baseline">4.4</td><td>2.6</td><td class="ours">5.6</td><td class="delta">+1.2</td></tr>
 <tr data-benchmark="RC365 · Avg."><th scope="row">RC365 · Avg.</th><td>21.7</td><td>14.8</td><td>16.9</td><td>20.0</td><td class="best-baseline">26.9</td><td class="ours">32.1</td><td class="delta">+5.2</td></tr>
-</tbody></table></div></div><div class="takeaway">Δ = RLDX-1 − 최강 baseline(%p). ‘—’는 원문에서 결과를 보고하지 않은 항목이다.</div><footer class="seminar-footer"><span class="source">Table 1(b) · PDF p.18; 원문 표를 전치하고 보고값으로 Δ 계산</span><span class="slide-id">P095 · 032/45</span></footer></section>
+</tbody></table></div></div><div class="takeaway">복합 작업은 기존 모델보다 개선됐지만, 성공률은 여전히 19.0%·5.6%에 머문다.</div><footer class="seminar-footer"><span class="source">Table 1(b) · PDF p.18; 원문 표를 전치하고 보고값으로 Δ 계산</span><span class="slide-id">P095 · 032/45</span></footer></section>
 
 <!--
-주방 조작과 GR-1 양팔 작업에서도 기존 최고값보다 각각4.4%p,10.7%p 높습니다. 다만 RoboCasa365의 복합 작업을 보면, 학습한 절차의 성공률은19.0%, 새로운 절차는5.6%입니다. 다른 모델보다 높은 결과를 얻었어도, 여러 동작을 끝까지 이어 수행하는 문제에는 여전히 어려움이 남아 있습니다. 이제 실제 로봇에서도 이런 경향이 나타나는지 보겠습니다.
+다음은 주방 조작과 양팔 조작, 여러 동작을 이어 수행하는 복합 작업처럼 더 어려운 task를 평가한 시뮬레이션 벤치마크입니다.
+
+여기서도 RLDX-1이 비교한 모든 평가에서 기존 모델보다 높은 성공률을 얻었습니다. 주방 조작은 기존 최고값보다4.4%p, GR-1 양팔 작업은10.7%p 높습니다.
+
+하지만 RoboCasa365의 복합 작업에서는 학습한 절차의 성공률이19.0%, 새로운 절차는5.6%에 머뭅니다. 어려운 task에서 기존 모델보다 좋은 성과를 냈지만, 복합 작업을 안정적으로 끝까지 수행하기에는 여전히 성공률이 낮다는 한계가 드러난 것입니다. 이어서 실제 로봇에서의 결과를 보겠습니다.
 
 
 -->
