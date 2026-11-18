@@ -2907,7 +2907,7 @@ layout: none
 
 <!-- slide-id: P022 | revision: v42 | status: draft -->
 
-<section class="seminar-slide" data-slide-id="P022"><header class="seminar-header"><div class="chapter-label">Evaluation and Analysis</div><h1>Simulation 결과 (a)</h1><p class="slide-lead">Table 1(a) 전체 · 성공률(%) · Δ = RLDX-1 − 각 평가의 최강 baseline(%p)</p></header><div class="seminar-body full"><div class="body-main"><table class="table-one" aria-label="Table 1(a) 전체 성공률과 최강 baseline 대비 차이"><colgroup><col style="width:25%"><col span="7" style="width:10.7142857%"></colgroup><thead><tr><th scope="col">평가</th><th scope="col">π0-FAST</th><th scope="col">π0</th><th scope="col">π0.5</th><th scope="col">GR00T<br>N1.5</th><th scope="col">GR00T<br>N1.6</th><th scope="col">RLDX-1</th><th scope="col">Δ (%p)</th></tr></thead><tbody>
+<section class="seminar-slide" data-slide-id="P022"><header class="seminar-header"><div class="chapter-label">Evaluation and Analysis</div><h1>Simulation 결과 (a)</h1><p class="slide-lead">기본 조작·환경 변화 대응 벤치마크 · Δ는 각 평가의 기존 최고값과의 차이(%p)</p></header><div class="seminar-body full"><div class="body-main"><table class="table-one" aria-label="Table 1(a) 전체 성공률과 최강 baseline 대비 차이"><colgroup><col style="width:25%"><col span="7" style="width:10.7142857%"></colgroup><thead><tr><th scope="col">평가</th><th scope="col">π0-FAST</th><th scope="col">π0</th><th scope="col">π0.5</th><th scope="col">GR00T<br>N1.5</th><th scope="col">GR00T<br>N1.6</th><th scope="col">RLDX-1</th><th scope="col">Δ (%p)</th></tr></thead><tbody>
 <tr data-benchmark="LIBERO · Short"><th scope="row">LIBERO · Short</th><td>93.9</td><td>97.1</td><td class="best-baseline">98.0</td><td>90.0</td><td>97.4</td><td class="ours">98.6</td><td class="delta">+0.6</td></tr>
 <tr data-benchmark="LIBERO · Long"><th scope="row">LIBERO · Long</th><td>60.2</td><td>85.2</td><td>92.0</td><td>76.0</td><td class="best-baseline">94.4</td><td class="ours">95.3</td><td class="delta">+0.9</td></tr>
 <tr data-benchmark="LIBERO · Avg."><th scope="row">LIBERO · Avg.</th><td>85.5</td><td>94.1</td><td class="best-baseline">96.9</td><td>86.5</td><td>96.7</td><td class="ours">97.8</td><td class="delta">+0.9</td></tr>
@@ -2915,10 +2915,14 @@ layout: none
 <tr class="group-start" data-benchmark="SIMPLER Google-VM"><th scope="row">SIMPLER Google-VM</th><td>61.9</td><td>58.8</td><td>72.7</td><td>52.4</td><td class="best-baseline">76.1</td><td class="ours">81.5</td><td class="delta">+5.4</td></tr>
 <tr data-benchmark="SIMPLER Google-VA"><th scope="row">SIMPLER Google-VA</th><td>59.0</td><td>54.8</td><td class="best-baseline">68.4</td><td>43.7</td><td>57.1</td><td class="ours">77.4</td><td class="delta">+9.0</td></tr>
 <tr data-benchmark="SIMPLER WidowX"><th scope="row">SIMPLER WidowX</th><td>48.3</td><td>27.1</td><td>46.9</td><td class="best-baseline">62.0</td><td>57.1</td><td class="ours">71.9</td><td class="delta">+9.9</td></tr>
-</tbody></table></div></div><div class="takeaway">굵은 baseline은 각 평가의 최고값이다. Δ는 상대 개선율이 아닌 성공률 차이(%p)다.</div><footer class="seminar-footer"><span class="source">Table 1(a) · PDF p.18; 원문 표를 전치하고 보고값으로 Δ 계산</span><span class="slide-id">P022 · 031/45</span></footer></section>
+</tbody></table></div></div><div class="takeaway">LIBERO는 근소한 차이 · SIMPLER는 +5.4~9.9%p · 여러 평가에서 고르게 비교 모델 대비 우세</div><footer class="seminar-footer"><span class="source">Table 1(a) · PDF p.18; 원문 표를 전치하고 보고값으로 Δ 계산</span><span class="slide-id">P022 · 031/45</span></footer></section>
 
 <!--
-표에서는 마지막 두 열을 중심으로 보겠습니다. RLDX-1의 성공률과, 그 옆에 가장 높은 baseline 대비 차이를 표시했습니다. LIBERO 평균은97.8%, LIBERO-Plus는86.7%로 기존 최고값보다 조금 높습니다. SIMPLER에서는 조건별로5.4에서9.9%p 높은 결과를 얻었습니다. 기본 조작과 조건 변화에 대응하는 평가에서 전반적으로 높은 값을 보인 것입니다.
+먼저 기본 조작과 환경 변화 대응을 보는 시뮬레이션 벤치마크의 결과입니다. RLDX-1이 비교한 모든 벤치마크에서 가장 높은 성공률을 기록한 것을 볼 수 있습니다.
+
+가장 오른쪽 열은 각 벤치마크에서 기존 모델 중 성공률이 가장 높았던 값과 RLDX-1의 차이를 제가 추가한 것입니다.
+
+LIBERO 계열에서는 기존 최고값과의 격차가 크지 않고, SIMPLER에서는5.4에서9.9%p 정도의 차이가 납니다. 차이의 크기는 평가마다 다르지만, 여러 벤치마크에서 고르게 비교 모델을 앞섰다는 점을 볼 수 있습니다.
 
 S083 Baseline의 행동 생성 방식
 행동을 토큰으로 순차 생성하는 경로와 연속 chunk를 갱신하는 경로가 있다.
