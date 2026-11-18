@@ -369,6 +369,43 @@ Post-training에서는 실제로 수행할 목표 작업의 시연으로 policy�
 
 ### 상세 공부 기록
 
+## [P108] Inference Strategy
+
+<!-- slide-meta
+layout: section-title
+kind: interpretation
+chapter: Seminar
+source_ids:
+-->
+
+### 한 문장
+
+실제 로봇에서 빠르게 행동을 생성하기
+
+### 본문
+
+<div class="section-title-page" aria-hidden="true"></div>
+
+### 보충
+
+
+
+### 요점
+
+
+
+### 출처
+
+세미나 구성 · 섹션 구분
+
+### 발표 메모
+
+먼저 모델의 추론 속도를 높이기 위한 두 가지 방법을 살펴보겠습니다.
+
+### 상세 공부 기록
+
+
+
 ## [P020] CUDA Graph
 
 <!-- slide-meta

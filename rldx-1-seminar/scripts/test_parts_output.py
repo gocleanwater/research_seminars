@@ -123,5 +123,16 @@ class PartOutputsTests(unittest.TestCase):
             write_part_outputs(self.root,*self.marked_fixture(ids))
 
 
+    def test_recaps_can_be_followed_by_inference_title_page(self):
+        ids = ['S001','P097','P037','P096','P098','P099','P101','P102','P103','P108','P020','P100']
+        result = write_part_outputs(self.root,*self.marked_fixture(ids))
+        self.assertEqual([s['id'] for s in result['parts'][1]['slides']],ids[5:])
+
+    def test_inference_title_cannot_follow_its_content(self):
+        ids = ['S001','P097','P037','P096','P098','P099','P101','P102','P103','P020','P108','P100']
+        with self.assertRaises(ValueError):
+            write_part_outputs(self.root,*self.marked_fixture(ids))
+
+
 if __name__ == '__main__':
     unittest.main()

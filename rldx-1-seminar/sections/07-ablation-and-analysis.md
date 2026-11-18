@@ -2,6 +2,43 @@
 
 원문의 실험 결과, 저자의 해석, 우리의 직관을 구분한다. 상세 공부 기록과 미해결 질문은 유지한다.
 
+## [P110] Ablation and Analysis
+
+<!-- slide-meta
+layout: section-title
+kind: interpretation
+chapter: Seminar
+source_ids:
+-->
+
+### 한 문장
+
+어떤 설계와 학습이 성능에 기여했는가
+
+### 본문
+
+<div class="section-title-page" aria-hidden="true"></div>
+
+### 보충
+
+
+
+### 요점
+
+
+
+### 출처
+
+세미나 구성 · 섹션 구분
+
+### 발표 메모
+
+다음은 설계와 학습 방법을 바꿨을 때의 효과를 살펴보는 분석입니다.
+
+### 상세 공부 기록
+
+
+
 ## [P026] Ablation and Analysis
 
 <!-- slide-meta

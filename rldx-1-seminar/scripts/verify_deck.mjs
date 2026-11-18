@@ -64,7 +64,7 @@ await page.evaluate(() => window.deckShow(0));
 await page.locator('.cover-system img').click();
 const zoomPassed = await page.locator('#image-dialog[open]').count() === 1;
 await page.keyboard.press('Escape');
-await page.evaluate(() => window.deckShow(window.deckData.findIndex(s=>s.id==='P031')));
+await page.evaluate(() => window.deckShow(window.deckData.findIndex(s=>s.id==='P032')));
 await page.keyboard.press('n');
 const detailImagesPassed = await page.locator('#notes-text img').count() > 0;
 const distinctionPassed = /원문 설명·결과/.test(await page.locator('#notes-text').innerText()) && /우리 해석/.test(await page.locator('#notes-text').innerText());

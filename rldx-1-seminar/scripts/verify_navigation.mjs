@@ -65,31 +65,32 @@ try{
   await page.keyboard.press('Home');assert.equal(await active(),'S001');
   // Blank slide canvas clicks advance, while figures retain zoom behavior.
   await page.locator('.deck-page.active').click({position:{x:50,y:30}});assert.equal(await active(),'P097');
-  await show('P031');await page.locator('.deck-page.active .paper-figure img').click();
-  assert.equal(await active(),'P031');assert.equal(await page.locator('#image-dialog[open]').count(),1);
-  await page.keyboard.press('ArrowRight');assert.equal(await active(),'P031');
+  await show('P040');await page.locator('.deck-page.active .paper-figure img').click();
+  assert.equal(await active(),'P040');assert.equal(await page.locator('#image-dialog[open]').count(),1);
+  await page.keyboard.press('ArrowRight');assert.equal(await active(),'P040');
   await page.keyboard.press('Escape');
+  await show('P105');
   // Buttons preserve native Enter/Space activation, without a second advance.
   await page.locator('#next').focus();await page.keyboard.press('Enter');assert.equal(await active(),'P032');
   assert.equal(await page.locator('.architecture-explorer').getAttribute('data-state'),'0');
   await page.locator('#stage').click({position:{x:50,y:30}});
   assert.equal(await page.locator('.architecture-explorer').getAttribute('data-state'),'1');
   for(let i=1;i<tourLength;i++)await page.keyboard.press('ArrowRight');
-  assert.equal(await active(),'P013');
+  assert.equal(await active(),'P106');
   await page.keyboard.press('ArrowLeft');assert.equal(await active(),'P032');
   assert.equal(await page.locator('.architecture-explorer').getAttribute('data-state'),String(tourLength-1));
   for(let i=tourLength-2;i>=0;i--){await page.keyboard.press('ArrowLeft');assert.equal(await page.locator('.architecture-explorer').getAttribute('data-state'),String(i));}
-  await page.keyboard.press('ArrowLeft');assert.equal(await active(),'P031');
+  await page.keyboard.press('ArrowLeft');assert.equal(await active(),'P105');
   // Text entry and modifier shortcuts do not drive presentation navigation.
   await page.keyboard.press('g');await page.locator('#toc-search').fill('P032');
-  await page.keyboard.press('ArrowRight');assert.equal(await active(),'P031');
+  await page.keyboard.press('ArrowRight');assert.equal(await active(),'P105');
   await page.keyboard.press('Escape');
   await page.locator('#toc').waitFor({state:'hidden'});
   await page.locator('#open-notes').focus();
   assert.equal(await page.evaluate(()=>document.activeElement?.id),'open-notes');
-  await page.keyboard.press('Space');assert.equal(await page.locator('#notes[open]').count(),1);assert.equal(await active(),'P031');
+  await page.keyboard.press('Space');assert.equal(await page.locator('#notes[open]').count(),1);assert.equal(await active(),'P105');
   await page.keyboard.press('Escape');
-  await page.keyboard.press('Control+ArrowRight');assert.equal(await active(),'P031');
+  await page.keyboard.press('Control+ArrowRight');assert.equal(await active(),'P105');
   await page.keyboard.press('f');
   await page.waitForFunction(()=>!!document.fullscreenElement);
   await page.keyboard.press('Escape');
@@ -140,18 +141,18 @@ try{
   // Public/in-house are introduced once; synthetic detail follows the overview.
   for(const id of ['P072','P014']){await page.keyboard.press('ArrowRight');assert.equal(await active(),id);}
   // Generated video, simulator rollout, feature comparison, then classifier training.
-  for(const id of ['P015','P047','P035']){await page.keyboard.press('ArrowRight');assert.equal(await active(),id);}
+  for(const id of ['P015','P047','P107','P035']){await page.keyboard.press('ArrowRight');assert.equal(await active(),id);}
   await show('P015'); await page.keyboard.press('n');
   const validationNotes=await page.locator('#notes-text .study-intro').innerText();
   for(const term of ['영상 품질 검사','IDM','Rollout','Gemini','16프레임','8프레임','V-JEPA2','cross-attention'])assert(validationNotes.includes(term),term);
   await page.keyboard.press('Escape');
   // Purpose first, then each training stage; graph and fused-kernel explanations stay separate.
   await show('P035');
-  for(const id of ['P016','P017','P018','P019','P037','P096','P098','P099','P101','P102','P103','P020','P038','P039','P040']){await page.keyboard.press('ArrowRight');assert.equal(await active(),id);if(id==='P101'){for(let step=1;step<6;step++){await page.keyboard.press('ArrowRight');assert.equal(await active(),'P101');}}}
+  for(const id of ['P016','P017','P018','P019','P037','P096','P098','P099','P101','P102','P103','P108','P020','P038','P039','P109','P040']){await page.keyboard.press('ArrowRight');assert.equal(await active(),id);if(id==='P101'){for(let step=1;step<6;step++){await page.keyboard.press('ArrowRight');assert.equal(await active(),'P101');}}}
   // Benchmarks and real robot/task photos come before their result plots.
-  for(const id of ['P022','P095','P041','P042','P023','P043','P024','P044','P025','P026']){await page.keyboard.press('ArrowRight');assert.equal(await active(),id);}
+  for(const id of ['P022','P095','P041','P042','P023','P043','P024','P044','P025','P110','P026']){await page.keyboard.press('ArrowRight');assert.equal(await active(),id);}
   // Follow the seven ablation topics without skipping their separate conditions and interpretations.
-  for(const id of ['P060','P061','P062','P063','P064','P065','P066','P027','P068','P028']){await page.keyboard.press('ArrowRight');assert.equal(await active(),id);}
+  for(const id of ['P060','P061','P062','P063','P064','P065','P066','P027','P068','P111','P028']){await page.keyboard.press('ArrowRight');assert.equal(await active(),id);}
   await page.keyboard.press('ArrowRight');assert.equal(await active(),'P030');
   await page.keyboard.press('ArrowRight');assert.equal(await active(),'P100');
   await show('P101');

@@ -2,6 +2,43 @@
 
 원문의 설명·실험 결과, 저자의 해석, 우리의 해석·설명용 예시, 미해결 질문을 구분한다. 저자의 설계 의도나 주장과 실험으로 확인된 결과를 동일시하지 않으며, 미확인 사항과 문서의 표기 불일치는 근거와 함께 남긴다.
 
+## [P106] Training Data
+
+<!-- slide-meta
+layout: section-title
+kind: interpretation
+chapter: Seminar
+source_ids:
+-->
+
+### 한 문장
+
+공개 실제 · 직접 시연 · 합성 데이터
+
+### 본문
+
+<div class="section-title-page" aria-hidden="true"></div>
+
+### 보충
+
+
+
+### 요점
+
+
+
+### 출처
+
+세미나 구성 · 섹션 구분
+
+### 발표 메모
+
+이제 학습에 사용하는 데이터의 종류와 합성 데이터를 만드는 과정을 보겠습니다.
+
+### 상세 공부 기록
+
+
+
 ## [P013] 학습 데이터
 
 <!-- slide-meta

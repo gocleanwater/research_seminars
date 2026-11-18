@@ -17,7 +17,7 @@ source_ids:
 
 ### 본문
 
-<div class="part-boundary-visual"><p>문제 → 모델 구조 → 데이터 → 학습</p><div><a href="#P002">Part 1 시작 →</a><a href="#S001">전체 목차</a></div></div>
+<div class="part-boundary-visual"><p>문제 → 모델 구조 → 데이터 → 학습</p><div><a href="#P104">Part 1 시작 →</a><a href="#S001">전체 목차</a></div></div>
 
 ### 보충
 
@@ -32,6 +32,43 @@ source_ids:
 Part 1에서는 기존 VLA의 문제에서 출발해 RLDX-1의 모델 구조, 데이터, 학습을 살펴보겠습니다.
 
 ### 상세 공부 기록
+
+## [P104] Problems
+
+<!-- slide-meta
+layout: section-title
+kind: interpretation
+chapter: Seminar
+source_ids:
+-->
+
+### 한 문장
+
+기존 VLA가 실제 조작에서 겪는 어려움
+
+### 본문
+
+<div class="section-title-page" aria-hidden="true"></div>
+
+### 보충
+
+
+
+### 요점
+
+
+
+### 출처
+
+세미나 구성 · 섹션 구분
+
+### 발표 메모
+
+먼저 기존 VLA가 실제 로봇 조작에서 어떤 어려움을 겪는지 보겠습니다.
+
+### 상세 공부 기록
+
+
 
 ## [P002] 기존 VLA의 문제
 

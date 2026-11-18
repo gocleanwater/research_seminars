@@ -1,5 +1,10 @@
 # 전체 목차
 
+## 현재 구성 — v40 / 2026-11-18
+
+Part1의 P031 Overview는 발표에서 제외하고4개 상세 단위를 P032에 보존했다. 각 큰 섹션 앞에 P104–P111 제목 전용8장을 추가했다. 현재 전체55장 / Part1 21장 / Part2 34장이다. Part2는 시작→Figure2 요약6상태→데이터·학습 요약→Inference Strategy 제목(P108)→CUDA(P020) 순서다. 아래 v39 이하 설명은 변경 이력이며, 현재 목차는 manifest와 SLIDE_INDEX.md를 따른다.
+
+
 현재 Figure2 요약은 P101 안에서 전체→Motion→VLM→Memory→MSAT→전체 정리6단계로 확대·강조하며 진행한다. 대제목은 Part1 한눈에 보기로 유지한다. 현재 순서는 P099 Part2 시작→P101 구조→P102 데이터→P103 학습→P020 CUDA다. 기존 P032의35단계와121개 원본 상세 단위는 유지.
 
 
@@ -19,7 +24,7 @@
 
 최신 구성:1쪽S001은 Part1/2 주제별 클릭 목차,2쪽P097은 Part1 시작이다. P096 정리 뒤P098 Q&A로Part1을 마치고, P099에서Part2를 시작해P100 Q&A로마친다. 기존 데이터/학습 구성과 P032의36단계는 유지한다. 아래 이전 배치는 이력이며 현재 순서는manifest·canonical MD를 따른다.
 
-상태: **페이지 수 제한 없음 / 9개 섹션 MD 편집 원본 / v39 전체48장·Part1 18장·Part2 30장 / 결과물 미승인**
+상태: **페이지 수 제한 없음 / 9개 섹션 MD 편집 원본 / v40 전체55장·Part1 21장·Part2 34장 / 결과물 미승인**
 업데이트: 2026-11-18
 
 관련 설명을 자연스럽게 연결하되 화살표·단계 설명을 위해 필요한 화면 수를 제한하지 않는다. 본문과 상세 공부 기록은 아홉 `sections/*.md`에서 편집한다. 전체 제작·수정 허가는 개별 장의 결과물 승인과 구분한다.
@@ -50,15 +55,15 @@ Fig.1을 사용하는 표지 뒤에 아래 섹션을 따른다. 섹션명은 영
 
 | 편집 원본 | 섹션 | 현재 MD에 배치된 ID |
 | --- | --- | --- |
-| [01-problems.md](sections/01-problems.md) | Problems | P097, P002 |
-| [02-rldx-1-architecture.md](sections/02-rldx-1-architecture.md) | RLDX-1 Architecture | P031, P032 |
-| [03-training-data.md](sections/03-training-data.md) | Training Data | P013, P072, P014, P015, P047 |
-| [04-training-procedure.md](sections/04-training-procedure.md) | Training Procedure | P035, P016, P017, P018, P019, P037, P096, P098 |
-| [05-inference-strategy.md](sections/05-inference-strategy.md) | Inference Strategy | P099, P101, P102, P103, P020, P038, P039 |
-| [06-evaluation-and-analysis.md](sections/06-evaluation-and-analysis.md) | Evaluation and Analysis | P040, P022, P095, P041, P042, P023, P043, P024, P044, P025 |
-| [07-ablation-and-analysis.md](sections/07-ablation-and-analysis.md) | Ablation and Analysis | P026, P060–P064, P065, P066, P027, P068 |
-| [08-conclusion.md](sections/08-conclusion.md) | Conclusion | 발표 제외·S116/S117은 P101에 보존 |
-| [09-my-opinions-and-limitation.md](sections/09-my-opinions-and-limitation.md) | My opinions and limitation | P028, P030, P100 |
+| [01-problems.md](sections/01-problems.md) | Problems | P097, P104, P002 |
+| [02-rldx-1-architecture.md](sections/02-rldx-1-architecture.md) | RLDX-1 Architecture | P105, P032 |
+| [03-training-data.md](sections/03-training-data.md) | Training Data | P106, P013, P072, P014, P015, P047 |
+| [04-training-procedure.md](sections/04-training-procedure.md) | Training Procedure | P107, P035, P016, P017, P018, P019, P037, P096, P098 |
+| [05-inference-strategy.md](sections/05-inference-strategy.md) | Inference Strategy | P099, P101, P102, P103, P108, P020, P038, P039 |
+| [06-evaluation-and-analysis.md](sections/06-evaluation-and-analysis.md) | Evaluation and Analysis | P109, P040, P022, P095, P041, P042, P023, P043, P024, P044, P025 |
+| [07-ablation-and-analysis.md](sections/07-ablation-and-analysis.md) | Ablation and Analysis | P110, P026, P060, P061, P062, P063, P064, P065, P066, P027, P068 |
+| [08-conclusion.md](sections/08-conclusion.md) | Conclusion | 발표 제외 |
+| [09-my-opinions-and-limitation.md](sections/09-my-opinions-and-limitation.md) | My opinions and limitation | P111, P028, P030, P100 |
 
 Architecture는 Fig.2로 입출력 overview를 보여준 뒤 Fig.3의 전체 구조를 설명한다. Fig.3은 전체 그림을 보여준 뒤 Vision Encoder·VLM·Memory Module·MSAT 네 모듈에 클릭·방향키 기반 확대/복귀와 순차 화살표 설명을 적용한다. 단계 버튼과 좌우 방향키로 전진·후진하며 기존 PPT 조작을 유지한다. Flow matching·학습·추론 수식은 별도 장에서 다룬다. 장 ID와 화면 순서는 분리하고, 새 설명을 추가할 때 기존 ID의 의미를 바꾸지 않는다.
 

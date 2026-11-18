@@ -115,7 +115,8 @@ def write_part_outputs(root: Path, full_html: str, manifest: list[dict],
             if not recap_ids.issubset(ids):
                 raise ValueError('The three-page recap must be complete')
             split = ids.index('P099')
-            valid_start = ids[split:split + 5] == ['P099', 'P101', 'P102', 'P103', 'P020']
+            start = ['P099', 'P101', 'P102', 'P103'] + (['P108'] if 'P108' in ids else []) + ['P020']
+            valid_start = ids[split:split + len(start)] == start
         else:
             split = ids.index('P099')
             valid_start = (ids[split + 1] == 'P020'

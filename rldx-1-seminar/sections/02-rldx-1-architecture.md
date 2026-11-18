@@ -2,215 +2,49 @@
 
 원문의 설명·실험 결과, 저자의 해석, 우리의 해석·설명용 예시, 미해결 질문을 구분한다. 저자의 설계 의도나 주장과 실험으로 확인된 결과를 동일시하지 않으며, 미확인 사항과 문서의 표기 불일치는 근거와 함께 남긴다.
 
-## [P031] RLDX-1 Overview
+## [P105] RLDX-1 Architecture
 
 <!-- slide-meta
-layout: figure
-kind: fact
-source_ids: S122, S005, S006, S007
-figure: fig-02.png
-caption: Figure 2 · RLDX-1 전체 흐름
+layout: section-title
+kind: interpretation
+chapter: Seminar
+source_ids:
 -->
 
 ### 한 문장
 
-관측과 지시를 표현으로 바꾸고, 로봇 상태·센서와 함께 미래 action chunk를 만든다.
+관측과 지시가 행동으로 이어지는 구조
 
 ### 본문
 
-#### 관측 → 표현 → 행동
-
-**영상·지시:** VLM에서 현재 cognition features를 추출한다.
-
-**과거:** Memory Module이 이전 cognition 정보를 더한다.
-
-**상태·센서:** MSAT가 cognition·memory와 함께 처리한다.
-
-**출력:** 여러 미래 시점의 수치 행동을 묶은 action chunk다.
+<div class="section-title-page" aria-hidden="true"></div>
 
 ### 보충
 
+
+
 ### 요점
 
-다음은 Figure 3에서 Vision Encoder와 VLM의 내부 경로를 확대해 살펴본다.
+
 
 ### 출처
 
-Fig.2 · Sec.1.1 · PDF p.5; Fig.1 · PDF p.1
+세미나 구성 · 섹션 구분
 
 ### 발표 메모
 
-전체 시스템 Fig.1·세 로봇 플랫폼·모델 입출력 표기와 지도는 이 장의 상세 해설에 연결한다. 이어지는 Fig.3 해설에서는 전체 구조와 확대된 부위를 오가며 설명한다.
+다음은 RLDX-1의 구조입니다. Figure 3에서 각 모듈과 정보의 흐름을 따라가 보겠습니다.
 
 ### 상세 공부 기록
 
-#### [S122] 전체 흐름: 무엇을, 어떤 순서로 이해할까
 
-<!-- study-meta
-layout: full
-kind: interpretation
--->
-
-##### 한 문장
-
-문제에서 출발해 구조·데이터·학습·실행을 연결하고, 실험으로 돌아와 근거를 확인한다.
-
-##### 본문
-
-<div class="roadmap">
-<div><b>01</b>
-<h3>Problems</h3>
-<p>VLA와 세 가지 기능<br>연구 문제와 전체 구조</p></div>
-<div><b>02</b>
-<h3>Architecture</h3>
-<p>VLM·motion·memory<br>Flow matching과 MSAT</p></div>
-<div><b>03–05</b>
-<h3>Data · Training · Inference</h3>
-<p>실제·합성 데이터와 세 단계 학습<br>GPU 추론 최적화</p></div>
-<div><b>06–09</b>
-<h3>평가 · 결론 · 의견</h3>
-<p>벤치마크·ablation·중요 부록<br>결론과 미해결 질문</p></div>
-</div>
-
-<p class="reading-key"><span class="label fact">원문</span> 설명·실험 결과 <span class="label interpretation">우리 해석</span> 연결과 의미 <span class="label example">설명용 예시</span> 이해를 위한 단순화 <span class="label question">미해결</span> 아직 확인할 수 없는 점</p>
-
-##### 보충
-
-##### 요점
-
-이번 자료는 발표 시간에 맞춘 요약보다, 함께 공부한 내용을 다시 이해하기 위한 상세한 지도다.
-
-##### 출처
-
-발표 구성: 승인된 OUTLINE.md · 원문 Sec.1–8, 주요 Appendix
-
-##### 발표 메모
-
-전체 목차는 사용자 승인된 121개 설명 단위를 유지한다. 이 장은 목차 탐색을 돕는 추가 S122이며 기존 ID를 바꾸지 않는다. 이후 각 장의 질문과 근거를 연결해 읽는다. 그림은 확대할 수 있고 G로 전체 목차, N으로 보충 설명을 연다.
-
-#### [S005] Figure 1: 모델 하나보다 넓은 시스템 설계
-
-<!-- study-meta
-layout: figure
-kind: fact
-figure: fig-01.png
-caption: Figure 1 · RLDX-1 전체 시스템 개요
--->
-
-##### 한 문장
-
-구조·데이터·학습·추론 최적화가 같은 조작 목표를 위해 연결된다.
-
-##### 본문
-
-###### 위: 어떤 경험으로 배우는가
-
-공개 실제 데이터, 자체 센서 시연, 합성 영상·행동 라벨을 결합한다.
-
-###### 가운데: 어떻게 행동을 만드는가
-
-VLM과 기능 모듈의 표현을 MSAT로 연결하고 세 단계 학습으로 적응한다.
-
-###### 아래: 어디서 검증하는가
-
-실제 조작과 시뮬레이션을 평가하고 GPU 추론 지연을 줄인다.
-
-<p class="mini">그림의 성능 주장은 후반부에서 지표·조건·비교 범위를 확인한다.</p>
-
-##### 보충
-
-##### 요점
-
-RLDX-1의 보고된 결과는 아키텍처와 데이터·학습·실행이 함께 구성된 시스템의 결과다.
-
-##### 출처
-
-Fig.1 · PDF p.1; Sec.1 · PDF pp.3–5
-
-##### 발표 메모
-
-그림은 기능 추가만이 아니라 합성 데이터 파이프라인, 3단계 학습, 정적 그래프와 kernel 최적화를 포함한 전체 기여를 요약한다. Fig.1의 수치나 레이더를 성공률로 일괄 읽지 않는다. ALLEX 평균 86.8은 부분 점수와 성공률이 섞인 집계이고, speedup은 정해진 policy latency 측정 조건에 따른 결과다.
-
-#### [S006] OpenArm·ALLEX·Franka는 서로 다른 로봇이다
-
-<!-- study-meta
-layout: widefigure
-kind: fact
-figure: fig-12.png
-caption: Figure 12 · 실제 로봇 플랫폼 (a) OpenArm (b) ALLEX (c) Franka
--->
-
-##### 한 문장
-
-같은 모델 계열을 서로 다른 관절·손·센서 구성을 가진 플랫폼에 적용한다.
-
-##### 본문
-
-| OpenArm | ALLEX | Franka |
-| --- | --- | --- |
-| 28-DoF 상반신 + Inspire hands<br>일반적인 지시·대상 변화 평가 | 48-DoF 상반신 humanoid<br>움직임·기억·물리 센싱 과제 | Franka Research 3 플랫폼<br>단일 팔 + AnySkin 촉각·관절 토크 |
-
-##### 보충
-
-##### 요점
-
-Embodiment는 로봇의 몸과 제어 구성이다. 센서·행동 차원이 다르므로 모델의 입출력 연결도 맞춰야 한다.
-
-##### 출처
-
-Fig.12 · PDF p.19; Sec.3.2 · PDF pp.9–10; App.G.2–G.4 · PDF pp.50–52
-
-##### 발표 메모
-
-ALLEX는 이 보고서의 48-DoF 상반신 humanoid다. OpenArm은 7-DoF 팔 두 개, 6-DoF 손 두 개, 2-DoF 목으로 구성된다. ALLEX는 두 7-DoF 팔, 두 15-DoF 손, 2-DoF 목과 2-DoF 허리를 가진다. Franka 그림에서는 팔/그리퍼의 DoF를 플랫폼 표기 방식으로 나누므로 일반 제조사 팔 관절 수와 혼동하지 않는다. 사용자의 요청에 따라 발표에서는 FR3보다 Franka를 사용한다.
-
-#### [S007] 관측과 지시에서 미래 행동 묶음까지
-
-<!-- study-meta
-layout: figure
-kind: fact
-figure: fig-02.png
-caption: Figure 2 · 관측 → cognition·memory → MSAT → action chunk
--->
-
-##### 한 문장
-
-로봇 시점 t에서 필요한 정보를 모으고, 앞으로 여러 시점의 행동을 예측한다.
-
-##### 본문
-
-$$
-\text{입력:}\quad \mathbf{c}_t,\;\mathbf{o}_{t-K:t},\;\mathbf{s}_t,\;\mathbf{p}_t
-$$
-
-<strong>$\mathbf{c}_{t}$</strong>: 언어 지시<br><strong>$\mathbf{o}_{t-K:t}$</strong>: 여러 프레임 관측<br><strong>$\mathbf{s}_{t}$</strong>: 로봇 자신의 상태<br><strong>$\mathbf{p}_{t}$</strong>: 현재 물리 센서값
-
-$$
-\text{출력:}\quad \mathbf{a}_{t:t+H}
-$$
-
-H+1개 시점의 행동이 action chunk다. 메모리 모듈은 이전 cognition 정보를 추가로 제공한다.
-
-##### 보충
-
-##### 요점
-
-이제 왼쪽 VLM부터 읽고, 행동 생성 원리를 배운 뒤 오른쪽 MSAT와 전체 그림을 연결한다.
-
-##### 출처
-
-Sec.1.1, Fig.2 · PDF p.5
-
-##### 발표 메모
-
-원문의 $\mathbf{o}_{t-K:t}$는 K+1 프레임을 나타내는 개요 표기다. 실제 학습에서는 간격을 둔 네 프레임을 사용하므로 매 제어 시점의 모든 프레임이라는 뜻으로 고정하지 않는다. Action chunk는 추론에서 한 번에 예측되지만 그 전부를 실행하는지는 별도 설정이다. 이후 denoising timestep $\tau$와 실제 로봇 시간 t도 구별한다.
 
 ## [P032] RLDX-1 Architecture
 
 <!-- slide-meta
 layout: explorer
 kind: fact
-source_ids: S016, S035, S040, S011, S012, S013, S009, S010, S014, S015, S017, S019, S018, S058, S036, S008, S031, S032, S037, S038, S033, S034, S039, S020, S021, S022, S023, S024, S025, S026, S028, S027, S029, S030, S071
+source_ids: S016, S035, S040, S011, S012, S013, S009, S010, S014, S015, S017, S019, S018, S058, S036, S008, S031, S032, S037, S038, S033, S034, S039, S020, S021, S022, S023, S024, S025, S026, S028, S027, S029, S030, S071, S122, S005, S006, S007
 -->
 
 ### 한 문장
@@ -2491,6 +2325,167 @@ App.C · Policy Training/Inference · PDF p.43; Sec.2.2 · PDF p.8
 ##### 발표 메모
 
 RTC의 구체적인 overlap/inpainting 알고리즘은 이 보고서 내 설명 밖이므로 추가하지 않는다. ALLEX mid-training 40, Franka mid-training 16, ALLEX IDM20 등과 조건을 구분한다. Memory queue가 실행20개마다 갱신되는지는 미해결이며 여기서 추론하지 않는다.
+
+#### [S122] 전체 흐름: 무엇을, 어떤 순서로 이해할까
+
+<!-- study-meta
+layout: full
+kind: interpretation
+-->
+
+##### 한 문장
+
+문제에서 출발해 구조·데이터·학습·실행을 연결하고, 실험으로 돌아와 근거를 확인한다.
+
+##### 본문
+
+<div class="roadmap">
+<div><b>01</b>
+<h3>Problems</h3>
+<p>VLA와 세 가지 기능<br>연구 문제와 전체 구조</p></div>
+<div><b>02</b>
+<h3>Architecture</h3>
+<p>VLM·motion·memory<br>Flow matching과 MSAT</p></div>
+<div><b>03–05</b>
+<h3>Data · Training · Inference</h3>
+<p>실제·합성 데이터와 세 단계 학습<br>GPU 추론 최적화</p></div>
+<div><b>06–09</b>
+<h3>평가 · 결론 · 의견</h3>
+<p>벤치마크·ablation·중요 부록<br>결론과 미해결 질문</p></div>
+</div>
+
+<p class="reading-key"><span class="label fact">원문</span> 설명·실험 결과 <span class="label interpretation">우리 해석</span> 연결과 의미 <span class="label example">설명용 예시</span> 이해를 위한 단순화 <span class="label question">미해결</span> 아직 확인할 수 없는 점</p>
+
+##### 보충
+
+##### 요점
+
+이번 자료는 발표 시간에 맞춘 요약보다, 함께 공부한 내용을 다시 이해하기 위한 상세한 지도다.
+
+##### 출처
+
+발표 구성: 승인된 OUTLINE.md · 원문 Sec.1–8, 주요 Appendix
+
+##### 발표 메모
+
+전체 목차는 사용자 승인된 121개 설명 단위를 유지한다. 이 장은 목차 탐색을 돕는 추가 S122이며 기존 ID를 바꾸지 않는다. 이후 각 장의 질문과 근거를 연결해 읽는다. 그림은 확대할 수 있고 G로 전체 목차, N으로 보충 설명을 연다.
+
+#### [S005] Figure 1: 모델 하나보다 넓은 시스템 설계
+
+<!-- study-meta
+layout: figure
+kind: fact
+figure: fig-01.png
+caption: Figure 1 · RLDX-1 전체 시스템 개요
+-->
+
+##### 한 문장
+
+구조·데이터·학습·추론 최적화가 같은 조작 목표를 위해 연결된다.
+
+##### 본문
+
+###### 위: 어떤 경험으로 배우는가
+
+공개 실제 데이터, 자체 센서 시연, 합성 영상·행동 라벨을 결합한다.
+
+###### 가운데: 어떻게 행동을 만드는가
+
+VLM과 기능 모듈의 표현을 MSAT로 연결하고 세 단계 학습으로 적응한다.
+
+###### 아래: 어디서 검증하는가
+
+실제 조작과 시뮬레이션을 평가하고 GPU 추론 지연을 줄인다.
+
+<p class="mini">그림의 성능 주장은 후반부에서 지표·조건·비교 범위를 확인한다.</p>
+
+##### 보충
+
+##### 요점
+
+RLDX-1의 보고된 결과는 아키텍처와 데이터·학습·실행이 함께 구성된 시스템의 결과다.
+
+##### 출처
+
+Fig.1 · PDF p.1; Sec.1 · PDF pp.3–5
+
+##### 발표 메모
+
+그림은 기능 추가만이 아니라 합성 데이터 파이프라인, 3단계 학습, 정적 그래프와 kernel 최적화를 포함한 전체 기여를 요약한다. Fig.1의 수치나 레이더를 성공률로 일괄 읽지 않는다. ALLEX 평균 86.8은 부분 점수와 성공률이 섞인 집계이고, speedup은 정해진 policy latency 측정 조건에 따른 결과다.
+
+#### [S006] OpenArm·ALLEX·Franka는 서로 다른 로봇이다
+
+<!-- study-meta
+layout: widefigure
+kind: fact
+figure: fig-12.png
+caption: Figure 12 · 실제 로봇 플랫폼 (a) OpenArm (b) ALLEX (c) Franka
+-->
+
+##### 한 문장
+
+같은 모델 계열을 서로 다른 관절·손·센서 구성을 가진 플랫폼에 적용한다.
+
+##### 본문
+
+| OpenArm | ALLEX | Franka |
+| --- | --- | --- |
+| 28-DoF 상반신 + Inspire hands<br>일반적인 지시·대상 변화 평가 | 48-DoF 상반신 humanoid<br>움직임·기억·물리 센싱 과제 | Franka Research 3 플랫폼<br>단일 팔 + AnySkin 촉각·관절 토크 |
+
+##### 보충
+
+##### 요점
+
+Embodiment는 로봇의 몸과 제어 구성이다. 센서·행동 차원이 다르므로 모델의 입출력 연결도 맞춰야 한다.
+
+##### 출처
+
+Fig.12 · PDF p.19; Sec.3.2 · PDF pp.9–10; App.G.2–G.4 · PDF pp.50–52
+
+##### 발표 메모
+
+ALLEX는 이 보고서의 48-DoF 상반신 humanoid다. OpenArm은 7-DoF 팔 두 개, 6-DoF 손 두 개, 2-DoF 목으로 구성된다. ALLEX는 두 7-DoF 팔, 두 15-DoF 손, 2-DoF 목과 2-DoF 허리를 가진다. Franka 그림에서는 팔/그리퍼의 DoF를 플랫폼 표기 방식으로 나누므로 일반 제조사 팔 관절 수와 혼동하지 않는다. 사용자의 요청에 따라 발표에서는 FR3보다 Franka를 사용한다.
+
+#### [S007] 관측과 지시에서 미래 행동 묶음까지
+
+<!-- study-meta
+layout: figure
+kind: fact
+figure: fig-02.png
+caption: Figure 2 · 관측 → cognition·memory → MSAT → action chunk
+-->
+
+##### 한 문장
+
+로봇 시점 t에서 필요한 정보를 모으고, 앞으로 여러 시점의 행동을 예측한다.
+
+##### 본문
+
+$$
+\text{입력:}\quad \mathbf{c}_t,\;\mathbf{o}_{t-K:t},\;\mathbf{s}_t,\;\mathbf{p}_t
+$$
+
+<strong>$\mathbf{c}_{t}$</strong>: 언어 지시<br><strong>$\mathbf{o}_{t-K:t}$</strong>: 여러 프레임 관측<br><strong>$\mathbf{s}_{t}$</strong>: 로봇 자신의 상태<br><strong>$\mathbf{p}_{t}$</strong>: 현재 물리 센서값
+
+$$
+\text{출력:}\quad \mathbf{a}_{t:t+H}
+$$
+
+H+1개 시점의 행동이 action chunk다. 메모리 모듈은 이전 cognition 정보를 추가로 제공한다.
+
+##### 보충
+
+##### 요점
+
+이제 왼쪽 VLM부터 읽고, 행동 생성 원리를 배운 뒤 오른쪽 MSAT와 전체 그림을 연결한다.
+
+##### 출처
+
+Sec.1.1, Fig.2 · PDF p.5
+
+##### 발표 메모
+
+원문의 $\mathbf{o}_{t-K:t}$는 K+1 프레임을 나타내는 개요 표기다. 실제 학습에서는 간격을 둔 네 프레임을 사용하므로 매 제어 시점의 모든 프레임이라는 뜻으로 고정하지 않는다. Action chunk는 추론에서 한 번에 예측되지만 그 전부를 실행하는지는 별도 설정이다. 이후 denoising timestep $\tau$와 실제 로봇 시간 t도 구별한다.
 
 ### 그림 설명 카드
 

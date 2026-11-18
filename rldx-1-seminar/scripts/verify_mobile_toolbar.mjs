@@ -52,13 +52,13 @@ try {
   }
   await page.setViewportSize({ width:390, height:844 });
   const active = () => page.locator('.deck-page.active').getAttribute('data-id');
-  await page.locator('#next').tap(); assert.equal(await active(), 'P002');
+  await page.locator('#next').tap(); assert.equal(await active(), 'P097');
   await page.locator('#prev').tap(); assert.equal(await active(), 'S001');
-  await page.locator('#page-number').fill('4'); await page.locator('#page-number').press('Enter');
+  await page.locator('#page-number').fill(String(JSON.parse(fs.readFileSync('content/deck-manifest.json','utf8')).find(s=>s.id==='P032').order)); await page.locator('#page-number').press('Enter');
   assert.equal(await active(), 'P032');
   await page.locator('#next').tap();
   assert.equal(await page.locator('.architecture-explorer').getAttribute('data-state'), '1');
-  await page.locator('#page-number').fill('4'); await page.locator('#page-number').press('Enter');
+  await page.locator('#page-number').fill(String(JSON.parse(fs.readFileSync('content/deck-manifest.json','utf8')).find(s=>s.id==='P032').order)); await page.locator('#page-number').press('Enter');
   assert.equal(await page.locator('.architecture-explorer').getAttribute('data-state'), '0');
   for (const [button, dialog] of [['#open-toc','#toc'],['#open-notes','#notes']]) {
     await page.locator(button).tap(); assert.equal(await page.locator(`${dialog}[open]`).count(), 1);

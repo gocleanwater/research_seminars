@@ -58,7 +58,7 @@ try {
     await page.locator('.deck-page.active').screenshot({path:path.join(output,`P002-step-${step+1}.png`)});
     await page.keyboard.press('ArrowRight');
   }
-  assert.equal(await active(),'P031');
+  assert.equal(await active(),'P105');
   await page.keyboard.press('ArrowLeft');
   assert.equal(await walkthrough.getAttribute('data-problem-step'),'4','reverse navigation enters the last step');
   for(let step=3;step>=0;step--) {
@@ -66,12 +66,12 @@ try {
     assert.equal(await walkthrough.getAttribute('data-problem-step'),String(step));
   }
   await page.keyboard.press('ArrowLeft');
-  assert.equal(await active(),'S001');
+  assert.equal(await active(),'P104');
   const input=page.getByRole('spinbutton',{name:'현재 페이지 번호'});
-  await input.fill('2');await input.press('Enter');
+  await input.fill(String(JSON.parse(fs.readFileSync('content/deck-manifest.json','utf8')).find(s=>s.id==='P002').order));await input.press('Enter');
   assert.equal(await walkthrough.getAttribute('data-problem-step'),'0');
   await page.keyboard.press('ArrowRight');
-  await input.fill('2');await input.press('Enter');
+  await input.fill(String(JSON.parse(fs.readFileSync('content/deck-manifest.json','utf8')).find(s=>s.id==='P002').order));await input.press('Enter');
   assert.equal(await walkthrough.getAttribute('data-problem-step'),'0','page jump resets the explanation');
   assert.deepEqual(errors,[]);
   console.log('PASS: P002 five steps, VLA-only visible text, forward/reverse/page jump, geometry and 5 PNGs.');

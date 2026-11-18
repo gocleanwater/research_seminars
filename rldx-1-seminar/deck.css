@@ -444,3 +444,11 @@ body[data-export="true"] .part-links { display: none; }
 @media (prefers-reduced-motion:reduce) { .recap-camera { transition:none; } }
 
 .recap-mark rect[hidden] { display:none; }
+
+/* Dedicated section title pages keep the main topic visually distinct. */
+.seminar-slide:has(.section-title-page) .chapter-label { display:none; }
+.seminar-slide:has(.section-title-page) .seminar-header { top:235px; text-align:center; }
+.seminar-slide:has(.section-title-page) h1 { font-size:68px; line-height:1.2; margin:0 auto; }
+.seminar-slide:has(.section-title-page) .slide-lead { font-size:28px; margin:24px auto 0; }
+.seminar-slide .seminar-body.section-title { top:440px; height:130px; }
+.seminar-slide:has(.section-title-page) .takeaway { display:none; }

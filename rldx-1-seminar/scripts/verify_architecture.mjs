@@ -67,10 +67,10 @@ try{
     await page.locator('.deck-page.active').screenshot({path:path.join(out,`step-${String(index).padStart(2,'0')}.png`)});
     await page.keyboard.press('ArrowRight');
   }
-  assert.equal(await page.locator('.deck-page.active').getAttribute('data-id'),'P013');
+  assert.equal(await page.locator('.deck-page.active').getAttribute('data-id'),'P106');
   await page.keyboard.press('ArrowLeft');assert.equal(await explorer.getAttribute('data-state'),String(tour.states.length-1));
   for(let i=tour.states.length-2;i>=0;i--){await page.keyboard.press('ArrowLeft');assert.equal(await explorer.getAttribute('data-state'),String(i));}
-  await page.keyboard.press('ArrowLeft');assert.equal(await page.locator('.deck-page.active').getAttribute('data-id'),'P031');
+  await page.keyboard.press('ArrowLeft');assert.equal(await page.locator('.deck-page.active').getAttribute('data-id'),'P105');
   await page.goto(url);await page.evaluate(()=>document.fonts.ready);
   for(const scene of Object.keys(tour.focus)){
     await page.locator('[data-arch-reset]').click();

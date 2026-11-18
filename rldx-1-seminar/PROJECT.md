@@ -1,5 +1,10 @@
 # 프로젝트 설정
 
+## 현재 구성 — v40 / 2026-11-18
+
+Part1의 P031 Overview는 발표에서 제외하고4개 상세 단위를 P032에 보존했다. 각 큰 섹션 앞에 P104–P111 제목 전용8장을 추가했다. 현재 전체55장 / Part1 21장 / Part2 34장이다. Part2는 시작→Figure2 요약6상태→데이터·학습 요약→Inference Strategy 제목(P108)→CUDA(P020) 순서다. 아래 v39 이하 설명은 변경 이력이며, 현재 목차는 manifest와 SLIDE_INDEX.md를 따른다.
+
+
 현재 Figure2 요약은 P101 안에서 전체→Motion→VLM→Memory→MSAT→전체 정리6단계로 확대·강조하며 진행한다. 대제목은 Part1 한눈에 보기로 유지한다. 현재 순서는 P099 Part2 시작→P101 구조→P102 데이터→P103 학습→P020 CUDA다. 기존 P032의35단계와121개 원본 상세 단위는 유지.
 
 
@@ -17,10 +22,10 @@
 전체46장 / Part 1 18장 / Part 2 28장. P099→P101 짧은 Part 1 요약→P020 추론→평가→분석→P028/P030 의견→P100 Q&A. 독립 Conclusion P029는 제외하고 상세 기록을 P101에 보존했다. P070/P067/P069는 각각 P065/P066/P068에 통합했다. 기존121개 공부 단위와 Part 1의 과학 내용·P032 36단계는 유지한다. 아래 과거 버전 표·장수는 이력이며 현재 순서는 content/deck-manifest.json 및 review/SLIDE_INDEX.md를 따른다. 사용자 결과물 검토 전.
 
 
-현재 발표 파일: `part-1.html` 18장(P098 Q&A까지), `part-2.html` 30장(P099 시작–P100 Q&A), `presentation.html` 전체48장. Part별 대본은 `SPEAKER_SCRIPT_PART1.md`/`SPEAKER_SCRIPT_PART2.md`다. 기존5–10쪽은4쪽에서 맥락을 따라 설명하며 독립 페이지는 제외했다. 상세 기록은 보존한다.
+현재 발표 파일: `part-1.html` 21장(P098 Q&A까지), `part-2.html` 34장(P099 시작–P100 Q&A), `presentation.html` 전체55장. Part별 대본은 `SPEAKER_SCRIPT_PART1.md`/`SPEAKER_SCRIPT_PART2.md`다. 기존 별도 설명은 P032 Figure3의 단계 설명에 통합돼 있다. 상세 기록은 보존한다.
 
 - 논문: RLDX-1 Technical Report
-- 상태: v39 / Part 1 요약 세 장·Part 2 개편 / 전체48장·상세121단위 유지
+- 상태: v40 / 섹션 제목 페이지·Overview 제외 / 전체55장·상세121단위 유지
 - 목적: 전체 맥락의 HTML 발표와 자세한 공부 기록을 함께 유지하고, 사용자 피드백에 따라 장별로 수정
 - 형식: 오프라인 단일 HTML 중심 / Slidev 생성 소스 병행
 - 발표 시간·장수·청중: 별도 제한 없음. 이전 30장 한도는 해제
@@ -30,7 +35,7 @@
 - 이전 자료: `content/main-*.json`과 상세 JSON은 마이그레이션 스냅샷으로 보존. 이후 내용 수정은 MD에서 진행
 - 상세 공부 기록: 기존 S002–S122를 연결한 N 해설로 보존. 본문 장수와 상세 단위 수를 일대일 대응하지 않음
 - 결과물: `presentation.html`·`index.html`(동일한 오프라인/게시용 발표), `slides.md`(Slidev 생성 소스), `review/SLIDE_INDEX.md`(본문·상세 해설 매핑)
-- 발표 대본: `SPEAKER_SCRIPT.md` v10. 현재 v39의48장과 Figure3의36단계에 대응하는 별도 리허설 문서. 검토 기록은 `review/SCRIPT_REVIEW.md`, 확인은 `python3 scripts/verify_speaker_script.py`. HTML N 상세 기록은 유지한다.
+- 발표 대본: `SPEAKER_SCRIPT.md` v10. 현재 v40의55장과 Figure3의35단계에 대응하는 별도 리허설 문서. 검토 기록은 `review/SCRIPT_REVIEW.md`, 확인은 `python3 scripts/verify_speaker_script.py`. HTML N 상세 기록은 유지한다.
 - 페이지 이동: 하단 현재 번호를 입력하고 Enter. 번호로 이동하면 Fig.3 같은 단계형 페이지도 첫 단계로 진입한다. Esc는 입력 취소.
 - 모바일 조작: 좁은 세로 화면에서는 하단 메뉴가 두 줄, 가로 화면에서는 가능한 폭에서 한 줄로 배치된다. 터치 버튼/번호 입력은 최소44px이며 safe area를 반영한다. 슬라이드 크기는 실제 메뉴 높이에 맞춰 조정된다.
 - 발표 구성: 클릭 목차 → Part1 시작 → Problems/Architecture/Data/Training/정리 → Part1 Q&A → Part2 시작 → Part1 요약 세 장 → Inference/Evaluation/Ablation/의견 → Part2 Q&A.

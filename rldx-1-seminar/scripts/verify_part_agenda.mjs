@@ -24,12 +24,12 @@ try{
       await page.goto(base(file)+'#S001');
       await page.locator(`.cover-part-agenda a[href="${entry.href}"]`).click();
       const id=entry.href.split('#')[1];await page.waitForFunction(id=>document.querySelector('.deck-page.active')?.dataset.id===id,id);assert.equal(await active(),id,entry.text);
-      if(file==='part-1.html'&&['P099','P020','P040','P026','P028','P101','P100'].includes(id))assert.equal(path.basename(new URL(page.url()).pathname),'part-2.html');
+      if(file==='part-1.html'&&['P099','P108','P109','P110','P111','P101','P100'].includes(id))assert.equal(path.basename(new URL(page.url()).pathname),'part-2.html');
       results.push({file,id});
     }
   }
   await page.goto(base('presentation.html'));await page.locator('a.agenda-part-heading').first().focus();await page.keyboard.press('Enter');await page.waitForFunction(()=>document.querySelector('.deck-page.active')?.dataset.id==='P097');assert.equal(await active(),'P097');
-  await page.keyboard.press('ArrowRight');assert.equal(await active(),'P002');
+  await page.keyboard.press('ArrowRight');assert.equal(await active(),'P104');
   await page.goto(base('presentation.html')+'#P098');await page.keyboard.press('ArrowRight');assert.equal(await active(),'P099');await page.keyboard.press('ArrowLeft');assert.equal(await active(),'P098');
   await page.goto(base('part-1.html')+'#P098');await page.keyboard.press('ArrowRight');assert.equal(await active(),'P098');
   await page.locator('.deck-page.active .part-boundary-visual a[href="part-2.html#P099"]').click();await page.waitForFunction(()=>document.querySelector('.deck-page.active')?.dataset.id==='P099');assert.equal(await active(),'P099');
