@@ -3,13 +3,13 @@ from pathlib import Path
 import json,re,subprocess
 from section_sources import load_sections
 ROOT=Path(__file__).resolve().parents[1]
-BASE='af77771'
+BASE='f69903e'  # Latest user-edited script checkpoint before the opinion rewrite.
 def before(name):
     return subprocess.check_output(['git','show',f'{BASE}:rldx-1-seminar/{name}'],cwd=ROOT,text=True)
 def blocks(s):
     return {m[1]:m[0].strip() for m in re.finditer(r'^## \[([SP]\d{3})\].*?(?=^## \[|\Z)',s,re.M|re.S)}
 oldparts=json.loads(before('content/part-manifest.json'))['parts']
-protected={s['id'] for s in oldparts[0]['slides']}|{s['id'] for s in oldparts[1]['slides'][:8]}|{'P111','P028','P030','P100'}
+protected={s['id'] for s in oldparts[0]['slides']}|{s['id'] for s in oldparts[1]['slides'][:8]}|{'P111','P100'}
 protected-= {'S001','P020','P038'}
 old={};new={}
 for p in (ROOT/'sections').glob('[0-9][0-9]-*.md'):
@@ -29,4 +29,4 @@ parts=json.loads((ROOT/'content/part-manifest.json').read_text())['parts']
 assert [s['id'] for s in parts[1]['slides'][:8]]==[s['id'] for s in oldparts[1]['slides'][:8]]
 assert [p['slide_count'] for p in parts]==[21,24]
 assert all(sid not in new for sid in json.loads((ROOT/'review/PART2_V42_MERGES.json').read_text()))
-print('PASS: Part1, front1–8 except requested6/7, final opinions, cover and all121 original study units preserved; merged24-page Part2.')
+print('PASS: Part1, front1–8 except requested6/7, unchanged divider/Q&A, cover and all121 original study units preserved; merged24-page Part2.')
