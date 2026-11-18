@@ -143,7 +143,9 @@ DeepStack은 Vision Encoder의 여러 층에서 뽑은 정보를 LLM의 초반�
 
 ### 단계 16/35 · 첫 화살표: 과거 특징 Queue
 
-아래 줄의 $\mathbf Q_t$가 과거 cognition features를 보관하는 queue입니다. 논문의 설정에서는 과거 세 시점의 특징 묶음을 사용합니다. 한 시점에 64개이므로 과거 부분에는 3×64, 총 192개의 특징 벡터가 있습니다.
+아래 줄의 $\mathbf Q_t$가 과거 cognition features를 보관하는 queue입니다. Mid-training 설정에서 사용하는 과거 특징의 간격은 ALLEX가 40 timestep, Franka가 16 timestep입니다. 두 로봇 모두 과거 세 시점의 특징 묶음을 사용합니다.
+
+한 시점에 64개이므로 과거 부분에는 $3\times64=192$개의 특징 벡터가 있습니다.
 
 ### 단계 17/35 · 두 번째 화살표: 현재 특징 연결
 
@@ -156,8 +158,6 @@ Memory Transformer도 causal attention으로 시간 순서를 유지합니다. �
 ### 단계 19/35 · 네 번째 화살표: $\mathbf h_t$와 $\mathbf m_t$ 연결
 
 현재 특징 $\mathbf h_t$와 memory 특징 $\mathbf m_t$를 이어 붙여 행동 모델의 C stream으로 전달합니다. 본문의 [$\mathbf h_t$, $\mathbf m_t$] 표기에 따라 토큰 방향의 concat으로 이해하겠습니다.
-
-과거 특징을 매 프레임 전부 저장하지는 않습니다. Mid-training의 명시 설정에서는 ALLEX가 40 timestep 간격의 과거 세 묶음, Franka가 16 timestep 간격의 과거 세 묶음을 사용합니다. 정확한 queue 갱신·초기화 규칙에는 남은 질문이 있어 마지막에 짚겠습니다.
 
 ### 단계 20/35 · 전체 그림으로 복귀
 
