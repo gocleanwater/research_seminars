@@ -412,3 +412,5 @@ body[data-export="true"] .part-links { display: none; }
 .seminar-slide .flow.ordered-flow { gap: 30px; }
 .seminar-slide .ordered-flow > .node { position: relative; }
 .seminar-slide .ordered-flow > .node:not(:last-child)::after { content: '→'; position: absolute; right: -27px; top: 50%; transform: translateY(-50%); color: #167e7a; font-size: 27px; }
+
+.training-detail-grid + .mid-alignment-flow { margin-top: 22px; }
