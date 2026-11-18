@@ -1903,10 +1903,12 @@ layout: none
 
 <!-- slide-id: P047 | revision: v38 | status: draft -->
 
-<section class="seminar-slide" data-slide-id="P047"><header class="seminar-header"><div class="chapter-label">Training Data</div><h1>움직임 일치 검사기</h1><p class="slide-lead">실제 시연과 정답 행동을 기준으로, 두 영상의 움직임이 대응하는지 판정하도록 학습한다.</p></header><div class="seminar-body full"><div class="body-main"><div class="pair-learning-grid"><div><small>Positive · 움직임 일치</small><h3>같은 시연의 정답 행동</h3><p>실제 시연 영상</p><span class="pair-link">↕ 움직임 대응</span><p>그 시연의 정답 행동을<br>재생한 rollout 영상</p></div><div><small>Negative · 움직임 불일치</small><h3>대응을 어긋나게 구성</h3><p>시간 구간을 어긋나게 짝짓기</p><span class="pair-link">또는</span><p>같은 작업 지시를 가진<br>다른 episode와 짝짓기</p></div></div><div class="training-mini-flow"><span>실제 시연으로 판정기 학습</span><b>→</b><span>합성 영상·추정 행동 쌍 선별</span></div></div></div><div class="takeaway">겉모습이나 작업 이름보다, 손과 물체의 구체적인 움직임이 대응하는지 배우게 한다.</div><footer class="seminar-footer"><span class="source">Sec.3.3 · Motion-Consistency Filtering · PDF p.12</span><span class="slide-id">P047 · 010/46</span></footer></section>
+<section class="seminar-slide" data-slide-id="P047"><header class="seminar-header"><div class="chapter-label">Training Data</div><h1>움직임 일치 검사기</h1><p class="slide-lead">합성 영상과 IDM action을 재생한 rollout 영상의 움직임이 일치하는지 판정한다.</p></header><div class="seminar-body full"><div class="body-main"><div class="pair-learning-grid"><div><small>Positive · 움직임 일치</small><h3>같은 시연의 정답 행동</h3><p>실제 시연 영상</p><span class="pair-link">↕ 움직임 대응</span><p>그 시연의 정답 행동을<br>재생한 rollout 영상</p></div><div><small>Negative · 움직임 불일치</small><h3>대응을 어긋나게 구성</h3><p>시간 구간을 어긋나게 짝짓기</p><span class="pair-link">또는</span><p>같은 작업 지시를 가진<br>다른 episode와 짝짓기</p></div></div><div class="training-mini-flow"><span>실제 시연으로 판정기 학습</span><b>→</b><span>합성 영상·추정 행동 쌍 선별</span></div></div></div><div class="takeaway">비교 대상: 합성 영상 ↔ IDM action의 simulator rollout · 이 판단 기준은 실제 시연으로 학습</div><footer class="seminar-footer"><span class="source">Sec.3.3 · Motion-Consistency Filtering · PDF p.12</span><span class="slide-id">P047 · 010/46</span></footer></section>
 
 <!--
-일치 검사기는 처음부터 합성 영상과 추정 행동을 정답이라고 믿고 배우는 모델이 아닙니다. 실제 시연과 그 정답 행동으로 기준을 만듭니다.
+움직임 일치 검사기는 합성 영상과, 그 영상에서 IDM이 추정한 action을 시뮬레이터에서 실행해 만든 rollout 영상의 움직임을 비교하는 모델입니다.
+
+이 검사기의 판단 기준은 실제 시연과 그 시연의 정답 action을 이용해 학습합니다.
 
 왼쪽은 일치하는 쌍입니다. 실제 시연 영상과, 그 시연의 정답 행동을 시뮬레이터에서 재생한 rollout 영상을 짝짓습니다. 실제와 시뮬레이션의 외관은 달라도 같은 행동에 대응하는 움직임을 갖습니다.
 
