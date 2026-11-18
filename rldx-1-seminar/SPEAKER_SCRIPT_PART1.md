@@ -1,6 +1,6 @@
 # RLDX-1 Part 1 발표 대본
 
-- v41 · 전체 자료의 고정ID를 유지하며 이 Part 안의 순서로 번호를 붙였다.
+- v42 · 전체 자료의 고정ID를 유지하며 이 Part 안의 순서로 번호를 붙였다.
 
 ## 01 · S001 · RLDX-1 Technical Report
 

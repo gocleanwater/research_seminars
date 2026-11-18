@@ -11,7 +11,7 @@
           "id": "S001",
           "title": "RLDX-1 Technical Report",
           "chapter": "표지",
-          "version": "v41",
+          "version": "v42",
           "status": "전체 초안 / 미승인",
           "source_ids": [
             "S001"
@@ -23,7 +23,7 @@
           "id": "P097",
           "title": "Part 1",
           "chapter": "Seminar",
-          "version": "v41",
+          "version": "v42",
           "status": "전체 초안 / 미승인",
           "source_ids": [],
           "full_order": 2
@@ -33,7 +33,7 @@
           "id": "P104",
           "title": "Problems",
           "chapter": "Seminar",
-          "version": "v41",
+          "version": "v42",
           "status": "전체 초안 / 미승인",
           "source_ids": [],
           "full_order": 3
@@ -43,7 +43,7 @@
           "id": "P002",
           "title": "기존 VLA의 문제",
           "chapter": "Problems",
-          "version": "v41",
+          "version": "v42",
           "status": "전체 초안 / 미승인",
           "source_ids": [
             "S002",
@@ -57,7 +57,7 @@
           "id": "P105",
           "title": "RLDX-1 Architecture",
           "chapter": "Seminar",
-          "version": "v41",
+          "version": "v42",
           "status": "전체 초안 / 미승인",
           "source_ids": [],
           "full_order": 5
@@ -67,7 +67,7 @@
           "id": "P032",
           "title": "RLDX-1 Architecture",
           "chapter": "RLDX-1 Architecture",
-          "version": "v41",
+          "version": "v42",
           "status": "전체 초안 / 미승인",
           "source_ids": [
             "S016",
@@ -117,7 +117,7 @@
           "id": "P106",
           "title": "Training Data",
           "chapter": "Seminar",
-          "version": "v41",
+          "version": "v42",
           "status": "전체 초안 / 미승인",
           "source_ids": [],
           "full_order": 7
@@ -127,7 +127,7 @@
           "id": "P013",
           "title": "학습 데이터",
           "chapter": "Training Data",
-          "version": "v41",
+          "version": "v42",
           "status": "전체 초안 / 미승인",
           "source_ids": [
             "S041",
@@ -141,7 +141,7 @@
           "id": "P072",
           "title": "합성 데이터 생성",
           "chapter": "Training Data",
-          "version": "v41",
+          "version": "v42",
           "status": "전체 초안 / 미승인",
           "source_ids": [],
           "full_order": 9
@@ -151,7 +151,7 @@
           "id": "P014",
           "title": "Task·Scene Augmentation",
           "chapter": "Training Data",
-          "version": "v41",
+          "version": "v42",
           "status": "전체 초안 / 미승인",
           "source_ids": [
             "S044",
@@ -169,7 +169,7 @@
           "id": "P015",
           "title": "합성 데이터 검증",
           "chapter": "Training Data",
-          "version": "v41",
+          "version": "v42",
           "status": "전체 초안 / 미승인",
           "source_ids": [
             "S055",
@@ -184,7 +184,7 @@
           "id": "P047",
           "title": "움직임 일치 검사기",
           "chapter": "Training Data",
-          "version": "v41",
+          "version": "v42",
           "status": "전체 초안 / 미승인",
           "source_ids": [
             "S054"
@@ -196,7 +196,7 @@
           "id": "P107",
           "title": "Training Procedure",
           "chapter": "Seminar",
-          "version": "v41",
+          "version": "v42",
           "status": "전체 초안 / 미승인",
           "source_ids": [],
           "full_order": 13
@@ -206,7 +206,7 @@
           "id": "P035",
           "title": "학습 단계",
           "chapter": "Training Procedure",
-          "version": "v41",
+          "version": "v42",
           "status": "전체 초안 / 미승인",
           "source_ids": [
             "S056"
@@ -218,7 +218,7 @@
           "id": "P016",
           "title": "Pre-training",
           "chapter": "Training Procedure",
-          "version": "v41",
+          "version": "v42",
           "status": "전체 초안 / 미승인",
           "source_ids": [
             "S057",
@@ -231,7 +231,7 @@
           "id": "P017",
           "title": "Mid-training",
           "chapter": "Training Procedure",
-          "version": "v41",
+          "version": "v42",
           "status": "전체 초안 / 미승인",
           "source_ids": [
             "S060",
@@ -247,7 +247,7 @@
           "id": "P018",
           "title": "Post-training",
           "chapter": "Training Procedure",
-          "version": "v41",
+          "version": "v42",
           "status": "전체 초안 / 미승인",
           "source_ids": [
             "S065",
@@ -260,7 +260,7 @@
           "id": "P019",
           "title": "RECAP",
           "chapter": "Training Procedure",
-          "version": "v41",
+          "version": "v42",
           "status": "전체 초안 / 미승인",
           "source_ids": [
             "S067",
@@ -274,7 +274,7 @@
           "id": "P037",
           "title": "Critic의 진행 평가",
           "chapter": "Training Procedure",
-          "version": "v41",
+          "version": "v42",
           "status": "전체 초안 / 미승인",
           "source_ids": [
             "S069"
@@ -286,7 +286,7 @@
           "id": "P096",
           "title": "Part 1 최종 정리",
           "chapter": "Training Procedure",
-          "version": "v41",
+          "version": "v42",
           "status": "전체 초안 / 미승인",
           "source_ids": [],
           "full_order": 20
@@ -296,7 +296,7 @@
           "id": "P098",
           "title": "Q&A",
           "chapter": "Seminar",
-          "version": "v41",
+          "version": "v42",
           "status": "전체 초안 / 미승인",
           "source_ids": [],
           "full_order": 21
@@ -307,14 +307,14 @@
       "id": "part-2",
       "title": "Part 2",
       "file": "part-2.html",
-      "slide_count": 33,
+      "slide_count": 24,
       "slides": [
         {
           "order": 1,
           "id": "P099",
           "title": "Part 2",
           "chapter": "Seminar",
-          "version": "v41",
+          "version": "v42",
           "status": "전체 초안 / 미승인",
           "source_ids": [],
           "full_order": 22
@@ -324,7 +324,7 @@
           "id": "P101",
           "title": "Part 1 한눈에 보기",
           "chapter": "Part 1 Recap",
-          "version": "v41",
+          "version": "v42",
           "status": "전체 초안 / 미승인",
           "source_ids": [
             "S116",
@@ -337,7 +337,7 @@
           "id": "P102",
           "title": "Part 1 한눈에 보기",
           "chapter": "Part 1 Recap",
-          "version": "v41",
+          "version": "v42",
           "status": "전체 초안 / 미승인",
           "source_ids": [],
           "full_order": 24
@@ -347,7 +347,7 @@
           "id": "P103",
           "title": "Part 1 한눈에 보기",
           "chapter": "Part 1 Recap",
-          "version": "v41",
+          "version": "v42",
           "status": "전체 초안 / 미승인",
           "source_ids": [],
           "full_order": 25
@@ -357,7 +357,7 @@
           "id": "P108",
           "title": "Inference Strategy",
           "chapter": "Seminar",
-          "version": "v41",
+          "version": "v42",
           "status": "전체 초안 / 미승인",
           "source_ids": [],
           "full_order": 26
@@ -367,7 +367,7 @@
           "id": "P020",
           "title": "CUDA Graph",
           "chapter": "Inference Strategy",
-          "version": "v41",
+          "version": "v42",
           "status": "전체 초안 / 미승인",
           "source_ids": [
             "S072",
@@ -382,7 +382,7 @@
           "id": "P038",
           "title": "Kernel Fusion",
           "chapter": "Inference Strategy",
-          "version": "v41",
+          "version": "v42",
           "status": "전체 초안 / 미승인",
           "source_ids": [
             "S076",
@@ -399,7 +399,7 @@
           "id": "P109",
           "title": "Evaluation and Analysis",
           "chapter": "Seminar",
-          "version": "v41",
+          "version": "v42",
           "status": "전체 초안 / 미승인",
           "source_ids": [],
           "full_order": 29
@@ -409,7 +409,7 @@
           "id": "P040",
           "title": "시뮬레이션 벤치마크",
           "chapter": "Evaluation and Analysis",
-          "version": "v41",
+          "version": "v42",
           "status": "전체 초안 / 미승인",
           "source_ids": [
             "S082"
@@ -421,7 +421,7 @@
           "id": "P022",
           "title": "Simulation 결과 (a)",
           "chapter": "Evaluation and Analysis",
-          "version": "v41",
+          "version": "v42",
           "status": "전체 초안 / 미승인",
           "source_ids": [
             "S083",
@@ -439,260 +439,163 @@
           "id": "P095",
           "title": "Simulation 결과 (b)",
           "chapter": "Evaluation and Analysis",
-          "version": "v41",
+          "version": "v42",
           "status": "전체 초안 / 미승인",
           "source_ids": [],
           "full_order": 32
         },
         {
           "order": 12,
-          "id": "P041",
-          "title": "실제 로봇",
+          "id": "P023",
+          "title": "OpenArm · 지시와 새 조건",
           "chapter": "Evaluation and Analysis",
-          "version": "v41",
+          "version": "v42",
           "status": "전체 초안 / 미승인",
-          "source_ids": [],
+          "source_ids": [
+            "S089",
+            "S088"
+          ],
           "full_order": 33
         },
         {
           "order": 13,
-          "id": "P042",
-          "title": "OpenArm 과제",
+          "id": "P024",
+          "title": "ALLEX · 움직임·기억·접촉",
           "chapter": "Evaluation and Analysis",
-          "version": "v41",
+          "version": "v42",
           "status": "전체 초안 / 미승인",
           "source_ids": [
-            "S088"
+            "S092",
+            "S090",
+            "S091"
           ],
           "full_order": 34
         },
         {
           "order": 14,
-          "id": "P023",
-          "title": "OpenArm 결과",
+          "id": "P025",
+          "title": "Franka · 성과와 남은 어려움",
           "chapter": "Evaluation and Analysis",
-          "version": "v41",
+          "version": "v42",
           "status": "전체 초안 / 미승인",
           "source_ids": [
-            "S089"
+            "S095",
+            "S096",
+            "S093",
+            "S094"
           ],
           "full_order": 35
         },
         {
           "order": 15,
-          "id": "P043",
-          "title": "ALLEX 과제",
-          "chapter": "Evaluation and Analysis",
-          "version": "v41",
-          "status": "전체 초안 / 미승인",
-          "source_ids": [
-            "S090",
-            "S091"
-          ],
-          "full_order": 36
-        },
-        {
-          "order": 16,
-          "id": "P024",
-          "title": "ALLEX 결과",
-          "chapter": "Evaluation and Analysis",
-          "version": "v41",
-          "status": "전체 초안 / 미승인",
-          "source_ids": [
-            "S092"
-          ],
-          "full_order": 37
-        },
-        {
-          "order": 17,
-          "id": "P044",
-          "title": "Franka 과제",
-          "chapter": "Evaluation and Analysis",
-          "version": "v41",
-          "status": "전체 초안 / 미승인",
-          "source_ids": [
-            "S093",
-            "S094"
-          ],
-          "full_order": 38
-        },
-        {
-          "order": 18,
-          "id": "P025",
-          "title": "Franka 결과",
-          "chapter": "Evaluation and Analysis",
-          "version": "v41",
-          "status": "전체 초안 / 미승인",
-          "source_ids": [
-            "S095",
-            "S096"
-          ],
-          "full_order": 39
-        },
-        {
-          "order": 19,
           "id": "P110",
           "title": "Ablation and Analysis",
           "chapter": "Seminar",
-          "version": "v41",
-          "status": "전체 초안 / 미승인",
-          "source_ids": [],
-          "full_order": 40
-        },
-        {
-          "order": 20,
-          "id": "P026",
-          "title": "Ablation and Analysis",
-          "chapter": "Ablation and Analysis",
-          "version": "v41",
+          "version": "v42",
           "status": "전체 초안 / 미승인",
           "source_ids": [
             "S097",
             "S107"
           ],
-          "full_order": 41
+          "full_order": 36
         },
         {
-          "order": 21,
+          "order": 16,
           "id": "P060",
-          "title": "VLM의 특징 추출 층",
+          "title": "VLM 특징과 로봇 VQA",
           "chapter": "Ablation and Analysis",
-          "version": "v41",
+          "version": "v42",
           "status": "전체 초안 / 미승인",
           "source_ids": [
-            "S098"
-          ],
-          "full_order": 42
-        },
-        {
-          "order": 22,
-          "id": "P061",
-          "title": "로봇 VQA의 효과",
-          "chapter": "Ablation and Analysis",
-          "version": "v41",
-          "status": "전체 초안 / 미승인",
-          "source_ids": [
+            "S098",
             "S099"
           ],
-          "full_order": 43
+          "full_order": 37
         },
         {
-          "order": 23,
+          "order": 17,
           "id": "P062",
           "title": "VQA 전후의 Attention",
           "chapter": "Ablation and Analysis",
-          "version": "v41",
+          "version": "v42",
           "status": "전체 초안 / 미승인",
           "source_ids": [
             "S100"
           ],
-          "full_order": 44
+          "full_order": 38
         },
         {
-          "order": 24,
-          "id": "P063",
-          "title": "합성 데이터 규모 실험",
-          "chapter": "Ablation and Analysis",
-          "version": "v41",
-          "status": "전체 초안 / 미승인",
-          "source_ids": [
-            "S101"
-          ],
-          "full_order": 45
-        },
-        {
-          "order": 25,
+          "order": 18,
           "id": "P064",
           "title": "합성 데이터의 성능 효과",
           "chapter": "Ablation and Analysis",
-          "version": "v41",
+          "version": "v42",
           "status": "전체 초안 / 미승인",
           "source_ids": [
             "S102",
             "S112",
-            "S113"
+            "S113",
+            "S101"
           ],
-          "full_order": 46
+          "full_order": 39
         },
         {
-          "order": 26,
-          "id": "P065",
-          "title": "RL 평가: 전구 비틀기",
-          "chapter": "Ablation and Analysis",
-          "version": "v41",
-          "status": "전체 초안 / 미승인",
-          "source_ids": [
-            "S103"
-          ],
-          "full_order": 47
-        },
-        {
-          "order": 27,
+          "order": 19,
           "id": "P066",
-          "title": "RECAP의 개선 효과",
+          "title": "RECAP · 전구 비틀기 개선",
           "chapter": "Ablation and Analysis",
-          "version": "v41",
+          "version": "v42",
           "status": "전체 초안 / 미승인",
           "source_ids": [
             "S104",
             "S109",
             "S110",
-            "S111"
+            "S111",
+            "S103"
           ],
-          "full_order": 48
+          "full_order": 40
         },
         {
-          "order": 28,
-          "id": "P027",
-          "title": "추론 지연 측정",
-          "chapter": "Ablation and Analysis",
-          "version": "v41",
-          "status": "전체 초안 / 미승인",
-          "source_ids": [
-            "S105"
-          ],
-          "full_order": 49
-        },
-        {
-          "order": 29,
+          "order": 20,
           "id": "P068",
           "title": "추론 최적화의 효과",
           "chapter": "Ablation and Analysis",
-          "version": "v41",
+          "version": "v42",
           "status": "전체 초안 / 미승인",
           "source_ids": [
-            "S106"
+            "S106",
+            "S105"
           ],
-          "full_order": 50
+          "full_order": 41
         },
         {
-          "order": 30,
+          "order": 21,
           "id": "P111",
           "title": "My opinions and limitation",
           "chapter": "Seminar",
-          "version": "v41",
+          "version": "v42",
           "status": "전체 초안 / 미승인",
           "source_ids": [],
-          "full_order": 51
+          "full_order": 42
         },
         {
-          "order": 31,
+          "order": 22,
           "id": "P028",
           "title": "나의 의견: 복잡한 조작",
           "chapter": "My opinions and limitation",
-          "version": "v41",
+          "version": "v42",
           "status": "전체 초안 / 미승인",
           "source_ids": [
             "S108"
           ],
-          "full_order": 52
+          "full_order": 43
         },
         {
-          "order": 32,
+          "order": 23,
           "id": "P030",
           "title": "나의 의견: 반복 생성의 비용",
           "chapter": "My opinions and limitation",
-          "version": "v41",
+          "version": "v42",
           "status": "전체 초안 / 미승인",
           "source_ids": [
             "S118",
@@ -700,17 +603,17 @@
             "S120",
             "S121"
           ],
-          "full_order": 53
+          "full_order": 44
         },
         {
-          "order": 33,
+          "order": 24,
           "id": "P100",
           "title": "Q&A",
           "chapter": "Seminar",
-          "version": "v41",
+          "version": "v42",
           "status": "전체 초안 / 미승인",
           "source_ids": [],
-          "full_order": 54
+          "full_order": 45
         }
       ]
     }

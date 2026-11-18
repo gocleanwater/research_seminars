@@ -197,7 +197,7 @@ function renderInference(index) {
  const panels=[...root.querySelectorAll('[data-inference-panel]')];
  index=Math.max(0,Math.min(panels.length-1,index));root.dataset.state=index;
  panels.forEach((p,i)=>p.hidden=i!==index);
- root.querySelectorAll('[data-inference-mark]').forEach(g=>g.toggleAttribute('hidden',Number(g.dataset.inferenceMark)!==index));
+ root.querySelectorAll('[data-inference-visual]').forEach(el=>el.hidden=Number(el.dataset.inferenceVisual)!==index);
  root.querySelectorAll('[data-inference-go]').forEach(b=>b.setAttribute('aria-pressed',String(Number(b.dataset.inferenceGo)===index)));
  root.querySelector('.inference-counter').textContent=`${index+1} / ${panels.length}`;
  root.querySelector('[data-inference-next]').textContent=index===panels.length-1?'다음 장 →':'다음 설명 →';
@@ -350,7 +350,7 @@ document.querySelector('#stage').addEventListener('click', event => {
   advance();
 });
 // Preserve links to explanations that were merged during the slide review.
-const MERGED_SLIDES = {P039:'P038', P031:'P032', P029:'P101', P070:'P065', P067:'P066', P069:'P068', P033:'P013', P034:'P013', P005:'P032', P007:'P006', P011:'P032', P036:'P032', P012:'P009', P021:'P038', P048:'P032', P049:'P032', P050:'P032', P052:'P032', P053:'P032', P054:'P032', P055:'P032', P056:'P032', P057:'P032', P058:'P032', P059:'P032', P073:'P072', P074:'P015', P045:'P015', P046:'P015', P075:'P028', P076:'P028', P077:'P028', P079:'P040', P080:'P022', P081:'P042', P082:'P041', P083:'P064', P084:'P064', P085:'P067', P086:'P067', P087:'P067', P088:'P067', P089:'P067', P090:'P064', P091:'P022', P092:'P022', P093:'P022', P094:'P022', P078:'P039'};
+const MERGED_SLIDES = {P041:'P023',P042:'P023',P043:'P024',P044:'P025',P026:'P110',P061:'P060',P063:'P064',P065:'P066',P027:'P068',P039:'P038', P031:'P032', P029:'P101', P070:'P065', P067:'P066', P069:'P068', P033:'P013', P034:'P013', P005:'P032', P007:'P006', P011:'P032', P036:'P032', P012:'P009', P021:'P038', P048:'P032', P049:'P032', P050:'P032', P052:'P032', P053:'P032', P054:'P032', P055:'P032', P056:'P032', P057:'P032', P058:'P032', P059:'P032', P073:'P072', P074:'P015', P045:'P015', P046:'P015', P075:'P028', P076:'P028', P077:'P028', P079:'P040', P080:'P022', P081:'P042', P082:'P041', P083:'P064', P084:'P064', P085:'P067', P086:'P067', P087:'P067', P088:'P067', P089:'P067', P090:'P064', P091:'P022', P092:'P022', P093:'P022', P094:'P022', P078:'P039'};
 function showFromHash() {
   const requested = location.hash.slice(1);
   let resolved = requested;

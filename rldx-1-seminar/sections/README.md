@@ -1,5 +1,10 @@
 # 섹션 Markdown 편집 안내
 
+## 현재 구성 — v42 / 2026-11-18
+
+전체45장 / Part1 21장 / Part2 24장. 사용자의20분 Part2 요청에 따라6·7쪽은 대본 중심의2상태씩 재작성했다. 그 외 앞1–8쪽·Part1·마지막 의견은 내용 유지. 실험은 기존 모델과 RLDX-1 비교 중심으로 과제/결과를 합치고, ablation은 중간층·VQA·합성·RL·실행 최적화의 효과와 직관을 중심으로 설명한다.9개 독립 소개·설정 장은 결과 장/제목 장에 상세 기록을 보존해 통합. 분량 배분은 review/PART2_20_MIN_RUN.md. 아래 버전 문구는 이력이다.
+
+
 ## 현재 구성 — v41 / 2026-11-18
 
 전체54장 / Part1 21장 / Part2 33장. P020 CUDA Graph는 설정 의존성→고정 배포·사전 계산→Figure9 분할 graph→한 graph의4단계, P038 Kernel Fusion은 Figure10의 저장·재읽기→on-chip 재사용2단계다. 방향키와 화면 버튼이 그림 강조·화살표·대본 순서에 맞춰 움직인다. 독립 수식 장P039는 제외하고 S080 원본을P038에 보존했으며 이전 링크도P038로 연결한다. 아래 버전 표기는 이력이다.
@@ -33,7 +38,7 @@ Part1의 P031 Overview는 발표에서 제외하고4개 상세 단위를 P032에
 
 ## 현재 통합 구조 — v36
 
-기존5–10쪽 P051/P009/P010/P006/P008/P071은 P032 Figure3의36단계 중9개 설명 카드로 통합했다. 별도 페이지는 없으며 원본 상세 기록은 P032에 그대로 보관한다. `### 그림 설명 카드`에서 화면과 대본을 편집한다. 전체54장, Part1 21장(P098 Q&A까지), Part2 33장(P099 시작–P100 Q&A)이다.
+기존5–10쪽 P051/P009/P010/P006/P008/P071은 P032 Figure3의36단계 중9개 설명 카드로 통합했다. 별도 페이지는 없으며 원본 상세 기록은 P032에 그대로 보관한다. `### 그림 설명 카드`에서 화면과 대본을 편집한다. 전체45장, Part1 21장(P098 Q&A까지), Part2 24장(P099 시작–P100 Q&A)이다.
 
 구분·질의응답4장(P097–P100)은 새 공부 단위를 만들지 않는다. S001 목차의 링크는 고정ID로 연결하며, Part exporter가 다른 Part 파일로의 링크를 조정한다.
 
@@ -46,12 +51,12 @@ Part1의 P031 Overview는 발표에서 제외하고4개 상세 단위를 P032에
 | [03-training-data.md](03-training-data.md) | Training Data | 6 | 15 |
 | [04-training-procedure.md](04-training-procedure.md) | Training Procedure | 9 | 14 |
 | [05-inference-strategy.md](05-inference-strategy.md) | Inference Strategy | 7 | 12 |
-| [06-evaluation-and-analysis.md](06-evaluation-and-analysis.md) | Evaluation and Analysis | 11 | 17 |
-| [07-ablation-and-analysis.md](07-ablation-and-analysis.md) | Ablation and Analysis | 11 | 16 |
+| [06-evaluation-and-analysis.md](06-evaluation-and-analysis.md) | Evaluation and Analysis | 7 | 17 |
+| [07-ablation-and-analysis.md](07-ablation-and-analysis.md) | Ablation and Analysis | 6 | 16 |
 | [08-conclusion.md](08-conclusion.md) | Conclusion | 0 | 0 |
 | [09-my-opinions-and-limitation.md](09-my-opinions-and-limitation.md) | My opinions and limitation | 4 | 5 |
 
-표지 S001을 제외한 본문54장과 상세 공부 기록121개를 포함한다(v40). source_ids 기준으로 S002–S122가 각각 정확히 한 번 연결된다. 장 ID는 위치가 바뀌어도 유지한다.
+표지 S001을 제외한 본문44장과 상세 공부 기록121개를 포함한다(v42). source_ids 기준으로 S002–S122가 각각 정확히 한 번 연결된다. 장 ID는 위치가 바뀌어도 유지한다.
 
 퇴역한 P033·P034·P036·P003·P004·P005·P007·P011·P012·P021·P045·P046·P048·P049·P050·P052·P053·P054·P055·P056·P057·P058·P059·P073·P074의 ID를 다른 의미로 재사용하지 않는다.
 

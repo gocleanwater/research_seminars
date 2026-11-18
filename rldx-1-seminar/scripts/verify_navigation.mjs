@@ -148,16 +148,16 @@ try{
   await page.keyboard.press('Escape');
   // Purpose first, then each training stage; graph and fused-kernel explanations stay separate.
   await show('P035');
-  for(const id of ['P016','P017','P018','P019','P037','P096','P098','P099','P101','P102','P103','P108','P020','P038','P109','P040']){await page.keyboard.press('ArrowRight');assert.equal(await active(),id);if(['P101','P020','P038'].includes(id)){for(let step=1;step<({P101:6,P020:4,P038:2})[id];step++){await page.keyboard.press('ArrowRight');assert.equal(await active(),id);}}}
+  for(const id of ['P016','P017','P018','P019','P037','P096','P098','P099','P101','P102','P103','P108','P020','P038','P109','P040']){await page.keyboard.press('ArrowRight');assert.equal(await active(),id);if(['P101','P020','P038'].includes(id)){for(let step=1;step<({P101:6,P020:2,P038:2})[id];step++){await page.keyboard.press('ArrowRight');assert.equal(await active(),id);}}}
   // Benchmarks and real robot/task photos come before their result plots.
-  for(const id of ['P022','P095','P041','P042','P023','P043','P024','P044','P025','P110','P026']){await page.keyboard.press('ArrowRight');assert.equal(await active(),id);}
+  for(const id of ['P022','P095','P023','P024','P025','P110']){await page.keyboard.press('ArrowRight');assert.equal(await active(),id);}
   // Follow the seven ablation topics without skipping their separate conditions and interpretations.
-  for(const id of ['P060','P061','P062','P063','P064','P065','P066','P027','P068','P111','P028']){await page.keyboard.press('ArrowRight');assert.equal(await active(),id);}
+  for(const id of ['P060','P062','P064','P066','P068','P111','P028']){await page.keyboard.press('ArrowRight');assert.equal(await active(),id);}
   await page.keyboard.press('ArrowRight');assert.equal(await active(),'P030');
   await page.keyboard.press('ArrowRight');assert.equal(await active(),'P100');
   await show('P101');
   assert.equal(await page.locator('.deck-page.active .katex').count(),0,'recap must remain intuitive without equations');
-  for(const [oldId,target] of Object.entries({P029:'P101',P070:'P065',P067:'P066',P069:'P068'})){
+  for(const [oldId,target] of Object.entries({P029:'P101',P070:'P066',P067:'P066',P069:'P068'})){
     await page.goto(pathToFileURL(path.resolve('presentation.html')).href+'#'+oldId);
     assert.equal(await active(),target);
     assert.equal(await page.locator(`.deck-page[data-id="${oldId}"]`).count(),0);
@@ -166,7 +166,7 @@ try{
   for(const {id,target,unit} of JSON.parse(fs.readFileSync('review/versions/before-appendix-removal-v26/mapping.json','utf8'))){
     assert.equal(await page.locator(`.deck-page[data-id="${id}"]`).count(),0);
     await page.goto(pathToFileURL(path.resolve('presentation.html')).href+'#'+id);
-    assert.equal(await active(),({P067:'P066',P069:'P068',P070:'P065',P029:'P101',P039:'P038'})[target]||target);
+    assert.equal(await active(),({P067:'P066',P069:'P068',P070:'P066',P029:'P101',P039:'P038',P041:'P023',P042:'P023',P043:'P024',P044:'P025',P026:'P110',P061:'P060',P063:'P064',P065:'P066',P027:'P068'})[target]||target);
     if(unit){await page.keyboard.press('n');assert((await page.locator('#notes-text').innerText()).includes('상세 해설 '+unit));await page.keyboard.press('Escape');}
   }
   await page.goto(pathToFileURL(path.resolve('presentation.html')).href+'#P078');

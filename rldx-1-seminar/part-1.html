@@ -672,6 +672,33 @@ body[data-export="true"] .part-links { display: none; }
 .inference-counter {font-size:17px;color:#516c7c;}
 .inference-tour aside {min-width:0;}
 .inference-panel p {overflow-wrap:anywhere;}
+/* Comparison-first evidence slides keep task context short and result plots large. */
+.seminar-body.evidence-pair .body-main {height:100%;}
+.evidence-visuals {display:grid;grid-template-columns:310px minmax(0,1fr);gap:26px;height:420px;align-items:center;}
+.evidence-visuals .paper-figure {height:100%;display:flex;flex-direction:column;justify-content:center;min-width:0;margin:0;}
+.evidence-visuals .paper-figure img {width:100%;height:auto;max-height:330px;object-fit:contain;}
+.evidence-visuals .paper-figure figcaption {font-size:17px;line-height:1.5;margin-top:12px;}
+.inference-visual[hidden] {display:none;}
+.config-schematic {width:100%;display:flex;flex-direction:column;gap:22px;}
+.config-group {border:1px solid #aac9cb;background:#f0f5f7;padding:16px 20px;border-radius:8px;}
+.config-group.fixed {background:#e9f5f2;border-color:#83b7ae;}
+.config-group h3 {font-size:23px;color:#1a5268;margin:0 0 16px;}
+.config-row {display:flex;align-items:center;gap:16px;justify-content:space-between;}
+.config-input {display:flex;flex-direction:column;gap:5px;font-size:20px;}
+.config-box {font-size:21px;line-height:1.5;text-align:center;}
+.config-arrow {font-size:32px;color:#07837b;}
+.inference-figure .diagram-pointer {fill:none;stroke:#cc5c38;stroke-width:4;}
+.fusion-viewport {width:790px;height:365px;position:relative;overflow:hidden;background:white;}
+.fusion-camera {position:absolute;width:1292px;height:365px;top:0;}
+.fusion-camera img {width:1292px;height:365px;max-width:none;}
+.fusion-side-0 {left:64px;}
+.fusion-side-1 {left:-604px;}
+.fusion-view-label {position:absolute;bottom:0;left:0;right:0;text-align:center;padding:7px;background:#e5f2ef;font-size:21px;font-weight:700;color:#087a75;}
+.fusion-side-0 {clip-path:inset(0 50% 0 0);}
+.fusion-side-1 {clip-path:inset(0 0 0 50%);}
+.feature-intuition {display:flex;align-items:center;gap:24px;justify-content:center;margin:18px 0 8px;}
+.feature-intuition span {background:#e8f3f0;border:1px solid #a9c8c3;border-radius:5px;padding:8px 18px;text-align:center;font-size:21px;line-height:1.4;}
+.feature-intuition b {color:#07847b;}
 </style></head>
 <body class="deck-app"><main id="stage"><article class="deck-page active" data-id="S001" aria-label="RLDX-1 Technical Report"><div class="cover-slide cover-agenda">
   <main class="cover-copy">
@@ -1012,7 +1039,7 @@ function renderInference(index) {
  const panels=[...root.querySelectorAll('[data-inference-panel]')];
  index=Math.max(0,Math.min(panels.length-1,index));root.dataset.state=index;
  panels.forEach((p,i)=>p.hidden=i!==index);
- root.querySelectorAll('[data-inference-mark]').forEach(g=>g.toggleAttribute('hidden',Number(g.dataset.inferenceMark)!==index));
+ root.querySelectorAll('[data-inference-visual]').forEach(el=>el.hidden=Number(el.dataset.inferenceVisual)!==index);
  root.querySelectorAll('[data-inference-go]').forEach(b=>b.setAttribute('aria-pressed',String(Number(b.dataset.inferenceGo)===index)));
  root.querySelector('.inference-counter').textContent=`${index+1} / ${panels.length}`;
  root.querySelector('[data-inference-next]').textContent=index===panels.length-1?'다음 장 →':'다음 설명 →';
@@ -1165,7 +1192,7 @@ document.querySelector('#stage').addEventListener('click', event => {
   advance();
 });
 // Preserve links to explanations that were merged during the slide review.
-const MERGED_SLIDES = {P039:'P038', P031:'P032', P029:'P101', P070:'P065', P067:'P066', P069:'P068', P033:'P013', P034:'P013', P005:'P032', P007:'P006', P011:'P032', P036:'P032', P012:'P009', P021:'P038', P048:'P032', P049:'P032', P050:'P032', P052:'P032', P053:'P032', P054:'P032', P055:'P032', P056:'P032', P057:'P032', P058:'P032', P059:'P032', P073:'P072', P074:'P015', P045:'P015', P046:'P015', P075:'P028', P076:'P028', P077:'P028', P079:'P040', P080:'P022', P081:'P042', P082:'P041', P083:'P064', P084:'P064', P085:'P067', P086:'P067', P087:'P067', P088:'P067', P089:'P067', P090:'P064', P091:'P022', P092:'P022', P093:'P022', P094:'P022', P078:'P039'};
+const MERGED_SLIDES = {P041:'P023',P042:'P023',P043:'P024',P044:'P025',P026:'P110',P061:'P060',P063:'P064',P065:'P066',P027:'P068',P039:'P038', P031:'P032', P029:'P101', P070:'P065', P067:'P066', P069:'P068', P033:'P013', P034:'P013', P005:'P032', P007:'P006', P011:'P032', P036:'P032', P012:'P009', P021:'P038', P048:'P032', P049:'P032', P050:'P032', P052:'P032', P053:'P032', P054:'P032', P055:'P032', P056:'P032', P057:'P032', P058:'P032', P059:'P032', P073:'P072', P074:'P015', P045:'P015', P046:'P015', P075:'P028', P076:'P028', P077:'P028', P079:'P040', P080:'P022', P081:'P042', P082:'P041', P083:'P064', P084:'P064', P085:'P067', P086:'P067', P087:'P067', P088:'P067', P089:'P067', P090:'P064', P091:'P022', P092:'P022', P093:'P022', P094:'P022', P078:'P039'};
 function showFromHash() {
   const requested = location.hash.slice(1);
   let resolved = requested;
