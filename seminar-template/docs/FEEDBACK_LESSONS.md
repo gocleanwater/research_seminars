@@ -197,3 +197,4 @@
 | FEEDBACK.md:742 | 2026-11-18 / v39 순서 정정 / Part 2 시작 다음에 요약 |
 | FEEDBACK.md:747 | 2026-11-18 / P101 / Figure2 모듈별 설명 방식 |
 | FEEDBACK.md:755 | 2026-11-18 / v40 / Part1 Overview 제외·섹션 제목 페이지 |
+| FEEDBACK.md:764 | 2026-11-18 / P097·P099 / 시작 화면에서 반대 Part로 이동 |

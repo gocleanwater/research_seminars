@@ -35,6 +35,18 @@ try{
   await page.locator('.deck-page.active .part-boundary-visual a[href="part-2.html#P099"]').click();await page.waitForFunction(()=>document.querySelector('.deck-page.active')?.dataset.id==='P099');assert.equal(await active(),'P099');
   await page.goto(base('part-2.html')+'#P100');await page.keyboard.press('ArrowRight');assert.equal(await active(),'P100');
   await page.locator('.deck-page.active .part-boundary-visual a[href="part-1.html#S001"]').click();await page.waitForFunction(()=>document.querySelector('.deck-page.active')?.dataset.id==='S001');assert.equal(await active(),'S001');
+  // Part-start cards switch to the other Part; arrow keys still begin their own content.
+  for(const [file,id,label,destination,destinationFile,nextId] of [
+    ['part-1.html','P097','Part 2로 이동 →','P099','part-2.html','P104'],
+    ['part-2.html','P099','Part 1로 이동 →','P097','part-1.html','P101'],
+    ['presentation.html','P097','Part 2로 이동 →','P099','presentation.html','P104'],
+    ['presentation.html','P099','Part 1로 이동 →','P097','presentation.html','P101']]){
+    await page.goto(base(file)+'#'+id);
+    await page.locator('.deck-page.active .part-boundary-visual').getByRole('link',{name:label,exact:true}).click();
+    await page.waitForFunction(id=>document.querySelector('.deck-page.active')?.dataset.id===id,destination);
+    assert.equal(path.basename(new URL(page.url()).pathname),destinationFile);
+    await page.goto(base(file)+'#'+id);await page.keyboard.press('ArrowRight');assert.equal(await active(),nextId);
+  }
   assert.deepEqual(errors,[]);
   fs.mkdirSync('qa/full-deck',{recursive:true});fs.writeFileSync('qa/full-deck/part-agenda-report.json',JSON.stringify({links:results.length,coverBounds:true,keyboardActivation:true,qaBoundaries:true,crossPartLinks:true,errors},null,2));
   console.log('PASS:28 topic links, cover bounds, Enter activation, Part dividers, Q&A boundaries, cross-file navigation.');

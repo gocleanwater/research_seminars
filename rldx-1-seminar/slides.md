@@ -55,7 +55,7 @@ layout: none
 
 <!-- slide-id: P097 | revision: v40 | status: draft -->
 
-<section class="seminar-slide" data-slide-id="P097"><header class="seminar-header"><div class="chapter-label">Seminar</div><h1>Part 1</h1><p class="slide-lead">모델 구조와 학습</p></header><div class="seminar-body boundary"><div class="body-main"><div class="part-boundary-visual"><p>문제 → 모델 구조 → 데이터 → 학습</p><div><a href="#P104">Part 1 시작 →</a><a href="#S001">전체 목차</a></div></div></div></div><div class="takeaway"></div><footer class="seminar-footer"><span class="source">세미나 구성 · Part 1</span><span class="slide-id">P097 · 002/55</span></footer></section>
+<section class="seminar-slide" data-slide-id="P097"><header class="seminar-header"><div class="chapter-label">Seminar</div><h1>Part 1</h1><p class="slide-lead">모델 구조와 학습</p></header><div class="seminar-body boundary"><div class="body-main"><div class="part-boundary-visual"><p>문제 → 모델 구조 → 데이터 → 학습</p><div><a href="#P099">Part 2로 이동 →</a><a href="#S001">전체 목차</a></div></div></div></div><div class="takeaway"></div><footer class="seminar-footer"><span class="source">세미나 구성 · Part 1</span><span class="slide-id">P097 · 002/55</span></footer></section>
 
 <!--
 Part 1에서는 기존 VLA의 문제에서 출발해 RLDX-1의 모델 구조, 데이터, 학습을 살펴보겠습니다.
@@ -2442,7 +2442,7 @@ layout: none
 
 <!-- slide-id: P099 | revision: v40 | status: draft -->
 
-<section class="seminar-slide" data-slide-id="P099"><header class="seminar-header"><div class="chapter-label">Seminar</div><h1>Part 2</h1><p class="slide-lead">추론·실험·분석</p></header><div class="seminar-body boundary"><div class="body-main"><div class="part-boundary-visual"><p>추론 최적화 → 성능 평가 → 설계 분석</p><div><a href="#P101">Part 2 시작 →</a><a href="#S001">전체 목차</a></div></div></div></div><div class="takeaway"></div><footer class="seminar-footer"><span class="source">세미나 구성 · Part 2</span><span class="slide-id">P099 · 022/55</span></footer></section>
+<section class="seminar-slide" data-slide-id="P099"><header class="seminar-header"><div class="chapter-label">Seminar</div><h1>Part 2</h1><p class="slide-lead">추론·실험·분석</p></header><div class="seminar-body boundary"><div class="body-main"><div class="part-boundary-visual"><p>추론 최적화 → 성능 평가 → 설계 분석</p><div><a href="#P097">Part 1로 이동 →</a><a href="#S001">전체 목차</a></div></div></div></div><div class="takeaway"></div><footer class="seminar-footer"><span class="source">세미나 구성 · Part 2</span><span class="slide-id">P099 · 022/55</span></footer></section>
 
 <!--
 Part 2에서는 먼저 Part 1을 세 장으로 짧게 정리한 뒤, 추론 최적화와 성능 평가, 설계 분석을 살펴보겠습니다.

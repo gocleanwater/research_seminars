@@ -17,7 +17,7 @@ source_ids:
 
 ### 본문
 
-<div class="part-boundary-visual"><p>문제 → 모델 구조 → 데이터 → 학습</p><div><a href="#P104">Part 1 시작 →</a><a href="#S001">전체 목차</a></div></div>
+<div class="part-boundary-visual"><p>문제 → 모델 구조 → 데이터 → 학습</p><div><a href="#P099">Part 2로 이동 →</a><a href="#S001">전체 목차</a></div></div>
 
 ### 보충
 

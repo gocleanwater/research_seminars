@@ -17,7 +17,7 @@ source_ids:
 
 ### 본문
 
-<div class="part-boundary-visual"><p>추론 최적화 → 성능 평가 → 설계 분석</p><div><a href="#P101">Part 2 시작 →</a><a href="#S001">전체 목차</a></div></div>
+<div class="part-boundary-visual"><p>추론 최적화 → 성능 평가 → 설계 분석</p><div><a href="#P097">Part 1로 이동 →</a><a href="#S001">전체 목차</a></div></div>
 
 ### 보충
 
