@@ -509,3 +509,12 @@ body[data-export="true"] .part-links { display: none; }
 .config-settings {display:grid;grid-template-columns:1fr 1fr;gap:12px;}
 .config-settings>span {border:1px solid #b6cbd0;background:#fff9;border-radius:5px;padding:6px 10px;text-align:center;font-size:21px;font-weight:700;color:#204e60;}
 .config-group .config-reuse {font-size:20px;font-weight:700;color:#087f74;margin:12px 0 0;}
+
+.fusion-separated {display:flex;align-items:center;justify-content:space-between;gap:7px;padding:8px 0;}
+.fusion-op {font-size:20px;font-weight:700;text-align:center;color:#254f66;}
+.fusion-op small {display:block;font-size:16px;font-weight:400;margin-bottom:8px;}
+.fusion-separated>b,.fusion-single>b {font-size:25px;color:#07847b;}
+.fusion-memory {font-size:17px;text-align:center;line-height:1.5;color:#9d503a;background:#fff3ed;border:1px solid #dfbeae;border-radius:4px;padding:10px 8px;}
+.fusion-single {display:flex;align-items:center;justify-content:space-around;gap:12px;border:2px solid #7eb7aa;background:#fff9;border-radius:6px;padding:18px 14px;margin-top:16px;}
+.fusion-single>span {font-size:23px;font-weight:700;color:#155b59;}
+.fusion-comparison .config-reuse {font-size:19px;}

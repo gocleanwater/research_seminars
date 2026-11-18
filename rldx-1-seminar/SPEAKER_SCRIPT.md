@@ -457,13 +457,17 @@ Figure 9의 위쪽을 보면 Graph 1을 launch해서 A와 B를 실행하고, C�
 
 ## 28 · P038 · Kernel Fusion
 
-**화면 1/2 · 중간값 저장·재읽기**
+**화면 1/2 · Kernel Fusion 전후**
 
-다음은 Kernel Fusion입니다. CUDA Graph가 GPU 작업을 호출하는 부담을 줄였다면, 여기서는 연산 사이의 메모리 이동을 줄입니다. 왼쪽 그림을 보면 RMSNorm의 결과를 global memory에 저장한 뒤 다음 kernel이 다시 읽어 RoPE를 계산합니다. 그 결과도 저장하고, Attention이 다시 읽습니다. 연산이 바뀔 때마다 중간값이 메모리를 왕복하는 것입니다.
+다음은 Kernel Fusion입니다. CUDA Graph가 GPU 작업을 호출하는 부담을 줄였다면, 여기서는 연산 사이의 메모리 이동을 줄입니다.
 
-**화면 2/2 · 한 kernel에서 이어 계산**
+위쪽처럼 연산을 나눠 실행하면 RMSNorm의 결과를 global memory에 저장하고, 다음 kernel이 다시 읽어 RoPE를 계산합니다. 그 결과도 저장한 뒤 Attention이 다시 읽습니다.
 
-오른쪽은 이 세 연산을 하나의 fused kernel 안에서 이어 계산합니다. 중간값을 on-chip에서 바로 다음 연산에 넘기고, 마지막 결과를 global memory에 저장합니다. 계산할 내용은 같지만 중간값을 여러 번 내보냈다가 다시 읽는 비용을 줄이는 방식입니다. 이렇게 CUDA Graph로 호출 부담을, Kernel Fusion으로 메모리 이동을 줄입니다.
+아래쪽은 세 연산을 하나의 fused kernel 안에서 이어 계산합니다. 중간값을 on-chip에서 바로 다음 연산에 사용하고, 마지막 결과를 global memory에 저장합니다. 계산할 내용은 같지만 중간값을 여러 번 내보냈다가 다시 읽는 비용을 줄이는 것입니다.
+
+**화면 2/2 · Figure 10의 메모리 이동**
+
+Figure 10에서는 메모리 이동을 화살표로 보여줍니다. 왼쪽은 세 kernel 각각에 global memory로 향하는 왕복 화살표가 있습니다. 오른쪽은 입력 $\mathbf{q},\mathbf{k},\mathbf{v}$를 읽고 최종 출력 $\mathbf{o}$를 저장하는 화살표만 남아 있습니다. 중간값을 저장하고 다시 읽던 이동이 줄어든 모습을 이렇게 확인할 수 있습니다.
 
 ## 29 · P109 · Evaluation and Analysis
 

@@ -2707,27 +2707,36 @@ layout: none
 
 <!-- slide-id: P038 | revision: v42 | status: draft -->
 
-<section class="seminar-slide" data-slide-id="P038"><header class="seminar-header"><div class="chapter-label">Inference Strategy</div><h1>Kernel Fusion</h1><p class="slide-lead">별도 kernel에서는 다음 연산을 위해 중간값을 메모리에 썼다가 다시 읽는다.</p></header><div class="seminar-body inference"><div class="inference-tour" data-state="0"><div class="inference-diagram"><div class="inference-visual fusion-viewport" data-inference-visual="0"><div class="fusion-camera fusion-side-0"><img src="/figures/fig-10.png" alt="Figure10 별도 kernel · 중간값 저장·재읽기"></div><span class="fusion-view-label">별도 kernel · 중간값 저장·재읽기</span></div><div class="inference-visual fusion-viewport" data-inference-visual="1" hidden><div class="fusion-camera fusion-side-1"><img src="/figures/fig-10.png" alt="Figure10 Fused kernel · on-chip에서 이어 사용"></div><span class="fusion-view-label">Fused kernel · on-chip에서 이어 사용</span></div></div><aside aria-live="polite"><section class="inference-panel" data-inference-panel="0" data-lead="별도 kernel에서는 다음 연산을 위해 중간값을 메모리에 썼다가 다시 읽는다." data-takeaway="별도 kernel · 계산 사이에 중간값의 메모리 왕복이 반복된다."><h3>중간값 저장·재읽기</h3><p>RMSNorm</p>
-<p>↓ <strong>저장·다시 읽기</strong></p>
-<p>RoPE</p>
-<p>↓ <strong>저장·다시 읽기</strong></p>
-<p>Attention</p>
-</section><section class="inference-panel" data-inference-panel="1" data-lead="중간값을 on-chip에서 바로 다음 연산에 사용해 메모리 왕복을 줄인다." data-takeaway="Kernel Fusion · 중간값을 이어 사용해 global memory 왕복을 줄인다." hidden><h3>한 kernel에서 이어 계산</h3><p>입력 읽기</p>
-<p>↓</p>
-<p><strong>RMSNorm → RoPE → Attention</strong></p>
+<section class="seminar-slide" data-slide-id="P038"><header class="seminar-header"><div class="chapter-label">Inference Strategy</div><h1>Kernel Fusion</h1><p class="slide-lead">연산 사이의 중간값을 저장·다시 읽는 대신, 한 kernel 안에서 이어 사용한다.</p></header><div class="seminar-body inference"><div class="inference-tour" data-state="0"><div class="inference-diagram"><div class="inference-visual config-schematic fusion-comparison" data-inference-visual="0">
+<div class="config-group"><div class="config-heading"><h3>연산을 나눠 실행</h3><span>중간값 저장·재읽기</span></div><div class="fusion-separated"><div class="fusion-op"><small>Kernel 1</small>RMSNorm</div><b>→</b><div class="fusion-memory">Global memory<br>저장·재읽기</div><b>→</b><div class="fusion-op"><small>Kernel 2</small>RoPE</div><b>→</b><div class="fusion-memory">Global memory<br>저장·재읽기</div><b>→</b><div class="fusion-op"><small>Kernel 3</small>Attention</div></div></div>
+<div class="config-group fixed"><div class="config-heading"><h3>한 kernel로 합쳐 실행</h3><span>중간값 on-chip 재사용</span></div><div class="fusion-single"><span>RMSNorm</span><b>→</b><span>RoPE</span><b>→</b><span>Attention</span></div><p class="config-reuse">중간값은 바로 이어 사용 · 마지막 결과를 global memory에 저장</p></div></div>
+<div class="inference-visual inference-figure" data-inference-visual="1" hidden style="aspect-ratio:1497/423"><img src="/figures/fig-10.png" alt="Figure10 왼쪽: 연산마다 메모리 왕복, 오른쪽: fused kernel에서 입력·출력 이동"><svg viewBox="0 0 1497 423" aria-hidden="true"><rect x="149" y="72" width="155" height="284" rx="10"/><rect x="900" y="166" width="153" height="95" rx="10"/></svg></div></div><aside aria-live="polite"><section class="inference-panel" data-inference-panel="0" data-lead="연산 사이의 중간값을 저장·다시 읽는 대신, 한 kernel 안에서 이어 사용한다." data-takeaway="Kernel Fusion · 같은 계산을 이어 수행하며 중간값의 메모리 왕복을 줄인다."><h3>Kernel Fusion 전후</h3><p><strong>연산을 나눠 실행</strong></p>
+<p>다음 kernel에 넘길 중간값을
+global memory에 저장·다시 읽기</p>
+<p><strong>한 kernel로 합쳐 실행</strong></p>
 <p>중간값을 on-chip에서 이어 사용</p>
-<p>↓</p>
-<p>최종 결과 저장</p>
+<p><strong>핵심</strong></p>
+<p>계산은 유지하고 메모리 왕복을 줄인다.</p>
+</section><section class="inference-panel" data-inference-panel="1" data-lead="원문 그림의 화살표는 global memory에서 읽고 쓰는 이동을 보여준다." data-takeaway="CUDA Graph는 호출 부담을, Kernel Fusion은 연산 사이의 메모리 이동을 줄인다." hidden><h3>Figure 10의 메모리 이동</h3><p><strong>왼쪽 · 별도 kernel</strong></p>
+<p>연산마다 Load·Store가 반복</p>
+<p><strong>오른쪽 · Fused kernel</strong></p>
+<p>입력 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="bold">q</mi><mo separator="true">,</mo><mi mathvariant="bold">k</mi><mo separator="true">,</mo><mi mathvariant="bold">v</mi></mrow><annotation encoding="application/x-tex">\mathbf{q},\mathbf{k},\mathbf{v}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord mathbf">q</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathbf">k</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathbf" style="margin-right:0.016em;">v</span></span></span></span>를 읽고
+최종 출력 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="bold">o</mi></mrow><annotation encoding="application/x-tex">\mathbf{o}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.4444em;"></span><span class="mord mathbf">o</span></span></span></span>를 저장</p>
+<p>중간값은 kernel 안에서 이어 사용</p>
 </section></aside><nav class="inference-controls" aria-label="그림 설명 단계"><button type="button" data-inference-prev>← 이전 설명</button><div><button type="button" data-inference-go="0" aria-pressed="true">1</button><button type="button" data-inference-go="1" aria-pressed="false">2</button></div><span class="inference-counter"></span><button type="button" data-inference-next>다음 설명 →</button></nav></div></div><div class="takeaway">CUDA Graph는 호출 부담을, Kernel Fusion은 연산 사이의 메모리 이동을 줄인다.</div><footer class="seminar-footer"><span class="source">Sec.5.2 · Fig.10 · PDF pp.16–17; App.F Table7 · PDF p.47</span><span class="slide-id">P038 · 028/45</span></footer></section>
 
 <!--
-**화면 1/2 · 중간값 저장·재읽기**
+**화면 1/2 · Kernel Fusion 전후**
 
-다음은 Kernel Fusion입니다. CUDA Graph가 GPU 작업을 호출하는 부담을 줄였다면, 여기서는 연산 사이의 메모리 이동을 줄입니다. 왼쪽 그림을 보면 RMSNorm의 결과를 global memory에 저장한 뒤 다음 kernel이 다시 읽어 RoPE를 계산합니다. 그 결과도 저장하고, Attention이 다시 읽습니다. 연산이 바뀔 때마다 중간값이 메모리를 왕복하는 것입니다.
+다음은 Kernel Fusion입니다. CUDA Graph가 GPU 작업을 호출하는 부담을 줄였다면, 여기서는 연산 사이의 메모리 이동을 줄입니다.
 
-**화면 2/2 · 한 kernel에서 이어 계산**
+위쪽처럼 연산을 나눠 실행하면 RMSNorm의 결과를 global memory에 저장하고, 다음 kernel이 다시 읽어 RoPE를 계산합니다. 그 결과도 저장한 뒤 Attention이 다시 읽습니다.
 
-오른쪽은 이 세 연산을 하나의 fused kernel 안에서 이어 계산합니다. 중간값을 on-chip에서 바로 다음 연산에 넘기고, 마지막 결과를 global memory에 저장합니다. 계산할 내용은 같지만 중간값을 여러 번 내보냈다가 다시 읽는 비용을 줄이는 방식입니다. 이렇게 CUDA Graph로 호출 부담을, Kernel Fusion으로 메모리 이동을 줄입니다.
+아래쪽은 세 연산을 하나의 fused kernel 안에서 이어 계산합니다. 중간값을 on-chip에서 바로 다음 연산에 사용하고, 마지막 결과를 global memory에 저장합니다. 계산할 내용은 같지만 중간값을 여러 번 내보냈다가 다시 읽는 비용을 줄이는 것입니다.
+
+**화면 2/2 · Figure 10의 메모리 이동**
+
+Figure 10에서는 메모리 이동을 화살표로 보여줍니다. 왼쪽은 세 kernel 각각에 global memory로 향하는 왕복 화살표가 있습니다. 오른쪽은 입력 $\mathbf{q},\mathbf{k},\mathbf{v}$를 읽고 최종 출력 $\mathbf{o}$를 저장하는 화살표만 남아 있습니다. 중간값을 저장하고 다시 읽던 이동이 줄어든 모습을 이렇게 확인할 수 있습니다.
 
 S076 Short prefill과 autoregressive 생성
 RLDX-1은 짧은 시퀀스를 한 번에 처리하고, action chunk를 통째로 반복 갱신한다.
